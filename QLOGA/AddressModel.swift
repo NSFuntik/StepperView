@@ -38,16 +38,3 @@ let Addresses: [Address] = [
     Address(postcode: "EH2 2ER", town: "Newcastle upon Tyne", street: "St Mary's Pl", building: "14"),
     Address(postcode: "EH2 2ER", town: "London", street: "St Martin-in-the-Fields Trafalgar Square", building: "0")
 ]
-//                Postcode
-//                Town
-//                Street
-//                Building
-//                Apartments
-//09 Princes Street, Edinburgh, GB
-//3 Lupus St, Pimlico, London, GB
-//Barnett House 53, Fountain Street, Manchester, GB
-//30 Cloth Market, Merchant House, Newcastle upon Tyne, GB
-//05 West George Street, Glasgow, GB
-//54 George Street, Edinburgh, GB
-//St Martin-in-the-Fields Trafalgar Square, London, GB
-//14 St Mary's Pl, Newcastle upon Tyne, GB
