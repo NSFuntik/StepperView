@@ -52,8 +52,6 @@
 		119BE22627D2375E00B2D70F /* AlbumFolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE22527D2375E00B2D70F /* AlbumFolderView.swift */; };
 		119BE22827D2378E00B2D70F /* ProviderPublicProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE22727D2378E00B2D70F /* ProviderPublicProfileView.swift */; };
 		119BE22B27D2386F00B2D70F /* CalendarDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE22A27D2386F00B2D70F /* CalendarDatePickerView.swift */; };
-		11E31E4327D6473500B603E0 /* ImageViewer in Frameworks */ = {isa = PBXBuildFile; productRef = 11E31E4227D6473500B603E0 /* ImageViewer */; };
-		11E31E4527D6473500B603E0 /* ImageViewerRemote in Frameworks */ = {isa = PBXBuildFile; productRef = 11E31E4427D6473500B603E0 /* ImageViewerRemote */; };
 		41CA8052841F7A5047AAA662 /* Pods_QLOGA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 060968D635F70EF2CB192F72 /* Pods_QLOGA.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,7 +60,7 @@
 		112CC73B27D48B9800B8700A /* StarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarsView.swift; sourceTree = "<group>"; };
 		112CC73D27D4C0F800B8700A /* ProviderRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderRatingView.swift; sourceTree = "<group>"; };
 		112CC73F27D4E37200B8700A /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
-		1136534927D2C83D008168DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1136534927D2C83D008168DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = QLOGA/Info.plist; sourceTree = SOURCE_ROOT; };
 		1136534B27D2C972008168DA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1136534D27D33A8B008168DA /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocationManager.swift; path = QLOGA/LocationManager.swift; sourceTree = SOURCE_ROOT; };
 		1136534F27D36BB6008168DA /* ServiceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceModel.swift; sourceTree = "<group>"; };
@@ -115,9 +113,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11E31E4327D6473500B603E0 /* ImageViewer in Frameworks */,
 				41CA8052841F7A5047AAA662 /* Pods_QLOGA.framework in Frameworks */,
-				11E31E4527D6473500B603E0 /* ImageViewerRemote in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,8 +259,6 @@
 			);
 			name = QLOGA;
 			packageProductDependencies = (
-				11E31E4227D6473500B603E0 /* ImageViewer */,
-				11E31E4427D6473500B603E0 /* ImageViewerRemote */,
 			);
 			productName = QLOGA;
 			productReference = 119BE1D527D230DF00B2D70F /* QLOGA.app */;
@@ -295,7 +289,6 @@
 			);
 			mainGroup = 119BE1CC27D230DF00B2D70F;
 			packageReferences = (
-				11E31E4127D6473500B603E0 /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */,
 			);
 			productRefGroup = 119BE1D627D230DF00B2D70F /* Products */;
 			projectDirPath = "";
@@ -467,7 +460,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -523,7 +516,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -545,13 +538,13 @@
 				DEVELOPMENT_TEAM = UB936SP78M;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = /Users/miha/Developer/QLOGA/QLOGA/Info.plist;
+				INFOPLIST_FILE = QLOGA/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -577,13 +570,13 @@
 				DEVELOPMENT_TEAM = UB936SP78M;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = /Users/miha/Developer/QLOGA/QLOGA/Info.plist;
+				INFOPLIST_FILE = QLOGA/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -619,30 +612,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		11E31E4127D6473500B603E0 /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Jake-Short/swiftui-image-viewer.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		11E31E4227D6473500B603E0 /* ImageViewer */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 11E31E4127D6473500B603E0 /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */;
-			productName = ImageViewer;
-		};
-		11E31E4427D6473500B603E0 /* ImageViewerRemote */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 11E31E4127D6473500B603E0 /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */;
-			productName = ImageViewerRemote;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 119BE1CD27D230DF00B2D70F /* Project object */;
 }

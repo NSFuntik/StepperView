@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import ImageViewer
+//import ImageViewer
 struct ProviderPortfolioView: View {
     @State var image = Image("PortfolioImage0")
     @State var  showImageViewer = false
@@ -109,8 +109,8 @@ struct ProviderPortfolioView: View {
 
         }.padding(10).navigationBarTitleDisplayMode(.inline)
             .navigationBarTitle("Portfolio")
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .overlay(ImageViewer(image: self.$image, viewerShown: self.$showImageViewer))
+//            .frame(maxWidth: .infinity, maxHeight: .infinity)
+//            .overlay(ImageViewer(image: self.$image, viewerShown: self.$showImageViewer))
     }
 }
 struct ProviderPortfolioView_Previews: PreviewProvider {

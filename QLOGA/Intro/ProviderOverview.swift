@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import ImageViewer
+//import ImageViewer
 struct ProviderOverview: View {
     @State var image = Image(testProvider.avatar!)
     @State var  showImageViewer = false
@@ -229,8 +229,9 @@ struct ProviderOverview: View {
                 }//.padding(-20)
 
 
-            }.frame(maxWidth: .infinity, maxHeight: .infinity)
-                .overlay(ImageViewer(image: self.$image, viewerShown: self.$showImageViewer))
+            }
+//            .frame(maxWidth: .infinity, maxHeight: .infinity)
+//                .overlay(ImageViewer(image: self.$image, viewerShown: self.$showImageViewer))
         }.navigationTitle("\(testProvider.name)")
 
 
