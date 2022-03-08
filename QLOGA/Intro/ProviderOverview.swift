@@ -12,7 +12,7 @@ struct ProviderOverview: View {
     @State var  showImageViewer = false
     let skills = ["Complete home cleaning","Bathroom and toilet cleaning","Kitchen cleaning","Bedroom or living room cleaning","Clothes laundry and ironing","Garrage cleaning","Swimming pool cleaning","Owen cleaning"]
     init() {
-//        UINavigationBar.appearance().backgroundColor = UIColor(named: "AccentColor")
+        UINavigationBar.appearance().prefersLargeTitles = true
     }
     var body: some View {
         ZStack {
@@ -76,7 +76,7 @@ struct ProviderOverview: View {
 
                 }
                 Divider().padding(.horizontal, -20)
-                ScrollView {
+                ScrollView(showsIndicators: false) {
                     Label {
                         Text("Cleaning")
                             .foregroundColor(Color.black)
@@ -232,13 +232,13 @@ struct ProviderOverview: View {
                         .background(RoundedRectangle(cornerRadius: 15).fill(Color.accentColor)))
 
                     }
-                }//.padding(-20)
+                }.padding(.bottom, 5)
 
 
             }
 //            .frame(maxWidth: .infinity, maxHeight: .infinity)
 //                .overlay(ImageViewer(image: self.$image, viewerShown: self.$showImageViewer))
-        }.navigationTitle("Provider")
+        }.navigationBarTitleDisplayMode(.inline).navigationTitle("Provider")
 
 
     }

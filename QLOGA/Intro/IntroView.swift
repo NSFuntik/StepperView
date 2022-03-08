@@ -18,16 +18,16 @@ struct IntroView: View {
         NavigationView {
 
                 VStack(alignment: .center, spacing: 10) {
-                    AddressSearchBarView
+					AddressSearchBarView
                     HStack(alignment: .center, spacing: 0) {
-                        ServicesScrollView.padding([.vertical])
+                        ServicesScrollView.padding([.top])
                             .ignoresSafeArea(.all, edges: .bottom).zIndex(1.0)
 
                         Spacer(minLength: 50)
                         ProfileChooserView
-							.frame(width: .infinity, alignment: .trailing).padding(.bottom, 5)//.scaleEffect(1.1, anchor: .topTrailing)
+							.frame(width: .infinity, alignment: .trailing).padding(.bottom, 10)//.scaleEffect(1.1, anchor: .topTrailing)
 					}
-                }
+                }.padding(.top, 10)
                 .padding(.horizontal, 20)
 
                 .navigationBarTitle("").navigationBarHidden(true)
