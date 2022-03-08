@@ -15,6 +15,7 @@
 		1136535027D36BB6008168DA /* ServiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1136534F27D36BB6008168DA /* ServiceModel.swift */; };
 		114159DF27D36C720091C254 /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114159DE27D36C720091C254 /* AddressModel.swift */; };
 		114159E127D36D0D0091C254 /* ProviderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114159E027D36D0D0091C254 /* ProviderModel.swift */; };
+		115A86E927D6A7320064AE36 /* ImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115A86E827D6A7320064AE36 /* ImageViewer.swift */; };
 		119BE1D927D230DF00B2D70F /* QLOGAApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE1D827D230DF00B2D70F /* QLOGAApp.swift */; };
 		119BE1DB27D230DF00B2D70F /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE1DA27D230DF00B2D70F /* IntroView.swift */; };
 		119BE1DD27D230E000B2D70F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 119BE1DC27D230E000B2D70F /* Assets.xcassets */; };
@@ -26,7 +27,6 @@
 		119BE1EF27D231C400B2D70F /* ProviderOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE1EE27D231C400B2D70F /* ProviderOverview.swift */; };
 		119BE1F127D231D700B2D70F /* ProviderPreviewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE1F027D231D700B2D70F /* ProviderPreviewsView.swift */; };
 		119BE1F327D231EA00B2D70F /* ProviderPortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE1F227D231EA00B2D70F /* ProviderPortfolioView.swift */; };
-		119BE1F527D2320E00B2D70F /* PortfolioImagePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE1F427D2320E00B2D70F /* PortfolioImagePreviewView.swift */; };
 		119BE1F727D2323B00B2D70F /* ProviderVerificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE1F627D2323B00B2D70F /* ProviderVerificationsView.swift */; };
 		119BE1FB27D232F000B2D70F /* InquiryServicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE1FA27D232F000B2D70F /* InquiryServicesView.swift */; };
 		119BE1FD27D2330100B2D70F /* SelectedServiceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE1FC27D2330100B2D70F /* SelectedServiceDetailView.swift */; };
@@ -52,6 +52,8 @@
 		119BE22627D2375E00B2D70F /* AlbumFolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE22527D2375E00B2D70F /* AlbumFolderView.swift */; };
 		119BE22827D2378E00B2D70F /* ProviderPublicProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE22727D2378E00B2D70F /* ProviderPublicProfileView.swift */; };
 		119BE22B27D2386F00B2D70F /* CalendarDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE22A27D2386F00B2D70F /* CalendarDatePickerView.swift */; };
+		11E31E4F27D6617900B603E0 /* LabeledStapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E31E4E27D6617800B603E0 /* LabeledStapper.swift */; };
+		11E31E5127D6738900B603E0 /* CleaningService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E31E5027D6738900B603E0 /* CleaningService.swift */; };
 		41CA8052841F7A5047AAA662 /* Pods_QLOGA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 060968D635F70EF2CB192F72 /* Pods_QLOGA.framework */; };
 /* End PBXBuildFile section */
 
@@ -66,9 +68,10 @@
 		1136534F27D36BB6008168DA /* ServiceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceModel.swift; sourceTree = "<group>"; };
 		114159DE27D36C720091C254 /* AddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressModel.swift; sourceTree = "<group>"; };
 		114159E027D36D0D0091C254 /* ProviderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderModel.swift; sourceTree = "<group>"; };
+		115A86E827D6A7320064AE36 /* ImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewer.swift; sourceTree = "<group>"; };
 		119BE1D527D230DF00B2D70F /* QLOGA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QLOGA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		119BE1D827D230DF00B2D70F /* QLOGAApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QLOGAApp.swift; sourceTree = "<group>"; };
-		119BE1DA27D230DF00B2D70F /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
+		119BE1DA27D230DF00B2D70F /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; usesTabs = 1; };
 		119BE1DC27D230E000B2D70F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		119BE1DF27D230E000B2D70F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		119BE1E627D2314E00B2D70F /* AddressSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchView.swift; sourceTree = "<group>"; };
@@ -78,7 +81,6 @@
 		119BE1EE27D231C400B2D70F /* ProviderOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderOverview.swift; sourceTree = "<group>"; };
 		119BE1F027D231D700B2D70F /* ProviderPreviewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderPreviewsView.swift; sourceTree = "<group>"; };
 		119BE1F227D231EA00B2D70F /* ProviderPortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderPortfolioView.swift; sourceTree = "<group>"; };
-		119BE1F427D2320E00B2D70F /* PortfolioImagePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioImagePreviewView.swift; sourceTree = "<group>"; };
 		119BE1F627D2323B00B2D70F /* ProviderVerificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderVerificationsView.swift; sourceTree = "<group>"; };
 		119BE1FA27D232F000B2D70F /* InquiryServicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryServicesView.swift; sourceTree = "<group>"; };
 		119BE1FC27D2330100B2D70F /* SelectedServiceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedServiceDetailView.swift; sourceTree = "<group>"; };
@@ -104,6 +106,8 @@
 		119BE22527D2375E00B2D70F /* AlbumFolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumFolderView.swift; sourceTree = "<group>"; };
 		119BE22727D2378E00B2D70F /* ProviderPublicProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderPublicProfileView.swift; sourceTree = "<group>"; };
 		119BE22A27D2386F00B2D70F /* CalendarDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDatePickerView.swift; sourceTree = "<group>"; };
+		11E31E4E27D6617800B603E0 /* LabeledStapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledStapper.swift; sourceTree = "<group>"; };
+		11E31E5027D6738900B603E0 /* CleaningService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleaningService.swift; sourceTree = "<group>"; };
 		1719206AC948B1AD87BCD590 /* Pods-QLOGA.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QLOGA.debug.xcconfig"; path = "Target Support Files/Pods-QLOGA/Pods-QLOGA.debug.xcconfig"; sourceTree = "<group>"; };
 		60593988F8992DCAF951C845 /* Pods-QLOGA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QLOGA.release.xcconfig"; path = "Target Support Files/Pods-QLOGA/Pods-QLOGA.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -144,10 +148,13 @@
 				119BE1D827D230DF00B2D70F /* QLOGAApp.swift */,
 				1136534D27D33A8B008168DA /* LocationManager.swift */,
 				1136534F27D36BB6008168DA /* ServiceModel.swift */,
+				11E31E5027D6738900B603E0 /* CleaningService.swift */,
 				114159DE27D36C720091C254 /* AddressModel.swift */,
 				114159E027D36D0D0091C254 /* ProviderModel.swift */,
 				112CC73B27D48B9800B8700A /* StarsView.swift */,
 				112CC73F27D4E37200B8700A /* ColorExtension.swift */,
+				11E31E4E27D6617800B603E0 /* LabeledStapper.swift */,
+				115A86E827D6A7320064AE36 /* ImageViewer.swift */,
 				119BE20827D2348800B2D70F /* Intro */,
 				119BE22927D2383300B2D70F /* Enrollment */,
 				119BE22C27D2387C00B2D70F /* PostEnrollment */,
@@ -181,7 +188,6 @@
 				112CC73D27D4C0F800B8700A /* ProviderRatingView.swift */,
 				119BE1F627D2323B00B2D70F /* ProviderVerificationsView.swift */,
 				119BE1F227D231EA00B2D70F /* ProviderPortfolioView.swift */,
-				119BE1F427D2320E00B2D70F /* PortfolioImagePreviewView.swift */,
 				119BE1FA27D232F000B2D70F /* InquiryServicesView.swift */,
 				119BE1FC27D2330100B2D70F /* SelectedServiceDetailView.swift */,
 				119BE1FE27D2332C00B2D70F /* InquiryOverview.swift */,
@@ -359,6 +365,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11E31E5127D6738900B603E0 /* CleaningService.swift in Sources */,
 				119BE22B27D2386F00B2D70F /* CalendarDatePickerView.swift in Sources */,
 				119BE21E27D236DC00B2D70F /* ProviderAddServiceDetailView.swift in Sources */,
 				119BE20127D2335900B2D70F /* InquityCalendarPickerView.swift in Sources */,
@@ -372,6 +379,7 @@
 				114159E127D36D0D0091C254 /* ProviderModel.swift in Sources */,
 				112CC73E27D4C0F800B8700A /* ProviderRatingView.swift in Sources */,
 				119BE1FF27D2332C00B2D70F /* InquiryOverview.swift in Sources */,
+				11E31E4F27D6617900B603E0 /* LabeledStapper.swift in Sources */,
 				119BE1D927D230DF00B2D70F /* QLOGAApp.swift in Sources */,
 				119BE20A27D234C200B2D70F /* PhoneVerifyView.swift in Sources */,
 				119BE20C27D234D300B2D70F /* AddressVerifyView.swift in Sources */,
@@ -382,6 +390,7 @@
 				119BE20727D2345300B2D70F /* EnrollmentInfoView.swift in Sources */,
 				1136535027D36BB6008168DA /* ServiceModel.swift in Sources */,
 				119BE1EF27D231C400B2D70F /* ProviderOverview.swift in Sources */,
+				115A86E927D6A7320064AE36 /* ImageViewer.swift in Sources */,
 				119BE21627D235BC00B2D70F /* ProvidersFilterView.swift in Sources */,
 				119BE22027D236F300B2D70F /* ServiceConditionsView.swift in Sources */,
 				119BE1F327D231EA00B2D70F /* ProviderPortfolioView.swift in Sources */,
@@ -391,7 +400,6 @@
 				119BE20527D233ED00B2D70F /* VisitTimeSelectorView.swift in Sources */,
 				112CC73C27D48B9800B8700A /* StarsView.swift in Sources */,
 				119BE21A27D2365A00B2D70F /* ProviderAccountProfileInfoView.swift in Sources */,
-				119BE1F527D2320E00B2D70F /* PortfolioImagePreviewView.swift in Sources */,
 				112CC74027D4E37200B8700A /* ColorExtension.swift in Sources */,
 				119BE1F127D231D700B2D70F /* ProviderPreviewsView.swift in Sources */,
 				119BE20E27D234F100B2D70F /* IdentityDocsVerifyView.swift in Sources */,

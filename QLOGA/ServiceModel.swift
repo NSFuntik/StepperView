@@ -7,6 +7,16 @@
 
 import Foundation
 import SwiftUI
+
+enum ServiceType: String, CaseIterable, Identifiable  {
+    case Windows
+    case Kitchen
+    case BedroomLivingroom
+    case CompleteHome
+
+    var id: String { self.rawValue }
+}
+
 struct Service: Identifiable {
     let id: Int
     let image: String

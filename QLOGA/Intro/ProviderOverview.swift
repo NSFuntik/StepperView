@@ -17,25 +17,25 @@ struct ProviderOverview: View {
     var body: some View {
         ZStack {
             VStack(alignment: .center) {
-                HStack(alignment: .bottom) {
+                HStack(alignment: .top, spacing: 20) {
                     VStack(alignment: .center, spacing: 5) {
                         Image(testProvider.avatar!).resizable().aspectRatio(0.9, contentMode: .fit).frame(height: 100, alignment: .center).overlay(RoundedRectangle(cornerRadius: 10)
                             .stroke(lineWidth: 1.0)
-                            .foregroundColor(Color.lightGray))
-                        .shadow(color: .secondary.opacity(0.5), radius: 3, y: 3)
+                            .foregroundColor(Color.lightGray)).padding(1)
+//                        .shadow(color: .secondary.opacity(0.5), radius: 3, y: 3)
                         .onTapGesture {
                             showImageViewer.toggle()
                         }
                         Text(testProvider.employment.rawValue)
-                            .foregroundColor(Color.lightGray)
+                            .foregroundColor(Color.secondary)
                             .multilineTextAlignment(.center)
                             .font(Font.system(size: 15, weight: .regular, design: .rounded))
-                    }.padding(10)
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text(testProvider.greetings ?? "")
+                    }
+                    VStack(alignment: .leading, spacing: 15.5) {
+                        Text(testProvider.name ?? "")
                             .foregroundColor(Color.black.opacity(0.8))
                             .multilineTextAlignment(.leading)
-                            .font(Font.system(size: 17,
+                            .font(Font.system(size: 20,
                                               weight: .medium,
                                               design: .rounded))
                         HStack(alignment: .center) {
@@ -72,10 +72,10 @@ struct ProviderOverview: View {
                                                   weight: .medium,
                                                   design: .rounded))
                         }
-                    }.padding(10)
+                    }
 
-                }.padding(-20).padding(.horizontal, 10).fixedSize(horizontal: false, vertical: true).padding()
-                Divider()
+                }
+                Divider().padding(.horizontal, -20)
                 ScrollView {
                     Label {
                         Text("Cleaning")
@@ -83,9 +83,9 @@ struct ProviderOverview: View {
                             .multilineTextAlignment(.leading)
                             .font(Font.system(size: 17, weight: .regular, design: .rounded))
                         Spacer()
-                        Image(systemName: "\(skills.count).circle")
+                        Text("\(skills.count)")
                             .foregroundColor(Color.accentColor)
-                            .font(Font.system(size: 25, weight: .regular, design: .rounded)).padding(5)
+                            .font(Font.system(size: 17, weight: .regular, design: .rounded)).padding(5)
                     } icon: {
                         Image("Cleaning")
                             .resizable().aspectRatio( contentMode: .fit).frame(height: 30, alignment: .center)
@@ -95,7 +95,7 @@ struct ProviderOverview: View {
                         .overlay(RoundedRectangle(cornerRadius: 10)
                             .stroke(lineWidth: 1.0)
                             .foregroundColor(Color.lightGray)
-                            .shadow(color: .secondary.opacity(0.5), radius: 3)).padding()
+                        ).padding(1)
                     ForEach(skills, id: \.self) { skill in
                         HStack(alignment: .center, spacing: 15) {
                             Image(systemName: "circle.fill")
@@ -107,7 +107,7 @@ struct ProviderOverview: View {
                                 .font(Font.system(size: 17, weight: .light, design: .rounded))
                             Spacer()
                         }.padding(2)
-                    }.padding(.horizontal)
+                    }
 
                     Group {
                         VStack {
@@ -119,19 +119,19 @@ struct ProviderOverview: View {
                                         .font(Font.system(size: 17, weight: .regular, design: .rounded))
                                     Spacer()
                                     Text("\(String(format: "%g", testProvider.rating))/5")
-                                        .foregroundColor(Color.accentColor)
-                                        .font(Font.system(size: 15, weight: .regular, design: .monospaced)).padding(5)
+                                        .foregroundColor(Color.lightGray)
+                                        .font(Font.system(size: 15, weight: .regular, design: .monospaced))
                                     Image(systemName: "chevron.right")
                                         .foregroundColor(Color.accentColor)
                                         .multilineTextAlignment(.leading)
                                         .font(Font.system(size: 20, weight: .regular, design: .rounded)).padding(.leading, 10)
                                 } icon: {
                                     Image("RatingIcon")
-                                        .resizable().aspectRatio( contentMode: .fit).frame(height: 30, alignment: .center)
+                                        .resizable().scaledToFit().frame(width: 30, height: 30, alignment: .center).aspectRatio( contentMode: .fit)
                                         .padding(5)
-                                }
-                            }.padding(7)
-                            Divider().background(Color.black).padding(.leading, 50).padding(.vertical, -5)
+                                }.padding(7)
+                            }.padding(.top, 5)
+                            Divider().background(Color.secondary).padding(.leading, 50)
                             NavigationLink(destination: ProviderPortfolioView()) {
 
                                 Label {
@@ -140,19 +140,19 @@ struct ProviderOverview: View {
                                         .font(Font.system(size: 17, weight: .regular, design: .rounded))
                                     Spacer()
                                     Text(String(testProvider.portfolio?.images?.count ?? 0))
-                                        .foregroundColor(Color.accentColor)
-                                        .font(Font.system(size: 15, weight: .regular, design: .monospaced)).padding(5)
+                                        .foregroundColor(Color.lightGray)
+                                        .font(Font.system(size: 15, weight: .regular, design: .monospaced))
                                     Image(systemName: "chevron.right")
                                         .foregroundColor(Color.accentColor)
                                         .multilineTextAlignment(.leading)
                                         .font(Font.system(size: 20, weight: .regular, design: .rounded)).padding(.leading, 10)
                                 } icon: {
                                     Image("PortfolioIcon")
-                                        .resizable().aspectRatio( contentMode: .fit).frame(height: 30, alignment: .center)
+                                        .resizable().scaledToFit().frame(width: 30, height: 30, alignment: .center).aspectRatio(1.3, contentMode: .fit)
                                         .padding(5)
                                 }.padding(7)
                             }
-                            Divider().background(Color.black).padding(.leading, 50).padding(.vertical, -5)
+                            Divider().background(Color.secondary).padding(.leading, 50)
                             NavigationLink(destination: ProviderVerificationsView()) {
 
                                 Label {
@@ -161,19 +161,20 @@ struct ProviderOverview: View {
                                         .font(Font.system(size: 17, weight: .regular, design: .rounded))
                                     Spacer()
                                     Text(getVerifications(verifications: testProvider.verifications ?? []))
-                                        .foregroundColor(Color.accentColor)
-                                        .font(Font.system(size: 13, weight: .regular, design: .rounded)).padding(5).padding(.top,-10)
+                                        .lineLimit(2)
+                                        .foregroundColor(Color.lightGray)
+                                        .font(Font.system(size: 13, weight: .regular, design: .rounded))
                                     Image(systemName: "chevron.right")
                                         .foregroundColor(Color.accentColor)
                                         .multilineTextAlignment(.leading)
                                         .font(Font.system(size: 20, weight: .regular, design: .rounded)).padding(.leading, 10)
                                 } icon: {
                                     Image("VerificationsIcon")
-                                        .resizable().aspectRatio( contentMode: .fit).frame(height: 30, alignment: .center)
+                                        .resizable().scaledToFit().frame(width: 30, height: 30, alignment: .center).aspectRatio( contentMode: .fit)
                                         .padding(5)
                                 }.padding(7)
                             }
-                            Divider().background(Color.black).padding(.leading, 50).padding(.vertical, -5)
+                            Divider().background(Color.secondary).padding(.leading, 50)
                             NavigationLink(destination: ProviderPreviewsView(reviews: testProvider.reviews ?? []).tint(Color.accentColor)) {
                                 Label {
                                     Text("Reviews") .foregroundColor(Color.black)
@@ -181,7 +182,7 @@ struct ProviderOverview: View {
                                         .font(Font.system(size: 15, weight: .regular, design: .rounded))
                                     Spacer()
                                     Text("\(testProvider.reviews?.count ?? 0)")
-                                        .foregroundColor(Color.accentColor)
+                                        .foregroundColor(Color.lightGray)
                                         .font(Font.system(size: 17, weight: .regular, design: .rounded)).padding(5)
                                     Image(systemName: "chevron.right")
                                         .foregroundColor(Color.accentColor)
@@ -189,41 +190,46 @@ struct ProviderOverview: View {
                                         .font(Font.system(size: 20, weight: .regular, design: .rounded)).padding(.leading, 10)
                                 } icon: {
                                     Image("ReviewsIcon")
-                                        .resizable().aspectRatio( contentMode: .fit).frame(height: 30, alignment: .center)
+                                        .resizable().scaledToFit().frame(width: 30, height: 30, alignment: .center).aspectRatio( contentMode: .fit)
                                         .padding(5)
                                 }
-                            }.padding(7).padding(.bottom, 10)
-
+                            }.padding(7)
+                                .padding(.bottom, 5)
                         }.overlay(RoundedRectangle(cornerRadius: 10)
                             .stroke(lineWidth: 1.0)
                             .foregroundColor(Color.lightGray)
-                            .shadow(color: .secondary.opacity(0.5), radius: 3, y: 3)).padding()
+                            ).padding(1)
                     }
                     Spacer(minLength: 100)
-                }.padding(.top, -20).padding()
-            }
+                }
+            }.padding(.horizontal, 20)
 
             
             VStack(alignment: .center) {
                 Spacer()
                 NavigationLink(destination: InquiryServicesView()) {
-                    HStack {
+                    HStack{
                         Text("Direct Inquiry")
+                            .lineLimit(1)
+                            .ignoresSafeArea(.all)
+                            .shadow(color: Color.secondary, radius: 1, x: 1, y: 1)
+                            .font(.system(size: 20, weight: .regular, design: .rounded)).foregroundColor(.white).frame(width: UIScreen.main.bounds.width - 42, height: 50)
 
-                        .font(.system(size: 20, weight: .regular, design: .rounded)).foregroundColor(.white).padding(.horizontal, 100).frame(height: 50)
+
                         .background(
-                            RoundedRectangle(cornerRadius: 20)
+                            RoundedRectangle(cornerRadius: 15)
                                 .stroke(Color.accentColor, lineWidth: 4)
-                                .shadow(color: Color.secondary, radius: 4, x: 4.5, y: 4.5)
-                                .clipShape(RoundedRectangle(cornerRadius: 20))
-                                .shadow(color: Color.lightGray, radius: 4, x: -4.5, y: -4.5)
-                                .clipShape(RoundedRectangle(cornerRadius: 20))
+//                                .shadow(color: Color.secondary, radius: 4, x: 4.5, y: 4.5)
+                                .clipShape(RoundedRectangle(cornerRadius: 15))
+//                                .shadow(color: Color.lightGray, radius: 4, x: -4.5, y: -4.5)
+                                .clipShape(RoundedRectangle(cornerRadius: 15))
 
-                        .overlay(RoundedRectangle(cornerRadius: 20)
-                            .stroke(lineWidth: 2.0)
-                            .foregroundColor(Color.white)
-                            .shadow(color: .secondary.opacity(0.5), radius: 3, y: 3))
-                        .background(RoundedRectangle(cornerRadius: 20).fill(Color.accentColor)))
+                        .overlay(RoundedRectangle(cornerRadius: 15)
+                            .stroke(lineWidth: 1.0)
+                            .foregroundColor(Color.lightGray)
+//                            .shadow(color: .secondary.opacity(0.5), radius: 3, y: 3)
+                        )
+                        .background(RoundedRectangle(cornerRadius: 15).fill(Color.accentColor)))
 
                     }
                 }//.padding(-20)
@@ -232,40 +238,27 @@ struct ProviderOverview: View {
             }
 //            .frame(maxWidth: .infinity, maxHeight: .infinity)
 //                .overlay(ImageViewer(image: self.$image, viewerShown: self.$showImageViewer))
-        }.navigationTitle("\(testProvider.name)")
+        }.navigationTitle("Provider")
 
 
     }
 }
 func getVerifications(verifications: [VerificationTypes]) -> String {
-    var verifics = "\0"
+    var verifics = ""
     print(testProvider.verifications)
     for verification in verifications {
         if verification == .ProfessionalInsurance {
-            verifics = verifics +  "• Professional\n   Insurance\n"
+            verifics = verifics +  "Professional Insurance" + ", "
             //                break
         } else if verification == .RegistrationCertificate {
-            verifics = verifics +  "• Registration\n   Certificate\n"
+            verifics = verifics +  "Registration Certificate" + ", "
             //                break
         } else  if verification != verifications.last {
-            verifics = verifics +  "• " + verification.rawValue + "\n"
+            verifics = verifics + verification.rawValue + ", "
         } else {
-            verifics = verifics + "• " + verification.rawValue + "\n"
+            verifics = verifics + verification.rawValue + ", "
         }
     }
-
-    //        enum VerificationTypes: String, CaseIterable, Identifiable, Hashable {
-    //            case IDs
-    //            case Address
-    //            case Avatar
-    //            case RegistrationCertificate
-    //            case ProfessionalInsurance
-    //            case Email
-    //            case Phone
-    //            case Passport
-    //            var id: String { self.rawValue }
-    //
-    //        }
 
     return verifics
 }

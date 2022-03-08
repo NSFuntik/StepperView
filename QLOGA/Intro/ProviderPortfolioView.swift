@@ -48,69 +48,62 @@ struct ProviderPortfolioView: View {
     var body: some View {
         VStack {
             GeometryReader { proxy in
-                VStack {
-                    ZStack {
+                VStack(spacing: 20) {
+//                    ZStack {
                         TabView(selection: $currentIndex) {
                             ForEach(0..<numberofImages) {
                                 num in Image("PortfolioImage\(num)")
                                     .resizable()
                                     .scaledToFill()
-                                    .shadow(color: .secondary.opacity(0.5), radius: 3)
+//                                    .shadow(color: .secondary.opacity(0.5), radius: 3)
                                     .tag(num)
                                     .onTapGesture {
                                         image = Image("PortfolioImage\($currentIndex.wrappedValue)")
                                         showImageViewer.toggle()
                                     }.padding(1)
-                                    .overlay(RoundedRectangle(cornerRadius: 10)
-                                        .stroke(lineWidth: 1.0)
-                                        .foregroundColor(Color.lightGray)
-                                        .shadow(color: .secondary.opacity(0.5), radius: 3, y: 3))
                             }
                         }.tabViewStyle(PageTabViewStyle())
-                            .clipShape(RoundedRectangle(cornerRadius: 13))
                             .frame(width: proxy.size.width, height: proxy.size.height / 2)
                             .onReceive(timer, perform: { _ in
                                 next()
                             })
                         VStack {
-                            Spacer()
-                            ScrollView(.horizontal, showsIndicators: true) {
-                                HStack(spacing: 0) {
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 1) {
                                     ForEach(0..<numberofImages) {
                                         num in Image("PortfolioImage\(num)")
                                             .resizable()
                                             .scaledToFill()
-                                            .cornerRadius(10)
-                                        //                                    .overlay(Color.black.opacity(0.4))
-                                            .padding(1)
+
                                             .tag(num)
 //                                            .onTapGesture {
 //                                                $currentIndex = num
 //                                            }
                                     }
-                                }.frame( height: 45).padding(.top, 3)
-                            }.padding(.bottom, -50)
+                                }.frame(height: 45)//.padding(.top, 3)
+                            }//.padding(.top, 20)
                         }
-                    }
+//                    }
 
 
 //                    controls
 //                        .padding(10)
                     ScrollView {
-                        Text(testProvider.portfolio?.description ?? "").font(Font.system(size: 17, weight: .light, design: .serif)).padding()
+                        Text(testProvider.portfolio?.description ?? "").font(Font.system(size: 17, weight: .light, design: .rounded)).padding()
                         Spacer()
-                    }.padding(.top,50)
-                        .overlay(RoundedRectangle(cornerRadius: 10)
-                            .stroke(lineWidth: 1.0)
-                            .foregroundColor(Color.lightGray)
-                            .shadow(color: .secondary.opacity(0.5), radius: 3, y: 3).padding(.top, 45))//.padding()
+                    }//.padding(.top,20)
+//                        .overlay(RoundedRectangle(cornerRadius: 10)
+//                            .stroke(lineWidth: 1.0)
+//                            .foregroundColor(Color.lightGray)
+////                            .shadow(color: .secondary.opacity(0.5), radius: 3, y: 3)
+//                        )//.padding()
                 }
             }
 
-        }.padding(10).navigationBarTitleDisplayMode(.inline)
+        }.navigationBarTitleDisplayMode(.inline)
             .navigationBarTitle("Portfolio")
-//            .frame(maxWidth: .infinity, maxHeight: .infinity)
-//            .overlay(ImageViewer(image: self.$image, viewerShown: self.$showImageViewer))
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .overlay(ImageViewer(image: self.$image, viewerShown: self.$showImageViewer))
     }
 }
 struct ProviderPortfolioView_Previews: PreviewProvider {

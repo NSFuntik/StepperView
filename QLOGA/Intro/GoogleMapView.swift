@@ -19,12 +19,15 @@ struct GoogleMapView: View {
                 .edgesIgnoringSafeArea(.all)
 //                .frame(height: 300)
         }.toolbar {
-            Button {
-                isFiltersPresented.toggle()
-            } label: {
-                Image("FilterIcon").resizable().frame(width: 30, height: 30, alignment: .center).accentColor(Color.accentColor).foregroundColor(.accentColor)
-                    .padding(5)
-            }
+
+                Button {
+                    isFiltersPresented.toggle()
+                } label: {
+                    Image("FilterIcon").resizable().frame(width: 30, height: 30, alignment: .center)
+                        .aspectRatio(contentMode: .fit).accentColor(Color.accentColor).foregroundColor(.accentColor)
+                        .padding(5)
+                }
+
         }
         .sheet(isPresented: $isFiltersPresented) {
             ProvidersFilterView()

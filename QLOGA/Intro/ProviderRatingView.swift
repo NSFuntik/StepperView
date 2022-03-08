@@ -10,7 +10,8 @@ import SwiftUI
 struct ProviderRatingView: View {
 
     var body: some View {
-        VStack(alignment: .center, spacing: 10) {
+        VStack(alignment: .center, spacing: 20) {
+            
             Label {
                 Text("Rating")
                     .foregroundColor(Color.black)
@@ -18,18 +19,16 @@ struct ProviderRatingView: View {
                     .font(Font.system(size: 17, weight: .regular, design: .rounded))
                 Spacer()
                 Text("\(String(format: "%g", testProvider.rating))/5")
-                    .foregroundColor(Color.accentColor)
-                    .font(Font.system(size: 15, weight: .regular, design: .monospaced)).padding(5)
+                    .foregroundColor(Color.secondary)
+                    .font(Font.system(size: 15, weight: .medium, design: .monospaced))
             } icon: {
                 Image("RatingIcon")
                     .resizable().aspectRatio( contentMode: .fit).frame(height: 30, alignment: .center)
-                    .padding(5)
             }.padding(10)
 
                 .overlay(RoundedRectangle(cornerRadius: 10)
                     .stroke(lineWidth: 1.0)
-                    .foregroundColor(Color.lightGray)
-                    .shadow(color: .secondary.opacity(0.5), radius: 3)).padding()
+                    .foregroundColor(Color.lightGray)).padding(1)
 
             HStack {
                 Text("Comminications")
@@ -37,30 +36,30 @@ struct ProviderRatingView: View {
                     .font(Font.system(size: 17, weight: .regular, design: .rounded))
                 Spacer()
                 StarsView(rating: 4.0)
-            }.padding()
+            }
             HStack {
                 Text("Prompt payment")
                     .foregroundColor(Color.secondary)
                     .font(Font.system(size: 17, weight: .regular, design: .rounded))
                 Spacer()
                 StarsView(rating: 3.0)
-            }.padding()
+            }
             HStack {
                 Text("Sufficient enough chemicals and materials")
                     .foregroundColor(Color.secondary)
                     .font(Font.system(size: 17, weight: .regular, design: .rounded))
                 Spacer()
                 StarsView(rating: 4.0)
-            }.padding()
+            }
             HStack {
                 Text("Appriciative")
                     .foregroundColor(Color.secondary)
                     .font(Font.system(size: 17, weight: .regular, design: .rounded))
                 Spacer()
                 StarsView(rating: 2.5)
-            }.padding()
+            }
             Spacer()
-        }.navigationTitle("Rating")
+        }.padding(.horizontal, 20).navigationTitle("Rating")
     }
 }
 

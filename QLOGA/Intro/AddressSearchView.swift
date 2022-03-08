@@ -38,8 +38,9 @@ struct AddressSearchView: View {
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.lightGray.opacity(0.6), lineWidth: 1)
-                        .shadow(color: .lightGray.opacity(0.5), radius: 3))
-                .shadow(color: .lightGray.opacity(0.6), radius: 3, y: 3)
+//                        .shadow(color: .lightGray.opacity(0.5), radius: 3)
+                )
+//                .shadow(color: .lightGray.opacity(0.6), radius: 3, y: 3)
 
                 //                    .padding(.bottom)
                 //                    TextField("Enter your address or postcode", text: $address).textFieldStyle(BottomLineTextFieldStyle())
@@ -116,10 +117,8 @@ struct AddressSearchView: View {
                 }
             }.overlay(
                 RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.lightGray.opacity(0.6), lineWidth: 1)
-                    .shadow(color: .lightGray.opacity(0.5), radius: 3))
+                    .stroke(Color.lightGray.opacity(0.6), lineWidth: 1))
             .padding()
-            .shadow(color: .lightGray.opacity(0.6), radius: 3, y: 3)
             //            .ignoresSafeArea(.all)
             //            }
             Spacer()
