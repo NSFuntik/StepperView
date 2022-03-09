@@ -8,6 +8,7 @@
 import Foundation
 
 struct CleaningService {
+    var title: String
     var unit: String
     var price: Double
     var subject: String
@@ -16,7 +17,8 @@ struct CleaningService {
     var works: String
     var notIncluded: String
 
-    init(unit: String, price: Double, subject: String, description: String, conditions: String, works: String, notIncluded: String) {
+    init(title: String, unit: String, price: Double, subject: String, description: String, conditions: String, works: String, notIncluded: String) {
+        self.title = title
         self.unit = unit
         self.price = price
         self.subject = subject

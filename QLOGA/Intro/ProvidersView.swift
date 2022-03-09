@@ -16,7 +16,7 @@ struct ProvidersView: View {
     var service: Service
     init(service: Service) {
         self.service = service
-        UINavigationBar.appearance().prefersLargeTitles = true
+        UINavigationBar.appearance().prefersLargeTitles = false
 
     }
     var body: some View {
@@ -70,7 +70,7 @@ struct ProvidersView: View {
                                                                                                                            design: .rounded)).foregroundColor(.accentColor)
                                     }
                                     HStack(alignment: .center) {
-                                        Text("Cancellation:")
+                                        Text("Cancellation (hrs):")
                                             .foregroundColor(Color.lightGray)
                                             .multilineTextAlignment(.leading)
                                             .font(Font.system(size: 15, weight: .regular, design: .rounded))
@@ -105,7 +105,7 @@ struct ProvidersView: View {
             }
         }
         .navigationTitle("Providers")
-        .navigationBarTitleDisplayMode(.large)
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             HStack {
                 Spacer()

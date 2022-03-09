@@ -103,7 +103,7 @@ var Providers: [Provider] = [
     Provider( name: "Special nails services", cancellation: 3, avatar: "WomanCleaner", calloutCharge: true, rating: 4.3, employment: .Individual),
     Provider( name: "Kai's Elderly care ...", cancellation: 5, calloutCharge: true, rating: 4.1, employment: .Agency),
     Provider( name: "The gardener", cancellation: 4, calloutCharge: true, rating: 3.9, employment: .Individual),
-    Provider(name: "Kai's Hills therapy", cancellation: 2, avatar: "WomanCleaner", calloutCharge: false, rating: 4.3, employment: .All)
+    Provider(name: "Kai's Hills therapy", cancellation: 2, avatar: "WomanCleaner", calloutCharge: false, rating: 4.3, employment: .Agency)
 ]
 
 enum ProviderType: String, CaseIterable, Identifiable  {
