@@ -15,6 +15,11 @@ extension Color {
         return Color("Green")
     }
 
+    public static var Pink: Color {
+        return Color("Pink")
+    }
+
+
     init(_ hex: UInt, alpha: Double = 1) {
         self.init(
             .sRGB,

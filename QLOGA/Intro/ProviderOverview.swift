@@ -216,23 +216,24 @@ struct ProviderOverview: View {
                                 .lineLimit(1)
                                 .ignoresSafeArea(.all)
                                 .shadow(color: Color.secondary, radius: 1, x: 1, y: 1)
-                                .font(.system(size: 20, weight: .regular, design: .rounded)).foregroundColor(.white).frame(width: UIScreen.main.bounds.width - 42, height: 50)
+                                .font(.system(size: 20, weight: .regular, design: .rounded)).foregroundColor(.white).frame(width: UIScreen.main.bounds.width - 40, height: 50)
 
 
                                 .background(
-                                    RoundedRectangle(cornerRadius: 25)
-                                        .stroke(Color.accentColor, lineWidth: 4)
+                                   RoundedRectangle(cornerRadius: 25).fill(Color.accentColor))
                                     //                                .shadow(color: Color.secondary, radius: 4, x: 4.5, y: 4.5)
                                         .clipShape(RoundedRectangle(cornerRadius: 25))
-                                    //                                .shadow(color: Color.lightGray, radius: 4, x: -4.5, y: -4.5)
+                                                                    .shadow(color: Color.lightGray, radius: 4, x: -4.5, y: -4.5)
                                         .clipShape(RoundedRectangle(cornerRadius: 25))
 
                                         .overlay(RoundedRectangle(cornerRadius: 25)
-                                            .stroke(lineWidth: 1.0)
+                                            .stroke(lineWidth: 2.0)
                                             .foregroundColor(Color.white)
-                                                 //                            .shadow(color: .secondary.opacity(0.5), radius: 3, y: 3)
+                                                                             .shadow(color: .secondary.opacity(0.5), radius: 3, y: 3)
                                         )
-                                        .background(RoundedRectangle(cornerRadius: 25).fill(Color.accentColor)))
+//                                        .padding(1)
+                                    
+
 
                         }
                     }.padding(.bottom, 5)

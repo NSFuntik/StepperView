@@ -167,6 +167,7 @@ struct InquiryOverview: View {
 
                                         Image(systemName: "chevron.right")
                                             .foregroundColor(Color.Green)
+                                            
                                             .multilineTextAlignment(.leading)
                                             .font(Font.system(size: 20, weight: .regular, design: .rounded)).padding(.trailing, 10)
 
@@ -174,7 +175,7 @@ struct InquiryOverview: View {
 
                                 }.padding(.top, 15)
                                 Divider().background(Color.lightGray).padding(.leading, 50)
-                                NavigationLink(destination: SelectedServiceDetailView(serviceType: .Kitchen)) {
+                                NavigationLink(destination: CalendarPickerView().navigationBarTitle("Date & Time").ignoresSafeArea(.all, edges: .bottom)) {
                                     HStack(alignment: .center) {
                                         Text("Date & Time") .foregroundColor(Color.black)
                                             .multilineTextAlignment(.leading)
@@ -216,13 +217,13 @@ struct InquiryOverview: View {
                                 Divider().background(Color.lightGray).padding(.leading, 50)
                                 NavigationLink(destination: SelectedServiceDetailView(serviceType: .Kitchen)) {
                                     HStack(alignment: .center) {
-                                        Text("Visits") .foregroundColor(Color.black)
+                                        Text("Tracking") .foregroundColor(Color.black)
                                             .multilineTextAlignment(.leading)
                                             .font(Font.system(size: 17, weight: .regular, design: .rounded))
 
                                         Spacer()
 
-                                        Text("8")
+                                        Text("")
                                             .foregroundColor(Color.lightGray)
                                             .font(Font.system(size: 17, weight: .regular, design: .rounded))
 
@@ -260,7 +261,7 @@ struct InquiryOverview: View {
                                 .foregroundColor(Color.lightGray))
 
                     }
-                }
+                }.padding(.horizontal, 20)
                 Spacer(minLength: 100)
             }
 
@@ -276,19 +277,17 @@ struct InquiryOverview: View {
 
 
                             .background(
-                                RoundedRectangle(cornerRadius: 25)
-                                    .stroke(Color.accentColor, lineWidth: 4)
-                                //                                .shadow(color: Color.secondary, radius: 4, x: 4.5, y: 4.5)
-                                    .clipShape(RoundedRectangle(cornerRadius: 25))
-                                //                                .shadow(color: Color.lightGray, radius: 4, x: -4.5, y: -4.5)
-                                    .clipShape(RoundedRectangle(cornerRadius: 25))
+                                RoundedRectangle(cornerRadius: 25).fill(Color.accentColor))
+                        //                                .shadow(color: Color.secondary, radius: 4, x: 4.5, y: 4.5)
+                            .clipShape(RoundedRectangle(cornerRadius: 25))
+                            .shadow(color: Color.lightGray, radius: 4, x: -4.5, y: -4.5)
+                            .clipShape(RoundedRectangle(cornerRadius: 25))
 
-                                    .overlay(RoundedRectangle(cornerRadius: 25)
-                                        .stroke(lineWidth: 1.0)
-                                        .foregroundColor(Color.white)
-                                             //                            .shadow(color: .secondary.opacity(0.5), radius: 3, y: 3)
-                                    )
-                                    .background(RoundedRectangle(cornerRadius: 25).fill(Color.accentColor)))
+                            .overlay(RoundedRectangle(cornerRadius: 25)
+                                .stroke(lineWidth: 2.0)
+                                .foregroundColor(Color.white)
+                                .shadow(color: .secondary.opacity(0.5), radius: 3, y: 3)
+                            )
 
                     }
                 }.padding(.bottom, 5)
