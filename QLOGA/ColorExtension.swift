@@ -11,6 +11,9 @@ extension Color {
     public static var lightGray: Color {
         return Color("LightGray")
     }
+    public static var Green: Color {
+        return Color("Green")
+    }
 
     init(_ hex: UInt, alpha: Double = 1) {
         self.init(

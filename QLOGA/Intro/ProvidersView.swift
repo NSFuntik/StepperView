@@ -25,7 +25,7 @@ struct ProvidersView: View {
 
                 VStack {
                     ForEach(Providers, id: \.self) { provider in
-                        NavigationLink(destination: ProviderOverview()) {
+                        NavigationLink(destination: ProviderOverview(isButtonShows: true)) {
                             HStack(alignment: .top, spacing: 20) {
                                 VStack(alignment: .center, spacing: 0) {
                                     Image(provider.avatar!).resizable().aspectRatio(contentMode: .fill).frame(width: 100, height: 110, alignment: .center).cornerRadius(10).overlay(RoundedRectangle(cornerRadius: 10)

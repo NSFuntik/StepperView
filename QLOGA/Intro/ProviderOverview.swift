@@ -11,7 +11,9 @@ struct ProviderOverview: View {
     @State var image = Image(testProvider.avatar!)
     @State var  showImageViewer = false
     let skills = ["Complete home cleaning","Bathroom and toilet cleaning","Kitchen cleaning","Bedroom or living room cleaning","Clothes laundry and ironing","Garrage cleaning","Swimming pool cleaning","Owen cleaning"]
-    init() {
+    @State var isButtonShows: Bool
+    init(isButtonShows: Bool) {
+        self.isButtonShows = isButtonShows
         UINavigationBar.appearance().prefersLargeTitles = true
     }
     var body: some View {
@@ -204,37 +206,39 @@ struct ProviderOverview: View {
                 }
             }.padding(.horizontal, 20)
 
-            
-            VStack(alignment: .center) {
-                Spacer()
-                NavigationLink(destination: InquiryServicesView()) {
-                    HStack{
-                        Text("Direct Inquiry")
-                            .lineLimit(1)
-                            .ignoresSafeArea(.all)
-                            .shadow(color: Color.secondary, radius: 1, x: 1, y: 1)
-                            .font(.system(size: 20, weight: .regular, design: .rounded)).foregroundColor(.white).frame(width: UIScreen.main.bounds.width - 42, height: 50)
+            if isButtonShows {
+
+                VStack(alignment: .center) {
+                    Spacer()
+                    NavigationLink(destination: InquiryServicesView()) {
+                        HStack{
+                            Text("Direct Inquiry")
+                                .lineLimit(1)
+                                .ignoresSafeArea(.all)
+                                .shadow(color: Color.secondary, radius: 1, x: 1, y: 1)
+                                .font(.system(size: 20, weight: .regular, design: .rounded)).foregroundColor(.white).frame(width: UIScreen.main.bounds.width - 42, height: 50)
 
 
-                        .background(
-                            RoundedRectangle(cornerRadius: 15)
-                                .stroke(Color.accentColor, lineWidth: 4)
-//                                .shadow(color: Color.secondary, radius: 4, x: 4.5, y: 4.5)
-                                .clipShape(RoundedRectangle(cornerRadius: 15))
-//                                .shadow(color: Color.lightGray, radius: 4, x: -4.5, y: -4.5)
-                                .clipShape(RoundedRectangle(cornerRadius: 15))
+                                .background(
+                                    RoundedRectangle(cornerRadius: 25)
+                                        .stroke(Color.accentColor, lineWidth: 4)
+                                    //                                .shadow(color: Color.secondary, radius: 4, x: 4.5, y: 4.5)
+                                        .clipShape(RoundedRectangle(cornerRadius: 25))
+                                    //                                .shadow(color: Color.lightGray, radius: 4, x: -4.5, y: -4.5)
+                                        .clipShape(RoundedRectangle(cornerRadius: 25))
 
-                        .overlay(RoundedRectangle(cornerRadius: 15)
-                            .stroke(lineWidth: 1.0)
-                            .foregroundColor(Color.lightGray)
-//                            .shadow(color: .secondary.opacity(0.5), radius: 3, y: 3)
-                        )
-                        .background(RoundedRectangle(cornerRadius: 15).fill(Color.accentColor)))
+                                        .overlay(RoundedRectangle(cornerRadius: 25)
+                                            .stroke(lineWidth: 1.0)
+                                            .foregroundColor(Color.white)
+                                                 //                            .shadow(color: .secondary.opacity(0.5), radius: 3, y: 3)
+                                        )
+                                        .background(RoundedRectangle(cornerRadius: 25).fill(Color.accentColor)))
 
-                    }
-                }.padding(.bottom, 5)
+                        }
+                    }.padding(.bottom, 5)
 
 
+                }
             }
 //            .frame(maxWidth: .infinity, maxHeight: .infinity)
 //                .overlay(ImageViewer(image: self.$image, viewerShown: self.$showImageViewer))
@@ -267,7 +271,7 @@ func getVerifications(verifications: [VerificationTypes]) -> String {
 struct PrividerDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ProviderOverview()
+            ProviderOverview(isButtonShows: true)
         }
     }
 }
