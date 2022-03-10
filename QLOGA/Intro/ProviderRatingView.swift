@@ -11,7 +11,6 @@ struct ProviderRatingView: View {
 
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
-            
             Label {
                 Text("Rating")
                     .foregroundColor(Color.black)
@@ -23,12 +22,13 @@ struct ProviderRatingView: View {
                     .font(Font.system(size: 15, weight: .medium, design: .monospaced))
             } icon: {
                 Image("RatingIcon")
-                    .resizable().aspectRatio( contentMode: .fit).frame(height: 30, alignment: .center)
+                    .resizable().aspectRatio( contentMode: .fit)
+                    .frame(height: 30, alignment: .center)
             }.padding(10)
-
                 .overlay(RoundedRectangle(cornerRadius: 10)
                     .stroke(lineWidth: 1.0)
-                    .foregroundColor(Color.lightGray)).padding(1)
+                    .foregroundColor(Color.lightGray))
+                .padding(1)
 
             HStack {
                 Text("Comminications")
@@ -59,7 +59,8 @@ struct ProviderRatingView: View {
                 StarsView(rating: 2.5)
             }
             Spacer()
-        }.padding(.horizontal, 20).navigationTitle("Rating")
+        }.padding(.horizontal, 20)
+        .navigationTitle("Rating")
     }
 }
 

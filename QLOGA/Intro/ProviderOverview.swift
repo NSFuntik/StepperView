@@ -8,9 +8,16 @@
 import SwiftUI
 //import ImageViewer
 struct ProviderOverview: View {
+    let skills = ["Complete home cleaning",
+                  "Bathroom and toilet cleaning",
+                  "Kitchen cleaning",
+                  "Bedroom or living room cleaning",
+                  "Clothes laundry and ironing",
+                  "Garrage cleaning",
+                  "Swimming pool cleaning",
+                  "Owen cleaning"]
     @State var image = Image(testProvider.avatar!)
     @State var  showImageViewer = false
-    let skills = ["Complete home cleaning","Bathroom and toilet cleaning","Kitchen cleaning","Bedroom or living room cleaning","Clothes laundry and ironing","Garrage cleaning","Swimming pool cleaning","Owen cleaning"]
     @State var isButtonShows: Bool
     init(isButtonShows: Bool) {
         self.isButtonShows = isButtonShows
@@ -21,13 +28,17 @@ struct ProviderOverview: View {
             VStack(alignment: .center) {
                 HStack(alignment: .top, spacing: 20) {
                     VStack(alignment: .center, spacing: 5) {
-                        Image(testProvider.avatar!).resizable().aspectRatio(0.9, contentMode: .fit).frame(height: 100, alignment: .center).overlay(RoundedRectangle(cornerRadius: 10)
+                        Image(testProvider.avatar!)
+                            .resizable()
+                            .aspectRatio(0.9, contentMode: .fit)
+                            .frame(height: 100, alignment: .center)
+                            .overlay(RoundedRectangle(cornerRadius: 10)
                             .stroke(lineWidth: 1.0)
-                            .foregroundColor(Color.lightGray)).padding(1)
-//                        .shadow(color: .secondary.opacity(0.5), radius: 3, y: 3)
-                        .onTapGesture {
-                            showImageViewer.toggle()
-                        }
+                            .foregroundColor(Color.lightGray))
+                            .padding(1)
+                            .onTapGesture {
+                                showImageViewer.toggle()
+                            }
                         Text(testProvider.employment.rawValue)
                             .foregroundColor(Color.secondary)
                             .multilineTextAlignment(.center)
@@ -46,8 +57,9 @@ struct ProviderOverview: View {
                                 .multilineTextAlignment(.leading)
                                 .font(Font.system(size: 15, weight: .regular, design: .rounded))
                             Spacer()
-                            Image(systemName: testProvider.calloutCharge ? "checkmark" : "minus").font(Font.system(size: 17, weight: .medium,
-                                                                                                                   design: .rounded)).foregroundColor(.accentColor)
+                            Image(systemName: testProvider.calloutCharge ? "checkmark" : "minus")
+                                .font(Font.system(size: 17, weight: .medium, design: .rounded))
+                                .foregroundColor(.accentColor)
                         }
                         HStack(alignment: .center) {
                             Text("Cancellation:")
@@ -60,7 +72,8 @@ struct ProviderOverview: View {
                                 .multilineTextAlignment(.leading)
                                 .font(Font.system(size: 15,
                                                   weight: .medium,
-                                                  design: .rounded))    }
+                                                  design: .rounded))
+                        }
                         HStack(alignment: .center) {
                             Text("Distance (miles):")
                                 .foregroundColor(Color.lightGray)
@@ -75,7 +88,6 @@ struct ProviderOverview: View {
                                                   design: .rounded))
                         }
                     }
-
                 }
                 Divider().padding(.horizontal, -20)
                 ScrollView(showsIndicators: false) {
@@ -86,14 +98,15 @@ struct ProviderOverview: View {
                             .font(Font.system(size: 17, weight: .regular, design: .rounded))
                         Spacer()
                         Text("\(skills.count)")
-                            .foregroundColor(Color.accentColor)
-                            .font(Font.system(size: 17, weight: .regular, design: .rounded)).padding(5)
+                            .foregroundColor(Color.lightGray)
+                            .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                            .padding(5)
                     } icon: {
                         Image("Cleaning")
-                            .resizable().aspectRatio( contentMode: .fit).frame(height: 30, alignment: .center)
+                            .resizable().aspectRatio( contentMode: .fit)
+                            .frame(height: 30, alignment: .center)
                             .padding(5)
                     }.padding(10)
-
                         .overlay(RoundedRectangle(cornerRadius: 10)
                             .stroke(lineWidth: 1.0)
                             .foregroundColor(Color.lightGray)
@@ -104,19 +117,20 @@ struct ProviderOverview: View {
                                 .foregroundColor(Color.accentColor)
                                 .multilineTextAlignment(.leading)
                                 .font(Font.system(size: 7, weight: .regular, design: .rounded))
-                            Text(skill).foregroundColor(Color.secondary)
+                            Text(skill)
+                                .foregroundColor(Color.secondary)
                                 .multilineTextAlignment(.leading)
                                 .font(Font.system(size: 17, weight: .light, design: .rounded))
                             Spacer()
                         }.padding(2)
                     }
-
                     Group {
                         VStack {
                             NavigationLink(destination: ProviderRatingView()) {
 
                                 Label {
-                                    Text("Rating") .foregroundColor(Color.black)
+                                    Text("Rating")
+                                        .foregroundColor(Color.black)
                                         .multilineTextAlignment(.leading)
                                         .font(Font.system(size: 17, weight: .regular, design: .rounded))
                                     Spacer()
@@ -126,18 +140,22 @@ struct ProviderOverview: View {
                                     Image(systemName: "chevron.right")
                                         .foregroundColor(Color.accentColor)
                                         .multilineTextAlignment(.leading)
-                                        .font(Font.system(size: 20, weight: .regular, design: .rounded)).padding(.leading, 10)
+                                        .font(Font.system(size: 20, weight: .regular, design: .rounded))
+                                        .padding(.leading, 10)
                                 } icon: {
                                     Image("RatingIcon")
-                                        .resizable().scaledToFit().frame(width: 30, height: 30, alignment: .center).aspectRatio( contentMode: .fit)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 30, height: 30, alignment: .center)
+                                        .aspectRatio( contentMode: .fit)
                                         .padding(5)
                                 }.padding(7)
                             }.padding(.top, 5)
                             Divider().background(Color.secondary).padding(.leading, 50)
                             NavigationLink(destination: ProviderPortfolioView()) {
-
                                 Label {
-                                    Text("Portfolio") .foregroundColor(Color.black)
+                                    Text("Portfolio")
+                                        .foregroundColor(Color.black)
                                         .multilineTextAlignment(.leading)
                                         .font(Font.system(size: 17, weight: .regular, design: .rounded))
                                     Spacer()
@@ -147,10 +165,14 @@ struct ProviderOverview: View {
                                     Image(systemName: "chevron.right")
                                         .foregroundColor(Color.accentColor)
                                         .multilineTextAlignment(.leading)
-                                        .font(Font.system(size: 20, weight: .regular, design: .rounded)).padding(.leading, 10)
+                                        .font(Font.system(size: 20, weight: .regular, design: .rounded))
+                                        .padding(.leading, 10)
                                 } icon: {
                                     Image("PortfolioIcon")
-                                        .resizable().scaledToFit().frame(width: 30, height: 30, alignment: .center).aspectRatio(1.3, contentMode: .fit)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 30, height: 30, alignment: .center)
+                                        .aspectRatio(1.3, contentMode: .fit)
                                         .padding(5)
                                 }.padding(7)
                             }
@@ -158,7 +180,8 @@ struct ProviderOverview: View {
                             NavigationLink(destination: ProviderVerificationsView()) {
 
                                 Label {
-                                    Text("Verifications") .foregroundColor(Color.black)
+                                    Text("Verifications")
+                                        .foregroundColor(Color.black)
                                         .multilineTextAlignment(.leading)
                                         .font(Font.system(size: 17, weight: .regular, design: .rounded))
                                     Spacer()
@@ -169,30 +192,39 @@ struct ProviderOverview: View {
                                     Image(systemName: "chevron.right")
                                         .foregroundColor(Color.accentColor)
                                         .multilineTextAlignment(.leading)
-                                        .font(Font.system(size: 20, weight: .regular, design: .rounded)).padding(.leading, 10)
+                                        .font(Font.system(size: 20, weight: .regular, design: .rounded))
+                                        .padding(.leading, 10)
                                 } icon: {
                                     Image("VerificationsIcon")
-                                        .resizable().scaledToFit().frame(width: 30, height: 30, alignment: .center).aspectRatio( contentMode: .fit)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 30, height: 30, alignment: .center)
+                                        .aspectRatio( contentMode: .fit)
                                         .padding(5)
                                 }.padding(7)
                             }
                             Divider().background(Color.secondary).padding(.leading, 50)
                             NavigationLink(destination: ProviderPreviewsView(reviews: testProvider.reviews ?? []).tint(Color.accentColor)) {
                                 Label {
-                                    Text("Reviews") .foregroundColor(Color.black)
+                                    Text("Reviews")
+                                        .foregroundColor(Color.black)
                                         .multilineTextAlignment(.leading)
-                                        .font(Font.system(size: 15, weight: .regular, design: .rounded))
+                                        .font(Font.system(size: 17, weight: .regular, design: .rounded))
                                     Spacer()
                                     Text("\(testProvider.reviews?.count ?? 0)")
                                         .foregroundColor(Color.lightGray)
-                                        .font(Font.system(size: 17, weight: .regular, design: .rounded)).padding(5)
+                                        .font(Font.system(size: 15, weight: .regular, design: .rounded))
+                                        .padding(5)
                                     Image(systemName: "chevron.right")
                                         .foregroundColor(Color.accentColor)
                                         .multilineTextAlignment(.leading)
-                                        .font(Font.system(size: 20, weight: .regular, design: .rounded)).padding(.leading, 10)
+                                        .font(Font.system(size: 20, weight: .regular, design: .rounded))
+                                        .padding(.leading, 10)
                                 } icon: {
                                     Image("ReviewsIcon")
-                                        .resizable().scaledToFit().frame(width: 30, height: 30, alignment: .center).aspectRatio( contentMode: .fit)
+                                        .resizable()
+                                        .scaledToFit().frame(width: 30, height: 30, alignment: .center)
+                                        .aspectRatio( contentMode: .fit)
                                         .padding(5)
                                 }
                             }.padding(7)
@@ -200,7 +232,7 @@ struct ProviderOverview: View {
                         }.overlay(RoundedRectangle(cornerRadius: 10)
                             .stroke(lineWidth: 1.0)
                             .foregroundColor(Color.lightGray)
-                            ).padding(1)
+                        ).padding(1)
                     }
                     Spacer(minLength: 100)
                 }
@@ -216,48 +248,34 @@ struct ProviderOverview: View {
                                 .lineLimit(1)
                                 .ignoresSafeArea(.all)
                                 .shadow(color: Color.secondary, radius: 1, x: 1, y: 1)
-                                .font(.system(size: 20, weight: .regular, design: .rounded)).foregroundColor(.white).frame(width: UIScreen.main.bounds.width - 40, height: 50)
-
-
-                                .background(
-                                   RoundedRectangle(cornerRadius: 25).fill(Color.accentColor))
-                                    //                                .shadow(color: Color.secondary, radius: 4, x: 4.5, y: 4.5)
-                                        .clipShape(RoundedRectangle(cornerRadius: 25))
-                                                                    .shadow(color: Color.lightGray, radius: 4, x: -4.5, y: -4.5)
-                                        .clipShape(RoundedRectangle(cornerRadius: 25))
-
-                                        .overlay(RoundedRectangle(cornerRadius: 25)
-                                            .stroke(lineWidth: 2.0)
-                                            .foregroundColor(Color.white)
-                                                                             .shadow(color: .secondary.opacity(0.5), radius: 3, y: 3)
-                                        )
-//                                        .padding(1)
-                                    
-
-
+                                .font(.system(size: 20, weight: .regular, design: .rounded))
+                                .foregroundColor(.white)
+                                .frame(width: UIScreen.main.bounds.width - 40, height: 50)
+                                .background(RoundedRectangle(cornerRadius: 25).fill(Color.accentColor))
+                                .clipShape(RoundedRectangle(cornerRadius: 25))
+                                .shadow(color: Color.lightGray, radius: 4, x: -4.5, y: -4.5)
+                                .clipShape(RoundedRectangle(cornerRadius: 25))
+                                .overlay(RoundedRectangle(cornerRadius: 25)
+                                    .stroke(lineWidth: 2.0)
+                                    .foregroundColor(Color.white)
+                                    .shadow(color: .secondary.opacity(0.5), radius: 3, y: 3) )
                         }
                     }.padding(.bottom, 5)
-
-
                 }
             }
-//            .frame(maxWidth: .infinity, maxHeight: .infinity)
-//                .overlay(ImageViewer(image: self.$image, viewerShown: self.$showImageViewer))
         }.navigationBarTitleDisplayMode(.inline).navigationTitle("Provider")
-
-
     }
 }
 func getVerifications(verifications: [VerificationTypes]) -> String {
     var verifics = ""
-    print(testProvider.verifications)
+//    print(testProvider.verifications)
     for verification in verifications {
         if verification == .ProfessionalInsurance {
             verifics = verifics +  "Professional Insurance" + ", "
-            //                break
+
         } else if verification == .RegistrationCertificate {
             verifics = verifics +  "Registration Certificate" + ", "
-            //                break
+
         } else  if verification != verifications.last {
             verifics = verifics + verification.rawValue + ", "
         } else {

@@ -6,10 +6,9 @@ target 'QLOGA' do
   use_frameworks!
   pod 'GoogleMaps', '6.0.1'
   pod 'GooglePlaces'
-  pod 'INSPhotoGallery'
-  pod 'BottomSheetSwiftUI', :git => 'https://github.com/DM1TRYM/BottomSheet.git', :commit => 'c9e23ee4985221fe9dd84516b594b55afe03df44'
-  pod 'CalendarKit', :git => 'https://github.com/DM1TRYM/CalendarKit.git', :commit => '817349f9c4e9370adba9a54a864664db4748cb60'
-
+  pod 'BottomSheetSwiftUI', :git => 'https://github.com/DM1TRYM/BottomSheet.git', :branch => 'master'
+  pod 'CalendarKit', :git => 'https://github.com/DM1TRYM/CalendarKit.git', :branch => 'master'
+  pod 'StepperView','~> 1.2.0'
   # Pods for QLOGA
 
 end

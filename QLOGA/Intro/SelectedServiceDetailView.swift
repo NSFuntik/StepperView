@@ -10,6 +10,7 @@ import SwiftUI
 struct SelectedServiceDetailView: View {
     @State var serviceType: ServiceType
     var cleaningService: CleaningService
+
     init(serviceType: ServiceType) {
         self.serviceType = serviceType
         switch serviceType {
@@ -23,8 +24,8 @@ struct SelectedServiceDetailView: View {
                                               works: "Internal and external drain and sewer repair, including unblocking and cleaning and replacing drains, sewers and pipes.",
                                               notIncluded: "The cost of pipes and other materials is an additional charge, fixing water supply pipes not included.")
         }
-
     }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text(cleaningService.title)
@@ -61,7 +62,6 @@ struct SelectedServiceDetailView: View {
                             .multilineTextAlignment(.leading)
                             .font(Font.system(size: 17, weight: .regular, design: .rounded))
                     }
-                    
                     Text("Subject of service:")
                         .foregroundColor(Color.black)
                         .multilineTextAlignment(.leading)
@@ -72,11 +72,12 @@ struct SelectedServiceDetailView: View {
                         .font(Font.system(size: 17, weight: .regular, design: .rounded))
                 }
                 Spacer()
-                Image("KitchenCleaner").resizable().frame(width: 120, height: 120, alignment: .center).aspectRatio(contentMode: .fit)
+                Image("KitchenCleaner")
+                    .resizable()
+                    .frame(width: 120, height: 120, alignment: .center)
+                    .aspectRatio(contentMode: .fit)
                     .cornerRadius(10)
             }
-//            VStack(alignment: .leading, spacing: 5) {
-//            }
             VStack(alignment: .leading, spacing: 3) {
                 Text("Description:")
                     .foregroundColor(Color.black)
@@ -122,16 +123,14 @@ struct SelectedServiceDetailView: View {
                     .font(Font.system(size: 17, weight: .regular, design: .rounded))
             }
             Spacer()
-
-        }.padding(.horizontal, 20).navigationTitle("Selected service")
-            .navigationBarTitleDisplayMode(.inline)
+        }.padding(.horizontal, 20)
+        .navigationTitle("Selected service").navigationBarTitleDisplayMode(.inline)
     }
 }
 
 struct SelectedServiceDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-
             SelectedServiceDetailView(serviceType: .Kitchen)
         }
     }

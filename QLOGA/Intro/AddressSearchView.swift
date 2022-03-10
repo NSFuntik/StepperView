@@ -11,7 +11,6 @@ import CoreLocation
 
 struct AddressSearchView: View {
     @State var showMap = false
-    //    @State var list = false
     @State private var price: Int = 0
     @Binding var address: String
     @State var pickedAddress: Address = Address(postcode: "", town: "", street: "", building: "", apt: "")
@@ -20,7 +19,6 @@ struct AddressSearchView: View {
     var body: some View {
         VStack(alignment: .center) {
             HStack(alignment: .center) {
-                //                VStack {
                 HStack {
                     Image(systemName: "magnifyingglass")
                     TextField("Enter your address or postcode", text: self.$address)
@@ -28,7 +26,6 @@ struct AddressSearchView: View {
                         if showMap {
                             Image(systemName: "mappin.and.ellipse").foregroundColor(Color.accentColor)
                         }
-                        //Image("MapSymbol")mappin.and.ellipse
                     }
                 }
                 .foregroundColor(Color(UIColor.secondaryLabel))
@@ -37,20 +34,11 @@ struct AddressSearchView: View {
                 .background(RoundedRectangle(cornerRadius: 10).fill(Color(UIColor.groupTableViewBackground)))
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.lightGray.opacity(0.6), lineWidth: 1)
-//                        .shadow(color: .lightGray.opacity(0.5), radius: 3)
-                )
-//                .shadow(color: .lightGray.opacity(0.6), radius: 3, y: 3)
-
-                //                    .padding(.bottom)
-                //                    TextField("Enter your address or postcode", text: $address).textFieldStyle(BottomLineTextFieldStyle())
-                //                }
-
-
+                        .stroke(Color.lightGray.opacity(0.6), lineWidth: 1))
             }.padding()
                 .onTapGesture {
                     if address == "Enter new address" || "Enter new address".contains(address) {
-                        UIView.animate(withDuration: 0.5) {
+                        withAnimation(.easeInOut) {
                             address = ""
                         }
                     }
@@ -64,9 +52,9 @@ struct AddressSearchView: View {
                                 self.pickedAddress = adr
                                 self.address = " \(adr.apt) \(adr.building) \(adr.street) \(adr.town)"
                                 showMap.toggle()
-                            }        .animation(.easeInOut(duration: 2), value: pickedAddress)
+                            }
+                            .animation(.easeInOut(duration: 2), value: pickedAddress)
                             .animation(.easeInOut(duration: 2), value: address)
-
                     }.listStyle(InsetListStyle())
                         .frame(maxHeight: .infinity, alignment: .center)
                 }
@@ -119,17 +107,9 @@ struct AddressSearchView: View {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.lightGray.opacity(0.6), lineWidth: 1))
             .padding()
-            //            .ignoresSafeArea(.all)
-            //            }
             Spacer()
         }
-//        .padding()
         .ignoresSafeArea(.keyboard)
-        //        .onDisappear {
-        //            if address == "", "Enter new address".contains(address) {
-        //                address = "Enter new address"
-        //            }
-        //        }
         .navigationTitle("Address")
     }
 }
@@ -150,7 +130,6 @@ struct BottomLineTextFieldStyle: TextFieldStyle {
             Rectangle()
                 .frame(height: 0.5, alignment: .bottom)
                 .foregroundColor(Color.lightGray)
-
         }
     }
 }

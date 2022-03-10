@@ -12,50 +12,57 @@ struct ProviderSearchView: View {
     @State var isLimited = true
     init() {
         UITableView.appearance().backgroundColor = UIColor.white
-
-        //        UITableView.appearance().tintColor = .secondaryLabel
         UITableView.appearance().separatorColor = UIColor(named: "AccentColor")?.withAlphaComponent(0.6)
         UITableView.appearance().sectionIndexColor = UIColor(named: "AccentColor")?.withAlphaComponent(0.6)
     }
     var body: some View {
         VStack(alignment: .center, spacing: 5) {
-
             ServicesScrollView.padding(.horizontal, -30)
-            //            Divider()
             VStack {
-
                 HStack {
-                    Text("Description").foregroundColor(Color.black).multilineTextAlignment(.leading).font(Font.system(size: 20, weight: .medium, design: .rounded))
+                    Text("Description")
+                        .foregroundColor(Color.black)
+                        .multilineTextAlignment(.leading)
+                        .font(Font.system(size: 20, weight: .medium, design: .rounded))
                     Spacer()
                 }.padding(.vertical, 5)
-                Text(Services[selectedButton].description ?? descr).foregroundColor(Color.black.opacity(0.8)).multilineTextAlignment(.leading).font(Font.system(size: 14, weight: .light, design: .rounded))
+                Text(Services[selectedButton].description ?? descr)
+                    .foregroundColor(Color.black.opacity(0.8))
+                    .multilineTextAlignment(.leading)
+                    .font(Font.system(size: 14, weight: .light, design: .rounded))
                     .lineLimit(isLimited ? 4 : 10)
                 HStack {
-                    Text(isLimited ? "Learn more" : "Show less").foregroundColor(Color.accentColor).multilineTextAlignment(.leading).font(Font.system(size: 13, weight: .light, design: .rounded)).padding(.top, -5)
+                    Text(isLimited ? "Learn more" : "Show less")
+                        .foregroundColor(Color.accentColor)
+                        .multilineTextAlignment(.leading)
+                        .font(Font.system(size: 13, weight: .light, design: .rounded))
+                        .padding(.top, -5)
                         .onTapGesture {
                             isLimited.toggle()
                         }
                     Spacer()
                 }
             }.padding(.bottom, 20)
-            //            ScrollView {
             ScrollView(showsIndicators: false) {
                 VStack {
-                    
                     ForEach(Services[selectedButton].types ?? [], id: \.self) { type in
                         Section {
                             NavigationLink {
                                 ProvidersView(service: Services[selectedButton])
                             } label: {
                                 HStack {
-                                    Text(type).foregroundColor(Color.black.opacity(0.9)).multilineTextAlignment(.leading)
-                                        .font(Font.system(size: 17, weight: .regular, design: .rounded)).lineLimit(1).padding(.leading, 10)
-                                        Spacer()
+                                    Text(type)
+                                        .foregroundColor(Color.black.opacity(0.9))
+                                        .multilineTextAlignment(.leading)
+                                        .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                                        .lineLimit(1)
+                                        .padding(.leading, 10)
+                                    Spacer()
                                     Image(systemName: "chevron.right")
                                         .foregroundColor(Color.accentColor)
                                         .multilineTextAlignment(.leading)
-                                        .font(Font.system(size: 20, weight: .regular, design: .rounded)).padding(.leading, 10)
-
+                                        .font(Font.system(size: 20, weight: .regular, design: .rounded))
+                                        .padding(.leading, 10)
                                 }.padding(5)
 
                             }
@@ -63,16 +70,14 @@ struct ProviderSearchView: View {
                         }
                     }
                 }.padding(10).padding(.bottom, -10)
-                .overlay(RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.secondary
-                        .opacity(0.7), lineWidth: 1).padding(1))
-
+                    .overlay(RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.secondary
+                            .opacity(0.7), lineWidth: 1).padding(1))
             }
-                //            }
             Spacer()
         }.padding(.horizontal, 20)
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarTitle("Provider Search")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitle("Provider Search")
     }
 }
 
@@ -92,10 +97,12 @@ extension ProviderSearchView {
                                 .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.white))
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 10)
-                                        .stroke(selectedButton == service.id ? Color.accentColor : Color.lightGray.opacity(0.6), lineWidth: selectedButton == service.id ? 2.0 : 1.5)
+                                        .stroke(selectedButton == service.id ? Color.accentColor : Color.lightGray.opacity(0.6),
+                                                lineWidth: selectedButton == service.id ? 2.0 : 1.5)
                                 ).padding(.bottom, -3).padding(.top,1)
 
-                            Text(service.name).foregroundColor(Color.black)
+                            Text(service.name)
+                                .foregroundColor(Color.black)
                                 .font(.system(size: 15.0, weight: .light, design: .rounded))
                                 .padding(.bottom, 5)
                         }

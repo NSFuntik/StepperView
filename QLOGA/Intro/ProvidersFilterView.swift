@@ -41,7 +41,8 @@ struct ProvidersFilterView: View {
                 .shadow(color: .lightGray.opacity(0.8), radius: 3, y: 3)
             HStack {
                 Spacer()
-                Text("Search Filter").foregroundColor(.black)
+                Text("Search Filter")
+                    .foregroundColor(.black)
                     .font(Font.system(size: 20,
                                       weight: .medium,
                                       design: .rounded))
@@ -53,7 +54,8 @@ struct ProvidersFilterView: View {
                     VStack(spacing: 25) {
                         Sliders
                         HStack {
-                            Text("PROVIDER`S TYPE").foregroundColor(Color("A8A8A8"))
+                            Text("PROVIDER`S TYPE")
+                                .foregroundColor(Color("A8A8A8"))
                                 .font(Font.system(size: 18,
                                                   weight: .regular,
                                                   design: .rounded))
@@ -61,9 +63,9 @@ struct ProvidersFilterView: View {
                             Spacer()
                             Picker("PROVIDER`S TYPE", selection: $providerType) {
                                 ForEach(ProviderType.allCases) { provider in
-                                    Text(provider.rawValue).underline().font(Font.system(size: 18,
-                                                                             weight: .bold,
-                                                                             design: .rounded))
+                                    Text(provider.rawValue)
+                                        .underline()
+                                        .font(Font.system(size: 18, weight: .bold, design: .rounded))
                                 }
                             }.pickerStyle(.menu)
                         }.padding([.horizontal])
@@ -71,9 +73,7 @@ struct ProvidersFilterView: View {
                         ProviderAdminVerification
                         ProviderVerification
                         ClearanceCertificates
-
                     }
-
                 }.padding(.bottom)
             }.padding()
         }
@@ -95,7 +95,8 @@ extension ProvidersFilterView {
                     .padding(.top, -15)
             }, header: {
                 HStack {
-                    Text("DISTANCE (miles): \(String(format: "%g", distance))").foregroundColor(Color("A8A8A8"))
+                    Text("DISTANCE (miles): \(String(format: "%g", distance))")
+                        .foregroundColor(Color("A8A8A8"))
                         .font(Font.system(size: 18,
                                           weight: .regular,
                                           design: .rounded))
@@ -115,7 +116,8 @@ extension ProvidersFilterView {
                     .padding(.top, -15)
             }, header: {
                 HStack {
-                    Text("RETURN RATE: \(String(format: "%g", returnRate))%").foregroundColor(Color("A8A8A8"))
+                    Text("RETURN RATE: \(String(format: "%g", returnRate))%")
+                        .foregroundColor(Color("A8A8A8"))
                         .font(Font.system(size: 18,
                                           weight: .regular,
                                           design: .rounded))
@@ -135,7 +137,8 @@ extension ProvidersFilterView {
                     .padding(.top, -15)
             }, header: {
                 HStack {
-                    Text("MINIMUM START RATING: \(String(format: "%g", minRate))").foregroundColor(Color("A8A8A8"))
+                    Text("MINIMUM START RATING: \(String(format: "%g", minRate))")
+                        .foregroundColor(Color("A8A8A8"))
                         .font(Font.system(size: 18,
                                           weight: .regular,
                                           design: .rounded))
@@ -154,7 +157,8 @@ extension ProvidersFilterView {
                     .padding(.top, -15)
             }, header: {
                 HStack {
-                    Text("ORDERS DELIVERED: \(String(format: "%g", orders))").foregroundColor(Color("A8A8A8"))
+                    Text("ORDERS DELIVERED: \(String(format: "%g", orders))")
+                        .foregroundColor(Color("A8A8A8"))
                         .font(Font.system(size: 18,
                                           weight: .regular,
                                           design: .rounded))
@@ -169,74 +173,77 @@ extension ProvidersFilterView {
         VStack {
 
 
-        VStack {
-            HStack {
-                Text("PROVIDER ADMIN VERIFICATIONS")
-                    .foregroundColor(Color("A8A8A8"))
-                    .font(Font.system(size: 18,
-                                      weight: .regular,
-                                      design: .rounded))
-                    .padding(.horizontal, 10)
-                Spacer() }
+            VStack {
+                HStack {
+                    Text("PROVIDER ADMIN VERIFICATIONS")
+                        .foregroundColor(Color("A8A8A8"))
+                        .font(Font.system(size: 18,
+                                          weight: .regular,
+                                          design: .rounded))
+                        .padding(.horizontal, 10)
+                    Spacer() }
 
-        }.padding([.horizontal])
-        VStack {
-            Group {
-                HStack {
-                    Text("ID")
-                        .foregroundColor(personalVirifications[VerificationTypes.IDs] == true ? Color.accentColor : Color("A8A8A8"))
-                        .font(Font.system(size: 18,
-                                          weight: .medium,
-                                          design: .rounded))
-                        .padding(.leading, 15)
-                    Spacer()
-                    Image(systemName: personalVirifications[VerificationTypes.IDs] == true ? "checkmark.circle.fill" : "circle" ).scaleEffect(1.3).foregroundColor(personalVirifications[VerificationTypes.IDs] == true ? Color.accentColor : Color("A8A8A8"))                                    .padding(.trailing, 15)
-                        .onTapGesture {
-                            personalVirifications[VerificationTypes.IDs]?.toggle()
-                        }
-                }.padding(.vertical)
-                Divider().padding(.horizontal, 20)
-                HStack {
-                    Text("Address")
-                        .foregroundColor(personalVirifications[VerificationTypes.Address] == true ? Color.accentColor : Color("A8A8A8"))
-                        .font(Font.system(size: 18,
-                                          weight: .medium,
-                                          design: .rounded))
-                        .padding(.leading, 15)
-                    Spacer()
-                    Image(systemName: personalVirifications[VerificationTypes.Address] == true ? "checkmark.circle.fill" : "circle")
-                        .scaleEffect(1.3)
-                        .foregroundColor(personalVirifications[VerificationTypes.Address] == true ? Color.accentColor : Color("A8A8A8"))
-                        .padding(.trailing, 15)
-                        .onTapGesture {
-                            personalVirifications[VerificationTypes.Address]?.toggle()
-                        }
-                }.padding(.vertical)
-                Divider().padding(.horizontal, 20)
-                HStack {
-                    Text("Avatar")
-                        .foregroundColor(personalVirifications[VerificationTypes.Avatar] == true ? Color.accentColor : Color("A8A8A8"))
-                        .font(Font.system(size: 18,
-                                          weight: .medium,
-                                          design: .rounded))
-                        .padding(.leading, 15)
+            }.padding([.horizontal])
+            VStack {
+                Group {
+                    HStack {
+                        Text("ID")
+                            .foregroundColor(personalVirifications[VerificationTypes.IDs] == true ? Color.accentColor : Color("A8A8A8"))
+                            .font(Font.system(size: 18,
+                                              weight: .medium,
+                                              design: .rounded))
+                            .padding(.leading, 15)
+                        Spacer()
+                        Image(systemName: personalVirifications[VerificationTypes.IDs] == true ? "checkmark.circle.fill" : "circle" )
+                            .scaleEffect(1.3)
+                            .foregroundColor(personalVirifications[VerificationTypes.IDs] == true ? Color.accentColor : Color("A8A8A8"))
+                            .padding(.trailing, 15)
+                            .onTapGesture {
+                                personalVirifications[VerificationTypes.IDs]?.toggle()
+                            }
+                    }.padding(.vertical)
+                    Divider().padding(.horizontal, 20)
+                    HStack {
+                        Text("Address")
+                            .foregroundColor(personalVirifications[VerificationTypes.Address] == true ? Color.accentColor : Color("A8A8A8"))
+                            .font(Font.system(size: 18,
+                                              weight: .medium,
+                                              design: .rounded))
+                            .padding(.leading, 15)
+                        Spacer()
+                        Image(systemName: personalVirifications[VerificationTypes.Address] == true ? "checkmark.circle.fill" : "circle")
+                            .scaleEffect(1.3)
+                            .foregroundColor(personalVirifications[VerificationTypes.Address] == true ? Color.accentColor : Color("A8A8A8"))
+                            .padding(.trailing, 15)
+                            .onTapGesture {
+                                personalVirifications[VerificationTypes.Address]?.toggle()
+                            }
+                    }.padding(.vertical)
+                    Divider().padding(.horizontal, 20)
+                    HStack {
+                        Text("Avatar")
+                            .foregroundColor(personalVirifications[VerificationTypes.Avatar] == true ? Color.accentColor : Color("A8A8A8"))
+                            .font(Font.system(size: 18,
+                                              weight: .medium,
+                                              design: .rounded))
+                            .padding(.leading, 15)
 
-                    Spacer()
-                    Image(systemName: personalVirifications[VerificationTypes.Avatar] == true ? "checkmark.circle.fill" : "circle")
-                        .scaleEffect(1.3)
-                        .foregroundColor(personalVirifications[VerificationTypes.Avatar] == true ? Color.accentColor : Color("A8A8A8"))
-                        .padding(.trailing, 15)
-                        .onTapGesture {
-                            personalVirifications[VerificationTypes.Avatar]?.toggle()
-                        }
-                }.padding(.vertical)
-                Divider().padding(.horizontal, 20)
-            }
-        }.overlay(
-            RoundedRectangle(cornerRadius: 10)
-                .stroke(lineWidth: 1.0)
-                .foregroundColor(Color.lightGray))
-        .padding(.horizontal)
+                        Spacer()
+                        Image(systemName: personalVirifications[VerificationTypes.Avatar] == true ? "checkmark.circle.fill" : "circle")
+                            .scaleEffect(1.3)
+                            .foregroundColor(personalVirifications[VerificationTypes.Avatar] == true ? Color.accentColor : Color("A8A8A8"))
+                            .padding(.trailing, 15)
+                            .onTapGesture {
+                                personalVirifications[VerificationTypes.Avatar]?.toggle()
+                            }
+                    }.padding(.vertical)
+                    Divider().padding(.horizontal, 20)
+                }
+            }.overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(lineWidth: 1.0)
+                    .foregroundColor(Color.lightGray))
+            .padding(.horizontal)
         }
     }
 
@@ -263,7 +270,10 @@ extension ProvidersFilterView {
                                               design: .rounded))
                             .padding(.leading, 15)
                         Spacer()
-                        Image(systemName: personalVirifications[VerificationTypes.RegistrationCertificate] == true ? "checkmark.circle.fill" : "circle" ).scaleEffect(1.3).foregroundColor(personalVirifications[VerificationTypes.RegistrationCertificate] == true ? Color.accentColor : Color("A8A8A8"))                                    .padding(.trailing, 15)
+                        Image(systemName: personalVirifications[VerificationTypes.RegistrationCertificate] == true ? "checkmark.circle.fill" : "circle" )
+                            .scaleEffect(1.3)
+                            .foregroundColor(personalVirifications[VerificationTypes.RegistrationCertificate] == true ? Color.accentColor : Color("A8A8A8"))
+                            .padding(.trailing, 15)
                             .onTapGesture {
                                 personalVirifications[VerificationTypes.RegistrationCertificate]?.toggle()
                             }
@@ -336,7 +346,10 @@ extension ProvidersFilterView {
                                               design: .rounded))
                             .padding(.leading, 15)
                         Spacer()
-                        Image(systemName: personalCertifications[CertificationTypes.BasicDisclosure] == true ? "checkmark.circle.fill" : "circle" ).scaleEffect(1.3).foregroundColor(personalCertifications[CertificationTypes.BasicDisclosure] == true ? Color.accentColor : Color("A8A8A8"))                                    .padding(.trailing, 15)
+                        Image(systemName: personalCertifications[CertificationTypes.BasicDisclosure] == true ? "checkmark.circle.fill" : "circle" )
+                            .scaleEffect(1.3)
+                            .foregroundColor(personalCertifications[CertificationTypes.BasicDisclosure] == true ? Color.accentColor : Color("A8A8A8"))
+                            .padding(.trailing, 15)
                             .onTapGesture {
                                 personalCertifications[CertificationTypes.BasicDisclosure]?.toggle()
                             }
@@ -385,7 +398,10 @@ extension ProvidersFilterView {
                                               design: .rounded))
                             .padding(.leading, 15)
                         Spacer()
-                        Image(systemName: personalCertifications[CertificationTypes.AccessNI] == true ? "checkmark.circle.fill" : "circle" ).scaleEffect(1.3).foregroundColor(personalCertifications[CertificationTypes.AccessNI] == true ? Color.accentColor : Color("A8A8A8"))                                    .padding(.trailing, 15)
+                        Image(systemName: personalCertifications[CertificationTypes.AccessNI] == true ? "checkmark.circle.fill" : "circle" )
+                            .scaleEffect(1.3)
+                            .foregroundColor(personalCertifications[CertificationTypes.AccessNI] == true ? Color.accentColor : Color("A8A8A8"))
+                            .padding(.trailing, 15)
                             .onTapGesture {
                                 personalCertifications[CertificationTypes.AccessNI]?.toggle()
                             }
@@ -399,13 +415,15 @@ extension ProvidersFilterView {
                                               design: .rounded))
                             .padding(.leading, 15)
                         Spacer()
-                        Image(systemName: personalCertifications[CertificationTypes.none] == true ? "checkmark.circle.fill" : "circle" ).scaleEffect(1.3).foregroundColor(personalCertifications[CertificationTypes.none] == true ? Color.accentColor : Color("A8A8A8"))                                    .padding(.trailing, 15)
+                        Image(systemName: personalCertifications[CertificationTypes.none] == true ? "checkmark.circle.fill" : "circle" )
+                            .scaleEffect(1.3)
+                            .foregroundColor(personalCertifications[CertificationTypes.none] == true ? Color.accentColor : Color("A8A8A8"))
+                            .padding(.trailing, 15)
                             .onTapGesture {
                                 personalCertifications[CertificationTypes.none]?.toggle()
                             }
                     }.padding(.vertical)
                     Divider().padding(.horizontal, 20)
-
                 }
             }.overlay(
                 RoundedRectangle(cornerRadius: 10)

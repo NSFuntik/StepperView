@@ -8,6 +8,7 @@
 import SwiftUI
 import GoogleMaps
 import GooglePlaces
+
 @main
 struct QLOGAApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate

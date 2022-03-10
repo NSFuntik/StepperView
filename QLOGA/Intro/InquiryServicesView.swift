@@ -17,11 +17,12 @@ struct InquiryServicesView: View {
     var kitchenCleaningPrice = 60.0
     var bedroomCleaningPrice = 40.0
     var homeCleaningPrice = 100.0
+
     var body: some View {
         VStack {
-            Divider()//.padding(.horizontal, 20)
+            Divider()
             HStack {
-                    ServiceSpecificationCell(count: $windowsCount, price: windowCleaningPrice, serviceType: .Windows)
+                ServiceSpecificationCell(count: $windowsCount, price: windowCleaningPrice, serviceType: .Windows)
             }.fixedSize(horizontal: false, vertical: true)
             Divider().padding(.horizontal, 20)
             HStack {
@@ -29,12 +30,10 @@ struct InquiryServicesView: View {
             }.fixedSize(horizontal: false, vertical: true)
             Divider().padding(.horizontal, 20)
             HStack {
-
                 ServiceSpecificationCell(count: $bedroomCount, price: bedroomCleaningPrice, serviceType: .BedroomLivingroom)
             }.fixedSize(horizontal: false, vertical: true)
             Divider().padding(.horizontal, 20)
             HStack {
-
                 ServiceSpecificationCell(count: $homeCount, price: homeCleaningPrice, serviceType: .CompleteHome)
             }.fixedSize(horizontal: false, vertical: true)
             Divider().padding(.horizontal, 20)
@@ -56,7 +55,6 @@ struct InquiryServicesView: View {
 struct InquiryServicesView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-
             InquiryServicesView()
         }
     }
@@ -88,15 +86,19 @@ struct ServiceSpecificationCell: View {
         VStack {
             NavigationLink(destination: SelectedServiceDetailView(serviceType: serviceType).navigationTitle(Text(title).font(.subheadline))) {
                 HStack(alignment: .center) {
-                LabeledStepper(title, description: "£\(Double(count) * price)", value: $count, in: 0...10, longPressInterval: 1.0, repeatOnLongPress: true, style: .init())
-                Image(systemName: "chevron.right")
-                    .foregroundColor(Color.accentColor)
-                    .multilineTextAlignment(.leading)
-                    .font(Font.system(size: 20, weight: .regular, design: .rounded)).padding(.leading, 10)
+                    LabeledStepper(title, description: "£\(Double(count) * price)",
+                                   value: $count, in: 0...10,
+                                   longPressInterval: 1.0,
+                                   repeatOnLongPress: true, style: .init())
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(Color.accentColor)
+                        .multilineTextAlignment(.leading)
+                        .font(Font.system(size: 20, weight: .regular, design: .rounded))
+                        .padding(.leading, 10)
                 }
             }
-
-        }.fixedSize(horizontal: false, vertical: true).padding(.horizontal, 20)
+        }.fixedSize(horizontal: false, vertical: true)
+        .padding(.horizontal, 20)
     }
 }
 

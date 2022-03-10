@@ -9,7 +9,8 @@ import SwiftUI
 
 struct EnrollmentInfoView: View {
     var body: some View {
-        Image("EnrollmentInfoView").resizable().aspectRatio(contentMode: .fit).frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
+        Image("EnrollmentInfoView").resizable().aspectRatio(contentMode: .fit).frame(width: UIScreen.main.bounds.width, alignment: .center)
+            .navigationBarTitleDisplayMode(.inline)
     }
 }
 
