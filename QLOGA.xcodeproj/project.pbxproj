@@ -56,6 +56,7 @@
 		119BE22B27D2386F00B2D70F /* CalendarDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE22A27D2386F00B2D70F /* CalendarDatePickerView.swift */; };
 		11E31E4F27D6617900B603E0 /* LabeledStapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E31E4E27D6617800B603E0 /* LabeledStapper.swift */; };
 		11E31E5127D6738900B603E0 /* CleaningServiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E31E5027D6738900B603E0 /* CleaningServiceModel.swift */; };
+		95954A505DA4A23FB2E1B027 /* Pods_QLOGA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46C7518FE910D0EA8182C1A1 /* Pods_QLOGA.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,6 +111,9 @@
 		119BE22A27D2386F00B2D70F /* CalendarDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDatePickerView.swift; sourceTree = "<group>"; };
 		11E31E4E27D6617800B603E0 /* LabeledStapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledStapper.swift; sourceTree = "<group>"; };
 		11E31E5027D6738900B603E0 /* CleaningServiceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleaningServiceModel.swift; sourceTree = "<group>"; };
+		28C918F98D88EB4DF56F6E24 /* Pods-QLOGA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QLOGA.release.xcconfig"; path = "Target Support Files/Pods-QLOGA/Pods-QLOGA.release.xcconfig"; sourceTree = "<group>"; };
+		46C7518FE910D0EA8182C1A1 /* Pods_QLOGA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QLOGA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D48B60FCC8879B5D166C5B2 /* Pods-QLOGA.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QLOGA.debug.xcconfig"; path = "Target Support Files/Pods-QLOGA/Pods-QLOGA.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95954A505DA4A23FB2E1B027 /* Pods_QLOGA.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,6 +160,7 @@
 				119BE1D727D230DF00B2D70F /* QLOGA */,
 				119BE1D627D230DF00B2D70F /* Products */,
 				3DCA0D5BF9AB6116997EF302 /* Pods */,
+				F892247470F32E0910DADAC1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -248,8 +254,18 @@
 		3DCA0D5BF9AB6116997EF302 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				9D48B60FCC8879B5D166C5B2 /* Pods-QLOGA.debug.xcconfig */,
+				28C918F98D88EB4DF56F6E24 /* Pods-QLOGA.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		F892247470F32E0910DADAC1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				46C7518FE910D0EA8182C1A1 /* Pods_QLOGA.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,9 +275,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 119BE1E327D230E000B2D70F /* Build configuration list for PBXNativeTarget "QLOGA" */;
 			buildPhases = (
+				77F542F806F802E20F7B951E /* [CP] Check Pods Manifest.lock */,
 				119BE1D127D230DF00B2D70F /* Sources */,
 				119BE1D227D230DF00B2D70F /* Frameworks */,
 				119BE1D327D230DF00B2D70F /* Resources */,
+				2A1AA70A7900047D577E550D /* [CP] Embed Pods Frameworks */,
+				351B27BCD3EF91ADF903A7C1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -280,7 +299,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1320;
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 1330;
 				TargetAttributes = {
 					119BE1D427D230DF00B2D70F = {
 						CreatedOnToolsVersion = 13.2;
@@ -359,6 +378,65 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2A1AA70A7900047D577E550D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QLOGA/Pods-QLOGA-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QLOGA/Pods-QLOGA-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QLOGA/Pods-QLOGA-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		351B27BCD3EF91ADF903A7C1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QLOGA/Pods-QLOGA-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QLOGA/Pods-QLOGA-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QLOGA/Pods-QLOGA-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		77F542F806F802E20F7B951E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-QLOGA-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		119BE1D127D230DF00B2D70F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -420,6 +498,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -483,6 +562,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -537,6 +617,7 @@
 		};
 		119BE1E427D230E000B2D70F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9D48B60FCC8879B5D166C5B2 /* Pods-QLOGA.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -558,7 +639,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.miha.QLOGA;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.funtik.QLOGA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -568,6 +649,7 @@
 		};
 		119BE1E527D230E000B2D70F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 28C918F98D88EB4DF56F6E24 /* Pods-QLOGA.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -589,7 +671,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.miha.QLOGA;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.funtik.QLOGA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

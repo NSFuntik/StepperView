@@ -112,10 +112,10 @@ struct VisitsScedulerView: View {
 
                 HStack(alignment: .top, spacing: 20) {
                     Image(systemName: "info.circle")
-                        .foregroundColor(Color("#4184B2"))
+                        .foregroundColor(Color(hex: "#4184B2"))
                         .font(Font.system(size: 25, weight: .regular, design: .rounded))
                     Text("You can schedule 3 visits per day, within two weeks")
-                        .foregroundColor(Color("#4184B2"))
+                        .foregroundColor(Color(hex: "#4184B2"))
                         .multilineTextAlignment(.leading)
                         .font(Font.system(size: 17, weight: .regular, design: .rounded))
                 }

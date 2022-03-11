@@ -43,8 +43,10 @@ struct ProviderPreviewsView: View {
                             .foregroundColor(Color.secondary.opacity(0.8))
                             .multilineTextAlignment(.leading)
                             .font(Font.system(size: 15, weight: .light, design: .rounded))
+                        
                             .lineLimit(4)
                             .padding(.leading, -15)
+                        Spacer()
                     }.padding(.horizontal)
                 }
                 Divider().foregroundColor(.lightGray.opacity(0.5)).padding(.horizontal, 40)

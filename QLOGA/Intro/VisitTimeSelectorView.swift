@@ -134,10 +134,10 @@ struct VisitTimeSelectorView: View {
 
                     HStack(alignment: .top, spacing: 20) {
                         Image(systemName: "info.circle")
-                            .foregroundColor(Color("#4184B2"))
+                            .foregroundColor(Color(hex: "#4184B2"))
                             .font(Font.system(size: 25, weight: .regular, design: .rounded))
                         Text("You can schedule 3 visits per day, within two weeks")
-                            .foregroundColor(Color("#4184B2"))
+                            .foregroundColor(Color(hex: "#4184B2"))
                             .multilineTextAlignment(.leading)
                             .font(Font.system(size: 17, weight: .regular, design: .rounded))
                     }
@@ -149,6 +149,7 @@ struct VisitTimeSelectorView: View {
             .onAppear {
                 dateFormatter.dateFormat = "dd/MM/yyyy EEEE"
                 dateString = dateFormatter.string(from: date)
+
             }
             .onDisappear{
                 if pickedFirstVisitTimeline == "" {
@@ -210,6 +211,7 @@ struct VisitTimeSelectorView: View {
                                     pickedVisit = pickedVisit.replacingOccurrences(of: selectedFirstVisit, with: "")
                                     selectedFirstVisit = ""
                                 }
+                                self.$isDropFirst.wrappedValue.toggle()
                             }
                         } label: {
                             Text(hours[y + x*3])
@@ -246,6 +248,7 @@ struct VisitTimeSelectorView: View {
                                     pickedVisit.replacingOccurrences(of: selectedSecondVisit, with: "")
                                     selectedSecondVisit = ""
                                 }
+                                $isDropSecond.wrappedValue = false
                             }
                         } label: {
                             Text(hours[y + x*3])
@@ -281,6 +284,7 @@ struct VisitTimeSelectorView: View {
                                     pickedVisit.replacingOccurrences(of: selectedThirdVisit, with: "")
                                     selectedThirdVisit = ""
                                 }
+                                $isDropThird.wrappedValue = false
                             }
                         } label: {
                             Text(hours[y + x*3])

@@ -63,9 +63,9 @@ struct GoogleMapsView: UIViewRepresentable {
         if let providers = providers, providers != []  {
             for provider in providers  {
                 let marker : GMSMarker = GMSMarker()
-                marker.position = CLLocationCoordinate2D(latitude: provider.latitude as! CLLocationDegrees, longitude: provider.longitude as! CLLocationDegrees)
+                marker.position = CLLocationCoordinate2D(latitude: provider.latitude , longitude: provider.longitude )
 
-                marker.title = provider.total as? String
+                marker.title = provider.total
                 marker.snippet = "Welcome to \(provider.town)"
                 marker.icon = UIImage(named: "MapPoint")
                 marker.map = mapView

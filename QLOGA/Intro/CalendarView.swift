@@ -53,8 +53,8 @@ struct CalendarPickerView: View {
                     VStack(alignment: .center, spacing: 10) {
                         Circle()
                             .frame(width: 16, height: 16, alignment: .top)
-                            .foregroundColor(Color.init("#D7FFEB"))
-                            .shadow(color: Color.init("#D7FFEB"), radius: 1, x: 0, y: 0)
+                            .foregroundColor(Color(hex: "#D7FFEB"))
+                            .shadow(color: Color(hex: "#D7FFEB") ?? .Green, radius: 1, x: 0, y: 0)
                         Text("current inquiry")
                             .foregroundColor( .lightGray)
                             .font(.system(size: 16, weight: .regular, design: .rounded))
@@ -64,8 +64,8 @@ struct CalendarPickerView: View {
                     VStack(alignment: .center, spacing: 10) {
                         Circle()
                             .frame(width: 16, height: 16, alignment: .top)
-                            .foregroundColor(Color.init("#FFDDB6"))
-                            .shadow(color: Color.init("#FFDDB6"), radius: 1, x: 0, y: 0)
+                            .foregroundColor(Color.init(hex: "#FFDDB6"))
+                            .shadow(color: Color.init(hex: "#FFDDB6") ?? .orange, radius: 1, x: 0, y: 0)
                         Text("other orders")
                             .foregroundColor(.lightGray)
                             .font(.system(size: 16, weight: .regular, design: .rounded))
@@ -228,7 +228,12 @@ final class CalendarViewController: DayViewController, EKEventEditViewDelegate {
             if originalEvent === editingEvent {
                 // If editing event is the same as the original one, it has just been created.
                 // Showing editing view controller
-                presentEditingViewForEvent(editingEvent.ekEvent)
+                do {
+                    try eventStore.save(editingEvent.ekEvent,
+                                         span: .thisEvent)
+                } catch  {
+                    presentEditingViewForEvent(editingEvent.ekEvent)
+                }
             } else {
                 // If editing event is different from the original,
                 // then it's pointing to the event already in the `eventStore`

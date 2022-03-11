@@ -32,7 +32,7 @@ struct ProviderSearchView: View {
                     .font(Font.system(size: 14, weight: .light, design: .rounded))
                     .lineLimit(isLimited ? 4 : 10)
                 HStack {
-                    Text(isLimited ? "Learn more" : "Show less")
+                    Text(isLimited ? "Show more" : "Show less")
                         .foregroundColor(Color.accentColor)
                         .multilineTextAlignment(.leading)
                         .font(Font.system(size: 13, weight: .light, design: .rounded))
@@ -64,7 +64,7 @@ struct ProviderSearchView: View {
                                         .font(Font.system(size: 20, weight: .regular, design: .rounded))
                                         .padding(.leading, 10)
                                 }.padding(5)
-
+                                
                             }
                             Divider().padding(.horizontal, -10).padding(.leading, 25)
                         }
@@ -100,7 +100,7 @@ extension ProviderSearchView {
                                         .stroke(selectedButton == service.id ? Color.accentColor : Color.lightGray.opacity(0.6),
                                                 lineWidth: selectedButton == service.id ? 2.0 : 1.5)
                                 ).padding(.bottom, -3).padding(.top,1)
-
+                            
                             Text(service.name)
                                 .foregroundColor(Color.black)
                                 .font(.system(size: 15.0, weight: .light, design: .rounded))

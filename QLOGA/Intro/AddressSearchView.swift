@@ -31,10 +31,10 @@ struct AddressSearchView: View {
                 .foregroundColor(Color(UIColor.secondaryLabel))
                 .padding(.vertical, 8)
                 .padding(.horizontal, 5)
-                .background(RoundedRectangle(cornerRadius: 10).fill(Color(UIColor.groupTableViewBackground)))
+                .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.lightGray.opacity(0.6), lineWidth: 1))
+                        .stroke(Color.secondary.opacity(0.7), lineWidth: 1))
             }.padding()
                 .onTapGesture {
                     if address == "Enter new address" || "Enter new address".contains(address) {
@@ -59,58 +59,68 @@ struct AddressSearchView: View {
                         .frame(maxHeight: .infinity, alignment: .center)
                 }
             }
-            GroupBox {
-                HStack {
-                    Text("Parking")
-                    Spacer()
-                    Picker("Parking", selection: $price) {
-                        ForEach(ParkingType.allCases) { provider in
-                            Text(provider.rawValue)
-                        }
-                    }.pickerStyle(.menu)
-                }
-                Divider()
-                HStack {
-                    Text("Postcode")
-                    Spacer()
-                    TextField("Postcode", text: $pickedAddress.postcode).multilineTextAlignment(.trailing)
-
-                }
-                Divider()
-                HStack {
-                    Text("Town")
-                    Spacer()
-                    TextField("", text: $pickedAddress.town).multilineTextAlignment(.trailing)
-                }
-                Divider()
-                HStack {
-                    Text("Street")
-                    Spacer()
-                    TextField("", text: $pickedAddress.street).multilineTextAlignment(.trailing)
-                }
-                Divider()
-                VStack {
+            VStack {
+                Section {
                     HStack {
-                        Text("Building")
+                        Text("Parking")
                         Spacer()
-                        TextField("", text: $pickedAddress.building).multilineTextAlignment(.trailing)
+                        Picker("Parking", selection: $price) {
+                            ForEach(ParkingType.allCases) { provider in
+                                Text(provider.rawValue)
+                            }
+                        }.pickerStyle(.menu)
                     }
-                    Divider()
-
+                }.padding(.horizontal, 5).padding(.top, 3)
+                Divider().padding(.horizontal, 5)
+                Section {
                     HStack {
-                        Text("Apartments")
+                        Text("Postcode")
                         Spacer()
-                        TextField("", text: $pickedAddress.apt).multilineTextAlignment(.trailing)
+                        TextField("Postcode", text: $pickedAddress.postcode).multilineTextAlignment(.trailing)
+
+                    }.padding(5)}
+                Divider().padding(.horizontal, 5)
+                Section {
+                    HStack {
+                        Text("Town")
+                        Spacer()
+                        TextField("", text: $pickedAddress.town).multilineTextAlignment(.trailing)
+                    }.padding( 5)}
+                Divider().padding(.horizontal, 5)
+                Section {
+                    HStack {
+                        Text("Street")
+                        Spacer()
+                        TextField("", text: $pickedAddress.street).multilineTextAlignment(.trailing)
+                    }.padding(5)}
+                Divider().padding(.horizontal, 5)
+                Section {
+                    VStack {
+                        HStack {
+                            Text("Building")
+                            Spacer()
+                            TextField("", text: $pickedAddress.building).multilineTextAlignment(.trailing)
+                        }.padding( 5)
+                    }
+                    Divider().padding(.horizontal, 5)
+                    Section {
+
+                        HStack {
+                            Text("Apartments")
+                            Spacer()
+                            TextField("", text: $pickedAddress.apt).multilineTextAlignment(.trailing)
+                        }.padding( 5)
                     }
                 }
-            }.overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.lightGray.opacity(0.6), lineWidth: 1))
-            .padding()
+            }.background(Color.white).padding(10)
+                .overlay(RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.secondary
+                        .opacity(0.7), lineWidth: 1).padding(1))
+                .padding()
             Spacer()
         }
         .ignoresSafeArea(.keyboard)
-        .navigationTitle("Address")
+        .navigationTitle("Address").navigationBarTitleDisplayMode(.inline)
     }
 }
 
