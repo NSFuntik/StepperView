@@ -82,12 +82,13 @@ struct VisitTimeSelectorView: View {
                                     .font(Font.system(size: 18, weight: .regular, design: .rounded))
                                     .padding(.leading, 10)
                                 Spacer()
-                                if(selectedFirstVisit != "") {
+                                if selectedFirstVisit != "", isSelectedSecondVisit == false {
 
                                     Image(systemName: "xmark")
                                         .foregroundColor(Color.red)
                                         .multilineTextAlignment(.leading)
                                         .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                                        .padding(.leading, 10)
                                         .onTapGesture {
                                             selectedFirstVisit = ""
                                             isSelectedFirstVisit = false
@@ -113,12 +114,7 @@ struct VisitTimeSelectorView: View {
                                     .font(Font.system(size: 18, weight: .regular, design: .rounded))
                                     .padding(.leading, 10)
                                 Spacer()
-                                Text(selectedSecondVisit)
-                                    .foregroundColor(Color.lightGray)
-                                    .multilineTextAlignment(.leading)
-                                    .font(Font.system(size: 18, weight: .regular, design: .rounded))
-                                    .padding(.leading, 10)
-                                if(selectedSecondVisit != "") {
+                                if selectedSecondVisit != "", isSelectedThirdVisit == false {
 
                                     Image(systemName: "xmark")
                                         .foregroundColor(Color.red)
@@ -130,6 +126,12 @@ struct VisitTimeSelectorView: View {
                                             isSelectedSecondVisit = false
                                         }
                                 }
+                                Text(selectedSecondVisit)
+                                    .foregroundColor(Color.lightGray)
+                                    .multilineTextAlignment(.leading)
+                                    .font(Font.system(size: 18, weight: .regular, design: .rounded))
+                                    .padding(.leading, 10)
+
                             }
                         }.disabled(!isSelectedFirstVisit)
                         Divider().padding(.horizontal, -10).padding(.leading, 25)
@@ -144,7 +146,7 @@ struct VisitTimeSelectorView: View {
                                     .font(Font.system(size: 17, weight: .regular, design: .rounded))
                                     .padding(.leading, 10)
                                 Spacer()
-                                if(selectedThirdVisit != "") {
+                                if selectedThirdVisit != "" {
 
                                     Image(systemName: "xmark")
                                         .foregroundColor(Color.red)
@@ -153,7 +155,7 @@ struct VisitTimeSelectorView: View {
                                         .padding(.leading, 10)
                                         .onTapGesture {
                                             selectedThirdVisit = ""
-                                            isSelectedSecondVisit = false
+                                            isSelectedThirdVisit = false
                                         }
                                 }
                                 Text(selectedThirdVisit)
