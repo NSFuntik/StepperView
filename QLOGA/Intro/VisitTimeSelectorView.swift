@@ -246,9 +246,12 @@ struct VisitTimeSelectorView: View {
                                     selectedFirstVisit = hours[y + x*3]
                                     pickedVisit.append(selectedFirstVisit)
                                 } else if isSelectedFirstVisit == true {
-                                    isSelectedFirstVisit.toggle()
+//                                    isSelectedFirstVisit = false
+
                                     pickedVisit = pickedVisit.replacingOccurrences(of: selectedFirstVisit, with: "")
-                                    selectedFirstVisit = ""
+                                    selectedFirstVisit = hours[y + x*3]
+                                    pickedVisit.append(selectedFirstVisit)
+//                                    selectedFirstVisit = ""
                                 }
                                 self.$isDropFirst.wrappedValue.toggle()
                             }
@@ -283,9 +286,10 @@ struct VisitTimeSelectorView: View {
                                     selectedSecondVisit = hours[y + x*3]
                                     pickedVisit.append(selectedSecondVisit)
                                 } else if isSelectedSecondVisit == true {
-                                    isSelectedSecondVisit.toggle()
+//                                    isSelectedSecondVisit.toggle()
                                     pickedVisit.replacingOccurrences(of: selectedSecondVisit, with: "")
-                                    selectedSecondVisit = ""
+                                    selectedSecondVisit = hours[y + x*3]
+                                    pickedVisit.append(selectedSecondVisit)
                                 }
                                 $isDropSecond.wrappedValue = false
                             }
@@ -319,9 +323,10 @@ struct VisitTimeSelectorView: View {
                                     selectedThirdVisit = hours[y + x*3]
                                     pickedVisit.append(selectedThirdVisit)
                                 } else if isSelectedThirdVisit == true {
-                                    isSelectedThirdVisit.toggle()
+//                                    isSelectedThirdVisit.toggle()
                                     pickedVisit.replacingOccurrences(of: selectedThirdVisit, with: "")
-                                    selectedThirdVisit = ""
+                                    selectedThirdVisit = hours[y + x*3]
+                                    pickedVisit.append(selectedThirdVisit)
                                 }
                                 $isDropThird.wrappedValue = false
                             }
