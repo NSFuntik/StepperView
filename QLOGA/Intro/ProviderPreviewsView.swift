@@ -27,6 +27,7 @@ struct ProviderPreviewsView: View {
                         .foregroundColor(.accentColor)
                     
                     VStack(alignment: .leading, spacing: 10) {
+                        Spacer()
                         HStack(alignment: .top, spacing: 0) {
                             StarsView(rating: review.rate)
                                 .tint(.accentColor)

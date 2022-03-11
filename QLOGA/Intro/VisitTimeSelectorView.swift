@@ -82,11 +82,23 @@ struct VisitTimeSelectorView: View {
                                     .font(Font.system(size: 18, weight: .regular, design: .rounded))
                                     .padding(.leading, 10)
                                 Spacer()
+                                if(selectedFirstVisit != "") {
+
+                                    Image(systemName: "xmark")
+                                        .foregroundColor(Color.red)
+                                        .multilineTextAlignment(.leading)
+                                        .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                                        .onTapGesture {
+                                            selectedFirstVisit = ""
+                                            isSelectedFirstVisit = false
+                                        }
+                                }
                                 Text(selectedFirstVisit)
                                     .foregroundColor(Color.lightGray)
                                     .multilineTextAlignment(.leading)
                                     .font(Font.system(size: 18, weight: .regular, design: .rounded))
                                     .padding(.leading, 10)
+
                             }
                         }
                         Divider().padding(.horizontal, -10).padding(.leading, 25)
@@ -106,6 +118,18 @@ struct VisitTimeSelectorView: View {
                                     .multilineTextAlignment(.leading)
                                     .font(Font.system(size: 18, weight: .regular, design: .rounded))
                                     .padding(.leading, 10)
+                                if(selectedSecondVisit != "") {
+
+                                    Image(systemName: "xmark")
+                                        .foregroundColor(Color.red)
+                                        .multilineTextAlignment(.leading)
+                                        .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                                        .padding(.leading, 10)
+                                        .onTapGesture {
+                                            selectedSecondVisit = ""
+                                            isSelectedSecondVisit = false
+                                        }
+                                }
                             }
                         }.disabled(!isSelectedFirstVisit)
                         Divider().padding(.horizontal, -10).padding(.leading, 25)
@@ -120,11 +144,24 @@ struct VisitTimeSelectorView: View {
                                     .font(Font.system(size: 17, weight: .regular, design: .rounded))
                                     .padding(.leading, 10)
                                 Spacer()
+                                if(selectedThirdVisit != "") {
+
+                                    Image(systemName: "xmark")
+                                        .foregroundColor(Color.red)
+                                        .multilineTextAlignment(.leading)
+                                        .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                                        .padding(.leading, 10)
+                                        .onTapGesture {
+                                            selectedThirdVisit = ""
+                                            isSelectedSecondVisit = false
+                                        }
+                                }
                                 Text(selectedThirdVisit)
                                     .foregroundColor(Color.lightGray)
                                     .multilineTextAlignment(.leading)
                                     .font(Font.system(size: 18, weight: .regular, design: .rounded))
                                     .padding(.leading, 10)
+
                             }
                         }.disabled(!isSelectedSecondVisit)
                             .padding(.bottom, 10)

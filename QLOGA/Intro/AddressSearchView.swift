@@ -77,8 +77,8 @@ struct AddressSearchView: View {
                         Text("Postcode")
                         Spacer()
                         TextField("Postcode", text: $pickedAddress.postcode).multilineTextAlignment(.trailing)
-
-                    }.padding(5)}
+                    }.padding(5)
+                }
                 Divider().padding(.horizontal, 5)
                 Section {
                     HStack {
