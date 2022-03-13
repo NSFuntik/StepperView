@@ -17,17 +17,19 @@ struct GoogleMapView: View {
         VStack {
             GoogleMapsView(pickedAddress: pickedAddress)
                 .edgesIgnoringSafeArea(.all)
-//                .frame(height: 300)
         }.toolbar {
 
-                Button {
-                    isFiltersPresented.toggle()
-                } label: {
-                    Image("FilterIcon").resizable().frame(width: 30, height: 30, alignment: .center)
-                        .aspectRatio(contentMode: .fit).accentColor(Color.accentColor).foregroundColor(.accentColor)
-                        .padding(5)
-                }
-
+            Button {
+                isFiltersPresented.toggle()
+            } label: {
+                Image("FilterIcon")
+                    .resizable()
+                    .frame(width: 30, height: 30, alignment: .center)
+                    .aspectRatio(contentMode: .fit)
+                    .accentColor(Color.accentColor)
+                    .foregroundColor(.accentColor)
+                    .padding(5)
+            }
         }
         .sheet(isPresented: $isFiltersPresented) {
             ProvidersFilterView()
@@ -37,7 +39,8 @@ struct GoogleMapView: View {
 
 struct GoogleMapView_Previews: PreviewProvider {
     static var previews: some View {
-        GoogleMapView(providers: .constant([]), pickedAddress: .constant( Address(postcode: "EH2 2ER", town: "Edinburgh", street: "Princes Street", building: "09")))
+        GoogleMapView(providers: .constant([]),
+                      pickedAddress: .constant(Address(postcode: "EH2 2ER", town: "Edinburgh", street: "Princes Street", building: "09")))
     }
 }
 
@@ -55,20 +58,19 @@ struct GoogleMapsView: UIViewRepresentable {
         return mapView
     }
 
-    // 3
     func updateUIView(_ mapView: GMSMapView, context: Context) {
         mapView.animate(toLocation: CLLocationCoordinate2D(latitude: CLLocationDegrees(pickedAddress.latitude), longitude: CLLocationDegrees(pickedAddress.longitude)))
         if let providers = providers, providers != []  {
-        for provider in providers  {
-            let marker : GMSMarker = GMSMarker()
-            marker.position = CLLocationCoordinate2D(latitude: provider.latitude as! CLLocationDegrees, longitude: provider.longitude as! CLLocationDegrees)
-            
-            marker.title = provider.total as? String
-            marker.snippet = "Welcome to \(provider.town)"
-            marker.icon = UIImage(named: "MapPoint")
-            marker.map = mapView
-            
-        }
+            for provider in providers  {
+                let marker : GMSMarker = GMSMarker()
+                marker.position = CLLocationCoordinate2D(latitude: provider.latitude , longitude: provider.longitude )
+
+                marker.title = provider.total
+                marker.snippet = "Welcome to \(provider.town)"
+                marker.icon = UIImage(named: "MapPoint")
+                marker.map = mapView
+
+            }
             let marker : GMSMarker = GMSMarker()
             marker.position = CLLocationCoordinate2D(latitude: CLLocationDegrees(pickedAddress.latitude), longitude: CLLocationDegrees(pickedAddress.longitude))
             marker.title = " \(pickedAddress.apt) \(pickedAddress.building) \(pickedAddress.street)"
