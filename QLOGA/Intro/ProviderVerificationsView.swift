@@ -28,7 +28,7 @@ struct ProviderVerificationsView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(height: 30, alignment: .center)
                             .padding(5)
-                    }.padding(10)
+                    }.padding(.horizontal,10).padding(.vertical,5)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(lineWidth: 1.0)
@@ -69,7 +69,7 @@ struct ProviderVerificationsView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(height: 30, alignment: .center)
                             .padding(5)
-                    }.padding(10)
+                    }.padding(.horizontal, 10).padding(.vertical, 5)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(lineWidth: 1.0)
@@ -129,7 +129,7 @@ struct ProviderVerificationsView: View {
                     Spacer()
                 }
             }.frame(width: .infinity)
-        }.padding(.horizontal, 20)
+        }.padding(.horizontal, 20).padding(.top, 10)
             .navigationTitle("Verifications")
     }
 }

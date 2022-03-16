@@ -111,7 +111,7 @@ extension ProviderSearchView {
                     }
                 }
             }.padding(.leading, 20)
-        }
+        }.padding(.top, 10)
     }
 }
 

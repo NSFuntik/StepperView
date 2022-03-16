@@ -15,10 +15,29 @@ extension Color {
         return Color("Green")
     }
 
+    public static var Orange: Color {
+        return Color("Orange")
+    }
+
     public static var Pink: Color {
         return Color("Pink")
     }
 
+    public static var verifyLightGray: Color {
+        return Color("VerifyLightGray")
+    }
+
+    public static var pickerTitle: Color {
+        return Color("PickerTitle")
+    }
+
+    public static var infoBlue: Color {
+        return Color("InfoBlue")
+    }
+
+    public static var providerColor: Color {
+        return Color("ProviderColor")
+    }
 
     init(_ hex: UInt, alpha: Double = 1) {
         self.init(

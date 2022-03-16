@@ -17,8 +17,12 @@
 		114159DF27D36C720091C254 /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114159DE27D36C720091C254 /* AddressModel.swift */; };
 		114159E127D36D0D0091C254 /* ProviderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114159E027D36D0D0091C254 /* ProviderModel.swift */; };
 		115A86E927D6A7320064AE36 /* ImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115A86E827D6A7320064AE36 /* ImageViewer.swift */; };
+		116C193627DDEA4F00755425 /* ActorsEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116C193527DDEA4F00755425 /* ActorsEnum.swift */; };
+		116C193827DDF5DF00755425 /* ContryCodePhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116C193727DDF5DF00755425 /* ContryCodePhone.swift */; };
 		116DC78827D8F67000EFF552 /* EKWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116DC78627D8F67000EFF552 /* EKWrapper.swift */; };
 		116DC78927D8F67000EFF552 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116DC78727D8F67000EFF552 /* CalendarView.swift */; };
+		118E8E9527E14A4B005DFE57 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118E8E9427E14A4B005DFE57 /* TabBarView.swift */; };
+		118E8E9727E1671C005DFE57 /* UIDeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118E8E9627E1671C005DFE57 /* UIDeviceExtension.swift */; };
 		119BE1D927D230DF00B2D70F /* QLOGAApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE1D827D230DF00B2D70F /* QLOGAApp.swift */; };
 		119BE1DB27D230DF00B2D70F /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE1DA27D230DF00B2D70F /* IntroView.swift */; };
 		119BE1DD27D230E000B2D70F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 119BE1DC27D230E000B2D70F /* Assets.xcassets */; };
@@ -42,9 +46,9 @@
 		119BE20E27D234F100B2D70F /* IdentityDocsVerifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE20D27D234F100B2D70F /* IdentityDocsVerifyView.swift */; };
 		119BE21027D2350600B2D70F /* IDPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE20F27D2350600B2D70F /* IDPreviewView.swift */; };
 		119BE21227D2353800B2D70F /* TermsConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE21127D2353800B2D70F /* TermsConditionsView.swift */; };
-		119BE21427D2357000B2D70F /* SuccessEnrollmentModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE21327D2357000B2D70F /* SuccessEnrollmentModalView.swift */; };
+		119BE21427D2357000B2D70F /* EnrolledProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE21327D2357000B2D70F /* EnrolledProfileView.swift */; };
 		119BE21627D235BC00B2D70F /* ProvidersFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE21527D235BC00B2D70F /* ProvidersFilterView.swift */; };
-		119BE21827D2361000B2D70F /* ProviderAccountSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE21727D2361000B2D70F /* ProviderAccountSetupView.swift */; };
+		119BE21827D2361000B2D70F /* ProfileSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE21727D2361000B2D70F /* ProfileSetupView.swift */; };
 		119BE21A27D2365A00B2D70F /* ProviderAccountProfileInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE21927D2365A00B2D70F /* ProviderAccountProfileInfoView.swift */; };
 		119BE21C27D236B500B2D70F /* ProviderAddServicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE21B27D236B500B2D70F /* ProviderAddServicesView.swift */; };
 		119BE21E27D236DC00B2D70F /* ProviderAddServiceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE21D27D236DC00B2D70F /* ProviderAddServiceDetailView.swift */; };
@@ -54,6 +58,7 @@
 		119BE22627D2375E00B2D70F /* AlbumFolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE22527D2375E00B2D70F /* AlbumFolderView.swift */; };
 		119BE22827D2378E00B2D70F /* ProviderPublicProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE22727D2378E00B2D70F /* ProviderPublicProfileView.swift */; };
 		119BE22B27D2386F00B2D70F /* CalendarDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119BE22A27D2386F00B2D70F /* CalendarDatePickerView.swift */; };
+		11DF477227E002EA00322D82 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 11DF477127E002EA00322D82 /* MarkdownUI */; };
 		11E31E4F27D6617900B603E0 /* LabeledStapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E31E4E27D6617800B603E0 /* LabeledStapper.swift */; };
 		11E31E5127D6738900B603E0 /* CleaningServiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E31E5027D6738900B603E0 /* CleaningServiceModel.swift */; };
 		95954A505DA4A23FB2E1B027 /* Pods_QLOGA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46C7518FE910D0EA8182C1A1 /* Pods_QLOGA.framework */; };
@@ -71,8 +76,12 @@
 		114159DE27D36C720091C254 /* AddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressModel.swift; sourceTree = "<group>"; };
 		114159E027D36D0D0091C254 /* ProviderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderModel.swift; sourceTree = "<group>"; };
 		115A86E827D6A7320064AE36 /* ImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewer.swift; sourceTree = "<group>"; };
+		116C193527DDEA4F00755425 /* ActorsEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorsEnum.swift; sourceTree = "<group>"; };
+		116C193727DDF5DF00755425 /* ContryCodePhone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContryCodePhone.swift; sourceTree = "<group>"; };
 		116DC78627D8F67000EFF552 /* EKWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EKWrapper.swift; sourceTree = "<group>"; };
 		116DC78727D8F67000EFF552 /* CalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		118E8E9427E14A4B005DFE57 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		118E8E9627E1671C005DFE57 /* UIDeviceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtension.swift; sourceTree = "<group>"; };
 		119BE1D527D230DF00B2D70F /* QLOGA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QLOGA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		119BE1D827D230DF00B2D70F /* QLOGAApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QLOGAApp.swift; sourceTree = "<group>"; };
 		119BE1DA27D230DF00B2D70F /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; usesTabs = 1; };
@@ -97,9 +106,9 @@
 		119BE20D27D234F100B2D70F /* IdentityDocsVerifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityDocsVerifyView.swift; sourceTree = "<group>"; };
 		119BE20F27D2350600B2D70F /* IDPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDPreviewView.swift; sourceTree = "<group>"; };
 		119BE21127D2353800B2D70F /* TermsConditionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsConditionsView.swift; sourceTree = "<group>"; };
-		119BE21327D2357000B2D70F /* SuccessEnrollmentModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessEnrollmentModalView.swift; sourceTree = "<group>"; };
+		119BE21327D2357000B2D70F /* EnrolledProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrolledProfileView.swift; sourceTree = "<group>"; };
 		119BE21527D235BC00B2D70F /* ProvidersFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvidersFilterView.swift; sourceTree = "<group>"; };
-		119BE21727D2361000B2D70F /* ProviderAccountSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderAccountSetupView.swift; sourceTree = "<group>"; };
+		119BE21727D2361000B2D70F /* ProfileSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupView.swift; sourceTree = "<group>"; };
 		119BE21927D2365A00B2D70F /* ProviderAccountProfileInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderAccountProfileInfoView.swift; sourceTree = "<group>"; };
 		119BE21B27D236B500B2D70F /* ProviderAddServicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderAddServicesView.swift; sourceTree = "<group>"; };
 		119BE21D27D236DC00B2D70F /* ProviderAddServiceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderAddServiceDetailView.swift; sourceTree = "<group>"; };
@@ -122,6 +131,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				95954A505DA4A23FB2E1B027 /* Pods_QLOGA.framework in Frameworks */,
+				11DF477227E002EA00322D82 /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,6 +148,9 @@
 				11E31E4E27D6617800B603E0 /* LabeledStapper.swift */,
 				115A86E827D6A7320064AE36 /* ImageViewer.swift */,
 				116DC78627D8F67000EFF552 /* EKWrapper.swift */,
+				116C193727DDF5DF00755425 /* ContryCodePhone.swift */,
+				118E8E9427E14A4B005DFE57 /* TabBarView.swift */,
+				118E8E9627E1671C005DFE57 /* UIDeviceExtension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -150,6 +163,7 @@
 				114159DE27D36C720091C254 /* AddressModel.swift */,
 				114159E027D36D0D0091C254 /* ProviderModel.swift */,
 				111166EA27DA89FA00A03E42 /* ReviewModel.swift */,
+				116C193527DDEA4F00755425 /* ActorsEnum.swift */,
 			);
 			path = DataModels;
 			sourceTree = "<group>";
@@ -226,9 +240,9 @@
 				119BE20627D2345300B2D70F /* EnrollmentInfoView.swift */,
 				119BE20927D234C200B2D70F /* PhoneVerifyView.swift */,
 				119BE20B27D234D300B2D70F /* AddressVerifyView.swift */,
+				119BE21127D2353800B2D70F /* TermsConditionsView.swift */,
 				119BE20D27D234F100B2D70F /* IdentityDocsVerifyView.swift */,
 				119BE20F27D2350600B2D70F /* IDPreviewView.swift */,
-				119BE21127D2353800B2D70F /* TermsConditionsView.swift */,
 			);
 			path = Enrollment;
 			sourceTree = "<group>";
@@ -236,8 +250,8 @@
 		119BE22C27D2387C00B2D70F /* PostEnrollment */ = {
 			isa = PBXGroup;
 			children = (
-				119BE21327D2357000B2D70F /* SuccessEnrollmentModalView.swift */,
-				119BE21727D2361000B2D70F /* ProviderAccountSetupView.swift */,
+				119BE21327D2357000B2D70F /* EnrolledProfileView.swift */,
+				119BE21727D2361000B2D70F /* ProfileSetupView.swift */,
 				119BE21927D2365A00B2D70F /* ProviderAccountProfileInfoView.swift */,
 				119BE21B27D236B500B2D70F /* ProviderAddServicesView.swift */,
 				119BE21D27D236DC00B2D70F /* ProviderAddServiceDetailView.swift */,
@@ -287,6 +301,9 @@
 			dependencies = (
 			);
 			name = QLOGA;
+			packageProductDependencies = (
+				11DF477127E002EA00322D82 /* MarkdownUI */,
+			);
 			productName = QLOGA;
 			productReference = 119BE1D527D230DF00B2D70F /* QLOGA.app */;
 			productType = "com.apple.product-type.application";
@@ -356,6 +373,9 @@
 				ca,
 			);
 			mainGroup = 119BE1CC27D230DF00B2D70F;
+			packageReferences = (
+				11DF477027E002EA00322D82 /* XCRemoteSwiftPackageReference "MarkdownUI" */,
+			);
 			productRefGroup = 119BE1D627D230DF00B2D70F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -451,7 +471,9 @@
 				119BE1FD27D2330100B2D70F /* SelectedServiceDetailView.swift in Sources */,
 				114159DF27D36C720091C254 /* AddressModel.swift in Sources */,
 				119BE21027D2350600B2D70F /* IDPreviewView.swift in Sources */,
+				116C193627DDEA4F00755425 /* ActorsEnum.swift in Sources */,
 				119BE1E927D2315700B2D70F /* GoogleMapView.swift in Sources */,
+				116C193827DDF5DF00755425 /* ContryCodePhone.swift in Sources */,
 				119BE21227D2353800B2D70F /* TermsConditionsView.swift in Sources */,
 				119BE1DB27D230DF00B2D70F /* IntroView.swift in Sources */,
 				114159E127D36D0D0091C254 /* ProviderModel.swift in Sources */,
@@ -464,7 +486,8 @@
 				119BE1E727D2314E00B2D70F /* AddressSearchView.swift in Sources */,
 				119BE1F727D2323B00B2D70F /* ProviderVerificationsView.swift in Sources */,
 				119BE22227D2371100B2D70F /* ProviderWorkingSceduleView.swift in Sources */,
-				119BE21827D2361000B2D70F /* ProviderAccountSetupView.swift in Sources */,
+				119BE21827D2361000B2D70F /* ProfileSetupView.swift in Sources */,
+				118E8E9727E1671C005DFE57 /* UIDeviceExtension.swift in Sources */,
 				119BE20727D2345300B2D70F /* EnrollmentInfoView.swift in Sources */,
 				1136535027D36BB6008168DA /* ServiceModel.swift in Sources */,
 				116DC78827D8F67000EFF552 /* EKWrapper.swift in Sources */,
@@ -474,13 +497,14 @@
 				119BE22027D236F300B2D70F /* ServiceConditionsView.swift in Sources */,
 				119BE1F327D231EA00B2D70F /* ProviderPortfolioView.swift in Sources */,
 				119BE22627D2375E00B2D70F /* AlbumFolderView.swift in Sources */,
-				119BE21427D2357000B2D70F /* SuccessEnrollmentModalView.swift in Sources */,
+				119BE21427D2357000B2D70F /* EnrolledProfileView.swift in Sources */,
 				119BE1EB27D2318800B2D70F /* ProviderSearchView.swift in Sources */,
 				119BE20527D233ED00B2D70F /* VisitTimeSelectorView.swift in Sources */,
 				112CC73C27D48B9800B8700A /* StarsView.swift in Sources */,
 				119BE21A27D2365A00B2D70F /* ProviderAccountProfileInfoView.swift in Sources */,
 				112CC74027D4E37200B8700A /* ColorExtension.swift in Sources */,
 				119BE1F127D231D700B2D70F /* ProviderPreviewsView.swift in Sources */,
+				118E8E9527E14A4B005DFE57 /* TabBarView.swift in Sources */,
 				119BE20E27D234F100B2D70F /* IdentityDocsVerifyView.swift in Sources */,
 				119BE21C27D236B500B2D70F /* ProviderAddServicesView.swift in Sources */,
 				119BE20327D2337800B2D70F /* VisitsScedulerView.swift in Sources */,
@@ -498,6 +522,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -533,7 +558,6 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				EXCLUDED_ARCHS = "";
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -551,7 +575,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -562,6 +586,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -622,7 +647,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"QLOGA/Preview Content\"";
 				DEVELOPMENT_TEAM = UB936SP78M;
 				ENABLE_PREVIEWS = YES;
@@ -639,6 +664,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.funtik.QLOGA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -654,7 +680,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"QLOGA/Preview Content\"";
 				DEVELOPMENT_TEAM = UB936SP78M;
 				ENABLE_PREVIEWS = YES;
@@ -701,6 +727,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		11DF477027E002EA00322D82 /* XCRemoteSwiftPackageReference "MarkdownUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gonzalezreal/MarkdownUI.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		11DF477127E002EA00322D82 /* MarkdownUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11DF477027E002EA00322D82 /* XCRemoteSwiftPackageReference "MarkdownUI" */;
+			productName = MarkdownUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 119BE1CD27D230DF00B2D70F /* Project object */;
 }

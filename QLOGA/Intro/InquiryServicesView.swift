@@ -38,7 +38,7 @@ struct InquiryServicesView: View {
             }.fixedSize(horizontal: false, vertical: true)
             Divider().padding(.horizontal, 20)
             Spacer()
-        }
+        }.padding(.top, 10)
         .toolbar(content: {
             NavigationLink(destination: InquiryOverview()) {
                 Text("Add")

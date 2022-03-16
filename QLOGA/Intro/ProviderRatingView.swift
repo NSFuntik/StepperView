@@ -68,6 +68,6 @@ struct ProviderRatingView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             ProviderRatingView()
-        }
+        }.previewDevice("iPhone 6s")
     }
 }

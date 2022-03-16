@@ -55,7 +55,7 @@ struct ProvidersFilterView: View {
                         Sliders
                         HStack {
                             Text("PROVIDER`S TYPE")
-                                .foregroundColor(Color("A8A8A8"))
+                                .foregroundColor(Color.pickerTitle)
                                 .font(Font.system(size: 18,
                                                   weight: .regular,
                                                   design: .rounded))
@@ -96,7 +96,7 @@ extension ProvidersFilterView {
             }, header: {
                 HStack {
                     Text("DISTANCE (miles): \(String(format: "%g", distance))")
-                        .foregroundColor(Color("A8A8A8"))
+                        .foregroundColor(Color.pickerTitle)
                         .font(Font.system(size: 18,
                                           weight: .regular,
                                           design: .rounded))
@@ -117,7 +117,7 @@ extension ProvidersFilterView {
             }, header: {
                 HStack {
                     Text("RETURN RATE: \(String(format: "%g", returnRate))%")
-                        .foregroundColor(Color("A8A8A8"))
+                        .foregroundColor(Color.pickerTitle)
                         .font(Font.system(size: 18,
                                           weight: .regular,
                                           design: .rounded))
@@ -138,7 +138,7 @@ extension ProvidersFilterView {
             }, header: {
                 HStack {
                     Text("MINIMUM START RATING: \(String(format: "%g", minRate))")
-                        .foregroundColor(Color("A8A8A8"))
+                        .foregroundColor(Color.pickerTitle)
                         .font(Font.system(size: 18,
                                           weight: .regular,
                                           design: .rounded))
@@ -158,7 +158,7 @@ extension ProvidersFilterView {
             }, header: {
                 HStack {
                     Text("ORDERS DELIVERED: \(String(format: "%g", orders))")
-                        .foregroundColor(Color("A8A8A8"))
+                        .foregroundColor(Color.pickerTitle)
                         .font(Font.system(size: 18,
                                           weight: .regular,
                                           design: .rounded))
@@ -176,7 +176,7 @@ extension ProvidersFilterView {
             VStack {
                 HStack {
                     Text("PROVIDER ADMIN VERIFICATIONS")
-                        .foregroundColor(Color("A8A8A8"))
+                        .foregroundColor(Color.pickerTitle)
                         .font(Font.system(size: 18,
                                           weight: .regular,
                                           design: .rounded))
@@ -188,7 +188,7 @@ extension ProvidersFilterView {
                 Group {
                     HStack {
                         Text("ID")
-                            .foregroundColor(personalVirifications[VerificationTypes.IDs] == true ? Color.accentColor : Color("A8A8A8"))
+                            .foregroundColor(personalVirifications[VerificationTypes.IDs] == true ? Color.accentColor : Color.pickerTitle)
                             .font(Font.system(size: 18,
                                               weight: .medium,
                                               design: .rounded))
@@ -196,7 +196,7 @@ extension ProvidersFilterView {
                         Spacer()
                         Image(systemName: personalVirifications[VerificationTypes.IDs] == true ? "checkmark.circle.fill" : "circle" )
                             .scaleEffect(1.3)
-                            .foregroundColor(personalVirifications[VerificationTypes.IDs] == true ? Color.accentColor : Color("A8A8A8"))
+                            .foregroundColor(personalVirifications[VerificationTypes.IDs] == true ? Color.accentColor : Color.pickerTitle)
                             .padding(.trailing, 15)
                             .onTapGesture {
                                 personalVirifications[VerificationTypes.IDs]?.toggle()
@@ -205,7 +205,7 @@ extension ProvidersFilterView {
                     Divider().padding(.horizontal, 20)
                     HStack {
                         Text("Address")
-                            .foregroundColor(personalVirifications[VerificationTypes.Address] == true ? Color.accentColor : Color("A8A8A8"))
+                            .foregroundColor(personalVirifications[VerificationTypes.Address] == true ? Color.accentColor : Color.pickerTitle)
                             .font(Font.system(size: 18,
                                               weight: .medium,
                                               design: .rounded))
@@ -213,7 +213,7 @@ extension ProvidersFilterView {
                         Spacer()
                         Image(systemName: personalVirifications[VerificationTypes.Address] == true ? "checkmark.circle.fill" : "circle")
                             .scaleEffect(1.3)
-                            .foregroundColor(personalVirifications[VerificationTypes.Address] == true ? Color.accentColor : Color("A8A8A8"))
+                            .foregroundColor(personalVirifications[VerificationTypes.Address] == true ? Color.accentColor : Color.pickerTitle)
                             .padding(.trailing, 15)
                             .onTapGesture {
                                 personalVirifications[VerificationTypes.Address]?.toggle()
@@ -222,7 +222,7 @@ extension ProvidersFilterView {
                     Divider().padding(.horizontal, 20)
                     HStack {
                         Text("Avatar")
-                            .foregroundColor(personalVirifications[VerificationTypes.Avatar] == true ? Color.accentColor : Color("A8A8A8"))
+                            .foregroundColor(personalVirifications[VerificationTypes.Avatar] == true ? Color.accentColor : Color.pickerTitle)
                             .font(Font.system(size: 18,
                                               weight: .medium,
                                               design: .rounded))
@@ -231,7 +231,7 @@ extension ProvidersFilterView {
                         Spacer()
                         Image(systemName: personalVirifications[VerificationTypes.Avatar] == true ? "checkmark.circle.fill" : "circle")
                             .scaleEffect(1.3)
-                            .foregroundColor(personalVirifications[VerificationTypes.Avatar] == true ? Color.accentColor : Color("A8A8A8"))
+                            .foregroundColor(personalVirifications[VerificationTypes.Avatar] == true ? Color.accentColor : Color.pickerTitle)
                             .padding(.trailing, 15)
                             .onTapGesture {
                                 personalVirifications[VerificationTypes.Avatar]?.toggle()
@@ -253,7 +253,7 @@ extension ProvidersFilterView {
             VStack {
                 HStack {
                     Text("PROVIDER VERIFICATION")
-                        .foregroundColor(Color("A8A8A8"))
+                        .foregroundColor(Color.pickerTitle)
                         .font(Font.system(size: 18,
                                           weight: .regular,
                                           design: .rounded))
@@ -264,7 +264,7 @@ extension ProvidersFilterView {
                 Group {
                     HStack {
                         Text("Registration certificate")
-                            .foregroundColor(personalVirifications[VerificationTypes.RegistrationCertificate] == true ? Color.accentColor : Color("A8A8A8"))
+                            .foregroundColor(personalVirifications[VerificationTypes.RegistrationCertificate] == true ? Color.accentColor : Color.pickerTitle)
                             .font(Font.system(size: 18,
                                               weight: .medium,
                                               design: .rounded))
@@ -272,7 +272,7 @@ extension ProvidersFilterView {
                         Spacer()
                         Image(systemName: personalVirifications[VerificationTypes.RegistrationCertificate] == true ? "checkmark.circle.fill" : "circle" )
                             .scaleEffect(1.3)
-                            .foregroundColor(personalVirifications[VerificationTypes.RegistrationCertificate] == true ? Color.accentColor : Color("A8A8A8"))
+                            .foregroundColor(personalVirifications[VerificationTypes.RegistrationCertificate] == true ? Color.accentColor : Color.pickerTitle)
                             .padding(.trailing, 15)
                             .onTapGesture {
                                 personalVirifications[VerificationTypes.RegistrationCertificate]?.toggle()
@@ -281,7 +281,7 @@ extension ProvidersFilterView {
                     Divider().padding(.horizontal, 20)
                     HStack {
                         Text("Professional Insurance")
-                            .foregroundColor(personalVirifications[VerificationTypes.ProfessionalInsurance] == true ? Color.accentColor : Color("A8A8A8"))
+                            .foregroundColor(personalVirifications[VerificationTypes.ProfessionalInsurance] == true ? Color.accentColor : Color.pickerTitle)
                             .font(Font.system(size: 18,
                                               weight: .medium,
                                               design: .rounded))
@@ -289,7 +289,7 @@ extension ProvidersFilterView {
                         Spacer()
                         Image(systemName: personalVirifications[VerificationTypes.ProfessionalInsurance] == true ? "checkmark.circle.fill" : "circle")
                             .scaleEffect(1.3)
-                            .foregroundColor(personalVirifications[VerificationTypes.ProfessionalInsurance] == true ? Color.accentColor : Color("A8A8A8"))
+                            .foregroundColor(personalVirifications[VerificationTypes.ProfessionalInsurance] == true ? Color.accentColor : Color.pickerTitle)
                             .padding(.trailing, 15)
                             .onTapGesture {
                                 personalVirifications[VerificationTypes.ProfessionalInsurance]?.toggle()
@@ -298,7 +298,7 @@ extension ProvidersFilterView {
                     Divider().padding(.horizontal, 20)
                     HStack {
                         Text("Email")
-                            .foregroundColor(personalVirifications[VerificationTypes.Avatar] == true ? Color.accentColor : Color("A8A8A8"))
+                            .foregroundColor(personalVirifications[VerificationTypes.Avatar] == true ? Color.accentColor : Color.pickerTitle)
                             .font(Font.system(size: 18,
                                               weight: .medium,
                                               design: .rounded))
@@ -307,7 +307,7 @@ extension ProvidersFilterView {
                         Spacer()
                         Image(systemName: personalVirifications[VerificationTypes.Email] == true ? "checkmark.circle.fill" : "circle")
                             .scaleEffect(1.3)
-                            .foregroundColor(personalVirifications[VerificationTypes.Email] == true ? Color.accentColor : Color("A8A8A8"))
+                            .foregroundColor(personalVirifications[VerificationTypes.Email] == true ? Color.accentColor : Color.pickerTitle)
                             .padding(.trailing, 15)
                             .onTapGesture {
                                 personalVirifications[VerificationTypes.Email]?.toggle()
@@ -329,7 +329,7 @@ extension ProvidersFilterView {
             VStack {
                 HStack {
                     Text("CLEARANCE CERTIFICATES")
-                        .foregroundColor(Color("A8A8A8"))
+                        .foregroundColor(Color.pickerTitle)
                         .font(Font.system(size: 18,
                                           weight: .regular,
                                           design: .rounded))
@@ -340,7 +340,7 @@ extension ProvidersFilterView {
                 Group {
                     HStack {
                         Text("Disclosure Scotland: Basic Disclosure")
-                            .foregroundColor(personalCertifications[CertificationTypes.BasicDisclosure] == true ? Color.accentColor : Color("A8A8A8"))
+                            .foregroundColor(personalCertifications[CertificationTypes.BasicDisclosure] == true ? Color.accentColor : Color.pickerTitle)
                             .font(Font.system(size: 18,
                                               weight: .medium,
                                               design: .rounded))
@@ -348,7 +348,7 @@ extension ProvidersFilterView {
                         Spacer()
                         Image(systemName: personalCertifications[CertificationTypes.BasicDisclosure] == true ? "checkmark.circle.fill" : "circle" )
                             .scaleEffect(1.3)
-                            .foregroundColor(personalCertifications[CertificationTypes.BasicDisclosure] == true ? Color.accentColor : Color("A8A8A8"))
+                            .foregroundColor(personalCertifications[CertificationTypes.BasicDisclosure] == true ? Color.accentColor : Color.pickerTitle)
                             .padding(.trailing, 15)
                             .onTapGesture {
                                 personalCertifications[CertificationTypes.BasicDisclosure]?.toggle()
@@ -357,7 +357,7 @@ extension ProvidersFilterView {
                     Divider().padding(.horizontal, 20)
                     HStack {
                         Text("Disclosure Scotland: Protecting Vulnerable Groups")
-                            .foregroundColor(personalCertifications[CertificationTypes.ProtectingVulnerableGroups] == true ? Color.accentColor : Color("A8A8A8"))
+                            .foregroundColor(personalCertifications[CertificationTypes.ProtectingVulnerableGroups] == true ? Color.accentColor : Color.pickerTitle)
                             .font(Font.system(size: 18,
                                               weight: .medium,
                                               design: .rounded))
@@ -365,7 +365,7 @@ extension ProvidersFilterView {
                         Spacer()
                         Image(systemName: personalCertifications[CertificationTypes.ProtectingVulnerableGroups] == true ? "checkmark.circle.fill" : "circle")
                             .scaleEffect(1.3)
-                            .foregroundColor(personalCertifications[CertificationTypes.ProtectingVulnerableGroups] == true ? Color.accentColor : Color("A8A8A8"))
+                            .foregroundColor(personalCertifications[CertificationTypes.ProtectingVulnerableGroups] == true ? Color.accentColor : Color.pickerTitle)
                             .padding(.trailing, 15)
                             .onTapGesture {
                                 personalCertifications[CertificationTypes.ProtectingVulnerableGroups]?.toggle()
@@ -374,7 +374,7 @@ extension ProvidersFilterView {
                     Divider().padding(.horizontal, 20)
                     HStack {
                         Text("DBS: Disclosure and Barring Service")
-                            .foregroundColor(personalCertifications[CertificationTypes.DBS] == true ? Color.accentColor : Color("A8A8A8"))
+                            .foregroundColor(personalCertifications[CertificationTypes.DBS] == true ? Color.accentColor : Color.pickerTitle)
                             .font(Font.system(size: 18,
                                               weight: .medium,
                                               design: .rounded))
@@ -383,7 +383,7 @@ extension ProvidersFilterView {
                         Spacer()
                         Image(systemName: personalCertifications[CertificationTypes.DBS] == true ? "checkmark.circle.fill" : "circle")
                             .scaleEffect(1.3)
-                            .foregroundColor(personalCertifications[CertificationTypes.DBS] == true ? Color.accentColor : Color("A8A8A8"))
+                            .foregroundColor(personalCertifications[CertificationTypes.DBS] == true ? Color.accentColor : Color.pickerTitle)
                             .padding(.trailing, 15)
                             .onTapGesture {
                                 personalCertifications[CertificationTypes.DBS]?.toggle()
@@ -392,7 +392,7 @@ extension ProvidersFilterView {
                     Divider().padding(.horizontal, 20)
                     HStack {
                         Text("AccessNI: Crimital Records Check")
-                            .foregroundColor(personalCertifications[CertificationTypes.AccessNI] == true ? Color.accentColor : Color("A8A8A8"))
+                            .foregroundColor(personalCertifications[CertificationTypes.AccessNI] == true ? Color.accentColor : Color.pickerTitle)
                             .font(Font.system(size: 18,
                                               weight: .medium,
                                               design: .rounded))
@@ -400,7 +400,7 @@ extension ProvidersFilterView {
                         Spacer()
                         Image(systemName: personalCertifications[CertificationTypes.AccessNI] == true ? "checkmark.circle.fill" : "circle" )
                             .scaleEffect(1.3)
-                            .foregroundColor(personalCertifications[CertificationTypes.AccessNI] == true ? Color.accentColor : Color("A8A8A8"))
+                            .foregroundColor(personalCertifications[CertificationTypes.AccessNI] == true ? Color.accentColor : Color.pickerTitle)
                             .padding(.trailing, 15)
                             .onTapGesture {
                                 personalCertifications[CertificationTypes.AccessNI]?.toggle()
@@ -409,7 +409,7 @@ extension ProvidersFilterView {
                     Divider().padding(.horizontal, 20)
                     HStack {
                         Text("NONe")
-                            .foregroundColor(personalCertifications[CertificationTypes.none] == true ? Color.accentColor : Color("A8A8A8"))
+                            .foregroundColor(personalCertifications[CertificationTypes.none] == true ? Color.accentColor : Color.pickerTitle)
                             .font(Font.system(size: 18,
                                               weight: .medium,
                                               design: .rounded))
@@ -417,7 +417,7 @@ extension ProvidersFilterView {
                         Spacer()
                         Image(systemName: personalCertifications[CertificationTypes.none] == true ? "checkmark.circle.fill" : "circle" )
                             .scaleEffect(1.3)
-                            .foregroundColor(personalCertifications[CertificationTypes.none] == true ? Color.accentColor : Color("A8A8A8"))
+                            .foregroundColor(personalCertifications[CertificationTypes.none] == true ? Color.accentColor : Color.pickerTitle)
                             .padding(.trailing, 15)
                             .onTapGesture {
                                 personalCertifications[CertificationTypes.none]?.toggle()

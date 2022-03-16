@@ -9,8 +9,6 @@ import SwiftUI
 
 struct StarsView: View {
     private static let MAX_RATING: Float = 5 // Defines upper limit of the rating
-    private static let COLOR = Color.accentColor // The color of the stars
-
     let rating: Float
     private let fullCount: Int
     private let emptyCount: Int
@@ -38,14 +36,14 @@ struct StarsView: View {
     }
 
     private var fullStar: some View {
-        Image(systemName: "star.fill").scaleEffect(1.2).foregroundColor(Color(hex: "#FFA033"))
+        Image(systemName: "star.fill").scaleEffect(1.2).foregroundColor(Color.Orange)
     }
 
     private var halfFullStar: some View {
-        Image(systemName: "star.lefthalf.fill").scaleEffect(1.2).foregroundColor(Color(hex: "#FFA033"))
+        Image(systemName: "star.lefthalf.fill").scaleEffect(1.2).foregroundColor(Color.Orange)
     }
 
     private var emptyStar: some View {
-        Image(systemName: "star").scaleEffect(1.2).foregroundColor(Color(hex: "#FFA033"))
+        Image(systemName: "star").scaleEffect(1.2).foregroundColor(Color.Orange)
     }
 }

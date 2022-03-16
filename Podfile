@@ -8,7 +8,7 @@ target 'QLOGA' do
   pod 'GooglePlaces'
   pod 'BottomSheetSwiftUI', :git => 'https://github.com/DM1TRYM/BottomSheet.git', :branch => 'master'
   pod 'CalendarKit', :git => 'https://github.com/DM1TRYM/CalendarKit.git', :branch => 'master'
-  pod 'StepperView','~> 1.6.7'
+  pod 'AnyFormatKitSwiftUI', '~> 0.5.3'
   # Pods for QLOGA
 
 end

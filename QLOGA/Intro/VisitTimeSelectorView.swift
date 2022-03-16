@@ -12,6 +12,7 @@ struct VisitTimeSelectorView: View {
     @State var isDropFirst = false
     @State var isDropSecond = false
     @State var isDropThird = false
+    @State var isSelectedHalfHour = false
 
     @State var isSelectedFirstVisit = false
     @State var isSelectedSecondVisit = false
@@ -26,14 +27,28 @@ struct VisitTimeSelectorView: View {
     @Binding var pickedSecondVisitTimeline: String
     @Binding var pickedThirdVisitTimeline: String
     
-    var hours = ["00:00-01:00", "01:00-02:00", "02:00-03:00",
-                 "03:00-04:00", "04:00-05:00", "05:00-06:00",
-                 "05:00-06:00", "06:00-07:00", "07:00-08:00",
-                 "08:00-09:00", "09:00-10:00", "10:00-11:00",
-                 "11:00-12:00", "12:00-13:00", "13:00-14:00",
-                 "14:00-15:00", "15:00-16:00", "16:00-17:00",
-                 "17:00-18:00", "18:00-19:00", "20:00-21:00",
-                 "21:00-22:00", "22:00-23:00", "23:00-00:00"]
+    var hours: [String] {
+
+        if $isSelectedHalfHour.wrappedValue {
+            return  ["00:30-01:30", "01:30-02:30", "02:30-03:30",
+                     "03:30-04:30", "04:30-05:30", "05:30-06:30",
+                     "05:30-06:30", "06:30-07:30", "07:30-08:30",
+                     "08:30-09:30", "09:30-10:30", "10:30-11:30",
+                     "11:30-12:30", "12:30-13:30", "13:30-14:30",
+                     "14:30-15:30", "15:30-16:30", "16:30-17:30",
+                     "17:30-18:30", "18:30-19:30", "20:30-21:30",
+                     "21:30-22:30", "22:30-23:30", "23:30-00:30"]
+        } else {
+            return  ["00:00-01:00", "01:00-02:00", "02:00-03:00",
+                     "03:00-04:00", "04:00-05:00", "05:00-06:00",
+                     "05:00-06:00", "06:00-07:00", "07:00-08:00",
+                     "08:00-09:00", "09:00-10:00", "10:00-11:00",
+                     "11:00-12:00", "12:00-13:00", "13:00-14:00",
+                     "14:00-15:00", "15:00-16:00", "16:00-17:00",
+                     "17:00-18:00", "18:00-19:00", "20:00-21:00",
+                     "21:00-22:00", "22:00-23:00", "23:00-00:00"]
+        }
+    }
     var workingHours = 8...17
 
     @Binding var date: Date
@@ -51,24 +66,33 @@ struct VisitTimeSelectorView: View {
                 Text(dateString.capitalized)
                     .foregroundColor(Color.black)
                     .multilineTextAlignment(.leading)
-                    .font(Font.system(size: 19, weight: .regular, design: .default))
+                    .font(Font.system(size: 17, weight: .regular, design: .default))
                     .padding(15)
                 Spacer()
+                Text("● - Off Time")
+                    .foregroundColor(Color.lightGray)
+                    .multilineTextAlignment(.leading)
+                    .font(Font.system(size: 15, weight: .regular, design: .default))
+                    .padding(15)
             }.overlay(RoundedRectangle(cornerRadius: 10)
                 .stroke(Color.secondary.opacity(0.7), lineWidth: 1).padding(1))
             HStack(alignment: .bottom) {
-                Text("Visit Time")
+                Text("VISITS")
                     .foregroundColor(Color.lightGray)
                     .multilineTextAlignment(.leading)
                     .font(Font.system(size: 17, weight: .regular, design: .default))
+                    .padding(.leading, 5)
                 Spacer()
                 if isDropFirst || isDropSecond || isDropThird {
-                    Text("● - Off time")
-                        .foregroundColor(Color.lightGray)
+                    Text(isSelectedHalfHour ? "SELECT AN HOUR" : "SELECT HALF AN HOUR")
+                        .foregroundColor(Color.accentColor)
                         .multilineTextAlignment(.leading)
                         .font(Font.system(size: 15, weight: .regular, design: .default))
+                        .onTapGesture {
+                            $isSelectedHalfHour.wrappedValue.toggle()
+                        }
                 }
-            }.padding(.horizontal, 5).padding(.bottom, -15)
+            }.padding(.horizontal, 15).padding(.bottom, -15)
             Group {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack {
@@ -173,16 +197,16 @@ struct VisitTimeSelectorView: View {
 
                     HStack(alignment: .top, spacing: 20) {
                         Image(systemName: "info.circle")
-                            .foregroundColor(Color(hex: "#4184B2"))
+                            .foregroundColor(Color.infoBlue)
                             .font(Font.system(size: 25, weight: .regular, design: .rounded))
                         Text("You can schedule 3 visits per day, within two weeks")
-                            .foregroundColor(Color(hex: "#4184B2"))
+                            .foregroundColor(Color.infoBlue)
                             .multilineTextAlignment(.leading)
                             .font(Font.system(size: 17, weight: .regular, design: .rounded))
                     }
                 }
             }
-        }.padding(.horizontal, 20)
+        }.padding(.horizontal, 20).padding(.top, 10)
             .navigationTitle("Visits")
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
@@ -246,12 +270,9 @@ struct VisitTimeSelectorView: View {
                                     selectedFirstVisit = hours[y + x*3]
                                     pickedVisit.append(selectedFirstVisit)
                                 } else if isSelectedFirstVisit == true {
-//                                    isSelectedFirstVisit = false
-
                                     pickedVisit = pickedVisit.replacingOccurrences(of: selectedFirstVisit, with: "")
                                     selectedFirstVisit = hours[y + x*3]
                                     pickedVisit.append(selectedFirstVisit)
-//                                    selectedFirstVisit = ""
                                 }
                                 self.$isDropFirst.wrappedValue.toggle()
                             }
@@ -286,8 +307,7 @@ struct VisitTimeSelectorView: View {
                                     selectedSecondVisit = hours[y + x*3]
                                     pickedVisit.append(selectedSecondVisit)
                                 } else if isSelectedSecondVisit == true {
-//                                    isSelectedSecondVisit.toggle()
-                                    pickedVisit.replacingOccurrences(of: selectedSecondVisit, with: "")
+                                    pickedVisit = pickedVisit.replacingOccurrences(of: selectedSecondVisit, with: "")
                                     selectedSecondVisit = hours[y + x*3]
                                     pickedVisit.append(selectedSecondVisit)
                                 }
@@ -323,8 +343,7 @@ struct VisitTimeSelectorView: View {
                                     selectedThirdVisit = hours[y + x*3]
                                     pickedVisit.append(selectedThirdVisit)
                                 } else if isSelectedThirdVisit == true {
-//                                    isSelectedThirdVisit.toggle()
-                                    pickedVisit.replacingOccurrences(of: selectedThirdVisit, with: "")
+                                    pickedVisit = pickedVisit.replacingOccurrences(of: selectedThirdVisit, with: "")
                                     selectedThirdVisit = hours[y + x*3]
                                     pickedVisit.append(selectedThirdVisit)
                                 }
@@ -352,7 +371,10 @@ struct VisitTimeSelectorView: View {
 struct VisitTimeSelectorView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            VisitTimeSelectorView(date: .constant( Date()),pickedFVT: .constant(""), pickedSecondVVT: .constant(""),pickedThirdVT: .constant(""))
-        }
+            VisitTimeSelectorView(date: .constant( Date()),
+                                  pickedFVT: .constant(""),
+                                  pickedSecondVVT: .constant(""),
+                                  pickedThirdVT: .constant(""))
+        }.previewDevice("iPhone 6s")
     }
 }

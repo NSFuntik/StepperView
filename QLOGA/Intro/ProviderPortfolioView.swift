@@ -8,7 +8,7 @@
 import SwiftUI
 //import ImageViewer
 struct ProviderPortfolioView: View {
-    private var numberofImages = 6
+    private var numberofImages = 3
     private let timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
     @State var image = Image("PortfolioImage0")
     @State var  showImageViewer = false
@@ -47,7 +47,7 @@ struct ProviderPortfolioView: View {
     var body: some View {
         VStack {
             GeometryReader { proxy in
-                VStack(spacing: 20) {
+                VStack(spacing: 10) {
                     TabView(selection: $currentIndex) {
                         ForEach(0..<numberofImages) {
                             num in Image("PortfolioImage\(num)")
@@ -64,18 +64,23 @@ struct ProviderPortfolioView: View {
                         .onReceive(timer, perform: { _ in
                             next()
                         })
-                    VStack {
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 1) {
-                                ForEach(0..<numberofImages) { num in
-                                    Image("PortfolioImage\(num)")
-                                        .resizable()
-                                        .scaledToFill()
-                                        .tag(num)
+                    VStack(alignment: .center) {
+                        HStack {
+                            Spacer()
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(alignment: .top, spacing: 2) {
+                                    ForEach(0..<numberofImages) { num in
+                                        Image("PortfolioImage\(num)")
+                                            .resizable()
+                                            .frame(width: 75, height: 45)
+                                            .scaledToFill()
+                                            .tag(num)
+                                    }
                                 }
-                            }
-                        }.frame(height: 45)
-                    }
+                            }.frame(width: 75 * CGFloat(numberofImages) + CGFloat(numberofImages*2))
+                            Spacer()
+                        }
+                    }.frame(height: 45)
                     ScrollView {
                         Text(testProvider.portfolio?.description ?? "")
                             .font(Font.system(size: 17, weight: .light, design: .rounded))
@@ -94,7 +99,9 @@ struct ProviderPortfolioView: View {
 }
 struct ProviderPortfolioView_Previews: PreviewProvider {
     static var previews: some View {
-        ProviderPortfolioView()
+        NavigationView {
+            ProviderPortfolioView()
+        }.previewDevice("iPhone 6s")
     }
 }
 

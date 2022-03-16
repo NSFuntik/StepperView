@@ -45,7 +45,7 @@ struct ProviderOverview: View {
                             .font(Font.system(size: 15, weight: .regular, design: .rounded))
                     }
                     VStack(alignment: .leading, spacing: 15.5) {
-                        Text(testProvider.name ?? "")
+                        Text(testProvider.name)
                             .foregroundColor(Color.black.opacity(0.8))
                             .multilineTextAlignment(.leading)
                             .font(Font.system(size: 20,
@@ -88,8 +88,8 @@ struct ProviderOverview: View {
                                                   design: .rounded))
                         }
                     }
-                }
-                Divider().padding(.horizontal, -20)
+                }.padding(.vertical, 10)
+//                Divider().padding(.horizontal, -20)
                 ScrollView(showsIndicators: false) {
                     Label {
                         Text("Cleaning")
@@ -100,17 +100,15 @@ struct ProviderOverview: View {
                         Text("\(skills.count)")
                             .foregroundColor(Color.lightGray)
                             .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                            .padding(5)
                     } icon: {
                         Image("Cleaning")
                             .resizable().aspectRatio( contentMode: .fit)
                             .frame(height: 30, alignment: .center)
-                            .padding(5)
                     }.padding(10)
                         .overlay(RoundedRectangle(cornerRadius: 10)
                             .stroke(lineWidth: 1.0)
                             .foregroundColor(Color.lightGray)
-                        ).padding(1)
+                        ).frame(height: 50).padding(1)
                     ForEach(skills, id: \.self) { skill in
                         HStack(alignment: .center, spacing: 15) {
                             Image(systemName: "circle.fill")
@@ -150,7 +148,7 @@ struct ProviderOverview: View {
                                         .aspectRatio( contentMode: .fit)
                                         .padding(5)
                                 }.padding(7)
-                            }.padding(.top, 5)
+                            }.padding(.bottom, -7).frame(height: 50)
                             Divider().background(Color.secondary).padding(.leading, 50)
                             NavigationLink(destination: ProviderPortfolioView()) {
                                 Label {
@@ -175,7 +173,7 @@ struct ProviderOverview: View {
                                         .aspectRatio(1.3, contentMode: .fit)
                                         .padding(5)
                                 }.padding(7)
-                            }
+                            }.frame(height: 40)
                             Divider().background(Color.secondary).padding(.leading, 50)
                             NavigationLink(destination: ProviderVerificationsView()) {
 
@@ -202,7 +200,7 @@ struct ProviderOverview: View {
                                         .aspectRatio( contentMode: .fit)
                                         .padding(5)
                                 }.padding(7)
-                            }
+                            }.frame(height: 40)
                             Divider().background(Color.secondary).padding(.leading, 50)
                             NavigationLink(destination: ProviderPreviewsView(reviews: testProvider.reviews ?? []).tint(Color.accentColor)) {
                                 Label {
@@ -228,12 +226,12 @@ struct ProviderOverview: View {
                                         .padding(5)
                                 }
                             }.padding(7)
-                                .padding(.bottom, 5)
+                                .padding(.top, -7).frame(height: 50)
                         }.overlay(RoundedRectangle(cornerRadius: 10)
                             .stroke(lineWidth: 1.0)
                             .foregroundColor(Color.lightGray)
                         ).padding(1)
-                    }
+                    }.padding(.top, 10)
                     Spacer(minLength: 100)
                 }
             }.padding(.horizontal, 20)
@@ -291,6 +289,6 @@ struct PrividerDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             ProviderOverview(isButtonShows: true)
-        }
+        }.previewDevice("iPhone 6s")
     }
 }

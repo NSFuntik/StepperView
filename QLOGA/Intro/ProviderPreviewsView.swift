@@ -49,10 +49,10 @@ struct ProviderPreviewsView: View {
                             .padding(.leading, -15)
                         Spacer()
                     }.padding(.horizontal)
-                }
+                }.padding(.vertical, -20)
                 Divider().foregroundColor(.lightGray.opacity(0.5)).padding(.horizontal, 40)
             }
-        }
+        }.padding(.top, 10)
         .foregroundColor(.accentColor)
         .listStyle(InsetListStyle())
         .navigationTitle("Previews: \(reviews.count)")

@@ -32,12 +32,12 @@ struct SelectedServiceDetailView: View {
                 .foregroundColor(Color.black)
                 .multilineTextAlignment(.leading)
                 .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                .padding(10)
+                .padding()
                 .frame(width: UIScreen.main.bounds.width - 42, alignment: .leading)
                 .overlay(RoundedRectangle(cornerRadius: 10)
                     .stroke(lineWidth: 1.0)
                     .foregroundColor(Color.lightGray)
-                ).padding(1)
+                ).frame(height: 40).padding(1).padding(.vertical, 10)
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 10) {
                     Label {

@@ -42,7 +42,7 @@ struct ProvidersView: View {
                                 }
                                 VStack(alignment: .leading, spacing: 10) {
                                     HStack(alignment: .top) {
-                                        Text(provider.name ?? "")
+                                        Text(provider.name)
                                             .foregroundColor(Color.black.opacity(0.8))
                                             .multilineTextAlignment(.leading)
                                             .font(Font.system(size: 20,
@@ -104,7 +104,7 @@ struct ProvidersView: View {
                         }
                         Divider()
                     }
-                }.padding(.horizontal, 20).padding(.top, 5)
+                }.padding(.horizontal, 20).padding(.top, 10)
             }
         }
         .navigationTitle("Providers")

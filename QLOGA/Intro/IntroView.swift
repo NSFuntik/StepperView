@@ -90,7 +90,7 @@ extension IntroView {
 		GeometryReader { geometry in
 
 			VStack(alignment: .trailing, spacing: 15) {
-				NavigationLink(destination: EnrollmentInfoView()) {
+				NavigationLink(destination: EnrollmentInfoView(actorType: .CUSTOMER)) {
 					VStack(alignment: .center, spacing: 10) {
 						Image("CustomerIntro")
 							.resizable()
@@ -121,7 +121,7 @@ extension IntroView {
 						.overlay(RoundedRectangle(cornerRadius: 16)
 							.stroke(address == "Enter new address" ? Color.lightGray.opacity(0.5) : Color.accentColor.opacity(0.6), lineWidth: 1))
 				}
-				NavigationLink(destination: EnrollmentInfoView()) {
+				NavigationLink(destination: EnrollmentInfoView(actorType: .PROVIDER)) {
 					VStack(alignment: .center, spacing: 10) {
 						Image("BecomeProviderIntro")
 							.resizable()

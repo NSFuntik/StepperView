@@ -14,7 +14,12 @@ struct AddressSearchView: View {
     @State private var price: Int = 0
     @Binding var address: String
     @State var pickedAddress: Address = Address(postcode: "", town: "", street: "", building: "", apt: "")
-
+    @FocusState var fieldIsFocused: Bool
+    enum Field: Hashable {
+        case search
+        case postcode
+    }
+    @FocusState private var focusedField: Field?
     
     var body: some View {
         VStack(alignment: .center) {
@@ -22,30 +27,34 @@ struct AddressSearchView: View {
                 HStack {
                     Image(systemName: "magnifyingglass")
                     TextField("Enter your address or postcode", text: self.$address)
+                        .focused($fieldIsFocused)
+                        .focused($focusedField, equals: .search)
+                    Spacer()
                     NavigationLink(destination: GoogleMapView(providers: .constant([]), pickedAddress: $pickedAddress)) {
                         if showMap {
                             Image(systemName: "mappin.and.ellipse").foregroundColor(Color.accentColor)
                         }
                     }
                 }
-                .foregroundColor(Color(UIColor.secondaryLabel))
+                .foregroundColor(Color.secondary)
                 .padding(.vertical, 8)
                 .padding(.horizontal, 5)
                 .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.secondary.opacity(0.7), lineWidth: 1))
-            }.padding()
-                .onTapGesture {
+            }.ignoresSafeArea(.all, edges: .bottom)
+                .task({
                     if address == "Enter new address" || "Enter new address".contains(address) {
-                        withAnimation(.easeInOut) {
-                            address = ""
-                        }
+                        address = ""
+                        focusedField = .search
                     }
-                }
+
+                })
 
             if Addresses.filter({$0.postcode.contains($address.wrappedValue) || $0.street.contains($address.wrappedValue)}) != [] {
-                withAnimation {
+                VStack {
+
                     List(Addresses.filter({$0.postcode.contains($address.wrappedValue) || $0.street.contains($address.wrappedValue)}), id: \.self) { adr in
                         Text(" \(adr.apt) \(adr.building) \(adr.street) \(adr.town)")
                             .onTapGesture {
@@ -57,8 +66,17 @@ struct AddressSearchView: View {
                             .animation(.easeInOut(duration: 2), value: address)
                     }.listStyle(InsetListStyle())
                         .frame(maxHeight: .infinity, alignment: .center)
-                }
+                        .transition(.opacity)
+                        .animation(.easeInOut, value: $fieldIsFocused.wrappedValue)
+                }.transition(.offset()).animation(.easeInOut, value: $fieldIsFocused.wrappedValue)
+
             }
+
+
+            Spacer(minLength: Addresses.filter({$0.postcode.contains($address.wrappedValue) || $0.street.contains($address.wrappedValue)}) != [] ? 10 : 40).transition(.slide)
+                .animation(.spring(), value: $fieldIsFocused.wrappedValue)
+
+
             VStack {
                 Section {
                     HStack {
@@ -102,25 +120,36 @@ struct AddressSearchView: View {
                             TextField("", text: $pickedAddress.building).multilineTextAlignment(.trailing)
                         }.padding( 5)
                     }
-                    Divider().padding(.horizontal, 5)
-                    Section {
-
-                        HStack {
-                            Text("Apartments")
-                            Spacer()
-                            TextField("", text: $pickedAddress.apt).multilineTextAlignment(.trailing)
-                        }.padding( 5)
+                    if !$fieldIsFocused.wrappedValue {
+                        Divider().padding(.horizontal, 5)
+                        Section {
+                            HStack {
+                                Text("Apartments")
+                                Spacer()
+                                TextField("", text: $pickedAddress.apt).multilineTextAlignment(.trailing)
+                            }.padding(5)
+                                .transition(.opacity)
+                                .animation(.easeInOut, value: $fieldIsFocused.wrappedValue)
+                        }
                     }
-                }
+                }.transition(.opacity).animation(.easeInOut, value: $fieldIsFocused.wrappedValue)
+
+
             }.background(Color.white).padding(10)
                 .overlay(RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.secondary
                         .opacity(0.7), lineWidth: 1).padding(1))
-                .padding()
-            Spacer()
+                .ignoresSafeArea(.keyboard, edges: .bottom)
+                .transition(.opacity).animation(.easeInOut, value: $fieldIsFocused.wrappedValue)
+            Spacer().ignoresSafeArea(.keyboard, edges: .bottom)
+        }.padding(.horizontal, 20).padding(.top, 10).onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                $focusedField.wrappedValue = .search
+                fieldIsFocused = true
+            }
         }
-        .ignoresSafeArea(.keyboard)
         .navigationTitle("Address").navigationBarTitleDisplayMode(.inline)
+        .ignoresSafeArea(.keyboard, edges: .all)
     }
 }
 
@@ -145,9 +174,3 @@ struct BottomLineTextFieldStyle: TextFieldStyle {
 }
 
 
-enum ParkingType: String, CaseIterable, Identifiable  {
-    case Free
-    case Paid
-    case Unspecified
-    var id: String { self.rawValue }
-}

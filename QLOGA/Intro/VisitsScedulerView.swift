@@ -30,7 +30,7 @@ struct VisitsScedulerView: View {
                     HStack(alignment: .center, spacing: 20) {
                         Button {
                             weekOffset = weekOffset - 1
-                            week = (0...12).compactMap {
+                            week = (0...13).compactMap {
                                 Calendar.current.date(byAdding: .day,
                                                       value: $0,
                                                       to:  Calendar.iso8601.date(
@@ -48,7 +48,7 @@ struct VisitsScedulerView: View {
                         }
                         Button {
                             weekOffset = weekOffset + 1
-                            week = (0...12).compactMap {
+                            week = (0...13).compactMap {
                                 Calendar.current.date(byAdding: .day,
                                                       value: $0,
                                                       to:  Calendar.iso8601.date(
@@ -72,7 +72,7 @@ struct VisitsScedulerView: View {
                         Toggle("", isOn: $showTwoWeeks)
                             .frame(width: 30)
                             .padding(.trailing, 15)
-                    }.padding(5)
+                    }.padding(5).frame(height: 50)
                     Divider().padding(.horizontal, -10).padding(.leading, 25)
 
                     weekView
@@ -112,10 +112,10 @@ struct VisitsScedulerView: View {
 
                 HStack(alignment: .top, spacing: 20) {
                     Image(systemName: "info.circle")
-                        .foregroundColor(Color(hex: "#4184B2"))
+                        .foregroundColor(Color.infoBlue)
                         .font(Font.system(size: 25, weight: .regular, design: .rounded))
                     Text("You can schedule 3 visits per day, within two weeks")
-                        .foregroundColor(Color(hex: "#4184B2"))
+                        .foregroundColor(Color.infoBlue)
                         .multilineTextAlignment(.leading)
                         .font(Font.system(size: 17, weight: .regular, design: .rounded))
                 }
@@ -221,7 +221,7 @@ extension Date {
     }
     var daysOfWeek: [Date] {
         let startOfWeek = self.startOfWeek
-        return (0...12).compactMap {
+        return (0...13).compactMap {
             Calendar.current.date(byAdding: .day, value: $0, to: startOfWeek)
         }
     }

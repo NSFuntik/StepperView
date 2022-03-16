@@ -30,6 +30,14 @@ struct Address: Hashable {
     }
 }
 
+enum ParkingType: String, CaseIterable, Identifiable  {
+    case Free
+    case Paid
+    case Unspecified
+    var id: String { self.rawValue }
+}
+
+
 let Addresses: [Address] = [
     Address(postcode: "EH2 2ER", town: "Edinburgh", street: "Princes Street", building: "09"),
     Address(postcode: "EH2 2ER", town: "London", street: "Lupus St", building: "3"),

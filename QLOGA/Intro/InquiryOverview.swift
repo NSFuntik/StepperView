@@ -40,7 +40,7 @@ struct InquiryOverview: View {
                                         .padding(.trailing, 10)
                                 }
                             }.padding(.top, 10)
-                            Divider().background(Color.lightGray).padding(.leading, 50)
+                            Divider().background(Color.lightGray).padding(.leading, 50).padding(.trailing, -10)
 
                             NavigationLink(destination: SelectedServiceDetailView(serviceType: .Kitchen)) {
                                 HStack(alignment: .center) {
@@ -66,7 +66,7 @@ struct InquiryOverview: View {
                                         .padding(.trailing, 10)
                                 }
                             }
-                            Divider().background(Color.lightGray).padding(.leading, 50)
+                            Divider().background(Color.lightGray).padding(.leading, 50).padding(.trailing, -10)
 
                             NavigationLink(destination: SelectedServiceDetailView(serviceType: .Kitchen)) {
                                 HStack(alignment: .center) {
@@ -169,7 +169,7 @@ struct InquiryOverview: View {
                                             .padding(.trailing, 10)
                                     }
                                 }.padding(.top, 15)
-                                Divider().background(Color.lightGray).padding(.leading, 50)
+                                Divider().background(Color.lightGray).padding(.leading, 50).padding(.trailing, -15)
 
                                 NavigationLink(destination: CalendarPickerView().navigationBarTitle("Date & Time").ignoresSafeArea(.all, edges: .bottom)) {
                                     HStack(alignment: .center) {
@@ -188,7 +188,7 @@ struct InquiryOverview: View {
                                             .padding(.trailing, 10)
                                     }
                                 }
-                                Divider().background(Color.lightGray).padding(.leading, 50)
+                                Divider().background(Color.lightGray).padding(.leading, 50).padding(.trailing, -15)
 
                                 NavigationLink(destination: VisitsScedulerView()) {
                                     HStack(alignment: .center) {
@@ -207,7 +207,7 @@ struct InquiryOverview: View {
                                             .padding(.trailing, 10)
                                     }
                                 }
-                                Divider().background(Color.lightGray).padding(.leading, 50)
+                                Divider().background(Color.lightGray).padding(.leading, 50).padding(.trailing, -15)
 
                                 NavigationLink(destination: SelectedServiceDetailView(serviceType: .Kitchen)) {
                                     HStack(alignment: .center) {
@@ -226,7 +226,7 @@ struct InquiryOverview: View {
                                             .padding(.trailing, 10)
                                     }
                                 }
-                                Divider().background(Color.lightGray).padding(.leading, 50)
+                                Divider().background(Color.lightGray).padding(.leading, 50).padding(.trailing, -15)
 
                                 NavigationLink(destination: ProviderOverview(isButtonShows: false)) {
                                     HStack(alignment: .center) {
@@ -257,7 +257,7 @@ struct InquiryOverview: View {
 
             VStack(alignment: .center) {
                 Spacer()
-                NavigationLink(destination: EnrollmentInfoView()) {
+                NavigationLink(destination: EnrollmentInfoView(actorType: .CUSTOMER)) {
                     HStack{
                         Text("Send a Direct Inquiry")
                             .lineLimit(1)
@@ -286,7 +286,7 @@ struct InquiryOverview_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             InquiryOverview()
-        }
+        }.previewDevice("iPhone 6s")
     }
 }
 
