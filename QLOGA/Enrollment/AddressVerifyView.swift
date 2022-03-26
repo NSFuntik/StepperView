@@ -5,13 +5,17 @@
 //  Created by Dmitry Mikhailov on 3/4/22.
 //
 
-import SwiftUI
 import BottomSheetSwiftUI
-
+import Combine
+import SwiftUI
 enum AddressesBottomSheetPosition: CGFloat, CaseIterable {
-    case middle = 0.5, hidden = 0.0
+    case middle = 0.5
+    case hidden = 0.0
 }
+
 struct AddressVerifyView: View {
+    var subscriptions = Set<AnyCancellable>()
+
     @State var actorType: ActorsEnum
     @State var bottomSheetPosition: AddressesBottomSheetPosition = .hidden
     @FocusState var isApartmentsEditing: Bool
@@ -23,10 +27,9 @@ struct AddressVerifyView: View {
     @State var showAddresses = false
     @State var showMap = false
     @State var address: String = ""
-    @State var pickedAddress: Address = Address(postcode: "", town: "", street: "", building: "", apt: "")
+    @State var pickedAddress: Address = .init(postcode: "", town: "", street: "", building: "", apt: "")
 
     var body: some View {
-        
         VStack(alignment: .center) {
             ZStack {
                 HStack {
@@ -63,7 +66,7 @@ struct AddressVerifyView: View {
                         Image(systemName: "magnifyingglass")
                             .foregroundColor(.orange.opacity(0.5))
                         TextField("", text: self.$address)
-                            .placeholder(when:  $address.wrappedValue.count < 1) {
+                            .placeholder(when: $address.wrappedValue.count < 1) {
                                 HStack(alignment: .center) {
                                     Text("  Please enter your address here")
                                         .font(.system(size: 17, weight: .regular, design: .rounded))
@@ -90,17 +93,17 @@ struct AddressVerifyView: View {
                 Image(systemName: "info.circle")
                     .foregroundColor(Color.lightGray)
                     .font(Font.system(size: 22, weight: .regular, design: .rounded))
-                    .offset( y: 2)
+                    .offset(y: 2)
                 Text("You can start by typing postcode or first line of your address")
                     .foregroundColor(Color.lightGray)
                     .multilineTextAlignment(.leading)
                     .font(Font.system(size: 16, weight: .regular, design: .rounded))
                 Spacer()
             }
-            
-            if Addresses.filter({$0.postcode.contains($address.wrappedValue) || $0.street.contains($address.wrappedValue)}) != [] {
+
+            if Addresses.filter({ $0.postcode.contains($address.wrappedValue) || $0.street.contains($address.wrappedValue) }) != [] {
                 withAnimation {
-                    List(Addresses.filter({$0.postcode.contains($address.wrappedValue) || $0.street.contains($address.wrappedValue)}), id: \.self) { adr in
+                    List(Addresses.filter { $0.postcode.contains($address.wrappedValue) || $0.street.contains($address.wrappedValue) }, id: \.self) { adr in
                         Text(" \(adr.apt) \(adr.building) \(adr.street) \(adr.town)")
                             .onTapGesture {
                                 self.pickedAddress = adr
@@ -164,73 +167,73 @@ struct AddressVerifyView: View {
                         .shadow(color: .secondary.opacity(0.5), radius: 3, y: 3))
                 }
                 ScrollView {
-                VStack {
-                    Section {
-                        HStack {
-                            Text("Line 1").foregroundColor(.secondary)
-                            Spacer()
-                            TextField("Mandatory", text: $pickedAddress.street).multilineTextAlignment(.trailing)
-                                .focused($isStreetEditing)
-                                .onTapGesture {
-                                    $isStreetEditing.wrappedValue = true
-                                }
-                        }.padding(5)}
-                    Divider().padding(.horizontal, 5)
-                    Section {
-                        VStack {
+                    VStack {
+                        Section {
                             HStack {
-                                Text("Line 2").foregroundColor(.secondary)
+                                Text("Line 1").foregroundColor(.secondary)
                                 Spacer()
-                                TextField("Optional", text: $pickedAddress.building).multilineTextAlignment(.trailing)
-                                    .focused($isBuildingEditing)
+                                TextField("Mandatory", text: $pickedAddress.street).multilineTextAlignment(.trailing)
+                                    .focused($isStreetEditing)
                                     .onTapGesture {
-                                        $isBuildingEditing.wrappedValue = true
+                                        $isStreetEditing.wrappedValue = true
+                                    }
+                            }.padding(5)
+                        }
+                        Divider().padding(.horizontal, 5)
+                        Section {
+                            VStack {
+                                HStack {
+                                    Text("Line 2").foregroundColor(.secondary)
+                                    Spacer()
+                                    TextField("Optional", text: $pickedAddress.building).multilineTextAlignment(.trailing)
+                                        .focused($isBuildingEditing)
+                                        .onTapGesture {
+                                            $isBuildingEditing.wrappedValue = true
+                                        }
+                                }.padding(5)
+                            }
+                            Divider().padding(.horizontal, 5)
+                            Section {
+                                HStack {
+                                    Text("Line 3").foregroundColor(.secondary)
+                                    Spacer()
+                                    TextField("Optional   ", text: $pickedAddress.apt).multilineTextAlignment(.trailing)
+                                        .focused($isApartmentsEditing)
+                                        .onTapGesture {
+                                            $isApartmentsEditing.wrappedValue = true
+                                        }
+                                }.padding(5)
+                            }
+                        }.transition(.opacity).animation(.easeInOut, value: $showMap.wrappedValue)
+                        Divider().padding(.horizontal, 5)
+                        Section {
+                            HStack {
+                                Text("City").foregroundColor(.secondary)
+                                Spacer()
+                                TextField("Mandatory", text: $pickedAddress.town).multilineTextAlignment(.trailing)
+                                    .focused($isCityEditing)
+                                    .onTapGesture {
+                                        $isCityEditing.wrappedValue = true
                                     }
                             }.padding(5)
                         }
                         Divider().padding(.horizontal, 5)
                         Section {
                             HStack {
-                                Text("Line 3").foregroundColor(.secondary)
+                                Text("Postcode").foregroundColor(.secondary)
                                 Spacer()
-                                TextField("Optional   ", text: $pickedAddress.apt).multilineTextAlignment(.trailing)
-                                    .focused($isApartmentsEditing)
+                                TextField("Mandatory", text: $pickedAddress.postcode).multilineTextAlignment(.trailing)
+                                    .focused($isPostcodeEditing)
                                     .onTapGesture {
-                                        $isApartmentsEditing.wrappedValue = true
+                                        $isPostcodeEditing.wrappedValue = true
                                     }
                             }.padding(5)
                         }
-                    }.transition(.opacity).animation(.easeInOut, value: $showMap.wrappedValue)
-                    Divider().padding(.horizontal, 5)
-                    Section {
-                        HStack {
-                            Text("City").foregroundColor(.secondary)
-                            Spacer()
-                            TextField("Mandatory", text: $pickedAddress.town).multilineTextAlignment(.trailing)
-                                .focused($isCityEditing)
-                                .onTapGesture {
-                                    $isCityEditing.wrappedValue = true
-                                }
-                        }.padding( 5)}
-                    Divider().padding(.horizontal, 5)
-                    Section {
-                        HStack {
-                            Text("Postcode").foregroundColor(.secondary)
-                            Spacer()
-                            TextField("Mandatory", text: $pickedAddress.postcode).multilineTextAlignment(.trailing)
-                                .focused($isPostcodeEditing)
-                                .onTapGesture {
-                                    $isPostcodeEditing.wrappedValue = true
-                                }
-                        }.padding(5)
-                    }
-                }.background(Color.white).padding(10)
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 1.0).foregroundColor(.lightGray)
-                    }.padding(.top, 5).padding(1)
+                    }.background(Color.white).padding(10)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 1.0).foregroundColor(.lightGray)
+                        }.padding(.top, 5).padding(1)
                 }
-
-
             }
             if $isApartmentsEditing.wrappedValue {
                 Section {
@@ -303,15 +306,14 @@ struct AddressVerifyView: View {
                     RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 1.0).foregroundColor(.lightGray)
                 }.padding(1)
             } else {
-
                 Spacer()
             }
             Rectangle().foregroundColor(.clear).ignoresSafeArea(.container, edges: .horizontal)
                 .overlay {
                     VStack {
                         Spacer()
-                        NavigationLink(destination: TermsConditionsView( actorType: actorType)) {
-                            HStack{
+                        NavigationLink(destination: TermsConditionsView(actorType: actorType)) {
+                            HStack {
                                 Text("Next")
                                     .lineLimit(1)
                                     .shadow(color: Color.secondary, radius: 0.5, x: 0.5, y: 0.5)
@@ -329,16 +331,15 @@ struct AddressVerifyView: View {
                             }
                         }
                     }.padding(.bottom, 15)
-                }.frame( height: 55)
+                }.frame(height: 55)
         }.frame(width: UIScreen.main.bounds.width - 40, alignment: .center)
             .bottomSheet(bottomSheetPosition: $bottomSheetPosition,
                          options: [.allowContentDrag, .tapToDissmiss, .swipeToDismiss,
                                    .shadow(color: .lightGray, radius: 3, x: 3, y: 3), .noBottomPosition,
                                    .appleScrollBehavior, .dragIndicatorColor(Color.lightGray.opacity(0.5)),
-                                   .showCloseButton(action: {bottomSheetPosition = .hidden})],
-                         headerContent:{},
+                                   .showCloseButton(action: { bottomSheetPosition = .hidden })],
+                         headerContent: {},
                          mainContent: {
-
                 ForEach(Addresses, id: \.self) { adr in
                     Section {
                         VStack(alignment: .leading) {

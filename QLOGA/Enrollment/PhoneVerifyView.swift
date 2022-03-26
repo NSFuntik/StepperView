@@ -5,8 +5,9 @@
 //  Created by Dmitry Mikhailov on 3/4/22.
 //
 
-import SwiftUI
 import AnyFormatKitSwiftUI
+import Combine
+import SwiftUI
 struct PhoneVerifyView: View {
     let bounds = UIScreen.main.bounds
     enum Field: Hashable {
@@ -14,6 +15,9 @@ struct PhoneVerifyView: View {
         case phone
         case pinCode
     }
+
+    @Binding var phone: String
+    @State var isInheritedSettingsView = false
     @FocusState private var focusedField: Field?
     @FocusState var phoneIsFocused: Bool
     @FocusState private var isCountryCodeFocused: Bool
@@ -25,32 +29,33 @@ struct PhoneVerifyView: View {
 
     @State var pinRequested: Bool = false
     @State var y = false
-
+    @Environment(\.presentationMode) var presentationMode
     @State var pinCode = ""
     @State var phoneNumber = ""
     @State var countryName = "United Kindom"
     @State var countryCode = "44"
     @State var countryFlag = "🇬🇧"
-    
+
     var body: some View {
         VStack(alignment: .center) {
             if !$y.wrappedValue {
-                ZStack {
-                    HStack {
-                        Spacer()
-                        DottedLine()
-                            .stroke(style: StrokeStyle(lineWidth: 1.5, dash: [5]))
-                            .shadow(radius: 0.5)
-                            .frame(width: bounds.width / 2 - 5, height: 0.5, alignment: .leading)
-                            .ignoresSafeArea(.all, edges: .trailing)
-                            .foregroundColor(Color.lightGray)
-                    }
-                    Image("VerifyStep")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 30, height: 30, alignment: .center)
-                }.frame(height: 50, alignment: .center)
-
+                if !$isInheritedSettingsView.wrappedValue {
+                    ZStack {
+                        HStack {
+                            Spacer()
+                            DottedLine()
+                                .stroke(style: StrokeStyle(lineWidth: 1.5, dash: [5]))
+                                .shadow(radius: 0.5)
+                                .frame(width: bounds.width / 2 - 5, height: 0.5, alignment: .leading)
+                                .ignoresSafeArea(.all, edges: .trailing)
+                                .foregroundColor(Color.lightGray)
+                        }
+                        Image("VerifyStep")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 30, height: 30, alignment: .center)
+                    }.frame(height: 50, alignment: .center)
+                }
                 HStack {
                     Text("Your verified mobile number is mandatory and needed for maintaining communication with providers.")
                         .multilineTextAlignment(.leading)
@@ -60,7 +65,7 @@ struct PhoneVerifyView: View {
                 }
                 .overlay {
                     RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 1.0).foregroundColor(.lightGray)
-                }
+                }.padding(.top, $isInheritedSettingsView.wrappedValue ? 10 : 0)
             }
             Group {
                 VStack {
@@ -89,7 +94,7 @@ struct PhoneVerifyView: View {
                     }
                     Divider()
                     HStack {
-                        HStack (spacing: 2) {
+                        HStack(spacing: 2) {
                             Text($countryFlag.wrappedValue)
                                 .frame(height: 50)
                                 .onTapGesture {
@@ -104,18 +109,18 @@ struct PhoneVerifyView: View {
                             TextField("+44", text: $countryCode)
                                 .focused($focusedField, equals: .countryCode)
                                 .focused($isCountryCodeFocused, equals: focusedField == .countryCode)
-                                .keyboardType(.phonePad)
+                                .keyboardType(.numberPad)
                                 .multilineTextAlignment(.leading)
                                 .keyboardShortcut(.defaultAction)
                                 .frame(width: 35, height: 50)
                                 .submitScope()
-                                .onChange(of: $countryCode.wrappedValue, perform: { newValue in $y.wrappedValue = true })
-//                                .onChange(of: focusedField, perform: { newValue in
-//                                    withAnimation(.interactiveSpring().speed(1.0)) {
-//                                        isPhoneFocused = true
-//                                        $y.wrappedValue = false
-//                                    }
-//                                })
+                                .onChange(of: $countryCode.wrappedValue, perform: { _ in $y.wrappedValue = true })
+                                .onReceive(Just($countryCode.wrappedValue)) { newValue in
+                                    let filtered = newValue.filter { "0123456789".contains($0) }
+                                    if filtered != newValue {
+                                        $countryCode.wrappedValue = filtered
+                                    }
+                                }
                                 .onSubmit {
                                     $focusedField.wrappedValue = .phone
                                     isPhoneFocused = true
@@ -123,14 +128,21 @@ struct PhoneVerifyView: View {
                                 }
                         }
 
-                        TextField("Phone number", text: $phoneNumber.max(10))
+                        TextField("Phone number", text: $phoneNumber.max(13))
                             .focused($focusedField, equals: .phone)
                             .focused($isPhoneFocused, equals: focusedField == .phone)
                             .keyboardType(.phonePad)
+                            .showClearButton($phoneNumber)
                             .keyboardShortcut(.defaultAction)
                             .textContentType(.telephoneNumber)
                             .submitScope()
                             .multilineTextAlignment(.leading)
+                            .onReceive(Just($phoneNumber.wrappedValue)) { newValue in
+                                let filtered = newValue.filter { "0123456789".contains($0) }
+                                if filtered != newValue {
+                                    self.$phoneNumber.wrappedValue = filtered
+                                }
+                            }
                             .onSubmit {
                                 pinRequested = true
                                 $focusedField.wrappedValue = .pinCode
@@ -152,7 +164,8 @@ struct PhoneVerifyView: View {
                                     .multilineTextAlignment(.center)
                                     .focused($focusedField, equals: .pinCode)
                                     .focused($isPinFocused, equals: $focusedField.wrappedValue == .pinCode)
-                                    .placeholder(when:  $pinCode.wrappedValue.count < 1) {
+
+                                    .placeholder(when: $pinCode.wrappedValue.count < 1) {
                                         VStack {
                                             Spacer()
                                             Text("Enter 6-digit code")
@@ -184,7 +197,7 @@ struct PhoneVerifyView: View {
                     }
 
                     Button {
-                        if  !$phoneNumber.wrappedValue.isEmpty {
+                        if !$phoneNumber.wrappedValue.isEmpty {
                             pinRequested = true
                             $focusedField.wrappedValue = .pinCode
                             isPinFocused = true
@@ -192,19 +205,7 @@ struct PhoneVerifyView: View {
                     } label: {
                         HStack {
                             Text(pinRequested ? "Resend code" : "Send code")
-                                .lineLimit(1)
-                                .shadow(color: Color.secondary, radius: 1, x: 1, y: 1)
-                                .font(.system(size: 20, weight: .regular, design: .rounded))
-                                .foregroundColor(.white)
-                                .frame(width: UIScreen.main.bounds.width - 30, height: 50)
-                                .background(RoundedRectangle(cornerRadius: 25).fill(Color.orange))
-                                .clipShape(RoundedRectangle(cornerRadius: 25))
-                                .shadow(color: Color.lightGray, radius: 4, x: -4.5, y: -4.5)
-                                .clipShape(RoundedRectangle(cornerRadius: 25))
-                                .overlay(RoundedRectangle(cornerRadius: 25)
-                                    .stroke(lineWidth: 2.0)
-                                    .foregroundColor(Color.white)
-                                    .shadow(color: .secondary.opacity(0.5), radius: 3, y: 3))
+                                .withDoneButtonStyles(backColor: .Orange, accentColor: .white)
                         }
                     }.disabled($phoneNumber.wrappedValue.count < 5)
                 }
@@ -217,79 +218,89 @@ struct PhoneVerifyView: View {
                 }
             }
             Spacer()
-            if $pinCode.wrappedValue.count > 5 {
 
+            if $pinCode.wrappedValue.count > 5 {
                 Rectangle().foregroundColor(.white).ignoresSafeArea(.container, edges: .horizontal)
                     .overlay {
                         VStack {
                             Spacer()
-                            NavigationLink(destination: AddressVerifyView(actorType: actorType)) {
-                                HStack{
-                                    Text("Next")
-                                        .lineLimit(1)
-                                        .shadow(color: Color.secondary, radius: 0.5, x: 0.5, y: 0.5)
-                                        .font(.system(size: 20, weight: .regular, design: .rounded))
-                                        .foregroundColor(.accentColor)
-                                        .frame(width: UIScreen.main.bounds.width - 30, height: 50)
-                                        .background(RoundedRectangle(cornerRadius: 25).fill(Color.white))
-                                        .clipShape(RoundedRectangle(cornerRadius: 25))
-                                        .shadow(color: Color.lightGray, radius: 4, x: -4.5, y: -4.5)
-                                        .clipShape(RoundedRectangle(cornerRadius: 25))
-                                        .overlay(RoundedRectangle(cornerRadius: 25)
-                                            .stroke(lineWidth: 2.0)
-                                            .foregroundColor(Color.accentColor)
-                                            .shadow(color: .secondary.opacity(0.5), radius: 3, y: 3))
+                            if $isInheritedSettingsView.wrappedValue {
+                                Button(action: {
+                                    $phone.wrappedValue = "+" + $countryCode.wrappedValue + $phoneNumber.wrappedValue
+                                    self.presentationMode.wrappedValue.dismiss()
+                                }) {
+                                    HStack {
+                                        Text("Done")
+                                            .withDoneButtonStyles(backColor: .accentColor, accentColor: .white)
+                                    }
                                 }
-                                .ignoresSafeArea(.keyboard, edges: .bottom)
+                            } else {
+                                NavigationLink(destination: AddressVerifyView(actorType: actorType)) {
+                                    HStack {
+                                        Text("Next")
+                                            .withDoneButtonStyles(backColor: .white, accentColor: .accentColor)
+                                    }
+                                }
+                                //                                .ignoresSafeArea(.keyboard, edges: .bottom)
                             }
-                        }.padding(.bottom, 15)
+                        }.padding(.bottom, 25)
                     }
-                    .ignoresSafeArea(.keyboard, edges: .bottom)
-
+                //                    .ignoresSafeArea(.keyboard, edges: .bottom)
             }
         }.padding(.horizontal, 20)
-            .toolbar(content: {
-                Button("Done", role: .destructive) {
-                    if isCountryCodeFocused == false, isPhoneFocused == false, isPinFocused == false {
-                        $focusedField.wrappedValue  = .none
-                        UIApplication.shared.closeKeyboard()
-                    }
-                    switch $focusedField.wrappedValue {
-                    case .countryCode:
-                        $focusedField.wrappedValue = .phone
-                        isPinFocused = false
-                        isCountryCodeFocused = false
-                        isPhoneFocused = true
-                    case .phone:
-                        if  $phoneNumber.wrappedValue.count > 5 {
-                            pinRequested = true
-                            $focusedField.wrappedValue  = .pinCode
-                            isPinFocused = true
+            .toolbar {
+
+
+                ToolbarItem(placement: .keyboard) {
+                    HStack {
+                        Spacer()
+                        Button("Done", role: .destructive) {
+                            if isCountryCodeFocused == false, isPhoneFocused == false, isPinFocused == false {
+                                $focusedField.wrappedValue = .none
+                                UIApplication.shared.closeKeyboard()
+                            }
+                            switch $focusedField.wrappedValue {
+                                case .countryCode:
+                                    $focusedField.wrappedValue = .phone
+                                    isPinFocused = false
+                                    isCountryCodeFocused = false
+                                    isPhoneFocused = true
+                                case .phone:
+                                    if $phoneNumber.wrappedValue.count > 5 {
+                                        pinRequested = true
+                                        $focusedField.wrappedValue = .pinCode
+                                        isPinFocused = true
+                                    }
+                                case .pinCode:
+                                    if $pinCode.wrappedValue.count == 6 {
+                                        $focusedField.wrappedValue = .none
+                                        UIApplication.shared.closeKeyboard()
+                                        $focusedField.wrappedValue = .none
+                                    }
+                                case .none:
+                                    $focusedField.wrappedValue = .none
+                                    UIApplication.shared.closeKeyboard()
+                                    $focusedField.wrappedValue = .none
+                                    if $isInheritedSettingsView.wrappedValue {
+                                        $phone.wrappedValue = "+" + $countryCode.wrappedValue + $phoneNumber.wrappedValue
+                                        self.presentationMode.wrappedValue.dismiss()
+                                    }
+                                    //                                case .some(.pinCode):
+                                    //                                    $focusedField.wrappedValue = .none
+                                    //                                    UIApplication.shared.closeKeyboard()
+                                    //                                    $focusedField.wrappedValue  = .none
+                            }
                         }
-                    case .pinCode:
-                        if $pinCode.wrappedValue.count == 6 {
-                            $focusedField.wrappedValue = .none
-                            UIApplication.shared.closeKeyboard()
-                            $focusedField.wrappedValue  = .none
-                        }
-                    case .none:
-                        $focusedField.wrappedValue = .none
-                        UIApplication.shared.closeKeyboard()
-                        $focusedField.wrappedValue  = .none
-                    case .some(.pinCode):
-                        $focusedField.wrappedValue = .none
-                        UIApplication.shared.closeKeyboard()
-                        $focusedField.wrappedValue  = .none
+                        .font(.system(size: 20, weight: .regular, design: .rounded))
                     }
                 }
-                .font(.system(size: 20, weight: .semibold, design: .rounded))
-            })
+            }
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    isPhoneFocused = false
+                    isCountryCodeFocused = false
                     isPinFocused = false
-                    $focusedField.wrappedValue = .countryCode
-                    isCountryCodeFocused = true
+                    $focusedField.wrappedValue = .phone
+                    isPhoneFocused = true
                 }
             }
             .navigationTitle("Verify phone").navigationBarTitleDisplayMode(.inline)
@@ -297,13 +308,32 @@ struct PhoneVerifyView: View {
     }
 }
 
+extension Text {
+    func withDoneButtonStyles(backColor: Color, accentColor: Color, isWide: Bool = true, width: CGFloat = UIScreen.main.bounds.width - 30, height: CGFloat = 50) -> some View {
+        self.lineLimit(1)
+            .shadow(color: Color.secondary, radius: 0.5, x: 0.5, y: 0.5)
+            .font(.system(size: 20, weight: .regular, design: .rounded))
+            .foregroundColor(accentColor)
+            .frame(width: width, height: height)
+            .background(RoundedRectangle(cornerRadius: 25).fill(backColor))
+            .clipShape(RoundedRectangle(cornerRadius: 25))
+            .shadow(color: Color.lightGray, radius: 4, x: -4.5, y: -4.5)
+            .clipShape(RoundedRectangle(cornerRadius: 25))
+            .overlay(RoundedRectangle(cornerRadius: 25)
+                .stroke(lineWidth: 2.0)
+                .foregroundColor(accentColor)
+                .shadow(color: .secondary.opacity(0.5), radius: 3, y: 3))
+    }
+}
+
 struct PhoneVerifyView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            PhoneVerifyView(actorType: .QLOGA)
+            PhoneVerifyView(phone: .constant(""), actorType: .QLOGA)
         }.previewDevice("iPhone 6s")
     }
 }
+
 extension Binding where Value == String {
     func max(_ limit: Int) -> Self {
         if self.wrappedValue.count > limit {
@@ -314,16 +344,18 @@ extension Binding where Value == String {
         return self
     }
 }
+
 extension View {
     func placeholder<Content: View>(
         when shouldShow: Bool,
         alignment: Alignment = .center,
-        @ViewBuilder placeholder: () -> Content) -> some View {
-            ZStack(alignment: alignment) {
-                placeholder().opacity(shouldShow ? 1 : 0)
-                self
-            }
+        @ViewBuilder placeholder: () -> Content) -> some View
+    {
+        ZStack(alignment: alignment) {
+            placeholder().opacity(shouldShow ? 1 : 0)
+            self
         }
+    }
 }
 
 extension UIApplication {
@@ -331,4 +363,3 @@ extension UIApplication {
         sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
-

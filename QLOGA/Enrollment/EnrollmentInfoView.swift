@@ -8,8 +8,10 @@ import BottomSheetSwiftUI
 import SwiftUI
 
 enum InfoBottomSheetPosition: CGFloat, CaseIterable {
-    case middle = 0.5, hidden = 0.0
+    case middle = 0.5
+    case hidden = 0.0
 }
+
 struct EnrollmentInfoView: View {
     @State var actorType: ActorsEnum
     @State var bottomSheetPosition: InfoBottomSheetPosition = .hidden
@@ -67,13 +69,13 @@ struct EnrollmentInfoView: View {
                             .frame(width: 30, height: 30, alignment: .center)
                     }.frame(maxWidth: 30, minHeight: 90,
                             idealHeight: 120, maxHeight: 130, alignment: .center)
-                        .padding(.vertical, -20).padding(.trailing, 20)
+                    .padding(.vertical, -20).padding(.trailing, 20)
                     Text("Confirm addres")
                         .multilineTextAlignment(.leading)
                         .font(Font.system(size: 20, weight: .regular, design: .rounded))
                     Spacer()
                     Button {
-                        checkBottomSheetConds(text:  "Address verification is one of the ways we build trust between providers and customers. QLOGA’s services are provided at a customer’s home address, so our customers need to prove they live where they say they do. This also prevents any confusion over the address the service provider will need to travel too. Address verification is one of the ways we build trust between providers and customers. QLOGA’s services are provided at a customer’s home address, so our customers need to prove they live where they say they do. This also prevents any confusion over the address the service provider will need to travel too.")
+                        checkBottomSheetConds(text: "Address verification is one of the ways we build trust between providers and customers. QLOGA’s services are provided at a customer’s home address, so our customers need to prove they live where they say they do. This also prevents any confusion over the address the service provider will need to travel too. Address verification is one of the ways we build trust between providers and customers. QLOGA’s services are provided at a customer’s home address, so our customers need to prove they live where they say they do. This also prevents any confusion over the address the service provider will need to travel too.")
 
                     } label: {
                         Image(systemName: "info.circle")
@@ -166,7 +168,7 @@ struct EnrollmentInfoView: View {
                             .foregroundColor(.accentColor)
                     }.frame(maxWidth: 30, minHeight: 110,
                             idealHeight: 130, maxHeight: 150, alignment: .top)
-                        .padding(.vertical, -5).padding(.trailing, 20)
+                    .padding(.vertical, -5).padding(.trailing, 20)
 
                     Text("Customer ready to work!")
                         .multilineTextAlignment(.leading)
@@ -188,8 +190,8 @@ struct EnrollmentInfoView: View {
 
             VStack {
                 Spacer()
-                NavigationLink(destination: PhoneVerifyView(actorType: actorType)) {
-                    HStack{
+                NavigationLink(destination: PhoneVerifyView(phone: .constant(""), actorType: actorType)) {
+                    HStack {
                         Text("Let`s begin!")
                             .lineLimit(1)
                             .ignoresSafeArea(.all)
@@ -198,7 +200,7 @@ struct EnrollmentInfoView: View {
                             .foregroundColor(.white)
                             .frame(width: UIScreen.main.bounds.width - 40, height: 50)
                             .background(RoundedRectangle(cornerRadius: 25)
-                            .fill(Color.accentColor))
+                                .fill(Color.accentColor))
                             .clipShape(RoundedRectangle(cornerRadius: 25))
                             .shadow(color: Color.lightGray, radius: 4, x: -4.5, y: -4.5)
                             .clipShape(RoundedRectangle(cornerRadius: 25))
@@ -208,30 +210,30 @@ struct EnrollmentInfoView: View {
                                 .shadow(color: .secondary.opacity(0.5), radius: 3, y: 3))
                     }
                 }
-            }.padding(.bottom, 15).scaleEffect( UIDevice.modelName == "iPhone SE" ? 0.8 : 1.0)
+            }.padding(.bottom, 25)
 
         }.navigationBarTitleDisplayMode(.inline).navigationTitle("Enrollment")
-        .bottomSheet(bottomSheetPosition: $bottomSheetPosition,
-                     options: [.allowContentDrag, .tapToDissmiss, .swipeToDismiss,
-                               .cornerRadius(25), .shadow(color: .lightGray, radius: 3, x: 3, y: 3),
-                               .noBottomPosition,  .appleScrollBehavior,
-                               .dragIndicatorColor(Color.lightGray.opacity(0.5)),
-                               .showCloseButton(action: {self.bottomSheetPosition = .hidden})],
-                     headerContent: {},
-                     mainContent: {
-                            VStack {
-                                Text(infoText)
-                                    .multilineTextAlignment(.leading)
-                                    .font(Font.system(size: 20, weight: .regular, design: .rounded))
-                                    .foregroundColor(.secondary)
-                                    .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
-                                    .lineLimit(30)
-                            }.padding(20)
-                        })
+            .bottomSheet(bottomSheetPosition: $bottomSheetPosition,
+                         options: [.allowContentDrag, .tapToDissmiss, .swipeToDismiss,
+                                   .cornerRadius(25), .shadow(color: .lightGray, radius: 3, x: 3, y: 3),
+                                   .noBottomPosition, .appleScrollBehavior,
+                                   .dragIndicatorColor(Color.lightGray.opacity(0.5)),
+                                   .showCloseButton(action: { self.bottomSheetPosition = .hidden })],
+                         headerContent: {},
+                         mainContent: {
+                VStack {
+                    Text(infoText)
+                        .multilineTextAlignment(.leading)
+                        .font(Font.system(size: 20, weight: .regular, design: .rounded))
+                        .foregroundColor(.secondary)
+                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
+                        .lineLimit(30)
+                }.padding(20)
+            })
     }
 
     func checkBottomSheetConds(text: String) {
-        if text != infoText {
+        if text != self.infoText {
             if self.bottomSheetPosition == .middle {
                 self.bottomSheetPosition = .hidden
                 self.$infoText.wrappedValue = text

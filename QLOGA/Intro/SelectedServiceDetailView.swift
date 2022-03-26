@@ -8,13 +8,21 @@
 import SwiftUI
 
 struct SelectedServiceDetailView: View {
-    @State var serviceType: ServiceType
+    @State var serviceType: ServiceCleaningType
     var cleaningService: CleaningService
 
-    init(serviceType: ServiceType) {
+    init(serviceType: ServiceCleaningType) {
         self.serviceType = serviceType
         switch serviceType {
-        case .Windows, .Kitchen, .BedroomLivingroom, .CompleteHome:
+            case .Bathroom,
+                    .BedroomLivingroom,
+                    .ClothesLaundryIroning,
+                    .CompleteHome,
+                    .GarrageCleaning,
+                    .Kitchen,
+                    .OvenCleaning,
+                    .SwimmingPoolCleaning,
+                    .Windows:
             cleaningService = CleaningService(title: "Kitchen Cleaning",
                                               unit: "£ / Hour",
                                               price: 15.0,

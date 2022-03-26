@@ -8,32 +8,36 @@
 import SwiftUI
 
 struct ProvidersView: View {
+    // MARK: Lifecycle
+
+    init(service: Service) {
+        self.service = service
+        UINavigationBar.appearance().prefersLargeTitles = false
+    }
+
+    // MARK: Internal
 
     @ObservedObject var locationManager = LocationManager()
     var grid = GridItem(.fixed(UIScreen.main.bounds.size.width / 2 - 20))
     @State var isFiltersPresented = false
     var service: Service
-    init(service: Service) {
-        self.service = service
-        UINavigationBar.appearance().prefersLargeTitles = false
 
-    }
     var body: some View {
         ScrollView {
-            ScrollViewReader{ proxy in
+            ScrollViewReader { _ in
                 VStack {
                     ForEach(Providers, id: \.self) { provider in
                         NavigationLink(destination: ProviderOverview(isButtonShows: true)) {
                             HStack(alignment: .top, spacing: 20) {
                                 VStack(alignment: .center, spacing: 0) {
-                                    Image(provider.avatar!)
+                                    Image(provider.avatar)
                                         .resizable()
                                         .aspectRatio(contentMode: .fill)
                                         .frame(width: 100, height: 110, alignment: .center)
                                         .cornerRadius(10)
                                         .overlay(RoundedRectangle(cornerRadius: 10)
-                                        .stroke(lineWidth: 1.0)
-                                        .foregroundColor(Color.lightGray)).padding(1).padding(.top, 2)
+                                            .stroke(lineWidth: 1.0)
+                                            .foregroundColor(Color.lightGray)).padding(1).padding(.top, 2)
 
                                     Text(provider.employment.rawValue)
                                         .foregroundColor(Color.secondary)
@@ -91,7 +95,7 @@ struct ProvidersView: View {
                                             .multilineTextAlignment(.leading)
                                             .font(Font.system(size: 15, weight: .regular, design: .rounded))
                                         Spacer()
-                                        Text(String(describing: provider.distance!))
+                                        Text(provider.distance.description)
                                             .foregroundColor(Color.black.opacity(0.8))
                                             .multilineTextAlignment(.leading)
                                             .font(Font.system(size: 15,
@@ -99,7 +103,6 @@ struct ProvidersView: View {
                                                               design: .rounded))
                                     }
                                 }
-
                             }
                         }
                         Divider()
@@ -117,10 +120,10 @@ struct ProvidersView: View {
                 } label: {
                     Image("FilterIcon")
                         .resizable()
+                        .renderingMode(.template)
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 30, height: 30, alignment: .center)
-                        .accentColor(Color.accentColor)
                         .foregroundColor(.accentColor)
+                        .frame(width: 30, height: 30, alignment: .center)
                         .padding(5)
                 }
                 NavigationLink(destination: GoogleMapView(providers: .constant([Address(postcode: "", town: "", street: "", -33.86, 151.20),
@@ -130,6 +133,9 @@ struct ProvidersView: View {
                                                                                            locationManager.latitude, locationManager.longitude)))) {
                     Image("MapIcon")
                         .resizable()
+                        .renderingMode(.template)
+                        .aspectRatio(contentMode: .fit)
+                        .foregroundColor(.accentColor)
                         .frame(width: 30, height: 30, alignment: .center)
                         .padding(5)
                 }
@@ -139,15 +145,13 @@ struct ProvidersView: View {
     }
 }
 
-
 struct ProvidersView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             NavigationView {
-                ProvidersView(service:  Service(id: 0, image: "Cleaning", name: "Cleaning", description: "Residential cleaning services for all parts of your home. With tasks covering dishwashing, cleaning bathrooms, waste removal, furniture cleaning, window cleaning...", types: ["Complete home cleaning","Bathroom and toilet cleaning","Kitchen cleaning","Bedroom or living room cleaning","Clothes laundry and ironing","Garrage cleaning","Swimming pool cleaning","Owen cleaning"]))
+                ProvidersView(service: Service(id: 0, image: "Cleaning", name: "Cleaning", description: "Residential cleaning services for all parts of your home. With tasks covering dishwashing, cleaning bathrooms, waste removal, furniture cleaning, window cleaning...", types: [.CompleteHome, .GarrageCleaning, .SwimmingPoolCleaning]))
                     .navigationTitle("Providers")
             }.previewDevice("iPhone 6s")
-
         }
     }
 }

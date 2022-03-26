@@ -8,6 +8,17 @@
 import SwiftUI
 
 struct VisitTimeSelectorView: View {
+    // MARK: Lifecycle
+
+    init(date: Binding<Date>, pickedFVT: Binding<String>, pickedSecondVVT: Binding<String>, pickedThirdVT: Binding<String>) {
+        self._date = date
+        self._pickedFirstVisitTimeline = pickedFVT
+        self._pickedSecondVisitTimeline = pickedSecondVVT
+        self._pickedThirdVisitTimeline = pickedThirdVT
+    }
+
+    // MARK: Internal
+
     var dateFormatter = DateFormatter()
     @State var isDropFirst = false
     @State var isDropSecond = false
@@ -26,40 +37,33 @@ struct VisitTimeSelectorView: View {
     @Binding var pickedFirstVisitTimeline: String
     @Binding var pickedSecondVisitTimeline: String
     @Binding var pickedThirdVisitTimeline: String
-    
-    var hours: [String] {
-
-        if $isSelectedHalfHour.wrappedValue {
-            return  ["00:30-01:30", "01:30-02:30", "02:30-03:30",
-                     "03:30-04:30", "04:30-05:30", "05:30-06:30",
-                     "05:30-06:30", "06:30-07:30", "07:30-08:30",
-                     "08:30-09:30", "09:30-10:30", "10:30-11:30",
-                     "11:30-12:30", "12:30-13:30", "13:30-14:30",
-                     "14:30-15:30", "15:30-16:30", "16:30-17:30",
-                     "17:30-18:30", "18:30-19:30", "20:30-21:30",
-                     "21:30-22:30", "22:30-23:30", "23:30-00:30"]
-        } else {
-            return  ["00:00-01:00", "01:00-02:00", "02:00-03:00",
-                     "03:00-04:00", "04:00-05:00", "05:00-06:00",
-                     "05:00-06:00", "06:00-07:00", "07:00-08:00",
-                     "08:00-09:00", "09:00-10:00", "10:00-11:00",
-                     "11:00-12:00", "12:00-13:00", "13:00-14:00",
-                     "14:00-15:00", "15:00-16:00", "16:00-17:00",
-                     "17:00-18:00", "18:00-19:00", "20:00-21:00",
-                     "21:00-22:00", "22:00-23:00", "23:00-00:00"]
-        }
-    }
-    var workingHours = 8...17
+    var workingHours = 8 ... 17
 
     @Binding var date: Date
     @State var dateString: String = ""
 
-    init(date: Binding<Date>, pickedFVT: Binding<String>, pickedSecondVVT: Binding<String>, pickedThirdVT: Binding<String>) {
-        self._date = date
-        self._pickedFirstVisitTimeline = pickedFVT
-        self._pickedSecondVisitTimeline = pickedSecondVVT
-        self._pickedThirdVisitTimeline = pickedThirdVT
+    var hours: [String] {
+        if $isSelectedHalfHour.wrappedValue {
+            return ["00:30-01:30", "01:30-02:30", "02:30-03:30",
+                    "03:30-04:30", "04:30-05:30", "05:30-06:30",
+                    "05:30-06:30", "06:30-07:30", "07:30-08:30",
+                    "08:30-09:30", "09:30-10:30", "10:30-11:30",
+                    "11:30-12:30", "12:30-13:30", "13:30-14:30",
+                    "14:30-15:30", "15:30-16:30", "16:30-17:30",
+                    "17:30-18:30", "18:30-19:30", "20:30-21:30",
+                    "21:30-22:30", "22:30-23:30", "23:30-00:30"]
+        } else {
+            return ["00:00-01:00", "01:00-02:00", "02:00-03:00",
+                    "03:00-04:00", "04:00-05:00", "05:00-06:00",
+                    "05:00-06:00", "06:00-07:00", "07:00-08:00",
+                    "08:00-09:00", "09:00-10:00", "10:00-11:00",
+                    "11:00-12:00", "12:00-13:00", "13:00-14:00",
+                    "14:00-15:00", "15:00-16:00", "16:00-17:00",
+                    "17:00-18:00", "18:00-19:00", "20:00-21:00",
+                    "21:00-22:00", "22:00-23:00", "23:00-00:00"]
+        }
     }
+
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
             HStack {
@@ -107,7 +111,6 @@ struct VisitTimeSelectorView: View {
                                     .padding(.leading, 10)
                                 Spacer()
                                 if selectedFirstVisit != "", isSelectedSecondVisit == false {
-
                                     Image(systemName: "xmark")
                                         .foregroundColor(Color.red)
                                         .multilineTextAlignment(.leading)
@@ -123,7 +126,6 @@ struct VisitTimeSelectorView: View {
                                     .multilineTextAlignment(.leading)
                                     .font(Font.system(size: 18, weight: .regular, design: .rounded))
                                     .padding(.leading, 10)
-
                             }
                         }
                         Divider().padding(.horizontal, -10).padding(.leading, 25)
@@ -139,7 +141,6 @@ struct VisitTimeSelectorView: View {
                                     .padding(.leading, 10)
                                 Spacer()
                                 if selectedSecondVisit != "", isSelectedThirdVisit == false {
-
                                     Image(systemName: "xmark")
                                         .foregroundColor(Color.red)
                                         .multilineTextAlignment(.leading)
@@ -155,7 +156,6 @@ struct VisitTimeSelectorView: View {
                                     .multilineTextAlignment(.leading)
                                     .font(Font.system(size: 18, weight: .regular, design: .rounded))
                                     .padding(.leading, 10)
-
                             }
                         }.disabled(!isSelectedFirstVisit)
                         Divider().padding(.horizontal, -10).padding(.leading, 25)
@@ -171,7 +171,6 @@ struct VisitTimeSelectorView: View {
                                     .padding(.leading, 10)
                                 Spacer()
                                 if selectedThirdVisit != "" {
-
                                     Image(systemName: "xmark")
                                         .foregroundColor(Color.red)
                                         .multilineTextAlignment(.leading)
@@ -187,7 +186,6 @@ struct VisitTimeSelectorView: View {
                                     .multilineTextAlignment(.leading)
                                     .font(Font.system(size: 18, weight: .regular, design: .rounded))
                                     .padding(.leading, 10)
-
                             }
                         }.disabled(!isSelectedSecondVisit)
                             .padding(.bottom, 10)
@@ -212,16 +210,14 @@ struct VisitTimeSelectorView: View {
             .onAppear {
                 dateFormatter.dateFormat = "dd/MM/yyyy EEEE"
                 dateString = dateFormatter.string(from: date)
-
             }
-            .onDisappear{
+            .onDisappear {
                 if pickedFirstVisitTimeline == "" {
                     dateFormatter.dateFormat = "dd/MM/yyyy "
                     dateString = dateFormatter.string(from: date)
                     pickedFirstVisitTimeline.append(dateString)
                     pickedFirstVisitTimeline.append(contentsOf: selectedFirstVisit)
                     if selectedSecondVisit != "" {
-
                         pickedFirstVisitTimeline.append(contentsOf: ", ")
                         pickedFirstVisitTimeline.append(contentsOf: selectedSecondVisit)
                     }
@@ -258,6 +254,9 @@ struct VisitTimeSelectorView: View {
                 }
             }
     }
+
+    // MARK: Private
+
     private var buttons: some View {
         VStack {
             ForEach(0..<8) { x in
@@ -286,14 +285,13 @@ struct VisitTimeSelectorView: View {
                             .background(RoundedRectangle(cornerRadius: 10)
                                 .foregroundColor(workingHours.contains(y + x*3) ? Color.white : Color.lightGray))
                             .overlay(RoundedRectangle(cornerRadius: 10)
-                                .stroke(selectedFirstVisit == hours[y + x*3] ? Color.Green .opacity(0.7) : Color.lightGray .opacity(0.7),
+                                .stroke(selectedFirstVisit == hours[y + x*3] ? Color.Green.opacity(0.7) : Color.lightGray.opacity(0.7),
                                         lineWidth: 1.5).padding(1))
                     }
                 }
             }
         }
     }
-
 
     private var buttonsSecondVisit: some View {
         VStack {
@@ -323,7 +321,7 @@ struct VisitTimeSelectorView: View {
                             .background(RoundedRectangle(cornerRadius: 10)
                                 .foregroundColor(workingHours.contains(y + x*3) ? Color.white : Color.lightGray))
                             .overlay(RoundedRectangle(cornerRadius: 10)
-                                .stroke(selectedSecondVisit == hours[y + x*3] ? Color.Green .opacity(0.7) : Color.lightGray .opacity(0.7),
+                                .stroke(selectedSecondVisit == hours[y + x*3] ? Color.Green.opacity(0.7) : Color.lightGray.opacity(0.7),
                                         lineWidth: 1.5).padding(1))
                     }
                 }
@@ -359,7 +357,7 @@ struct VisitTimeSelectorView: View {
                             .background(RoundedRectangle(cornerRadius: 10)
                                 .foregroundColor(workingHours.contains(y + x*3) ? Color.white : Color.lightGray))
                             .overlay(RoundedRectangle(cornerRadius: 10)
-                                .stroke(selectedThirdVisit == hours[y + x*3] ? Color.Green .opacity(0.7) : Color.lightGray .opacity(0.7),
+                                .stroke(selectedThirdVisit == hours[y + x*3] ? Color.Green.opacity(0.7) : Color.lightGray.opacity(0.7),
                                         lineWidth: 1.5).padding(1))
                     }
                 }
@@ -371,7 +369,7 @@ struct VisitTimeSelectorView: View {
 struct VisitTimeSelectorView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            VisitTimeSelectorView(date: .constant( Date()),
+            VisitTimeSelectorView(date: .constant(Date()),
                                   pickedFVT: .constant(""),
                                   pickedSecondVVT: .constant(""),
                                   pickedThirdVT: .constant(""))

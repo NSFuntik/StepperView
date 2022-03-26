@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
-//import ImageViewer
+
+// MARK: - ProviderPortfolioView
+
 struct ProviderPortfolioView: View {
-    private var numberofImages = 3
+    private var numberofImages = testProvider.portfolio.images.count
     private let timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
     @State var image = Image("PortfolioImage0")
-    @State var  showImageViewer = false
+    @State var showImageViewer = false
     @State private var currentIndex = 0
     @State private var comment: String = ""
 
@@ -22,13 +24,13 @@ struct ProviderPortfolioView: View {
     }
 
     func next() {
-        withAnimation{
+        withAnimation {
             currentIndex = currentIndex < numberofImages ? currentIndex + 1 : 0
         }
     }
 
     var controls: some View {
-        HStack{
+        HStack {
             Button {
                 previous()
             } label: {
@@ -47,9 +49,9 @@ struct ProviderPortfolioView: View {
     var body: some View {
         VStack {
             GeometryReader { proxy in
-                VStack(spacing: 10) {
+                VStack(alignment: .center, spacing: 10) {
                     TabView(selection: $currentIndex) {
-                        ForEach(0..<numberofImages) {
+                        ForEach(0..<numberofImages, id: \.self) {
                             num in Image("PortfolioImage\(num)")
                                 .resizable()
                                 .scaledToFill()
@@ -60,43 +62,51 @@ struct ProviderPortfolioView: View {
                                 }.padding(1)
                         }
                     }.tabViewStyle(PageTabViewStyle())
-                        .frame(width: proxy.size.width, height: proxy.size.height / 2)
+                        .frame(width: proxy.size.width, height: proxy.size.height, alignment: .center)
                         .onReceive(timer, perform: { _ in
                             next()
                         })
-                    VStack(alignment: .center) {
-                        HStack {
-                            Spacer()
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(alignment: .top, spacing: 2) {
-                                    ForEach(0..<numberofImages) { num in
-                                        Image("PortfolioImage\(num)")
-                                            .resizable()
-                                            .frame(width: 75, height: 45)
-                                            .scaledToFill()
-                                            .tag(num)
-                                    }
-                                }
-                            }.frame(width: 75 * CGFloat(numberofImages) + CGFloat(numberofImages*2))
-                            Spacer()
-                        }
-                    }.frame(height: 45)
-                    ScrollView {
-                        Text(testProvider.portfolio?.description ?? "")
-                            .font(Font.system(size: 17, weight: .light, design: .rounded))
-                            .padding()
-                        Spacer()
-                    }
                 }
             }
-        }
-        .navigationBarTitle("Portfolio")
-        .navigationBarTitleDisplayMode(.inline)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .overlay(ImageViewer(image: self.$image,
-                             viewerShown: self.$showImageViewer))
+            VStack(alignment: .center) {
+                HStack {
+                    Spacer()
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(alignment: .top, spacing: 2) {
+                            ForEach(0..<numberofImages, id: \.self) { num in
+                                Image("PortfolioImage\(num)")
+                                    .resizable()
+                                    .frame(width: 75, height: 45)
+                                    .scaledToFill()
+                                    .tag(num)
+                                    .onTapGesture {
+                                        $currentIndex.wrappedValue = num
+                                    }
+                            }
+                        }
+                    }.frame(width: 75 * CGFloat(numberofImages) + CGFloat(numberofImages * 2))
+                    Spacer()
+                }
+            }.frame(width: UIScreen.main.bounds.width, height: 45)
+            ScrollView {
+                Text(testProvider.portfolio.description)
+                    .font(Font.system(size: 17, weight: .light, design: .rounded))
+                    .frame(width: UIScreen.main.bounds.width - 30)
+                    .padding(5)
+                Spacer()
+            }
+
+            .navigationBarTitle("Portfolio")
+            .navigationBarTitleDisplayMode(.inline)
+        }.padding(.horizontal, 20)
+            .frame(maxWidth: UIScreen.main.bounds.width + 40, maxHeight: .infinity)
+            .overlay(ImageViewer(image: self.$image,
+                                 viewerShown: self.$showImageViewer))
     }
 }
+
+// MARK: - ProviderPortfolioView_Previews
+
 struct ProviderPortfolioView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
@@ -104,5 +114,3 @@ struct ProviderPortfolioView_Previews: PreviewProvider {
         }.previewDevice("iPhone 6s")
     }
 }
-
-

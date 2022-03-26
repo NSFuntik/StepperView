@@ -8,21 +8,26 @@
 import SwiftUI
 
 struct VisitsScedulerView: View {
+    // MARK: Lifecycle
+
+    init() {
+        week = Date().daysOfWeek
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+    }
+
+    // MARK: Internal
+
     @State var pickedTimeline: String = ""
     @State var pickedFirstVisitTimeline: String = ""
     @State var pickedSecondVisitTimeline: String = ""
     @State var pickedThirdVisitTimeline: String = ""
-    @State  var weekOffset: Int = 0
+    @State var weekOffset: Int = 0
     @State var week: [Date]
     @State var showTwoWeeks = false
 
     var dateFormatter = DateFormatter()
     var weekDays = ["M", "T", "W", "T", "F", "S", "S", "M", "T", "W", "T", "F", "S", "S"]
 
-    init() {
-        week = Date().daysOfWeek
-        dateFormatter.dateFormat = "dd/MM/yyyy"
-    }
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(alignment: .center, spacing: 30) {
@@ -33,11 +38,11 @@ struct VisitsScedulerView: View {
                             week = (0...13).compactMap {
                                 Calendar.current.date(byAdding: .day,
                                                       value: $0,
-                                                      to:  Calendar.iso8601.date(
+                                                      to: Calendar.iso8601.date(
                                                         from: Calendar.iso8601.dateComponents([.yearForWeekOfYear, .weekOfYear],
-                                                            from: Calendar.current.date(
-                                                                byAdding: .weekOfYear,
-                                                                value: weekOffset, to: Date())!))!)
+                                                                                              from: Calendar.current.date(
+                                                                                                byAdding: .weekOfYear,
+                                                                                                value: weekOffset, to: Date())!))!)
                             }
                         } label: {
                             Image(systemName: "chevron.up")
@@ -51,7 +56,7 @@ struct VisitsScedulerView: View {
                             week = (0...13).compactMap {
                                 Calendar.current.date(byAdding: .day,
                                                       value: $0,
-                                                      to:  Calendar.iso8601.date(
+                                                      to: Calendar.iso8601.date(
                                                         from: Calendar.iso8601.dateComponents([.yearForWeekOfYear, .weekOfYear],
                                                                                               from: Calendar.current.date(
                                                                                                 byAdding: .weekOfYear,
@@ -119,7 +124,7 @@ struct VisitsScedulerView: View {
                         .multilineTextAlignment(.leading)
                         .font(Font.system(size: 17, weight: .regular, design: .rounded))
                 }
-                HStack() {
+                HStack {
                     Spacer()
                     Button {
                         pickedFirstVisitTimeline = ""
@@ -137,7 +142,7 @@ struct VisitsScedulerView: View {
     }
 
     var weekView: some View {
-        ForEach((showTwoWeeks ? 0..<week.count : 0..<7), id: \.self) { i in
+        ForEach(showTwoWeeks ? 0..<week.count : 0..<7, id: \.self) { i in
             Section {
                 NavigationLink {
                     VisitTimeSelectorView(date: Binding(projectedValue: $week[i].projectedValue),
@@ -148,12 +153,12 @@ struct VisitsScedulerView: View {
                     HStack {
                         Text(week[i].formatted()
                             .replacingOccurrences(of: ", 0:00", with: ""))
-                            .foregroundColor(Color.black.opacity(0.9))
-                            .multilineTextAlignment(.leading)
-                            .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                            .lineLimit(1)
-                            .padding(.leading, 10)
-                            .frame( width: 120, alignment: .leading)
+                        .foregroundColor(Color.black.opacity(0.9))
+                        .multilineTextAlignment(.leading)
+                        .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                        .lineLimit(1)
+                        .padding(.leading, 10)
+                        .frame(width: 120, alignment: .leading)
 
                         Text(weekDays[i])
                             .foregroundColor(Color.black.opacity(0.9))
@@ -165,29 +170,27 @@ struct VisitsScedulerView: View {
                         if pickedFirstVisitTimeline.contains(dateFormatter.string(from: week[i])) {
                             Text(pickedFirstVisitTimeline
                                 .replacingOccurrences(of: dateFormatter.string(from: week[i]), with: ""))
-                                .foregroundColor(Color.lightGray.opacity(0.9))
-                                .multilineTextAlignment(.leading)
-                                .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                                .lineLimit(1)
-                                .padding(.leading, 10)
+                            .foregroundColor(Color.lightGray.opacity(0.9))
+                            .multilineTextAlignment(.leading)
+                            .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                            .lineLimit(1)
+                            .padding(.leading, 10)
                         } else if pickedSecondVisitTimeline.contains(dateFormatter.string(from: week[i])) {
-
                             Text(pickedSecondVisitTimeline
                                 .replacingOccurrences(of: dateFormatter.string(from: week[i]), with: ""))
-                                .foregroundColor(Color.lightGray.opacity(0.9))
-                                .multilineTextAlignment(.leading)
-                                .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                                .lineLimit(1)
-                                .padding(.leading, 10)
+                            .foregroundColor(Color.lightGray.opacity(0.9))
+                            .multilineTextAlignment(.leading)
+                            .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                            .lineLimit(1)
+                            .padding(.leading, 10)
                         } else if pickedThirdVisitTimeline.contains(dateFormatter.string(from: week[i])) {
-
                             Text(pickedThirdVisitTimeline
                                 .replacingOccurrences(of: dateFormatter.string(from: week[i]), with: ""))
-                                .foregroundColor(Color.lightGray.opacity(0.9))
-                                .multilineTextAlignment(.leading)
-                                .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                                .lineLimit(1)
-                                .padding(.leading, 10)
+                            .foregroundColor(Color.lightGray.opacity(0.9))
+                            .multilineTextAlignment(.leading)
+                            .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                            .lineLimit(1)
+                            .padding(.leading, 10)
                         }
                         Image(systemName: "chevron.right")
                             .foregroundColor(Color.accentColor)
@@ -210,15 +213,15 @@ struct VisitsScedulerView_Previews: PreviewProvider {
     }
 }
 
-
 extension Calendar {
     static let iso8601 = Calendar(identifier: .iso8601)
 }
+
 extension Date {
     var startOfWeek: Date {
-
         return Calendar.iso8601.date(from: Calendar.iso8601.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self))!
     }
+
     var daysOfWeek: [Date] {
         let startOfWeek = self.startOfWeek
         return (0...13).compactMap {

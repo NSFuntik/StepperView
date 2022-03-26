@@ -23,13 +23,13 @@ struct StarsView: View {
 
     var body: some View {
         HStack {
-            ForEach(0..<fullCount) { _ in
+            ForEach(0..<fullCount, id: \.self) { _ in
                 self.fullStar
             }
-            ForEach(0..<halfFullCount) { _ in
+            ForEach(0..<halfFullCount, id: \.self) { _ in
                 self.halfFullStar
             }
-            ForEach(0..<emptyCount) { _ in
+            ForEach(0..<emptyCount, id: \.self) { _ in
                 self.emptyStar
             }
         }

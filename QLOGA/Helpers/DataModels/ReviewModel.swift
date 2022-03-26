@@ -9,11 +9,11 @@ import Foundation
 
 struct Review: Hashable, Identifiable {
     var id: Self { self }
-    let image: String?
+    let image: String
     let rate: Float
-    let description: String?
+    let description: String
 
-    init(image: String = "Avatar", rate: Float, description: String = "") {
+    init(image: String = "Avatar", rate: Float = 5.0, description: String = "") {
         self.image = image
         self.rate = rate
         self.description = description

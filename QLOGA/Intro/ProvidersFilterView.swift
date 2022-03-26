@@ -12,23 +12,22 @@ struct ProvidersFilterView: View {
     @State var returnRate: Double = 50
     @State var minRate: Double = 4.0
     @State var orders: Double = 250
-    @State var providerType: ProviderType = ProviderType.All
-    @State var personalVirifications: [VerificationTypes : Bool] = [
-        VerificationTypes.IDs : true,
-        VerificationTypes.Address : false,
-        VerificationTypes.Avatar : false,
-        VerificationTypes.RegistrationCertificate : false,
-        VerificationTypes.ProfessionalInsurance : false,
-        VerificationTypes.Email : true,
+    @State var providerType: ProviderType = .All
+    @State var personalVirifications: [VerificationType: Bool] = [
+        VerificationType.IDs                     : true,
+        VerificationType.Address                 : false,
+        VerificationType.Avatar                  : false,
+        VerificationType.RegistrationCertificate : false,
+        VerificationType.ProfessionalInsurance   : false,
+        VerificationType.Email                   : true,
     ]
-    @State var personalCertifications: [CertificationTypes : Bool] = [
-        CertificationTypes.BasicDisclosure : false,
-        CertificationTypes.ProtectingVulnerableGroups : false,
-        CertificationTypes.DBS : false,
-        CertificationTypes.AccessNI : false,
-        CertificationTypes.none : true
+    @State var personalCertifications: [CertificationType: Bool] = [
+        CertificationType.BasicDisclosure            : false,
+        CertificationType.ProtectingVulnerableGroups : false,
+        CertificationType.DBS                        : false,
+        CertificationType.AccessNI                   : false,
+        CertificationType.none                       : true,
     ]
-
 
     var body: some View {
         VStack {
@@ -79,7 +78,6 @@ struct ProvidersFilterView: View {
         }
     }
 }
-
 
 extension ProvidersFilterView {
     private var Sliders: some View {
@@ -143,7 +141,8 @@ extension ProvidersFilterView {
                                           weight: .regular,
                                           design: .rounded))
                         .padding(.horizontal, 10)
-                    Spacer()    }
+                    Spacer()
+                }
             }).padding([.horizontal])
 
             Section(content: {
@@ -171,8 +170,6 @@ extension ProvidersFilterView {
 
     private var ProviderAdminVerification: some View {
         VStack {
-
-
             VStack {
                 HStack {
                     Text("PROVIDER ADMIN VERIFICATIONS")
@@ -181,60 +178,61 @@ extension ProvidersFilterView {
                                           weight: .regular,
                                           design: .rounded))
                         .padding(.horizontal, 10)
-                    Spacer() }
+                    Spacer()
+                }
 
             }.padding([.horizontal])
             VStack {
                 Group {
                     HStack {
                         Text("ID")
-                            .foregroundColor(personalVirifications[VerificationTypes.IDs] == true ? Color.accentColor : Color.pickerTitle)
+                            .foregroundColor(personalVirifications[VerificationType.IDs] == true ? Color.accentColor : Color.pickerTitle)
                             .font(Font.system(size: 18,
                                               weight: .medium,
                                               design: .rounded))
                             .padding(.leading, 15)
                         Spacer()
-                        Image(systemName: personalVirifications[VerificationTypes.IDs] == true ? "checkmark.circle.fill" : "circle" )
+                        Image(systemName: personalVirifications[VerificationType.IDs] == true ? "checkmark.circle.fill" : "circle")
                             .scaleEffect(1.3)
-                            .foregroundColor(personalVirifications[VerificationTypes.IDs] == true ? Color.accentColor : Color.pickerTitle)
+                            .foregroundColor(personalVirifications[VerificationType.IDs] == true ? Color.accentColor : Color.pickerTitle)
                             .padding(.trailing, 15)
                             .onTapGesture {
-                                personalVirifications[VerificationTypes.IDs]?.toggle()
+                                personalVirifications[VerificationType.IDs]?.toggle()
                             }
                     }.padding(.vertical)
                     Divider().padding(.horizontal, 20)
                     HStack {
                         Text("Address")
-                            .foregroundColor(personalVirifications[VerificationTypes.Address] == true ? Color.accentColor : Color.pickerTitle)
+                            .foregroundColor(personalVirifications[VerificationType.Address] == true ? Color.accentColor : Color.pickerTitle)
                             .font(Font.system(size: 18,
                                               weight: .medium,
                                               design: .rounded))
                             .padding(.leading, 15)
                         Spacer()
-                        Image(systemName: personalVirifications[VerificationTypes.Address] == true ? "checkmark.circle.fill" : "circle")
+                        Image(systemName: personalVirifications[VerificationType.Address] == true ? "checkmark.circle.fill" : "circle")
                             .scaleEffect(1.3)
-                            .foregroundColor(personalVirifications[VerificationTypes.Address] == true ? Color.accentColor : Color.pickerTitle)
+                            .foregroundColor(personalVirifications[VerificationType.Address] == true ? Color.accentColor : Color.pickerTitle)
                             .padding(.trailing, 15)
                             .onTapGesture {
-                                personalVirifications[VerificationTypes.Address]?.toggle()
+                                personalVirifications[VerificationType.Address]?.toggle()
                             }
                     }.padding(.vertical)
                     Divider().padding(.horizontal, 20)
                     HStack {
                         Text("Avatar")
-                            .foregroundColor(personalVirifications[VerificationTypes.Avatar] == true ? Color.accentColor : Color.pickerTitle)
+                            .foregroundColor(personalVirifications[VerificationType.Avatar] == true ? Color.accentColor : Color.pickerTitle)
                             .font(Font.system(size: 18,
                                               weight: .medium,
                                               design: .rounded))
                             .padding(.leading, 15)
 
                         Spacer()
-                        Image(systemName: personalVirifications[VerificationTypes.Avatar] == true ? "checkmark.circle.fill" : "circle")
+                        Image(systemName: personalVirifications[VerificationType.Avatar] == true ? "checkmark.circle.fill" : "circle")
                             .scaleEffect(1.3)
-                            .foregroundColor(personalVirifications[VerificationTypes.Avatar] == true ? Color.accentColor : Color.pickerTitle)
+                            .foregroundColor(personalVirifications[VerificationType.Avatar] == true ? Color.accentColor : Color.pickerTitle)
                             .padding(.trailing, 15)
                             .onTapGesture {
-                                personalVirifications[VerificationTypes.Avatar]?.toggle()
+                                personalVirifications[VerificationType.Avatar]?.toggle()
                             }
                     }.padding(.vertical)
                     Divider().padding(.horizontal, 20)
@@ -246,7 +244,6 @@ extension ProvidersFilterView {
             .padding(.horizontal)
         }
     }
-
 
     private var ProviderVerification: some View {
         VStack {
@@ -258,59 +255,60 @@ extension ProvidersFilterView {
                                           weight: .regular,
                                           design: .rounded))
                         .padding(.horizontal, 10)
-                    Spacer() }
+                    Spacer()
+                }
             }.padding([.horizontal])
             VStack {
                 Group {
                     HStack {
                         Text("Registration certificate")
-                            .foregroundColor(personalVirifications[VerificationTypes.RegistrationCertificate] == true ? Color.accentColor : Color.pickerTitle)
+                            .foregroundColor(personalVirifications[VerificationType.RegistrationCertificate] == true ? Color.accentColor : Color.pickerTitle)
                             .font(Font.system(size: 18,
                                               weight: .medium,
                                               design: .rounded))
                             .padding(.leading, 15)
                         Spacer()
-                        Image(systemName: personalVirifications[VerificationTypes.RegistrationCertificate] == true ? "checkmark.circle.fill" : "circle" )
+                        Image(systemName: personalVirifications[VerificationType.RegistrationCertificate] == true ? "checkmark.circle.fill" : "circle")
                             .scaleEffect(1.3)
-                            .foregroundColor(personalVirifications[VerificationTypes.RegistrationCertificate] == true ? Color.accentColor : Color.pickerTitle)
+                            .foregroundColor(personalVirifications[VerificationType.RegistrationCertificate] == true ? Color.accentColor : Color.pickerTitle)
                             .padding(.trailing, 15)
                             .onTapGesture {
-                                personalVirifications[VerificationTypes.RegistrationCertificate]?.toggle()
+                                personalVirifications[VerificationType.RegistrationCertificate]?.toggle()
                             }
                     }.padding(.vertical)
                     Divider().padding(.horizontal, 20)
                     HStack {
                         Text("Professional Insurance")
-                            .foregroundColor(personalVirifications[VerificationTypes.ProfessionalInsurance] == true ? Color.accentColor : Color.pickerTitle)
+                            .foregroundColor(personalVirifications[VerificationType.ProfessionalInsurance] == true ? Color.accentColor : Color.pickerTitle)
                             .font(Font.system(size: 18,
                                               weight: .medium,
                                               design: .rounded))
                             .padding(.leading, 15)
                         Spacer()
-                        Image(systemName: personalVirifications[VerificationTypes.ProfessionalInsurance] == true ? "checkmark.circle.fill" : "circle")
+                        Image(systemName: personalVirifications[VerificationType.ProfessionalInsurance] == true ? "checkmark.circle.fill" : "circle")
                             .scaleEffect(1.3)
-                            .foregroundColor(personalVirifications[VerificationTypes.ProfessionalInsurance] == true ? Color.accentColor : Color.pickerTitle)
+                            .foregroundColor(personalVirifications[VerificationType.ProfessionalInsurance] == true ? Color.accentColor : Color.pickerTitle)
                             .padding(.trailing, 15)
                             .onTapGesture {
-                                personalVirifications[VerificationTypes.ProfessionalInsurance]?.toggle()
+                                personalVirifications[VerificationType.ProfessionalInsurance]?.toggle()
                             }
                     }.padding(.vertical)
                     Divider().padding(.horizontal, 20)
                     HStack {
                         Text("Email")
-                            .foregroundColor(personalVirifications[VerificationTypes.Avatar] == true ? Color.accentColor : Color.pickerTitle)
+                            .foregroundColor(personalVirifications[VerificationType.Avatar] == true ? Color.accentColor : Color.pickerTitle)
                             .font(Font.system(size: 18,
                                               weight: .medium,
                                               design: .rounded))
                             .padding(.leading, 15)
 
                         Spacer()
-                        Image(systemName: personalVirifications[VerificationTypes.Email] == true ? "checkmark.circle.fill" : "circle")
+                        Image(systemName: personalVirifications[VerificationType.Email] == true ? "checkmark.circle.fill" : "circle")
                             .scaleEffect(1.3)
-                            .foregroundColor(personalVirifications[VerificationTypes.Email] == true ? Color.accentColor : Color.pickerTitle)
+                            .foregroundColor(personalVirifications[VerificationType.Email] == true ? Color.accentColor : Color.pickerTitle)
                             .padding(.trailing, 15)
                             .onTapGesture {
-                                personalVirifications[VerificationTypes.Email]?.toggle()
+                                personalVirifications[VerificationType.Email]?.toggle()
                             }
                     }.padding(.vertical)
                     Divider().padding(.horizontal, 20)
@@ -323,7 +321,6 @@ extension ProvidersFilterView {
         }
     }
 
-
     private var ClearanceCertificates: some View {
         VStack {
             VStack {
@@ -334,93 +331,94 @@ extension ProvidersFilterView {
                                           weight: .regular,
                                           design: .rounded))
                         .padding(.horizontal, 10)
-                    Spacer() }
+                    Spacer()
+                }
             }.padding([.horizontal])
             VStack {
                 Group {
                     HStack {
                         Text("Disclosure Scotland: Basic Disclosure")
-                            .foregroundColor(personalCertifications[CertificationTypes.BasicDisclosure] == true ? Color.accentColor : Color.pickerTitle)
+                            .foregroundColor(personalCertifications[CertificationType.BasicDisclosure] == true ? Color.accentColor : Color.pickerTitle)
                             .font(Font.system(size: 18,
                                               weight: .medium,
                                               design: .rounded))
                             .padding(.leading, 15)
                         Spacer()
-                        Image(systemName: personalCertifications[CertificationTypes.BasicDisclosure] == true ? "checkmark.circle.fill" : "circle" )
+                        Image(systemName: personalCertifications[CertificationType.BasicDisclosure] == true ? "checkmark.circle.fill" : "circle")
                             .scaleEffect(1.3)
-                            .foregroundColor(personalCertifications[CertificationTypes.BasicDisclosure] == true ? Color.accentColor : Color.pickerTitle)
+                            .foregroundColor(personalCertifications[CertificationType.BasicDisclosure] == true ? Color.accentColor : Color.pickerTitle)
                             .padding(.trailing, 15)
                             .onTapGesture {
-                                personalCertifications[CertificationTypes.BasicDisclosure]?.toggle()
+                                personalCertifications[CertificationType.BasicDisclosure]?.toggle()
                             }
                     }.padding(.vertical)
                     Divider().padding(.horizontal, 20)
                     HStack {
                         Text("Disclosure Scotland: Protecting Vulnerable Groups")
-                            .foregroundColor(personalCertifications[CertificationTypes.ProtectingVulnerableGroups] == true ? Color.accentColor : Color.pickerTitle)
+                            .foregroundColor(personalCertifications[CertificationType.ProtectingVulnerableGroups] == true ? Color.accentColor : Color.pickerTitle)
                             .font(Font.system(size: 18,
                                               weight: .medium,
                                               design: .rounded))
                             .padding(.leading, 15)
                         Spacer()
-                        Image(systemName: personalCertifications[CertificationTypes.ProtectingVulnerableGroups] == true ? "checkmark.circle.fill" : "circle")
+                        Image(systemName: personalCertifications[CertificationType.ProtectingVulnerableGroups] == true ? "checkmark.circle.fill" : "circle")
                             .scaleEffect(1.3)
-                            .foregroundColor(personalCertifications[CertificationTypes.ProtectingVulnerableGroups] == true ? Color.accentColor : Color.pickerTitle)
+                            .foregroundColor(personalCertifications[CertificationType.ProtectingVulnerableGroups] == true ? Color.accentColor : Color.pickerTitle)
                             .padding(.trailing, 15)
                             .onTapGesture {
-                                personalCertifications[CertificationTypes.ProtectingVulnerableGroups]?.toggle()
+                                personalCertifications[CertificationType.ProtectingVulnerableGroups]?.toggle()
                             }
                     }.padding(.vertical)
                     Divider().padding(.horizontal, 20)
                     HStack {
                         Text("DBS: Disclosure and Barring Service")
-                            .foregroundColor(personalCertifications[CertificationTypes.DBS] == true ? Color.accentColor : Color.pickerTitle)
+                            .foregroundColor(personalCertifications[CertificationType.DBS] == true ? Color.accentColor : Color.pickerTitle)
                             .font(Font.system(size: 18,
                                               weight: .medium,
                                               design: .rounded))
                             .padding(.leading, 15)
 
                         Spacer()
-                        Image(systemName: personalCertifications[CertificationTypes.DBS] == true ? "checkmark.circle.fill" : "circle")
+                        Image(systemName: personalCertifications[CertificationType.DBS] == true ? "checkmark.circle.fill" : "circle")
                             .scaleEffect(1.3)
-                            .foregroundColor(personalCertifications[CertificationTypes.DBS] == true ? Color.accentColor : Color.pickerTitle)
+                            .foregroundColor(personalCertifications[CertificationType.DBS] == true ? Color.accentColor : Color.pickerTitle)
                             .padding(.trailing, 15)
                             .onTapGesture {
-                                personalCertifications[CertificationTypes.DBS]?.toggle()
+                                personalCertifications[CertificationType.DBS]?.toggle()
                             }
                     }.padding(.vertical)
                     Divider().padding(.horizontal, 20)
                     HStack {
                         Text("AccessNI: Crimital Records Check")
-                            .foregroundColor(personalCertifications[CertificationTypes.AccessNI] == true ? Color.accentColor : Color.pickerTitle)
+                            .foregroundColor(personalCertifications[CertificationType.AccessNI] == true ? Color.accentColor : Color.pickerTitle)
                             .font(Font.system(size: 18,
                                               weight: .medium,
                                               design: .rounded))
                             .padding(.leading, 15)
                         Spacer()
-                        Image(systemName: personalCertifications[CertificationTypes.AccessNI] == true ? "checkmark.circle.fill" : "circle" )
+                        Image(systemName: personalCertifications[CertificationType.AccessNI] == true ? "checkmark.circle.fill" : "circle")
                             .scaleEffect(1.3)
-                            .foregroundColor(personalCertifications[CertificationTypes.AccessNI] == true ? Color.accentColor : Color.pickerTitle)
+                            .foregroundColor(personalCertifications[CertificationType.AccessNI] == true ? Color.accentColor : Color.pickerTitle)
                             .padding(.trailing, 15)
                             .onTapGesture {
-                                personalCertifications[CertificationTypes.AccessNI]?.toggle()
+                                personalCertifications[CertificationType.AccessNI]?.toggle()
                             }
                     }.padding(.vertical)
                     Divider().padding(.horizontal, 20)
                     HStack {
                         Text("NONe")
-                            .foregroundColor(personalCertifications[CertificationTypes.none] == true ? Color.accentColor : Color.pickerTitle)
+                            .foregroundColor(personalCertifications[CertificationType.none] == true ? Color.accentColor : Color.pickerTitle)
                             .font(Font.system(size: 18,
                                               weight: .medium,
                                               design: .rounded))
                             .padding(.leading, 15)
                         Spacer()
-                        Image(systemName: personalCertifications[CertificationTypes.none] == true ? "checkmark.circle.fill" : "circle" )
+                        Image(systemName: personalCertifications[CertificationType.none] == true ? "checkmark.circle.fill" : "circle")
                             .scaleEffect(1.3)
-                            .foregroundColor(personalCertifications[CertificationTypes.none] == true ? Color.accentColor : Color.pickerTitle)
+                            .foregroundColor(personalCertifications[CertificationType.none] == true ? Color.accentColor : Color.pickerTitle)
                             .padding(.trailing, 15)
                             .onTapGesture {
-                                personalCertifications[CertificationTypes.none]?.toggle()
+                                personalCertifications[CertificationType.none]?.toggle()
                             }
                     }.padding(.vertical)
                     Divider().padding(.horizontal, 20)
@@ -433,7 +431,6 @@ extension ProvidersFilterView {
         }
     }
 }
-
 
 struct ProvidersFilterView_Previews: PreviewProvider {
     static var previews: some View {

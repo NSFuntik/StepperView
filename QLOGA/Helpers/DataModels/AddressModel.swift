@@ -8,17 +8,12 @@
 import Foundation
 
 struct Address: Hashable {
-    var postcode: String
-    var town: String
-    var street: String
-    var building: String
-    var apt: String
-    var latitude:Double
-    var longitude :Double
-    var total: String
+    // MARK: Lifecycle
 
-    init(postcode: String, town: String, street: String, building: String = "",
-         apt: String = "", _ latitude: Double = 55.95204500604529, _ longitude: Double = -3.1981850325268777) {
+    init(isBussinessOnly: Bool = false, postcode: String, town: String, street: String, building: String = "",
+         apt: String = "", _ latitude: Double = 55.95204500604529, _ longitude: Double = -3.1981850325268777)
+    {
+        self.isBussinessOnly = isBussinessOnly
         self.postcode = postcode
         self.town = town
         self.street = street
@@ -28,15 +23,29 @@ struct Address: Hashable {
         self.latitude = latitude
         self.longitude = longitude
     }
+
+    // MARK: Internal
+
+    var isBussinessOnly: Bool
+    var postcode: String
+    var town: String
+    var street: String
+    var building: String
+    var apt: String
+    var latitude: Double
+    var longitude: Double
+    var total: String
 }
 
-enum ParkingType: String, CaseIterable, Identifiable  {
+enum ParkingType: String, CaseIterable, Identifiable {
     case Free
     case Paid
     case Unspecified
+
+    // MARK: Internal
+
     var id: String { self.rawValue }
 }
-
 
 let Addresses: [Address] = [
     Address(postcode: "EH2 2ER", town: "Edinburgh", street: "Princes Street", building: "09"),

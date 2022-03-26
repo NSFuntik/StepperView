@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ProviderRatingView: View {
-
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
             Label {
@@ -22,7 +21,7 @@ struct ProviderRatingView: View {
                     .font(Font.system(size: 15, weight: .medium, design: .monospaced))
             } icon: {
                 Image("RatingIcon")
-                    .resizable().aspectRatio( contentMode: .fit)
+                    .resizable().aspectRatio(contentMode: .fit)
                     .frame(height: 30, alignment: .center)
             }.padding(10)
                 .overlay(RoundedRectangle(cornerRadius: 10)
@@ -60,7 +59,7 @@ struct ProviderRatingView: View {
             }
             Spacer()
         }.padding(.horizontal, 20)
-        .navigationTitle("Rating")
+            .navigationTitle("Rating")
     }
 }
 

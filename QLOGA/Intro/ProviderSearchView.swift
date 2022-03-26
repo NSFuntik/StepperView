@@ -8,13 +8,19 @@
 import SwiftUI
 
 struct ProviderSearchView: View {
-    @State var selectedButton: Int = 0
-    @State var isLimited = true
+    // MARK: Lifecycle
+
     init() {
         UITableView.appearance().backgroundColor = UIColor.white
         UITableView.appearance().separatorColor = UIColor(named: "AccentColor")?.withAlphaComponent(0.6)
         UITableView.appearance().sectionIndexColor = UIColor(named: "AccentColor")?.withAlphaComponent(0.6)
     }
+
+    // MARK: Internal
+
+    @State var selectedButton: Int = 0
+    @State var isLimited = true
+
     var body: some View {
         VStack(alignment: .center, spacing: 5) {
             ServicesScrollView.padding(.horizontal, -30)
@@ -45,26 +51,84 @@ struct ProviderSearchView: View {
             }.padding(.bottom, 20)
             ScrollView(showsIndicators: false) {
                 VStack {
-                    ForEach(Services[selectedButton].types ?? [], id: \.self) { type in
+                    ForEach(Services[selectedButton].types, id: \.self) { type in
                         Section {
-                            NavigationLink {
-                                ProvidersView(service: Services[selectedButton])
+                            DisclosureGroup {
+                                VStack(spacing: 10) {
+                                    Text("Internal and external drain and sewer repair, including unblocking and cleaning and replacing drains, sewers and pipes.Internal and external drain and sewer repair, including unblocking and cleaning and replacing drains, sewers and pipes.")
+                                        .foregroundColor(Color.secondary.opacity(0.7))
+                                        .multilineTextAlignment(.leading)
+                                        .font(Font.system(size: 15, weight: .regular, design: .rounded))
+                                        .lineLimit(5)
+                                        .padding(10)
+                                    HStack(alignment: .center) {
+                                        Spacer()
+                                        NavigationLink(destination: SelectedServiceDetailView(serviceType: .Kitchen)) {
+                                            HStack {
+                                                Text("Details")
+                                                    .lineLimit(1)
+                                                    .font(.system(size: 20, weight: .regular, design: .default))
+                                                    .foregroundColor(.infoBlue)
+                                                    .frame(width: 100, height: 30)
+
+                                                    .background(
+                                                        RoundedRectangle(cornerRadius: 25)
+                                                            .stroke(Color.infoBlue, lineWidth: 4)
+                                                            .clipShape(RoundedRectangle(cornerRadius: 25))
+                                                            .background(RoundedRectangle(cornerRadius: 25).fill(Color.white)))
+                                                    .padding(1)
+                                                    .frame(width: 100, height: 30)
+                                            }
+                                        }
+                                        Spacer()
+                                        NavigationLink(destination: ProvidersView(service: Services[selectedButton])) {
+                                            HStack {
+                                                Text("Show providers")
+                                                    .lineLimit(1)
+                                                    .ignoresSafeArea(.all)
+                                                    .shadow(color: Color.secondary, radius: 1, x: 1, y: 1)
+                                                    .font(.system(size: 20, weight: .regular, design: .rounded))
+                                                    .foregroundColor(.white)
+                                                    .frame(width: 180, height: 32)
+                                                    .background(RoundedRectangle(cornerRadius: 25)
+                                                        .fill(Color.accentColor))
+                                                    .overlay(RoundedRectangle(cornerRadius: 25)
+                                                        .stroke(Color.white, lineWidth: 2)
+                                                        .shadow(color: Color.secondary.opacity(0.7), radius: 2, x: 2, y: 2.5)
+                                                        .clipShape(RoundedRectangle(cornerRadius: 25))
+                                                        .shadow(color: Color.lightGray.opacity(0.7), radius: 2, x: -2.5, y: -2.5)
+                                                        .clipShape(RoundedRectangle(cornerRadius: 25)).padding(0.6))
+                                            }
+                                            .frame(width: 180, height: 33)
+                                        }
+                                        Spacer()
+                                    }
+
+                                }.frame(width: UIScreen.main.bounds.width - 40, alignment: .center)
                             } label: {
                                 HStack {
-                                    Text(type)
-                                        .foregroundColor(Color.black.opacity(0.9))
-                                        .multilineTextAlignment(.leading)
-                                        .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                                        .lineLimit(1)
-                                        .padding(.leading, 10)
-                                    Spacer()
-                                    Image(systemName: "chevron.right")
-                                        .foregroundColor(Color.accentColor)
-                                        .multilineTextAlignment(.leading)
-                                        .font(Font.system(size: 20, weight: .regular, design: .rounded))
-                                        .padding(.leading, 10)
-                                }.padding(5)
-                                
+                                    VStack(alignment: .leading) {
+                                        HStack {
+                                            Text(type.title)
+                                                .foregroundColor(Color.black.opacity(0.9))
+                                                .multilineTextAlignment(.leading)
+                                                .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                                                .lineLimit(1)
+                                                .padding(.leading, 10)
+                                            Spacer()
+                                        }
+                                        Spacer()
+                                        HStack {
+                                            Text("Time norm: " + type.timeNorm.description + " min/room")
+                                                .foregroundColor(Color.secondary.opacity(0.7))
+                                                .multilineTextAlignment(.leading)
+                                                .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                                                .lineLimit(1)
+                                                .padding(.leading, 10)
+                                            Spacer()
+                                        }
+                                    }
+                                }.padding(5).frame(height: 40)
                             }
                             Divider().padding(.horizontal, -10).padding(.leading, 25)
                         }
@@ -99,14 +163,14 @@ extension ProviderSearchView {
                                     RoundedRectangle(cornerRadius: 10)
                                         .stroke(selectedButton == service.id ? Color.accentColor : Color.lightGray.opacity(0.6),
                                                 lineWidth: selectedButton == service.id ? 2.0 : 1.5)
-                                ).padding(.bottom, -3).padding(.top,1)
-                            
+                                ).padding(.bottom, -3).padding(.top, 1)
+
                             Text(service.name)
                                 .foregroundColor(Color.black)
                                 .font(.system(size: 15.0, weight: .light, design: .rounded))
                                 .padding(.bottom, 5)
                         }
-                        .frame( maxHeight: 90)
+                        .frame(maxHeight: 90)
                         .padding(.horizontal, 10)
                     }
                 }
@@ -122,4 +186,5 @@ struct ProviderSearchView_Previews: PreviewProvider {
         }
     }
 }
-let descr = "Residential cleaning services for all parts of your home. With tasks covering dishwashing, cleaning bathrooms, waste removal, furniture cleaning, window cleaning..."
+
+let descr = "Residential cleaning services for all parts of your home. With tasks covering dishwashing, cleaning bathrooms, waste removal, furniture cleaning, window cleaning...Residential cleaning services for all parts of your home. With tasks covering dishwashing, cleaning bathrooms, waste removal, furniture cleaning, window cleaning, deep cleans, disinfecting, laundry and ironing, and other general cleaning tasks in the home.\nResidential cleaning services for all parts of your home. With tasks covering dishwashing, cleaning bathrooms, waste removal, furniture cleaning, window cleaning, deep cleans, disinfecting, laundry and ironing, and other general cleaning tasks in the home"

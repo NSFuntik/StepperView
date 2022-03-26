@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-//import LabeledStepper
+// import LabeledStepper
 struct InquiryServicesView: View {
     @State var windowsCount = 4
     @State var kitchenCount = 1
@@ -39,16 +39,14 @@ struct InquiryServicesView: View {
             Divider().padding(.horizontal, 20)
             Spacer()
         }.padding(.top, 10)
-        .toolbar(content: {
-            NavigationLink(destination: InquiryOverview()) {
-                Text("Add")
-                    .font(Font.system(size: 17, weight: .regular, design: .rounded))
-
-            }
-        })
-        .foregroundColor(.accentColor)
-        .navigationTitle("Services")
-
+            .toolbar(content: {
+                NavigationLink(destination: InquiryOverview()) {
+                    Text("Add")
+                        .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                }
+            })
+            .foregroundColor(.accentColor)
+            .navigationTitle("Services")
     }
 }
 
@@ -61,33 +59,28 @@ struct InquiryServicesView_Previews: PreviewProvider {
 }
 
 struct ServiceSpecificationCell: View {
-    @Binding var count: Int
-    var price: Double
-    @State var serviceType: ServiceType
-    var title: String
+    // MARK: Lifecycle
 
-    init(count: Binding<Int>, price: Double, serviceType: ServiceType) {
-        self._count = count
+    init(count: Binding<Int>, price: Double, serviceType: ServiceCleaningType) {
+        _count = count
         self.price = price
         self.serviceType = serviceType
-        switch serviceType {
-        case .Windows:
-            title = "Windows cleaning"
-        case .Kitchen:
-            title = "Kitchen cleaning"
-        case .BedroomLivingroom:
-            title = "Bedroom or living room cleaning"
-        case .CompleteHome:
-            title = "Complete home cleaning"
-        }
+        title = serviceType.title
     }
+
+    // MARK: Internal
+
+    @Binding var count: Int
+    var price: Double
+    @State var serviceType: ServiceCleaningType
+    var title: String
 
     var body: some View {
         VStack {
-            NavigationLink(destination: SelectedServiceDetailView(serviceType: serviceType).navigationTitle(Text(title).font(.subheadline))) {
+            NavigationLink(destination: SelectedServiceDetailView(serviceType: serviceType).navigationTitle(title)) {
                 HStack(alignment: .center) {
                     LabeledStepper(title, description: "£\(Double(count) * price)",
-                                   value: $count, in: 0...10,
+                                   value: $count, in: 0 ... 10,
                                    longPressInterval: 1.0,
                                    repeatOnLongPress: true, style: .init())
                     Image(systemName: "chevron.right")
@@ -98,7 +91,6 @@ struct ServiceSpecificationCell: View {
                 }
             }
         }.fixedSize(horizontal: false, vertical: true)
-        .padding(.horizontal, 20)
+            .padding(.horizontal, 20)
     }
 }
-

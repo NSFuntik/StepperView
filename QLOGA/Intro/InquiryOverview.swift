@@ -13,9 +13,9 @@ struct InquiryOverview: View {
     var body: some View {
         ZStack {
             ScrollView {
-                VStack(alignment: .center, spacing: 20)  {
+                VStack(alignment: .center, spacing: 20) {
                     VStack {
-                        Group  {
+                        Group {
                             NavigationLink(destination: SelectedServiceDetailView(serviceType: .Kitchen)) {
                                 HStack(alignment: .center) {
                                     VStack(alignment: .leading, spacing: 10) {
@@ -100,7 +100,7 @@ struct InquiryOverview: View {
 
                     VStack(alignment: .center) {
                         NavigationLink(destination: InquiryServicesView()) {
-                            HStack{
+                            HStack {
                                 Text("Add services")
                                     .lineLimit(1)
                                     .ignoresSafeArea(.all)
@@ -151,8 +151,8 @@ struct InquiryOverview: View {
                             }
                         }
                         VStack {
-                            Group  {
-                                NavigationLink(destination: AddressSearchView(address: $address)) {
+                            Group {
+                                NavigationLink(destination: AddressSearchView(address: $address, actorType: .CUSTOMER)) {
                                     HStack(alignment: .center) {
                                         Text("Address")
                                             .foregroundColor(Color.black)
@@ -258,7 +258,7 @@ struct InquiryOverview: View {
             VStack(alignment: .center) {
                 Spacer()
                 NavigationLink(destination: EnrollmentInfoView(actorType: .CUSTOMER)) {
-                    HStack{
+                    HStack {
                         Text("Send a Direct Inquiry")
                             .lineLimit(1)
                             .ignoresSafeArea(.all)
@@ -289,4 +289,3 @@ struct InquiryOverview_Previews: PreviewProvider {
         }.previewDevice("iPhone 6s")
     }
 }
-

@@ -6,8 +6,17 @@
 //
 
 import SwiftUI
-//import ImageViewer
+// import ImageViewer
 struct ProviderOverview: View {
+    // MARK: Lifecycle
+
+    init(isButtonShows: Bool) {
+        self.isButtonShows = isButtonShows
+        UINavigationBar.appearance().prefersLargeTitles = true
+    }
+
+    // MARK: Internal
+
     let skills = ["Complete home cleaning",
                   "Bathroom and toilet cleaning",
                   "Kitchen cleaning",
@@ -16,25 +25,24 @@ struct ProviderOverview: View {
                   "Garrage cleaning",
                   "Swimming pool cleaning",
                   "Owen cleaning"]
-    @State var image = Image(testProvider.avatar!)
-    @State var  showImageViewer = false
+    @State var image = Image(testProvider.avatar)
+    @State var showImageViewer = false
     @State var isButtonShows: Bool
-    init(isButtonShows: Bool) {
-        self.isButtonShows = isButtonShows
-        UINavigationBar.appearance().prefersLargeTitles = true
-    }
+
     var body: some View {
         ZStack {
             VStack(alignment: .center) {
-                HStack(alignment: .top, spacing: 20) {
+                HStack(alignment: .bottom, spacing: 10) {
                     VStack(alignment: .center, spacing: 5) {
-                        Image(testProvider.avatar!)
+                        Spacer()
+                        Image(testProvider.avatar)
                             .resizable()
                             .aspectRatio(0.9, contentMode: .fit)
-                            .frame(height: 100, alignment: .center)
+                            .frame(height: 110, alignment: .center)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
                             .overlay(RoundedRectangle(cornerRadius: 10)
-                            .stroke(lineWidth: 1.0)
-                            .foregroundColor(Color.lightGray))
+                                .stroke(lineWidth: 1.0)
+                                .foregroundColor(Color.lightGray))
                             .padding(1)
                             .onTapGesture {
                                 showImageViewer.toggle()
@@ -43,14 +51,31 @@ struct ProviderOverview: View {
                             .foregroundColor(Color.secondary)
                             .multilineTextAlignment(.center)
                             .font(Font.system(size: 15, weight: .regular, design: .rounded))
-                    }
-                    VStack(alignment: .leading, spacing: 15.5) {
+
+                    }.frame(height: 150, alignment: .top).offset(y: -4)
+                    VStack(alignment: .leading, spacing: 11) {
                         Text(testProvider.name)
+                            .font(.system(size: 250, weight: .regular, design: .rounded))
+                            .minimumScaleFactor(0.01)
+                            .frame(width: UIScreen.main.bounds.width * 0.6, height: 35, alignment: .leading)
+                            .scaledToFit()
+                            .lineLimit(1)
                             .foregroundColor(Color.black.opacity(0.8))
                             .multilineTextAlignment(.leading)
-                            .font(Font.system(size: 20,
-                                              weight: .medium,
-                                              design: .rounded))
+                        Text("Active")
+                            .lineLimit(1)
+                            .font(.system(size: 17, weight: .regular, design: .default))
+                            .foregroundColor(.accentColor)
+                            .frame(width: 80, height: 20)
+                            .background(
+                                RoundedRectangle(cornerRadius: 7)
+                                    .stroke(Color.accentColor, lineWidth: 2)
+                                    .clipShape(RoundedRectangle(cornerRadius: 7))
+                                    .background(RoundedRectangle(cornerRadius: 7).fill(Color.white)))
+                            .padding(1)
+                            .frame(width: 80, height: 20, alignment: .center).padding(.top, -7.5)
+                            .disabled(!testProvider.isActive)
+
                         HStack(alignment: .center) {
                             Text("Callout charge:")
                                 .foregroundColor(Color.lightGray)
@@ -80,16 +105,18 @@ struct ProviderOverview: View {
                                 .multilineTextAlignment(.leading)
                                 .font(Font.system(size: 15, weight: .regular, design: .rounded))
                             Spacer()
-                            Text(String(describing: testProvider.distance!))
+                            Text(testProvider.distance.description)
                                 .foregroundColor(Color.black.opacity(0.8))
                                 .multilineTextAlignment(.leading)
                                 .font(Font.system(size: 15,
                                                   weight: .medium,
                                                   design: .rounded))
                         }
-                    }
-                }.padding(.vertical, 10)
-//                Divider().padding(.horizontal, -20)
+                        Spacer()
+
+                    }.frame(height: 150, alignment: .top)
+                }.padding(.top, 10).padding(.horizontal, 10)
+                //                Divider().padding(.horizontal, -20)
                 ScrollView(showsIndicators: false) {
                     Label {
                         Text("Cleaning")
@@ -102,7 +129,7 @@ struct ProviderOverview: View {
                             .font(Font.system(size: 17, weight: .regular, design: .rounded))
                     } icon: {
                         Image("Cleaning")
-                            .resizable().aspectRatio( contentMode: .fit)
+                            .resizable().aspectRatio(contentMode: .fit)
                             .frame(height: 30, alignment: .center)
                     }.padding(10)
                         .overlay(RoundedRectangle(cornerRadius: 10)
@@ -125,7 +152,6 @@ struct ProviderOverview: View {
                     Group {
                         VStack {
                             NavigationLink(destination: ProviderRatingView()) {
-
                                 Label {
                                     Text("Rating")
                                         .foregroundColor(Color.black)
@@ -145,7 +171,7 @@ struct ProviderOverview: View {
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 30, height: 30, alignment: .center)
-                                        .aspectRatio( contentMode: .fit)
+                                        .aspectRatio(contentMode: .fit)
                                         .padding(5)
                                 }.padding(7)
                             }.padding(.bottom, -7).frame(height: 50)
@@ -157,7 +183,7 @@ struct ProviderOverview: View {
                                         .multilineTextAlignment(.leading)
                                         .font(Font.system(size: 17, weight: .regular, design: .rounded))
                                     Spacer()
-                                    Text(String(testProvider.portfolio?.images?.count ?? 0))
+                                    Text(String(testProvider.portfolio.images.count))
                                         .foregroundColor(Color.lightGray)
                                         .font(Font.system(size: 15, weight: .regular, design: .monospaced))
                                     Image(systemName: "chevron.right")
@@ -176,14 +202,13 @@ struct ProviderOverview: View {
                             }.frame(height: 40)
                             Divider().background(Color.secondary).padding(.leading, 50)
                             NavigationLink(destination: ProviderVerificationsView()) {
-
                                 Label {
                                     Text("Verifications")
                                         .foregroundColor(Color.black)
                                         .multilineTextAlignment(.leading)
                                         .font(Font.system(size: 17, weight: .regular, design: .rounded))
                                     Spacer()
-                                    Text(getVerifications(verifications: testProvider.verifications ?? []))
+                                    Text(getVerifications(verifications: testProvider.verifications))
                                         .lineLimit(2)
                                         .foregroundColor(Color.lightGray)
                                         .font(Font.system(size: 13, weight: .regular, design: .rounded))
@@ -197,19 +222,19 @@ struct ProviderOverview: View {
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 30, height: 30, alignment: .center)
-                                        .aspectRatio( contentMode: .fit)
+                                        .aspectRatio(contentMode: .fit)
                                         .padding(5)
                                 }.padding(7)
                             }.frame(height: 40)
                             Divider().background(Color.secondary).padding(.leading, 50)
-                            NavigationLink(destination: ProviderPreviewsView(reviews: testProvider.reviews ?? []).tint(Color.accentColor)) {
+                            NavigationLink(destination: ProviderPreviewsView(reviews: testProvider.reviews).tint(Color.accentColor)) {
                                 Label {
                                     Text("Reviews")
                                         .foregroundColor(Color.black)
                                         .multilineTextAlignment(.leading)
                                         .font(Font.system(size: 17, weight: .regular, design: .rounded))
                                     Spacer()
-                                    Text("\(testProvider.reviews?.count ?? 0)")
+                                    Text("\(testProvider.reviews.count)")
                                         .foregroundColor(Color.lightGray)
                                         .font(Font.system(size: 15, weight: .regular, design: .rounded))
                                         .padding(5)
@@ -222,7 +247,7 @@ struct ProviderOverview: View {
                                     Image("ReviewsIcon")
                                         .resizable()
                                         .scaledToFit().frame(width: 30, height: 30, alignment: .center)
-                                        .aspectRatio( contentMode: .fit)
+                                        .aspectRatio(contentMode: .fit)
                                         .padding(5)
                                 }
                             }.padding(7)
@@ -237,53 +262,19 @@ struct ProviderOverview: View {
             }.padding(.horizontal, 20)
 
             if isButtonShows {
-
                 VStack(alignment: .center) {
                     Spacer()
                     NavigationLink(destination: InquiryServicesView()) {
-                        HStack{
+                        HStack {
                             Text("Direct Inquiry")
-                                .lineLimit(1)
-                                .ignoresSafeArea(.all)
-                                .shadow(color: Color.secondary, radius: 1, x: 1, y: 1)
-                                .font(.system(size: 20, weight: .regular, design: .rounded))
-                                .foregroundColor(.white)
-                                .frame(width: UIScreen.main.bounds.width - 40, height: 50)
-                                .background(RoundedRectangle(cornerRadius: 25).fill(Color.accentColor))
-                                .clipShape(RoundedRectangle(cornerRadius: 25))
-                                .shadow(color: Color.lightGray, radius: 4, x: -4.5, y: -4.5)
-                                .clipShape(RoundedRectangle(cornerRadius: 25))
-                                .overlay(RoundedRectangle(cornerRadius: 25)
-                                    .stroke(lineWidth: 2.0)
-                                    .foregroundColor(Color.white)
-                                    .shadow(color: .secondary.opacity(0.5), radius: 3, y: 3) )
+                                .withDoneButtonStyles(backColor: .accentColor, accentColor: .white)
                         }
-                    }.padding(.bottom, 5)
+                    }.padding(.bottom, 10)
                 }
             }
         }.navigationBarTitleDisplayMode(.inline).navigationTitle("Provider")
     }
 }
-func getVerifications(verifications: [VerificationTypes]) -> String {
-    var verifics = ""
-//    print(testProvider.verifications)
-    for verification in verifications {
-        if verification == .ProfessionalInsurance {
-            verifics = verifics +  "Professional Insurance" + ", "
-
-        } else if verification == .RegistrationCertificate {
-            verifics = verifics +  "Registration Certificate" + ", "
-
-        } else  if verification != verifications.last {
-            verifics = verifics + verification.rawValue + ", "
-        } else {
-            verifics = verifics + verification.rawValue + ", "
-        }
-    }
-
-    return verifics
-}
-
 
 struct PrividerDetailView_Previews: PreviewProvider {
     static var previews: some View {
