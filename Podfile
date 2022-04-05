@@ -4,11 +4,12 @@
 target 'QLOGA' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-  pod 'GoogleMaps', '6.0.1'
+  pod 'GoogleMaps'
   pod 'GooglePlaces'
-  pod 'BottomSheetSwiftUI', :git => 'https://github.com/DM1TRYM/BottomSheet.git', :branch => 'master'
-  pod 'CalendarKit', :git => 'https://github.com/DM1TRYM/CalendarKit.git', :branch => 'master'
+  pod 'BottomSheetSwiftUI', :git => 'https://NSFuntik@bitbucket.org/qloga/bottomsheet.git', :branch => 'QLoGaMods'
+  pod 'CalendarKit', :git => 'https://NSFuntik@bitbucket.org/qloga/CalendarKit.git', :branch => 'QLoGaMods'
   pod 'AnyFormatKitSwiftUI', '~> 0.5.3'
+  pod 'MaterialComponents/Chips+Theming'
   # Pods for QLOGA
 
 end

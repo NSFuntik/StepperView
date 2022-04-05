@@ -75,14 +75,14 @@ struct ProfileSetupView: View {
 					}
 
 					if selectedActor != .CUSTOMER {
-						NavigationLink(destination: ProviderServicesView(provider: $provider)) {
+                        NavigationLink(destination: ProviderServicesView(provider: $provider).environmentObject(SelectService.shared)) {
 							Label {
 								Text("Services")
 									.foregroundColor(Color.black)
 									.multilineTextAlignment(.leading)
 									.font(Font.system(size: 17, weight: .regular, design: .rounded))
 								Spacer()
-								Text($provider.choicedCleaningServices.wrappedValue.count.description)
+                                Text($provider.choicedServices.filter({ !$0.types.isEmpty }).count.description)
 									.foregroundColor(Color.secondary)
 									.multilineTextAlignment(.leading)
 									.font(Font.system(size: 17, weight: .regular, design: .rounded))

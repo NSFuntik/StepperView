@@ -9,7 +9,7 @@ import Combine
 import SwiftUI
 struct ProviderAddServicesView: View {
 	@FocusState private var isFocused: Bool
-	@Binding var choisedServices: Set<ServiceCleaningType>
+	@Binding var choisedServices: [ServiceCleaningType]
 	@State var serviceType: ServiceCleaningType
 	@State var price = "15.0"
 	@State var timeNorm = "180"
@@ -164,7 +164,7 @@ struct ProviderAddServicesView: View {
 					VStack {
 						Spacer()
 						Button(action: {
-							self.choisedServices.insert(serviceType)
+                            self.choisedServices.append(serviceType)
 							self.presentationMode.wrappedValue.dismiss()
 						}) {
 							HStack {

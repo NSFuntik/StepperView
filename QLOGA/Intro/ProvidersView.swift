@@ -149,7 +149,7 @@ struct ProvidersView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             NavigationView {
-                ProvidersView(service: Service(id: 0, image: "Cleaning", name: "Cleaning", description: "Residential cleaning services for all parts of your home. With tasks covering dishwashing, cleaning bathrooms, waste removal, furniture cleaning, window cleaning...", types: [.CompleteHome, .GarrageCleaning, .SwimmingPoolCleaning]))
+                ProvidersView(service: Service(id: .Cleaning, image: "Cleaning", name: "Cleaning", description: "Residential cleaning services for all parts of your home. With tasks covering dishwashing, cleaning bathrooms, waste removal, furniture cleaning, window cleaning...", types: [.CompleteHome, .GarrageCleaning, .SwimmingPoolCleaning]))
                     .navigationTitle("Providers")
             }.previewDevice("iPhone 6s")
         }

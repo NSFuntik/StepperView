@@ -18,7 +18,7 @@ struct ProviderSearchView: View {
 
     // MARK: Internal
 
-    @State var selectedButton: Int = 0
+    @State var selectedButton: Int = ServiceType.Cleaning.id
     @State var isLimited = true
 
     var body: some View {
@@ -51,7 +51,7 @@ struct ProviderSearchView: View {
             }.padding(.bottom, 20)
             ScrollView(showsIndicators: false) {
                 VStack {
-                    ForEach(Services[selectedButton].types, id: \.self) { type in
+                    ForEach(Array(Services[selectedButton].types), id: \.self) { type in
                         Section {
                             DisclosureGroup {
                                 VStack(spacing: 10) {

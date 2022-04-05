@@ -10,7 +10,7 @@ import SwiftUI
 
 struct IntroView: View {
 	@State var address: String = "Enter new address"
-	@State var selectedButton: Int = 0
+	@State var selectedButton: Int = ServiceType.Cleaning.id
 	@State var isSearchEnabled = false
 
 	var body: some View {
@@ -32,6 +32,12 @@ struct IntroView: View {
 				.navigationBarTitle("").navigationBarHidden(true)
 		}.environment(\.colorScheme, .light)
 	}
+#if DEBUG
+	let destination = EnrolledProfileView(actorType: .PROVIDER)
+
+#else
+	let destination = EnrollmentInfoView(actorType: .CUSTOMER)
+#endif
 }
 
 extension IntroView {
@@ -89,9 +95,8 @@ extension IntroView {
 		GeometryReader { geometry in
 
 			VStack(alignment: .trailing, spacing: 15) {
-				NavigationLink(destination:
-								//								EnrolledProfileView(actorType: .PROVIDER)) {
-							   EnrollmentInfoView(actorType: .CUSTOMER)) {
+				
+				NavigationLink(destination: destination) {
 					VStack(alignment: .center, spacing: 10) {
 						Image("CustomerIntro")
 							.resizable()

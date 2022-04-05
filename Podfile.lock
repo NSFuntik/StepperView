@@ -1,0 +1,54 @@
+PODS:
+  - AnyFormatKit (2.5.2)
+  - AnyFormatKitSwiftUI (0.5.3):
+    - AnyFormatKit (~> 2.5.2)
+  - BottomSheetSwiftUI (2.6.0)
+  - CalendarKit (0.12.3)
+  - GoogleMaps (6.0.1):
+    - GoogleMaps/Maps (= 6.0.1)
+  - GoogleMaps/Base (6.0.1)
+  - GoogleMaps/Maps (6.0.1):
+    - GoogleMaps/Base
+  - GooglePlaces (6.1.1)
+
+DEPENDENCIES:
+  - AnyFormatKitSwiftUI (~> 0.5.3)
+  - "BottomSheetSwiftUI (from `https://NSFuntik@bitbucket.org/qloga/bottomsheet.git`, branch `QLoGaMods`)"
+  - "CalendarKit (from `https://NSFuntik@bitbucket.org/qloga/CalendarKit.git`, branch `QLoGaMods`)"
+  - GoogleMaps (= 6.0.1)
+  - GooglePlaces
+
+SPEC REPOS:
+  trunk:
+    - AnyFormatKit
+    - AnyFormatKitSwiftUI
+    - GoogleMaps
+    - GooglePlaces
+
+EXTERNAL SOURCES:
+  BottomSheetSwiftUI:
+    :branch: QLoGaMods
+    :git: "https://NSFuntik@bitbucket.org/qloga/bottomsheet.git"
+  CalendarKit:
+    :branch: QLoGaMods
+    :git: "https://NSFuntik@bitbucket.org/qloga/CalendarKit.git"
+
+CHECKOUT OPTIONS:
+  BottomSheetSwiftUI:
+    :commit: f26b6dc4fa31ffda4e1ca83679eff56c8d5de061
+    :git: "https://NSFuntik@bitbucket.org/qloga/bottomsheet.git"
+  CalendarKit:
+    :commit: 3bb83f428ecf106e3e0dcec3a4b7cdc20f5006d6
+    :git: "https://NSFuntik@bitbucket.org/qloga/CalendarKit.git"
+
+SPEC CHECKSUMS:
+  AnyFormatKit: b0dbb2a5f2fe7a0fc97f401f8a219a47ee63a335
+  AnyFormatKitSwiftUI: f46eb09de9f94c9842ffb0a56dc746c58b71a3b9
+  BottomSheetSwiftUI: 522aa6b3b6d715de40fb3f94cb98b0889c87d78d
+  CalendarKit: 7d9b437555584f5a208ab30bfff9eed55a8aef9b
+  GoogleMaps: c213fc2334b7374144cede914da779b99be0ab74
+  GooglePlaces: 9c1f3baa75191b94dfc12b80a801292e03977f73
+
+PODFILE CHECKSUM: 677f2d268b58221a5adbf5f15fd1777a8ca08925
+
+COCOAPODS: 1.11.3

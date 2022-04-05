@@ -36,6 +36,8 @@ struct TermsConditionsView: View {
 
             HStack {
                 ScrollView {
+                    //                    Text(TsCsMarkdown)
+//                    Text(TsCsMarkdown))
                     markdownView
                         .pinchToZoom()
                         .multilineTextAlignment(.leading)

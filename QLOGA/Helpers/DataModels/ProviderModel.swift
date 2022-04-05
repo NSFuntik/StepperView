@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 struct Provider: Hashable {
     // MARK: Lifecycle
 
@@ -14,7 +15,7 @@ struct Provider: Hashable {
          calloutCharge: Bool, distance: Double = 0.0, rating: Double, employment: ProviderType,
          portfolio: ProviderPublicPortfolio = ProviderPublicPortfolio(images: [], description: ""), verifications: [VerificationType] = [], reviews: [Review] = [],
          languages: [Language] = [], website: String = "", registrationDetails: String = "", businesInsuranceDetails: String = "", description: String = "",
-         isPhoneVisible: Bool = true, isOffTimeVisible: Bool = true, choicedServices: Set<ServiceCleaningType> = [ServiceCleaningType.CompleteHome],
+         isPhoneVisible: Bool = true, isOffTimeVisible: Bool = true, choicedServices: [Service] = [],
          workingHours: [WorkHours] = defaultWorkingHours, offTime: [OffTime] = [OffTime(from: "11/02/22 11:00", to: "11/02/22 21:00")],
          portfolioFolders: [PortfolioFolder] = [])
     {
@@ -41,7 +42,7 @@ struct Provider: Hashable {
         self.description = description
         self.isPhoneVisible = isPhoneVisible
         self.isOffTimeVisible = isOffTimeVisible
-        self.choicedCleaningServices = choicedServices
+        self.choicedServices = choicedServices
         self.workingHours = workingHours
         self.offTime = offTime
         self.portfolioFolders = portfolioFolders
@@ -72,10 +73,24 @@ struct Provider: Hashable {
     var description: String
     var isPhoneVisible: Bool
     var isOffTimeVisible: Bool
-    var choicedCleaningServices: Set<ServiceCleaningType>
+//    var choicedCleaningServices: Set<ServiceCleaningType>
+    var choicedServices: [Service]
     var workingHours: [WorkHours]
     var offTime: [OffTime]
     var portfolioFolders: [PortfolioFolder]
+
+    func getPosition(item: Service) -> Int {
+
+        for i in 0..<choicedServices.count {
+
+            if (choicedServices[i].id == item.id){
+                return i
+            }
+
+        }
+
+        return 0
+    }
 }
 
 struct ProviderPublicPortfolio: Hashable {
@@ -211,7 +226,7 @@ var testProvider: Provider = .init(isActive: true,
                                     Review(image: "ReviewAvatar", rate: 4.1, description: "Prompt payment, polite and respectful")
                                    ],
                                    languages: [Language.English, Language.French, Language.Germany],
-                                   choicedServices: [.CompleteHome, .SwimmingPoolCleaning, .GarrageCleaning, .OvenCleaning, .Kitchen, .Bathroom, .BedroomLivingroom, .ClothesLaundryIroning, .Windows],
+                                   choicedServices: providerServices,
                                    portfolioFolders: [
                                     PortfolioFolder(title: "Kitchen", images: [
                                         PortfolioImage(image: "PortfolioImage0", title: "Kitchen 0", uploadDate: "21/02/22 11:33"),

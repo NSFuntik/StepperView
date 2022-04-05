@@ -178,6 +178,7 @@ struct EnrolledProfileView: View {
 			}
 			.sheet(isPresented: $isFiltersPresented) { ProvidersFilterView().cornerRadius(35) }
 			.navigationBarTitleDisplayMode(.inline)
+           
 	}
 }
 

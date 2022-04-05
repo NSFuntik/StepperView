@@ -348,7 +348,7 @@ struct ProfilePublicView: View {
 					.multilineTextAlignment(.leading)
 					.font(Font.system(size: 17, weight: .regular, design: .rounded))
 				Spacer()
-				Text("\($provider.choicedCleaningServices.wrappedValue.count.description)")
+                Text("\($provider.wrappedValue.choicedServices[ServiceType.Cleaning.id].types.count.description)")
 					.foregroundColor(Color.secondary)
 					.font(Font.system(size: 17, weight: .regular, design: .rounded))
 			} icon: {
@@ -361,7 +361,7 @@ struct ProfilePublicView: View {
 					.foregroundColor(Color.lightGray)
 				).frame(height: 50).padding(1)
 			ScrollView {
-				ForEach(Array($provider.choicedCleaningServices.wrappedValue), id: \.self) { service in
+				ForEach(Array($provider.choicedServices[ServiceType.Cleaning.id].types.wrappedValue), id: \.self) { service in
 					HStack(alignment: .center, spacing: 15) {
 						Image(systemName: "circle.fill")
 							.foregroundColor(Color.accentColor)
