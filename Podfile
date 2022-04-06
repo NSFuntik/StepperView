@@ -6,10 +6,9 @@ target 'QLOGA' do
   use_frameworks!
   pod 'GoogleMaps'
   pod 'GooglePlaces'
-  pod 'BottomSheetSwiftUI', :git => 'https://NSFuntik@bitbucket.org/qloga/bottomsheet.git', :branch => 'QLoGaMods'
-  pod 'CalendarKit', :git => 'https://NSFuntik@bitbucket.org/qloga/CalendarKit.git', :branch => 'QLoGaMods'
+  pod 'BottomSheetSwiftUI', :git => 'https://bitbucket.org/qloga/bottomsheet/src/QLoGaMods/bottomsheet.git', :branch => 'QLoGaMods'
+  pod 'CalendarKit', :git => 'https://bitbucket.org/qloga/calendarkit/src/QLoGaMods/CalendarKit.git', :branch => 'QLoGaMods'
   pod 'AnyFormatKitSwiftUI', '~> 0.5.3'
-  pod 'MaterialComponents/Chips+Theming'
   # Pods for QLOGA
 
 end
