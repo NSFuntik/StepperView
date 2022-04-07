@@ -171,27 +171,29 @@ struct ProfileSetupView: View {
 								.foregroundColor(Color.lightGray))
 							.padding(1)
 					}
+                    NavigationLink(destination: FAQView(provider: $provider, customer: $customer, actorType: .QLOGA)) {
 
-					Label {
-						Text("Frequently Asked Questions")
-							.foregroundColor(Color.black)
-							.multilineTextAlignment(.leading)
-							.font(Font.system(size: 17, weight: .regular, design: .rounded))
-						Spacer()
-						Image(systemName: "chevron.right")
-							.foregroundColor(Color.accentColor)
-							.multilineTextAlignment(.leading)
-							.font(Font.system(size: 20, weight: .regular, design: .rounded))
-							.padding(.leading, 10)
-					} icon: {
-						Image("QuestionsIcon")
-							.resizable().aspectRatio(contentMode: .fit)
-							.frame(height: 30, alignment: .center)
-					}.padding(10)
-						.overlay(RoundedRectangle(cornerRadius: 10)
-							.stroke(lineWidth: 1.0)
-							.foregroundColor(Color.lightGray))
-						.padding(1)
+                        Label {
+                            Text("Frequently Asked Questions")
+                                .foregroundColor(Color.black)
+                                .multilineTextAlignment(.leading)
+                                .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .foregroundColor(Color.accentColor)
+                                .multilineTextAlignment(.leading)
+                                .font(Font.system(size: 20, weight: .regular, design: .rounded))
+                                .padding(.leading, 10)
+                        } icon: {
+                            Image("QuestionsIcon")
+                                .resizable().aspectRatio(contentMode: .fit)
+                                .frame(height: 30, alignment: .center)
+                        }.padding(10)
+                            .overlay(RoundedRectangle(cornerRadius: 10)
+                                .stroke(lineWidth: 1.0)
+                                .foregroundColor(Color.lightGray))
+                            .padding(1)
+                    }
 
 					Label {
 						Text("Provider`s Terms & Conditions")

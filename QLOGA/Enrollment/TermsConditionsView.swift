@@ -6,16 +6,17 @@
 //
 
 import SwiftUI
-import MarkdownUI
+//import MarkdownUI
 
-var markdownView: some View = Markdown(TsCsMarkdown)
-var style = MarkdownStyle(font: .system(size: 13, weight: .regular, design: .rounded), foregroundColor: .infoBlue, measurements: .init())
+//var markdownView: some View = Markdown(TsCsMarkdown)
+//var style = MarkdownStyle(font: .system(size: 13, weight: .regular, design: .rounded), foregroundColor: .infoBlue, measurements: .init())
 
 struct TermsConditionsView: View {
     @State var termsAccepted: Bool = false
     @State var actorType: ActorsEnum
     @State var showingAlert: Bool = false
-
+    let terms: MarkdownFile = .QlogaTermsConditions
+//    @State var html = NSAttributedString(data: URL(, options: <#T##[NSAttributedString.DocumentReadingOptionKey : Any]#>, documentAttributes: <#T##AutoreleasingUnsafeMutablePointer<NSDictionary?>?#>)
     var body: some View {
         VStack(alignment: .center, spacing: 10) {
             ZStack {
@@ -38,14 +39,20 @@ struct TermsConditionsView: View {
                 ScrollView {
                     //                    Text(TsCsMarkdown)
 //                    Text(TsCsMarkdown))
-                    markdownView
-                        .pinchToZoom()
-                        .multilineTextAlignment(.leading)
-                        .markdownStyle(style)
+//                    Text(terms.html)
+                    RichText(html: try! String(contentsOf: URL(string: "https://pub.qloga.com/legal/qloga_ts_and_cs.html")!, encoding: .utf8))
+                        .padding(.horizontal, -5)
+                        .placeholder(when: true) {
+                            Text("loading")
+                        }
+                             //try! String(contentsOfFile: Bundle.main.path(forResource: "qloga_ts_and_cs", ofType: "html")!, encoding: .utf8))
+//                    Text(terms.html!)
+//                        .pinchToZoom()
+//                        .multilineTextAlignment(.leading)
                 }
-                Spacer()
+
             }
-            .padding(10)
+
             .overlay {
                 RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 1.0).foregroundColor(.lightGray)
             }
@@ -80,6 +87,8 @@ struct TermsConditionsView_Previews: PreviewProvider {
         }
     }
 }
+
+
 
 let termsText =
     """

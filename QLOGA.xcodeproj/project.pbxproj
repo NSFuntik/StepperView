@@ -16,7 +16,6 @@
 		1136535027D36BB6008168DA /* ServiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1136534F27D36BB6008168DA /* ServiceModel.swift */; };
 		114159DF27D36C720091C254 /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114159DE27D36C720091C254 /* AddressModel.swift */; };
 		114159E127D36D0D0091C254 /* ProviderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114159E027D36D0D0091C254 /* ProviderModel.swift */; };
-		1150775C27EE3ECA00800114 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 1150775B27EE3ECA00800114 /* MarkdownUI */; };
 		115A86E927D6A7320064AE36 /* ImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115A86E827D6A7320064AE36 /* ImageViewer.swift */; };
 		116C193627DDEA4F00755425 /* ActorsEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116C193527DDEA4F00755425 /* ActorsEnum.swift */; };
 		116C193827DDF5DF00755425 /* ContryCodePhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116C193727DDF5DF00755425 /* ContryCodePhone.swift */; };
@@ -63,13 +62,35 @@
 		119CA42327EF57A10082282C /* ServiceConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119CA41727EF57A10082282C /* ServiceConditionsView.swift */; };
 		119CA42427EF57A10082282C /* LanguagesPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119CA41827EF57A10082282C /* LanguagesPickerView.swift */; };
 		119CA42727EF57BC0082282C /* qloga_data_protection.md in Resources */ = {isa = PBXBuildFile; fileRef = 119CA42527EF57BC0082282C /* qloga_data_protection.md */; };
-		119CA42827EF57BC0082282C /* qloga_ts_and_cs.md in Resources */ = {isa = PBXBuildFile; fileRef = 119CA42627EF57BC0082282C /* qloga_ts_and_cs.md */; };
+		11DD965C27FDCE6A0005500A /* PrvOrdersListTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DD965B27FDCE6A0005500A /* PrvOrdersListTabView.swift */; };
+		11DD965E27FDCE950005500A /* EntryProfileTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DD965D27FDCE950005500A /* EntryProfileTabView.swift */; };
+		11DD966127FDD0070005500A /* PrvRequestsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DD966027FDD0070005500A /* PrvRequestsTabView.swift */; };
+		11DD966327FDD06A0005500A /* FavoritesTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DD966227FDD06A0005500A /* FavoritesTabView.swift */; };
+		11DD966D27FDD8D60005500A /* RichTextExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DD966827FDD8D60005500A /* RichTextExtension.swift */; };
+		11DD966E27FDD8D60005500A /* RichTextEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DD966927FDD8D60005500A /* RichTextEnums.swift */; };
+		11DD966F27FDD8D60005500A /* Webview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DD966A27FDD8D60005500A /* Webview.swift */; };
+		11DD967027FDD8D60005500A /* ColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DD966B27FDD8D60005500A /* ColorSet.swift */; };
+		11DD967127FDD8D60005500A /* RichText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DD966C27FDD8D60005500A /* RichText.swift */; };
+		11DD967727FE13610005500A /* SelectableTagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DD967227FE13610005500A /* SelectableTagListView.swift */; };
+		11DD967827FE13610005500A /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DD967327FE13610005500A /* TagListView.swift */; };
+		11DD967927FE13610005500A /* RemovableTagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DD967427FE13610005500A /* RemovableTagListView.swift */; };
+		11DD967A27FE13610005500A /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DD967527FE13610005500A /* TagView.swift */; };
+		11DD967B27FE13610005500A /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DD967627FE13610005500A /* CloseButton.swift */; };
+		11DD967D27FE25180005500A /* qloga_ts_and_cs.html in Resources */ = {isa = PBXBuildFile; fileRef = 11DD967C27FE25180005500A /* qloga_ts_and_cs.html */; };
+		11DD967F27FE251E0005500A /* md.css in Resources */ = {isa = PBXBuildFile; fileRef = 11DD967E27FE251E0005500A /* md.css */; };
+		11DD968327FE48650005500A /* FAQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DD968227FE48650005500A /* FAQView.swift */; };
+		11DD968527FE4CA90005500A /* GeneralQuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DD968427FE4CA90005500A /* GeneralQuestionsView.swift */; };
+		11DD968827FE4E210005500A /* AnswerOnQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DD968727FE4E210005500A /* AnswerOnQuestionView.swift */; };
+		11DD968A27FE51040005500A /* FAQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DD968927FE51040005500A /* FAQ.swift */; };
+		11DD968C27FE55530005500A /* FAQfromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DD968B27FE55530005500A /* FAQfromJSON.swift */; };
+		11DD968E27FE57420005500A /* faq.json in Resources */ = {isa = PBXBuildFile; fileRef = 11DD968D27FE57420005500A /* faq.json */; };
 		11E31E4F27D6617900B603E0 /* LabeledStapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E31E4E27D6617800B603E0 /* LabeledStapper.swift */; };
 		11E31E5127D6738900B603E0 /* CleaningServiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E31E5027D6738900B603E0 /* CleaningServiceModel.swift */; };
-		95954A505DA4A23FB2E1B027 /* Pods_QLOGA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46C7518FE910D0EA8182C1A1 /* Pods_QLOGA.framework */; };
+		7CCDDF5EFA79D0A6C6A10401 /* Pods_QLOGA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED99AF6D3539548826150A46 /* Pods_QLOGA.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		07A6679659D10D14F0EA60A5 /* Pods-QLOGA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QLOGA.release.xcconfig"; path = "Target Support Files/Pods-QLOGA/Pods-QLOGA.release.xcconfig"; sourceTree = "<group>"; };
 		111166EA27DA89FA00A03E42 /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
 		112CC73B27D48B9800B8700A /* StarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarsView.swift; sourceTree = "<group>"; };
 		112CC73D27D4C0F800B8700A /* ProviderRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderRatingView.swift; sourceTree = "<group>"; };
@@ -127,12 +148,32 @@
 		119CA41727EF57A10082282C /* ServiceConditionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceConditionsView.swift; sourceTree = "<group>"; };
 		119CA41827EF57A10082282C /* LanguagesPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguagesPickerView.swift; sourceTree = "<group>"; };
 		119CA42527EF57BC0082282C /* qloga_data_protection.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = qloga_data_protection.md; sourceTree = "<group>"; };
-		119CA42627EF57BC0082282C /* qloga_ts_and_cs.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = qloga_ts_and_cs.md; sourceTree = "<group>"; };
+		11DD965B27FDCE6A0005500A /* PrvOrdersListTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrvOrdersListTabView.swift; sourceTree = "<group>"; };
+		11DD965D27FDCE950005500A /* EntryProfileTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryProfileTabView.swift; sourceTree = "<group>"; };
+		11DD966027FDD0070005500A /* PrvRequestsTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrvRequestsTabView.swift; sourceTree = "<group>"; };
+		11DD966227FDD06A0005500A /* FavoritesTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesTabView.swift; sourceTree = "<group>"; };
+		11DD966827FDD8D60005500A /* RichTextExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RichTextExtension.swift; sourceTree = "<group>"; };
+		11DD966927FDD8D60005500A /* RichTextEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RichTextEnums.swift; sourceTree = "<group>"; };
+		11DD966A27FDD8D60005500A /* Webview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Webview.swift; sourceTree = "<group>"; };
+		11DD966B27FDD8D60005500A /* ColorSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorSet.swift; sourceTree = "<group>"; };
+		11DD966C27FDD8D60005500A /* RichText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RichText.swift; sourceTree = "<group>"; };
+		11DD967227FE13610005500A /* SelectableTagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectableTagListView.swift; sourceTree = "<group>"; };
+		11DD967327FE13610005500A /* TagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
+		11DD967427FE13610005500A /* RemovableTagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemovableTagListView.swift; sourceTree = "<group>"; };
+		11DD967527FE13610005500A /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
+		11DD967627FE13610005500A /* CloseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
+		11DD967C27FE25180005500A /* qloga_ts_and_cs.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = qloga_ts_and_cs.html; sourceTree = "<group>"; };
+		11DD967E27FE251E0005500A /* md.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = md.css; sourceTree = "<group>"; };
+		11DD968227FE48650005500A /* FAQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQView.swift; sourceTree = "<group>"; };
+		11DD968427FE4CA90005500A /* GeneralQuestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralQuestionsView.swift; sourceTree = "<group>"; };
+		11DD968727FE4E210005500A /* AnswerOnQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerOnQuestionView.swift; sourceTree = "<group>"; };
+		11DD968927FE51040005500A /* FAQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQ.swift; sourceTree = "<group>"; };
+		11DD968B27FE55530005500A /* FAQfromJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQfromJSON.swift; sourceTree = "<group>"; };
+		11DD968D27FE57420005500A /* faq.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = faq.json; sourceTree = "<group>"; };
 		11E31E4E27D6617800B603E0 /* LabeledStapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledStapper.swift; sourceTree = "<group>"; };
 		11E31E5027D6738900B603E0 /* CleaningServiceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleaningServiceModel.swift; sourceTree = "<group>"; };
-		28C918F98D88EB4DF56F6E24 /* Pods-QLOGA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QLOGA.release.xcconfig"; path = "Target Support Files/Pods-QLOGA/Pods-QLOGA.release.xcconfig"; sourceTree = "<group>"; };
-		46C7518FE910D0EA8182C1A1 /* Pods_QLOGA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QLOGA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9D48B60FCC8879B5D166C5B2 /* Pods-QLOGA.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QLOGA.debug.xcconfig"; path = "Target Support Files/Pods-QLOGA/Pods-QLOGA.debug.xcconfig"; sourceTree = "<group>"; };
+		801C8708D4EFD9E3BB348974 /* Pods-QLOGA.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QLOGA.debug.xcconfig"; path = "Target Support Files/Pods-QLOGA/Pods-QLOGA.debug.xcconfig"; sourceTree = "<group>"; };
+		ED99AF6D3539548826150A46 /* Pods_QLOGA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QLOGA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,8 +181,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95954A505DA4A23FB2E1B027 /* Pods_QLOGA.framework in Frameworks */,
-				1150775C27EE3ECA00800114 /* MarkdownUI in Frameworks */,
+				7CCDDF5EFA79D0A6C6A10401 /* Pods_QLOGA.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,6 +201,9 @@
 				118E8E9427E14A4B005DFE57 /* TabBarView.swift */,
 				119CA40327EF50E30082282C /* MarkdownDocuments.swift */,
 				119CA40527EF558D0082282C /* TextFieldAlert.swift */,
+				11DD968927FE51040005500A /* FAQ.swift */,
+				11DD968B27FE55530005500A /* FAQfromJSON.swift */,
+				11DD966727FDD8D60005500A /* RichText */,
 				111166EC27DA8A4500A03E42 /* DataModels */,
 			);
 			path = Helpers;
@@ -188,7 +231,7 @@
 				119BE1D727D230DF00B2D70F /* QLOGA */,
 				119BE1D627D230DF00B2D70F /* Products */,
 				3DCA0D5BF9AB6116997EF302 /* Pods */,
-				F892247470F32E0910DADAC1 /* Frameworks */,
+				917EA3B08D17C5420A5FD97D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -204,14 +247,17 @@
 			isa = PBXGroup;
 			children = (
 				119BE1D827D230DF00B2D70F /* QLOGAApp.swift */,
+				11DD968D27FE57420005500A /* faq.json */,
 				111166E927DA898700A03E42 /* Helpers */,
 				119BE20827D2348800B2D70F /* Intro */,
 				119BE22927D2383300B2D70F /* Enrollment */,
 				119BE22C27D2387C00B2D70F /* PostEnrollment */,
+				11DD965A27FDCDF80005500A /* Negotiation */,
 				119BE1DC27D230E000B2D70F /* Assets.xcassets */,
 				1136534927D2C83D008168DA /* Info.plist */,
 				119CA42527EF57BC0082282C /* qloga_data_protection.md */,
-				119CA42627EF57BC0082282C /* qloga_ts_and_cs.md */,
+				11DD967E27FE251E0005500A /* md.css */,
+				11DD967C27FE25180005500A /* qloga_ts_and_cs.html */,
 				1136534B27D2C972008168DA /* LaunchScreen.storyboard */,
 				119BE1DE27D230E000B2D70F /* Preview Content */,
 			);
@@ -264,35 +310,98 @@
 		119BE22C27D2387C00B2D70F /* PostEnrollment */ = {
 			isa = PBXGroup;
 			children = (
-				119CA41427EF57A10082282C /* AlbumFolderView.swift */,
 				119CA40F27EF57A10082282C /* EnrolledProfileView.swift */,
-				119CA41827EF57A10082282C /* LanguagesPickerView.swift */,
-				119CA40E27EF57A10082282C /* MailVerifyView.swift */,
-				119CA41027EF57A10082282C /* ProfilePublicView.swift */,
-				119CA41227EF57A10082282C /* ProfileSettingsView.swift */,
 				119CA41527EF57A10082282C /* ProfileSetupView.swift */,
+				11DD968127FE484B0005500A /* FAQ */,
+				11DD965F27FDCEDC0005500A /* ProfileSettingsView */,
+				119CA41027EF57A10082282C /* ProfilePublicView.swift */,
+				11DD968627FE4CE30005500A /* Album */,
 				119CA41327EF57A10082282C /* ProviderAddServicesView.swift */,
-				119CA41127EF57A10082282C /* ProviderPortfolioAlbumView.swift */,
-				119CA40D27EF57A10082282C /* ProviderServicesView.swift */,
 				119CA41627EF57A10082282C /* ProviderWorkingSceduleView.swift */,
 				119CA41727EF57A10082282C /* ServiceConditionsView.swift */,
+				11DD968027FE48160005500A /* TagsList */,
 			);
 			path = PostEnrollment;
+			sourceTree = "<group>";
+		};
+		11DD965A27FDCDF80005500A /* Negotiation */ = {
+			isa = PBXGroup;
+			children = (
+				11DD965D27FDCE950005500A /* EntryProfileTabView.swift */,
+				11DD965B27FDCE6A0005500A /* PrvOrdersListTabView.swift */,
+				11DD966027FDD0070005500A /* PrvRequestsTabView.swift */,
+				11DD966227FDD06A0005500A /* FavoritesTabView.swift */,
+			);
+			path = Negotiation;
+			sourceTree = "<group>";
+		};
+		11DD965F27FDCEDC0005500A /* ProfileSettingsView */ = {
+			isa = PBXGroup;
+			children = (
+				119CA41227EF57A10082282C /* ProfileSettingsView.swift */,
+				119CA40D27EF57A10082282C /* ProviderServicesView.swift */,
+				119CA41827EF57A10082282C /* LanguagesPickerView.swift */,
+				119CA40E27EF57A10082282C /* MailVerifyView.swift */,
+			);
+			path = ProfileSettingsView;
+			sourceTree = "<group>";
+		};
+		11DD966727FDD8D60005500A /* RichText */ = {
+			isa = PBXGroup;
+			children = (
+				11DD966827FDD8D60005500A /* RichTextExtension.swift */,
+				11DD966927FDD8D60005500A /* RichTextEnums.swift */,
+				11DD966A27FDD8D60005500A /* Webview.swift */,
+				11DD966B27FDD8D60005500A /* ColorSet.swift */,
+				11DD966C27FDD8D60005500A /* RichText.swift */,
+			);
+			path = RichText;
+			sourceTree = "<group>";
+		};
+		11DD968027FE48160005500A /* TagsList */ = {
+			isa = PBXGroup;
+			children = (
+				11DD967627FE13610005500A /* CloseButton.swift */,
+				11DD967427FE13610005500A /* RemovableTagListView.swift */,
+				11DD967227FE13610005500A /* SelectableTagListView.swift */,
+				11DD967327FE13610005500A /* TagListView.swift */,
+				11DD967527FE13610005500A /* TagView.swift */,
+			);
+			path = TagsList;
+			sourceTree = "<group>";
+		};
+		11DD968127FE484B0005500A /* FAQ */ = {
+			isa = PBXGroup;
+			children = (
+				11DD968227FE48650005500A /* FAQView.swift */,
+				11DD968427FE4CA90005500A /* GeneralQuestionsView.swift */,
+				11DD968727FE4E210005500A /* AnswerOnQuestionView.swift */,
+			);
+			path = FAQ;
+			sourceTree = "<group>";
+		};
+		11DD968627FE4CE30005500A /* Album */ = {
+			isa = PBXGroup;
+			children = (
+				119CA41427EF57A10082282C /* AlbumFolderView.swift */,
+				119CA41127EF57A10082282C /* ProviderPortfolioAlbumView.swift */,
+			);
+			name = Album;
 			sourceTree = "<group>";
 		};
 		3DCA0D5BF9AB6116997EF302 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9D48B60FCC8879B5D166C5B2 /* Pods-QLOGA.debug.xcconfig */,
-				28C918F98D88EB4DF56F6E24 /* Pods-QLOGA.release.xcconfig */,
+				801C8708D4EFD9E3BB348974 /* Pods-QLOGA.debug.xcconfig */,
+				07A6679659D10D14F0EA60A5 /* Pods-QLOGA.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		F892247470F32E0910DADAC1 /* Frameworks */ = {
+		917EA3B08D17C5420A5FD97D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				46C7518FE910D0EA8182C1A1 /* Pods_QLOGA.framework */,
+				ED99AF6D3539548826150A46 /* Pods_QLOGA.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -304,21 +413,18 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 119BE1E327D230E000B2D70F /* Build configuration list for PBXNativeTarget "QLOGA" */;
 			buildPhases = (
-				77F542F806F802E20F7B951E /* [CP] Check Pods Manifest.lock */,
+				674573619DC5E1CB7B093F64 /* [CP] Check Pods Manifest.lock */,
 				119BE1D127D230DF00B2D70F /* Sources */,
 				119BE1D227D230DF00B2D70F /* Frameworks */,
 				119BE1D327D230DF00B2D70F /* Resources */,
-				2A1AA70A7900047D577E550D /* [CP] Embed Pods Frameworks */,
-				351B27BCD3EF91ADF903A7C1 /* [CP] Copy Pods Resources */,
+				A5F68887975A4D447AECAC93 /* [CP] Embed Pods Frameworks */,
+				8970CB8348BB783BABD91EC0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = QLOGA;
-			packageProductDependencies = (
-				1150775B27EE3ECA00800114 /* MarkdownUI */,
-			);
 			productName = QLOGA;
 			productReference = 119BE1D527D230DF00B2D70F /* QLOGA.app */;
 			productType = "com.apple.product-type.application";
@@ -388,9 +494,6 @@
 				ca,
 			);
 			mainGroup = 119BE1CC27D230DF00B2D70F;
-			packageReferences = (
-				1150775A27EE3ECA00800114 /* XCRemoteSwiftPackageReference "MarkdownUI" */,
-			);
 			productRefGroup = 119BE1D627D230DF00B2D70F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -405,10 +508,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				119CA42827EF57BC0082282C /* qloga_ts_and_cs.md in Resources */,
+				11DD967D27FE25180005500A /* qloga_ts_and_cs.html in Resources */,
 				1136534C27D2C972008168DA /* LaunchScreen.storyboard in Resources */,
 				119BE1E027D230E000B2D70F /* Preview Assets.xcassets in Resources */,
 				119CA42727EF57BC0082282C /* qloga_data_protection.md in Resources */,
+				11DD967F27FE251E0005500A /* md.css in Resources */,
+				11DD968E27FE57420005500A /* faq.json in Resources */,
 				119BE1DD27D230E000B2D70F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -416,41 +521,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2A1AA70A7900047D577E550D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-QLOGA/Pods-QLOGA-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-QLOGA/Pods-QLOGA-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QLOGA/Pods-QLOGA-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		351B27BCD3EF91ADF903A7C1 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-QLOGA/Pods-QLOGA-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-QLOGA/Pods-QLOGA-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QLOGA/Pods-QLOGA-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		77F542F806F802E20F7B951E /* [CP] Check Pods Manifest.lock */ = {
+		674573619DC5E1CB7B093F64 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -472,6 +543,40 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8970CB8348BB783BABD91EC0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QLOGA/Pods-QLOGA-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QLOGA/Pods-QLOGA-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QLOGA/Pods-QLOGA-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A5F68887975A4D447AECAC93 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QLOGA/Pods-QLOGA-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QLOGA/Pods-QLOGA-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QLOGA/Pods-QLOGA-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -479,6 +584,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11DD967927FE13610005500A /* RemovableTagListView.swift in Sources */,
 				11E31E5127D6738900B603E0 /* CleaningServiceModel.swift in Sources */,
 				119CA42227EF57A10082282C /* ProviderWorkingSceduleView.swift in Sources */,
 				111166EB27DA89FA00A03E42 /* ReviewModel.swift in Sources */,
@@ -488,31 +594,41 @@
 				119BE1FD27D2330100B2D70F /* SelectedServiceDetailView.swift in Sources */,
 				119CA42127EF57A10082282C /* ProfileSetupView.swift in Sources */,
 				114159DF27D36C720091C254 /* AddressModel.swift in Sources */,
+				11DD966127FDD0070005500A /* PrvRequestsTabView.swift in Sources */,
 				116C193627DDEA4F00755425 /* ActorsEnum.swift in Sources */,
 				119BE1E927D2315700B2D70F /* GoogleMapView.swift in Sources */,
 				116C193827DDF5DF00755425 /* ContryCodePhone.swift in Sources */,
 				119BE21227D2353800B2D70F /* TermsConditionsView.swift in Sources */,
+				11DD966D27FDD8D60005500A /* RichTextExtension.swift in Sources */,
 				119CA41F27EF57A10082282C /* ProviderAddServicesView.swift in Sources */,
 				119BE1DB27D230DF00B2D70F /* IntroView.swift in Sources */,
 				114159E127D36D0D0091C254 /* ProviderModel.swift in Sources */,
+				11DD965E27FDCE950005500A /* EntryProfileTabView.swift in Sources */,
+				11DD967B27FE13610005500A /* CloseButton.swift in Sources */,
 				112CC73E27D4C0F800B8700A /* ProviderRatingView.swift in Sources */,
 				119CA41927EF57A10082282C /* ProviderServicesView.swift in Sources */,
+				11DD968327FE48650005500A /* FAQView.swift in Sources */,
+				11DD966E27FDD8D60005500A /* RichTextEnums.swift in Sources */,
 				119CA42427EF57A10082282C /* LanguagesPickerView.swift in Sources */,
 				119BE1FF27D2332C00B2D70F /* InquiryOverview.swift in Sources */,
 				11E31E4F27D6617900B603E0 /* LabeledStapper.swift in Sources */,
 				119BE1D927D230DF00B2D70F /* QLOGAApp.swift in Sources */,
 				119CA41D27EF57A10082282C /* ProviderPortfolioAlbumView.swift in Sources */,
 				119BE20A27D234C200B2D70F /* PhoneVerifyView.swift in Sources */,
+				11DD967127FDD8D60005500A /* RichText.swift in Sources */,
 				119BE20C27D234D300B2D70F /* AddressVerifyView.swift in Sources */,
 				119BE1E727D2314E00B2D70F /* AddressSearchView.swift in Sources */,
 				119BE1F727D2323B00B2D70F /* ProviderVerificationsView.swift in Sources */,
 				119BE20727D2345300B2D70F /* EnrollmentInfoView.swift in Sources */,
 				119CA42027EF57A10082282C /* AlbumFolderView.swift in Sources */,
+				11DD967A27FE13610005500A /* TagView.swift in Sources */,
 				1136535027D36BB6008168DA /* ServiceModel.swift in Sources */,
 				116DC78827D8F67000EFF552 /* EKWrapper.swift in Sources */,
 				119BE1EF27D231C400B2D70F /* ProviderOverview.swift in Sources */,
 				119CA41C27EF57A10082282C /* ProfilePublicView.swift in Sources */,
+				11DD968C27FE55530005500A /* FAQfromJSON.swift in Sources */,
 				119CA40A27EF55F80082282C /* ScheduleModels.swift in Sources */,
+				11DD967727FE13610005500A /* SelectableTagListView.swift in Sources */,
 				115A86E927D6A7320064AE36 /* ImageViewer.swift in Sources */,
 				119BE21627D235BC00B2D70F /* ProvidersFilterView.swift in Sources */,
 				119CA41B27EF57A10082282C /* EnrolledProfileView.swift in Sources */,
@@ -521,17 +637,25 @@
 				119CA40827EF55EB0082282C /* CustomerModel.swift in Sources */,
 				119CA40427EF50E30082282C /* MarkdownDocuments.swift in Sources */,
 				119BE1EB27D2318800B2D70F /* ProviderSearchView.swift in Sources */,
+				11DD966327FDD06A0005500A /* FavoritesTabView.swift in Sources */,
+				11DD968827FE4E210005500A /* AnswerOnQuestionView.swift in Sources */,
 				119BE20527D233ED00B2D70F /* VisitTimeSelectorView.swift in Sources */,
+				11DD967027FDD8D60005500A /* ColorSet.swift in Sources */,
+				11DD968A27FE51040005500A /* FAQ.swift in Sources */,
 				119CA41E27EF57A10082282C /* ProfileSettingsView.swift in Sources */,
 				112CC73C27D48B9800B8700A /* StarsView.swift in Sources */,
 				119CA40627EF558D0082282C /* TextFieldAlert.swift in Sources */,
+				11DD965C27FDCE6A0005500A /* PrvOrdersListTabView.swift in Sources */,
 				112CC74027D4E37200B8700A /* ColorExtension.swift in Sources */,
 				119BE1F127D231D700B2D70F /* ProviderPreviewsView.swift in Sources */,
 				118E8E9527E14A4B005DFE57 /* TabBarView.swift in Sources */,
 				119BE20327D2337800B2D70F /* VisitsScedulerView.swift in Sources */,
 				119BE1FB27D232F000B2D70F /* InquiryServicesView.swift in Sources */,
+				11DD966F27FDD8D60005500A /* Webview.swift in Sources */,
 				119BE1ED27D231AF00B2D70F /* ProvidersView.swift in Sources */,
 				1136534E27D33A8B008168DA /* LocationManager.swift in Sources */,
+				11DD968527FE4CA90005500A /* GeneralQuestionsView.swift in Sources */,
+				11DD967827FE13610005500A /* TagListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,6 +699,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_PREVIEWS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				EXCLUDED_ARCHS = "";
@@ -640,6 +765,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_PREVIEWS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXCLUDED_ARCHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -662,15 +788,17 @@
 		};
 		119BE1E427D230E000B2D70F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9D48B60FCC8879B5D166C5B2 /* Pods-QLOGA.debug.xcconfig */;
+			baseConfigurationReference = 801C8708D4EFD9E3BB348974 /* Pods-QLOGA.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"QLOGA/Preview Content\"";
 				DEVELOPMENT_TEAM = UB936SP78M;
 				ENABLE_PREVIEWS = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = QLOGA/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -695,10 +823,11 @@
 		};
 		119BE1E527D230E000B2D70F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 28C918F98D88EB4DF56F6E24 /* Pods-QLOGA.release.xcconfig */;
+			baseConfigurationReference = 07A6679659D10D14F0EA60A5 /* Pods-QLOGA.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"QLOGA/Preview Content\"";
@@ -747,25 +876,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		1150775A27EE3ECA00800114 /* XCRemoteSwiftPackageReference "MarkdownUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/gonzalezreal/MarkdownUI.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		1150775B27EE3ECA00800114 /* MarkdownUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1150775A27EE3ECA00800114 /* XCRemoteSwiftPackageReference "MarkdownUI" */;
-			productName = MarkdownUI;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 119BE1CD27D230DF00B2D70F /* Project object */;
 }

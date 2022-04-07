@@ -6,10 +6,9 @@ target 'QLOGA' do
   use_frameworks!
   pod 'GoogleMaps'
   pod 'GooglePlaces'
-  pod 'BottomSheetSwiftUI', :git => 'https://NSFuntik@bitbucket.org/qloga/bottomsheet.git', :branch => 'QLoGaMods'
-  pod 'CalendarKit', :git => 'https://NSFuntik@bitbucket.org/qloga/CalendarKit.git', :branch => 'QLoGaMods'
+  pod 'BottomSheetSwiftUI', :git => 'https://bitbucket.org/qloga/bottomsheet/src/QLoGaMods/bottomsheet.git', :branch => 'QLoGaMods'
+  pod 'CalendarKit', :git => 'https://bitbucket.org/qloga/calendarkit/src/QLoGaMods/CalendarKit.git', :branch => 'QLoGaMods'
   pod 'AnyFormatKitSwiftUI', '~> 0.5.3'
-  pod 'MaterialComponents/Chips+Theming'
   # Pods for QLOGA
 
 end
@@ -17,7 +16,9 @@ post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
       config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
-      config.build_settings['ONLY_ACTIVE_ARCH'] = 'NO'
+      config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+      config.build_settings["ONLY_ACTIVE_ARCH"] = "YES"
+
     end
   end
 end
