@@ -9,7 +9,8 @@ import Combine
 import SwiftUI
 
 struct IntroView: View {
-	@State var address: String = "Enter new address"
+//	@State var address: String = "Enter new address"
+	@State var address: String = "EH2 2ER Edinburgh Princes Street 09"
 	@State var selectedButton: Int = ServiceType.Cleaning.id
 	@State var isSearchEnabled = false
 
@@ -21,7 +22,15 @@ struct IntroView: View {
 					ServicesScrollView
 						.padding([.top])
 						.ignoresSafeArea(.all, edges: .bottom)
-						.zIndex(1.0)
+						.offset(x: 10)
+						.background(
+							RoundedRectangle(cornerRadius: 16, style: .circular)
+								.background(Color.white)
+								.padding([.horizontal, .bottom], -10)
+								.padding(.trailing, -20)
+								.padding(.top, 5)
+								.ignoresSafeArea(.all, edges: .bottom)
+								.foregroundColor(address != "Enter new address" ? Color.accentColor.opacity(0.2) : .white)).offset(x: 10).zIndex(1)
 
 					Spacer(minLength: 50)
 					ProfileChooserView
@@ -33,7 +42,7 @@ struct IntroView: View {
 		}.environment(\.colorScheme, .light)
 	}
 #if DEBUG
-	let destination = EnrolledProfileView(actorType: .PROVIDER)
+	let destination = ProfileHomeTabBarView(actorType: .PROVIDER)
 
 #else
 	let destination = EnrollmentInfoView(actorType: .CUSTOMER)
@@ -53,9 +62,11 @@ extension IntroView {
 					Text(address == "" || address == "Enter new address" ? "Enter new address" : "")
 						.foregroundColor(.lightGray.opacity(0.6))
 						.font(.system(size: 16, weight: .regular, design: .rounded))
-					Text(address)
+						.minimumScaleFactor(0.7).lineLimit(1)
+					Text(address).lineLimit(1)
 						.foregroundColor(address == "Enter new address" ? .lightGray.opacity(0.6) : Color("Orange").opacity(1))
 						.font(.system(size: 16, weight: .regular, design: .rounded))
+						.minimumScaleFactor(0.7)
 				}
 				Spacer()
 			}).padding(10)
@@ -74,8 +85,11 @@ extension IntroView {
 					VStack {
 						Image(service.image)
 							.resizable()
+							.renderingMode(.original)
 							.aspectRatio(contentMode: .fit)
 							.padding(10)
+							.background(Color.white)
+							.clipShape(RoundedRectangle(cornerRadius: 10))
 							.overlay(
 								RoundedRectangle(cornerRadius: 10)
 									.stroke(selectedButton == service.id ? Color.accentColor : Color.lightGray.opacity(0.6),
@@ -83,7 +97,7 @@ extension IntroView {
 							).padding(.bottom, -3).padding(.top, 2)
 						Text(service.name)
 							.foregroundColor(Color.black)
-							.font(.system(size: 12.0, weight: .thin, design: .rounded))
+							.font(.system(size: 12.0, weight: .light, design: .rounded))
 					}.padding([.bottom, .horizontal], 1)
 						.frame(maxWidth: 70)
 				}
@@ -110,7 +124,19 @@ extension IntroView {
 						.overlay(
 							RoundedRectangle(cornerRadius: 16)
 								.stroke(Color.lightGray.opacity(0.5), lineWidth: 1))
-				}
+				}.background(ZStack {
+					RoundedRectangle(cornerRadius: 16, style: .continuous).padding(.leading,-24)
+
+						.padding(.bottom, -7.75)
+						.foregroundColor(address != "Enter new address" ? Color.accentColor.opacity(0.2) : .white)
+						.zIndex(1)
+						.clipShape(Rectangle().offset(x: -10, y: 20))
+					RoundedRectangle(cornerRadius: 16, style: .continuous).padding(.horizontal,-10)
+						.padding(.bottom, -7.5)
+						.foregroundColor(Color.white)
+						.zIndex(1)
+
+				})
 				NavigationLink(destination: ProviderSearchView()) {
 					VStack(alignment: .center, spacing: 10) {
 						Image("ProviderSearchIntro")
@@ -124,9 +150,17 @@ extension IntroView {
 							.lineLimit(1)
 							.padding(.horizontal, -20)
 					}.padding(.bottom, 10).padding(.horizontal, 25)
+						.background(RoundedRectangle(cornerRadius: 16, style: .circular).foregroundColor(
+							Color.white))
 						.overlay(RoundedRectangle(cornerRadius: 16)
-							.stroke(address == "Enter new address" ? Color.lightGray.opacity(0.5) : Color.accentColor.opacity(0.6), lineWidth: 1))
+							.stroke(address == "Enter new address" ? Color.lightGray.opacity(0.5) : Color.accentColor.opacity(0.6) ))
 				}
+				.background(HStack {
+					RoundedRectangle(cornerRadius: 16, style: .circular)
+					.foregroundColor(address != "Enter new address" ? Color.accentColor.opacity(0.2) : .white)
+					.frame(width: UIScreen.main.bounds.width / 1.3, height: 210, alignment: .leading).padding(.trailing, 40)
+					Spacer()
+				})
 				NavigationLink(destination: EnrollmentInfoView(actorType: .PROVIDER)) {
 					VStack(alignment: .center, spacing: 10) {
 						Image("BecomeProviderIntro")
@@ -142,8 +176,23 @@ extension IntroView {
 					}.padding(.bottom, 10).padding(.horizontal, 25)
 						.overlay(
 							RoundedRectangle(cornerRadius: 16)
-								.stroke(Color.lightGray.opacity(0.5), lineWidth: 1))
+								.stroke(Color.lightGray.opacity(0.5), lineWidth: 1)
+
+						)
 				}
+				.background(ZStack {
+					RoundedRectangle(cornerRadius: 16, style: .continuous).padding(.leading,-24)
+
+						.padding(.top, -7.75)
+						.foregroundColor(address != "Enter new address" ? Color.accentColor.opacity(0.2) : .white)
+						.zIndex(1)
+						.clipShape(Rectangle().offset(x: -10, y: -20))
+					RoundedRectangle(cornerRadius: 16, style: .continuous).padding(.horizontal,-10)
+						.padding(.top, -7.5)
+						.foregroundColor(Color.white)
+						.zIndex(1)
+
+				})
 			}.frame(maxWidth: geometry.size.width).padding([.top], 20)
 
 		}.frame(maxWidth: .infinity)
@@ -153,5 +202,8 @@ extension IntroView {
 struct ContentView_Previews: PreviewProvider {
 	static var previews: some View {
 		IntroView()
+			.previewLayout(.device)
+
+
 	}
 }

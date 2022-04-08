@@ -31,11 +31,11 @@ struct AnswerOnQuestionView: View {
 //                        .foregroundColor(Color.secondary)
                         .multilineTextAlignment(.leading)
                         .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                        .padding(10).background(.ultraThinMaterial).cornerRadius(12)
                     //                    .scaledToFit()
                     //                Spacer()
-//                    Spacer()
+                    Spacer()
                 }
+                .padding(10).background(.ultraThinMaterial).cornerRadius(12)
 
             }
             Spacer()

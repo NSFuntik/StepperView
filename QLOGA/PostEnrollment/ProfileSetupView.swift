@@ -194,27 +194,28 @@ struct ProfileSetupView: View {
                                 .foregroundColor(Color.lightGray))
                             .padding(1)
                     }
-
-					Label {
-						Text("Provider`s Terms & Conditions")
-							.foregroundColor(Color.black)
-							.multilineTextAlignment(.leading)
-							.font(Font.system(size: 17, weight: .regular, design: .rounded))
-						Spacer()
-						Image(systemName: "chevron.right")
-							.foregroundColor(Color.accentColor)
-							.multilineTextAlignment(.leading)
-							.font(Font.system(size: 20, weight: .regular, design: .rounded))
-							.padding(.leading, 10)
-					} icon: {
-						Image("TermsIcon")
-							.resizable().aspectRatio(contentMode: .fit)
-							.frame(height: 30, alignment: .center)
-					}.padding(10)
-						.overlay(RoundedRectangle(cornerRadius: 10)
-							.stroke(lineWidth: 1.0)
-							.foregroundColor(Color.lightGray))
-						.padding(1)
+                    NavigationLink(destination: ProfileTermsConditionsView(actorType: $actorType, customer: $customer, provider: $provider)) {
+                        Label {
+                            Text("\(selectedActor != .CUSTOMER ? "Provider" : "Customer")`s Terms & Conditions")
+                                .foregroundColor(Color.black)
+                                .multilineTextAlignment(.leading)
+                                .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .foregroundColor(Color.accentColor)
+                                .multilineTextAlignment(.leading)
+                                .font(Font.system(size: 20, weight: .regular, design: .rounded))
+                                .padding(.leading, 10)
+                        } icon: {
+                            Image("TermsIcon")
+                                .resizable().aspectRatio(contentMode: .fit)
+                                .frame(height: 30, alignment: .center)
+                        }.padding(10)
+                            .overlay(RoundedRectangle(cornerRadius: 10)
+                                .stroke(lineWidth: 1.0)
+                                .foregroundColor(Color.lightGray))
+                            .padding(1)
+                    }
 				}
 			}
 
