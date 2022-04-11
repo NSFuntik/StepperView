@@ -82,7 +82,7 @@ struct ProfileSetupView: View {
 									.multilineTextAlignment(.leading)
 									.font(Font.system(size: 17, weight: .regular, design: .rounded))
 								Spacer()
-                                Text($provider.choicedServices.filter({ !$0.types.isEmpty }).count.description)
+                                Text($provider.choicedServices.filter({ !$0.services.isEmpty }).count.description)
 									.foregroundColor(Color.secondary)
 									.multilineTextAlignment(.leading)
 									.font(Font.system(size: 17, weight: .regular, design: .rounded))

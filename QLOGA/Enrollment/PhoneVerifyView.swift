@@ -16,9 +16,9 @@ struct PhoneVerifyView: View {
         case pinCode
     }
 
+    @FocusState private var focusedField: Field?
     @Binding var phone: String
     @State var isInheritedSettingsView = false
-    @FocusState private var focusedField: Field?
     @FocusState var phoneIsFocused: Bool
     @FocusState private var isCountryCodeFocused: Bool
     @FocusState private var isPhoneFocused: Bool

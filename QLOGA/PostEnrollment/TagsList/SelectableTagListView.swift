@@ -15,7 +15,7 @@ struct SelectableTagListView: UIViewRepresentable {
 
     var tags: [String]
     var searchTerm = ""
-    var fontSize: CGFloat = 16
+    var fontSize: CGFloat = 14
 
     func makeUIView(context: Context) -> TagListView {
         let tagListView = TagListView()
@@ -76,6 +76,11 @@ class SelectableTagListViewCoordinator: TagListViewDelegate {
         } else {
             parent.selectedTags.remove(title)
         }
+    }
+    func tagRemoveButtonPressed(_ title: String, tagView: TagView, sender: TagListView) {
+        sender.removeTagView(tagView)
+        parent.tags.filter{$0 != title}
+        print(title)
     }
 }
 

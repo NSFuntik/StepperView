@@ -16,7 +16,8 @@ import GoogleMaps
 #endif
 
 struct GoogleMapView: View {
-    @Binding var providers: [Address]
+    @Binding var providers: [Address]?
+//    @Binding var pickerCstAddress: CstAddress
     @Binding var pickedAddress: Address
     @State var isFiltersPresented = false
     @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0), span: .init())
@@ -26,11 +27,11 @@ struct GoogleMapView: View {
 #if DEBUG
             Map(coordinateRegion: $region).edgesIgnoringSafeArea(.all)
 #else
-            GoogleMapsView(pickedAddress: $pickedAddress.wrappedValue, providers: providers).edgesIgnoringSafeArea(.all)
+            GoogleMapsView(pickedAddress: $pickedAddress.wrappedValue, providers: providers!).edgesIgnoringSafeArea(.all)
 #endif
 
         }.toolbar {
-            if providers.count > 0 {
+            if providers?.count ?? 0 > 0 {
                 Button {
                     isFiltersPresented.toggle()
                 } label: {
@@ -63,6 +64,7 @@ struct GoogleMapView_Previews: PreviewProvider {
 struct GoogleMapsView: UIViewRepresentable {
     private let zoom: Float = 15.0
     @ObservedObject var locationManager = LocationManager()
+    
     var pickedAddress: Address
     var providers: [Address]
     func makeUIView(context: Self.Context) -> GMSMapView {

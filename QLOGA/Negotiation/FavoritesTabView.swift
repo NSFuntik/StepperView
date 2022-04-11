@@ -10,7 +10,15 @@ import SwiftUI
 struct FavoritesTabView: View {
     @Binding var provider: Provider
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+
+
+            VStack {
+
+                Text("Hello, World!")
+            }
+        
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("Favorite providers").navigationViewStyle(.stack)
     }
 }
 

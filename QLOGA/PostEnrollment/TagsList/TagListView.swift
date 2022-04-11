@@ -17,7 +17,8 @@ import AVFoundation
 
 extension StringProtocol {
     var getServiceID: ServiceType {
-        return (ServiceType(rawValue: ServiceType.allCases.first(where: { $0.title.hasPrefix(String(self.filter({$0.isLetter}).prefix($0.title.count - 1)))})!.id)) ?? ServiceType.Cleaning
+        return (ServiceType(rawValue: ServiceType.allCases
+            .first(where: { $0.title.hasPrefix(String(self.filter({$0.isLetter}).prefix($0.title.count - 1)))})!.id)) ?? ServiceType.Cleaning
     }
 }
 
@@ -25,7 +26,7 @@ extension StringProtocol {
 @IBDesignable
 open class TagListView: UIView {
     
-    @IBInspectable open dynamic var textColor: UIColor = .white {
+    @IBInspectable open dynamic var textColor: UIColor = .black {
         didSet {
             tagViews.forEach {
                 $0.textColor = textColor
@@ -33,7 +34,7 @@ open class TagListView: UIView {
         }
     }
     
-    @IBInspectable open dynamic var selectedTextColor: UIColor = .white {
+    @IBInspectable open dynamic var selectedTextColor: UIColor = .black {
         didSet {
             tagViews.forEach {
                 $0.selectedTextColor = selectedTextColor
@@ -41,7 +42,7 @@ open class TagListView: UIView {
         }
     }
 
-    @IBInspectable open dynamic var tagLineBreakMode: NSLineBreakMode = .byTruncatingMiddle {
+    @IBInspectable open dynamic var tagLineBreakMode: NSLineBreakMode = .byTruncatingTail {
         didSet {
             tagViews.forEach {
                 $0.titleLineBreakMode = tagLineBreakMode
@@ -104,7 +105,7 @@ open class TagListView: UIView {
         }
     }
     
-    @IBInspectable open dynamic var paddingY: CGFloat = 2 {
+    @IBInspectable open dynamic var paddingY: CGFloat = 5 {
         didSet {
             defer { rearrangeViews() }
             tagViews.forEach {
@@ -112,7 +113,7 @@ open class TagListView: UIView {
             }
         }
     }
-    @IBInspectable open dynamic var paddingX: CGFloat = 5 {
+    @IBInspectable open dynamic var paddingX: CGFloat = 0 {
         didSet {
             defer { rearrangeViews() }
             tagViews.forEach {
@@ -125,7 +126,7 @@ open class TagListView: UIView {
             rearrangeViews()
         }
     }
-    @IBInspectable open dynamic var marginX: CGFloat = 5 {
+    @IBInspectable open dynamic var marginX: CGFloat = 0 {
         didSet {
             rearrangeViews()
         }
@@ -199,7 +200,7 @@ open class TagListView: UIView {
         }
     }
     
-    @objc open dynamic var textFont: UIFont = .rounded(ofSize: 14, weight: .light)  {
+    @objc open dynamic var textFont: UIFont = .rounded(ofSize: 14, weight: .medium)  {
         didSet {
             defer { rearrangeViews() }
             tagViews.forEach {
@@ -213,7 +214,7 @@ open class TagListView: UIView {
     open private(set) var tagViews: [TagView] = []
     private(set) var tagBackgroundViews: [UIView] = []
     private(set) var rowViews: [UIView] = []
-    private(set) var tagViewHeight: CGFloat = 0
+    private(set) var tagViewHeight: CGFloat = 20
     private(set) var rows = 0 {
         didSet {
             invalidateIntrinsicContentSize()
@@ -274,7 +275,7 @@ open class TagListView: UIView {
         
         for (index, tagView) in tagViews.enumerated() {
             tagView.frame.size = tagView.intrinsicContentSize
-            tagView.textFont = .rounded(ofSize: 16, weight: .light)
+            tagView.textFont = .rounded(ofSize: 14, weight: .medium)
             tagViewHeight = tagView.frame.height
             
             if currentRowTagCount == 0 || currentRowWidth + tagView.frame.width > frameWidth {
@@ -329,16 +330,17 @@ open class TagListView: UIView {
     // MARK: - Manage tags
     
     override open var intrinsicContentSize: CGSize {
-        var height = CGFloat(rows) * (tagViewHeight + marginY)
+        var height = CGFloat(rows) * (tagViewHeight) //+ marginY)
         if rows > 0 {
             height -= marginY
-        }
+        } 
         return CGSize(width: frame.width, height: height)
     }
     
      func createNewTagView(_ title: String) -> TagView {
         let tagView = TagView(title: title)
 //        tagView.isSelected = isSelected
+
         tagView.textColor = textColor
         tagView.selectedTextColor = selectedTextColor
         tagView.tagBackgroundColor = tagBackgroundColor
@@ -349,16 +351,17 @@ open class TagListView: UIView {
         tagView.borderWidth = borderWidth
         tagView.borderColor = borderColor
         tagView.selectedBorderColor = selectedBorderColor
-        tagView.paddingX = paddingX
+        tagView.paddingX = 0
         tagView.paddingY = paddingY
-        tagView.textFont = .rounded(ofSize: 14, weight: .light)
+        tagView.textFont = .rounded(ofSize: 14, weight: .medium)
         tagView.semanticContentAttribute = .forceLeftToRight
         tagView.removeIconLineWidth = removeIconLineWidth
         tagView.removeButtonIconSize = removeButtonIconSize
         tagView.enableRemoveButton = enableRemoveButton
         tagView.removeIconLineColor = removeIconLineColor
+         tagView.paddingY = 0
         tagView.addTarget(self, action: #selector(tagPressed(_:)), for: .touchUpInside)
-//        tagView.removeButton.addTarget(self, action: #selector(removeButtonPressed(_:)), for: .touchUpInside)
+        tagView.removeButton.addTarget(self, action: #selector(removeButtonPressed(_:)), for: .touchUpInside)
 
         // On long press, deselect all tags except this one
         tagView.onLongPress = { [unowned self] this in
@@ -384,6 +387,7 @@ open class TagListView: UIView {
     @discardableResult
     open func addTagView(_ tagView: TagView) -> TagView {
         defer { rearrangeViews() }
+        
         tagViews.append(tagView)
         tagBackgroundViews.append(UIView(frame: tagView.bounds))
         
@@ -394,6 +398,7 @@ open class TagListView: UIView {
     open func addTagViews(_ tagViewList: [TagView]) -> [TagView] {
         defer { rearrangeViews() }
         tagViewList.forEach {
+            guard $0.currentTitle?.suffix(2) != " 0" else { return }
             tagViews.append($0)
             tagBackgroundViews.append(UIView(frame: $0.bounds))
         }
@@ -422,7 +427,9 @@ open class TagListView: UIView {
 
         tagViewList.forEach { tagl in
             tagViews.forEach { t in
-                if ((t.currentAttributedTitle?.string.hasPrefix((tagl.currentAttributedTitle?.string.filter({$0.isLetter}))!))!) {
+//                if ((t.currentAttributedTitle?.string.hasPrefix((tagl.currentAttributedTitle?.string.filter({$0.isLetter}))!))!) {
+                if ((t.currentTitle?.hasPrefix((tagl.currentTitle?.filter({$0.isLetter}))!))!) {
+
                     tagViewL.append( insertTagView(tagl, at: tagViews.firstIndex(of: t)!))
 //                    defer { rearrangeViews() }
 //                    tagViews.insert(tagl, at: tagViews.firstIndex(of: t)!)
@@ -457,14 +464,14 @@ open class TagListView: UIView {
     open func setTitle(_ title: String, at index: Int) {
         tagViews[index].titleLabel?.text = title
     }
-    open func setAttributedTitle(_ title: String, at index: Int) {
-        tagViews[index].setAttributedTitle(
-            try? NSAttributedString(
-                data: title.data(using: .utf8) ?? Data(),
-                options: [.documentType: NSAttributedString.DocumentType.html],
-                documentAttributes: nil
-            ), for: UIControl.State())
-    }
+//    open func setAttributedTitle(_ title: String, at index: Int) {
+//        tagViews[index].setAttributedTitle(
+//            try? NSAttributedString(
+//                data: title.data(using: .utf8) ?? Data(),
+//                options: [.documentType: NSAttributedString.DocumentType.html],
+//                documentAttributes: nil
+//            ), for: UIControl.State())
+//    }
     open func removeTag(_ title: String) {
         tagViews.reversed().filter({ $0.currentTitle == title }).forEach(removeTagView)
     }
@@ -498,13 +505,13 @@ open class TagListView: UIView {
     
     @objc func tagPressed(_ sender: TagView!) {
         sender.onTap?(sender)
-        
-        delegate?.tagPressed?(sender.currentAttributedTitle?.string ?? "", tagView: sender, sender: self)
+        delegate?.tagPressed?(sender.currentTitle ?? "", tagView: sender, sender: self)
+//        delegate?.tagPressed?(sender.currentAttributedTitle?.string ?? "", tagView: sender, sender: self)
     }
     
     @objc func removeButtonPressed(_ closeButton: CloseButton!) {
         if let tagView = closeButton.tagView {
-            delegate?.tagRemoveButtonPressed?(tagView.currentTitle ?? "", tagView: tagView, sender: self)
+            delegate?.tagRemoveButtonPressed?(tagView.currentTitle ?? "qqqqqq", tagView: tagView, sender: self)
         }
     }
 }

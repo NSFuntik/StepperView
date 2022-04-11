@@ -12,7 +12,7 @@ final class SelectService: ObservableObject {
     public let objectWillChange = PassthroughSubject<Void, Never>()
 
     static let shared = SelectService()
-    @Published var id: ServiceType.ID = ServiceType.Cleaning.id {
+    @Published var id: ServiceType.ID = ServiceType.Gas.id {
         willSet {
             objectWillChange.send()
         }
@@ -60,17 +60,21 @@ struct ProviderServicesView: View {
 
             ScrollView(showsIndicators: false) {
                 VStack {
-                    RemovableTagListView(selected: $selectedService.id , tags:
-                                            Binding { Set($provider.choicedServices.sorted(by: { $0.id.wrappedValue < $1.id.wrappedValue }).filter { !$0.types.isEmpty }.map { "\($0.name.wrappedValue): <b style=\"color:#27AD60;\">\($0.types.count)</b>" })
-                                            } set: { tags in  })
+                    RemovableTagListView(selected: $selectedService.id , isRemovable: .constant(false), categoriesVM: .init(),
+                                         tags:
+                                            Binding { Set($provider.choicedServices.filter { !$0.services.isEmpty }
+                                                .sorted(by: { $0.id.wrappedValue < $1.id.wrappedValue })
+
+                                                .map { "\($0.name.wrappedValue): \($0.services.count)" })
+                    } set: { tags in  })
                     Spacer()
-                }
+                }.padding(.bottom, 10)
                 VStack {
-                    ForEach(Services.sorted(by: { $0.id < $1.id })[selectedService.id].types, id: \.id) { type in
+                    ForEach(Services.sorted(by: { $0.id < $1.id })[$selectedService.id.wrappedValue].services, id: \.id) { type in
                         Section {
                             NavigationLink {
                                 ProviderAddServicesView(choisedServices:
-                                                            $provider.choicedServices.sorted(by: { $0.id < $1.id })[selectedService.id].projectedValue.types,
+                                                            $provider.choicedServices.sorted(by: { $0.id.wrappedValue < $1.id.wrappedValue })[selectedService.id].projectedValue.services,
                                                         serviceType: ServiceCleaningType(rawValue: type.id) ?? .CompleteHome)
                             } label: {
                                 HStack {
@@ -82,7 +86,7 @@ struct ProviderServicesView: View {
                                         .padding(.leading, 10)
                                     Spacer()
                                     Text(
-                                        $provider.choicedServices.sorted(by: { $0.id.wrappedValue < $1.id.wrappedValue }).filter { $0.id == Services[selectedService.id].id }.first?.projectedValue.types.wrappedValue.contains(type) ?? false ? "£160.00" : "")
+                                        $provider.choicedServices.sorted(by: { $0.id.wrappedValue < $1.id.wrappedValue }).filter { $0.id == Services[$selectedService.id.wrappedValue].id }.first?.projectedValue.services.wrappedValue.contains(type) ?? false ? "£160.00" : "")
                                     .foregroundColor(Color.secondary)
                                     .multilineTextAlignment(.leading)
                                     .font(Font.system(size: 15, weight: .regular, design: .rounded))
@@ -147,7 +151,7 @@ extension ProviderServicesView {
                         }
                     }
                 }
-            }.padding(.leading, 20)
+            }.padding(.leading, -8)
         }.padding(.top, 10)
 
     }

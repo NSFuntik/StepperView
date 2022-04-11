@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EnrolledProfileView: View {
 
-	@State private var selectedTab = 0
+    @State private var selectedTab = 0
 
     enum Tab: Int, CaseIterable, Identifiable {
         var id: Int { self.rawValue }
@@ -18,112 +18,82 @@ struct EnrolledProfileView: View {
         case Inquires
         case Requests
         case Today
-		var description: String {
-			switch self {
-				case .Orders:
-					return "Orders"
-				case .Quotes:
-					return "Quotes"
-				case .Inquires:
-					return "Inquires"
-				case .Requests:
-					return "Requests"
-				case .Today:
-					return "Today"
-			}
-		}
-	}
+        var description: String {
+            switch self {
+                case .Orders:
+                    return "Orders"
+                case .Quotes:
+                    return "Quotes"
+                case .Inquires:
+                    return "Inquires"
+                case .Requests:
+                    return "Requests"
+                case .Today:
+                    return "Today"
+            }
+        }
+    }
 
-	@ObservedObject var locationManager = LocationManager()
-	@State var actorType: ActorsEnum
-	@State var customer: Customer = testCustomer
-	@State var provider: Provider = testProvider
+    @ObservedObject var locationManager = LocationManager()
+    @Binding var actorType: ActorsEnum
+    @State var customer: Customer = testCustomer
+    @State var provider: Provider = testProvider
 
-	@State var isModalPresented = false
-	@State var isFiltersPresented = false
-	@State var isNotShowAgain = false
+    @State var isModalPresented = false
+    @State var isFiltersPresented = false
+    @State var isNotShowAgain = false
 
-	var body: some View {
-		VStack {
-			ZStack {
-				VStack {
-					TabBarView(tabs: .constant([Tab.Orders.description, Tab.Quotes.description, Tab.Inquires.description, actorType != .CUSTOMER ? Tab.Requests.description : Tab.Today.description]),
-					           selection: $selectedTab,
-					           underlineColor: .accentColor) { title, isSelected in
-						Text(title)
-							.font(.system(size: 18, weight: .regular, design: .rounded))
-							.ignoresSafeArea(.all, edges: .horizontal)
-							.foregroundColor(isSelected ? .black : .lightGray)
-					}
-					VStack(alignment: .center) {
-						Spacer()
-						Image("\(actorType != .CUSTOMER ? "prv" : "cst")-\(Tab(rawValue: actorType != .CUSTOMER ? $selectedTab.wrappedValue : $selectedTab.wrappedValue + 1)!.description.lowercased())")
-							.resizable()
-							.frame(width: 300, height: 375, alignment: .center)
-							.scaledToFit()
-							.aspectRatio(1, contentMode: .fit)
-						Spacer()
-					}.frame(width: UIScreen.main.bounds.width)
-						.background(Color.lightGray.opacity(0.2))
+    var body: some View {
+//        NavigationView { // Add here
 
-				}.disabled(isModalPresented)
-				if isModalPresented {
-                    infoModal
-				}
-			}
-		}.padding(.horizontal, 20).padding(.top, 10)
-			.toolbar {
-                HStack(alignment: .center) {
-//					Spacer()
-					if actorType != .CUSTOMER {
-						NavigationLink(destination: GoogleMapView(providers: .constant(
-								[Address(postcode: "", town: "", street: "", -33.86, 151.20),
-								 Address(postcode: "", town: "", street: "", -33.26, 151.24),
-								 Address(postcode: "", town: "", street: "", -32.26, 151.34)]),
-							pickedAddress: .constant(Address(postcode: "", town: "", street: "",
-							                                 locationManager.latitude, locationManager.longitude)))) {
-							Image("MapIcon")
-								.resizable()
-								.renderingMode(.template)
-								.aspectRatio(contentMode: .fit)
-								.foregroundColor(.accentColor)
-								.frame(width: 30, height: 30, alignment: .trailing)
-								.padding(5)
-						}
-                    } else {
-                        Spacer()
+            VStack {
+                ZStack {
+                    VStack {
+                        TabBarView(tabs: .constant([Tab.Orders.description, Tab.Quotes.description, Tab.Inquires.description, actorType != .CUSTOMER ? Tab.Requests.description : Tab.Today.description]),
+                                   selection: $selectedTab,
+                                   underlineColor: .accentColor) { title, isSelected in
+                            Text(title)
+                                .font(.system(size: 18, weight: .regular, design: .rounded))
+                                .ignoresSafeArea(.all, edges: .horizontal)
+                                .foregroundColor(isSelected ? .black : .lightGray)
+                        }
+                        VStack(alignment: .center) {
+                            Spacer()
+                            Image("\(actorType != .CUSTOMER ? "prv" : "cst")-\(Tab(rawValue: actorType != .CUSTOMER ? $selectedTab.wrappedValue : $selectedTab.wrappedValue + 1)!.description.lowercased())")
+                                .resizable()
+                                .frame(width: 300, height: 375, alignment: .center)
+                                .scaledToFit()
+                                .aspectRatio(1, contentMode: .fit)
+                            Spacer()
+                        }.frame(width: UIScreen.main.bounds.width)
+                            .background(Color.lightGray.opacity(0.2))
+
                     }
-                    NavigationLink(destination: ProfileSetupView(actorType: $actorType, customer: $customer, provider: $provider)) {
-						Image("FilterIcon")
-							.resizable()
-							.renderingMode(.template)
-							.aspectRatio(contentMode: .fit)
-							.foregroundColor(.accentColor)
-							.frame(width: 30, height: 30, alignment: .trailing)
-							.padding(5)
-					}
-					NavigationLink(destination: ProfileSetupView(actorType: $actorType, customer: $customer, provider: $provider)) {
-						Image(actorType != .CUSTOMER ? "ProviderProfileIcon" : "CustomerProfileIcon")
-							.resizable()
-							.renderingMode(.template)
-							.aspectRatio(contentMode: .fit)
-							.foregroundColor(.accentColor)
-							.frame(width: 30, height: 30, alignment: .trailing)
-							.padding(5)
-					}
-				}.disabled(isModalPresented)
-			}
-			.sheet(isPresented: $isFiltersPresented) { ProvidersFilterView().cornerRadius(35) }
-			.navigationBarTitleDisplayMode(.inline)
-	}
+                    if isModalPresented {
+                        infoModal
+                    }
+
+                }.padding(.horizontal, 20).padding(.top, 10)
+                    
+                //
+                    .sheet(isPresented: $isFiltersPresented) { ProvidersFilterView().cornerRadius(35) }
+            }
+
+            //.disabled(isModalPresented)
+
+//            .navigationBarHidden(true)
+
+//        }
+
+    }
 }
 
 struct SuccessEnrollmenrModalView_Previews: PreviewProvider {
-	static var previews: some View {
-		NavigationView {
-			EnrolledProfileView(actorType: .CUSTOMER)
-		}.previewDevice("iPhone 6s")
-	}
+    static var previews: some View {
+        NavigationView {
+            EnrolledProfileView(actorType: .constant( .CUSTOMER))
+        }.previewDevice("iPhone 6s")
+    }
 }
 extension EnrolledProfileView {
     var infoModal: some View {

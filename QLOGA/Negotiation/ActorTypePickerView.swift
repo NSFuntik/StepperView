@@ -9,17 +9,20 @@ import SwiftUI
 import Combine
 
 struct ActorTypePickerView: View {
-    @State var selectedService: Int = -1
-    @State var selectedActor: ActorsEnum = .QLOGA
+    @State var selectedService: Int = 1
+    @State var selectedActor: ActorsEnum = .CUSTOMER
+    @State var isPicked = false
     var body: some View {
-        NavigationView {
+
+        ZStack {
+
             VStack(alignment: .center, spacing: 10) {
                 HStack(alignment: .center) {
                     ServicesScrollView
                         .padding([.top])
                         .ignoresSafeArea(.all, edges: .bottom)
                         .offset(x: 10, y: 0)
-                        .zIndex(1)
+
                         .background(
                             HStack {
 
@@ -32,22 +35,58 @@ struct ActorTypePickerView: View {
                                     .ignoresSafeArea(.all, edges: .bottom)
                                     .foregroundColor(selectedService >= 0 ? Color.accentColor.opacity(0.2) : .white)
                                     .frame(maxWidth: 90)
-                            }).offset(x: 10)
-                    if UIScreen.main.nativeBounds.height < 2436 {
-                        Spacer(minLength: 35)
+                            }).offset(x: selectedService >= 0 ? 10 : 0)
+                        .zIndex(1)
+                                        if UIScreen.main.nativeBounds.height < 2436 {
+                    Spacer(minLength: 35)
 
-                    } else {
-                        Spacer(minLength: 50)
-                    }
+                                        } else {
+                                            Spacer(minLength: 50)
+                                        }
 
 
                     ProfileChooserView
                         .frame(width: .infinity, alignment: .trailing)
                         .padding(.bottom, 10)
-                }
-            }.padding(.top, 10).padding(.horizontal, 20).offset(x: -7.5)
-                .navigationBarTitle("").navigationBarHidden(true)
-        }.environment(\.colorScheme, .light)
+                                    }
+                }.padding(.top, 10).padding(.horizontal, 20).offset(x: -7.5)
+//            VStack {
+//                Spacer(minLength: UIScreen.main.bounds.height - 130)
+//                Button {
+//                    isPicked = true
+//
+//                } label: {
+//                    VStack {
+//                        Spacer()
+//                        Rectangle().foregroundColor(.clear)
+//                            .ignoresSafeArea(.container, edges: .horizontal)
+//                            .overlay {
+//                                HStack {
+//                                    Text("Sing In")
+//                                        .withDoneButtonStyles(backColor: .white, accentColor: .Green)
+//                                }
+//                            }.zIndex(1)
+//                    }.padding(.bottom, 15)
+//                }
+//
+//
+//
+//
+//                    }.frame(height: 55).zIndex(1)
+
+
+                .fullScreenCover(isPresented: $isPicked, content: {
+                    ProfileHomeTabBarView(actorType: $selectedActor)
+                })
+        }
+
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
+        .environment(\.colorScheme, .light)
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("").navigationViewStyle(.stack)
+
+
     }
 }
 
@@ -86,6 +125,7 @@ extension ActorTypePickerView {
                         .frame(maxWidth: 70)
                 }
             }
+            Spacer(minLength: 70)
         }
     }
 
@@ -94,7 +134,9 @@ extension ActorTypePickerView {
 
             VStack(alignment: .center, spacing: 30) {
                 Button {
-                    selectedActor = ActorsEnum.CUSTOMER
+                    $selectedActor.wrappedValue = ActorsEnum.CUSTOMER
+                        isPicked = true
+
                 } label: {
                     VStack(alignment: .center, spacing: 10) {
                         Image("CustomerImage")
@@ -129,7 +171,12 @@ extension ActorTypePickerView {
                     }).zIndex(1)
 
                 Button {
+
                     selectedActor = ActorsEnum.PROVIDER
+
+                        isPicked = true
+
+
                 } label: {
                     VStack(alignment: .center, spacing: 10) {
                         Image("ProviderImage")
@@ -164,6 +211,8 @@ extension ActorTypePickerView {
                     }).zIndex(1)
                 Button {
                     selectedActor = ActorsEnum.CUSTOMER
+                    isPicked = true
+
                 } label: {
                     VStack(alignment: .center, spacing: 10) {
                         Image("CustomerImage")

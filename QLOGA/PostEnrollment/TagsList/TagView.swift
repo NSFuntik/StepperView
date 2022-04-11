@@ -29,12 +29,12 @@ open class TagView: UIButton {
         }
     }
     
-    @IBInspectable open var textColor: UIColor = UIColor.white {
+    @IBInspectable open var textColor: UIColor = UIColor.black {
         didSet {
             reloadStyles()
         }
     }
-    @IBInspectable open var selectedTextColor: UIColor = UIColor.white {
+    @IBInspectable open var selectedTextColor: UIColor = UIColor.black {
         didSet {
             reloadStyles()
         }
@@ -81,9 +81,9 @@ open class TagView: UIButton {
         }
     }
     
-    @IBInspectable open var textFont: UIFont = .rounded(ofSize: 14, weight: .light) {
+    @IBInspectable open var textFont: UIFont = .rounded(ofSize: 14, weight: .medium) {
         didSet {
-            titleLabel?.font = .rounded(ofSize: 15, weight: .light)
+            titleLabel?.font = textFont
         }
     }
     
@@ -130,7 +130,7 @@ open class TagView: UIButton {
         }
     }
     
-    @IBInspectable open var removeButtonIconSize: CGFloat = 14 {
+    @IBInspectable open var removeButtonIconSize: CGFloat = 9 {
         didSet {
             removeButton.iconSize = removeButtonIconSize
             updateRightInsets()
@@ -142,7 +142,7 @@ open class TagView: UIButton {
             removeButton.lineWidth = removeIconLineWidth
         }
     }
-    @IBInspectable open var removeIconLineColor: UIColor = UIColor.white.withAlphaComponent(0.54) {
+    @IBInspectable open var removeIconLineColor: UIColor = UIColor(named: "Orange")! {
         didSet {
             removeButton.lineColor = removeIconLineColor
         }
@@ -163,14 +163,16 @@ open class TagView: UIButton {
     public init(title: String) {
         super.init(frame: CGRect.zero)
     
-        let attributedTitle = try? NSAttributedString(
-            data: title.data(using: .utf8) ?? Data(),
-            options: [.documentType: NSAttributedString.DocumentType.html],
-            documentAttributes: nil
-        )
-        setAttributedTitle(attributedTitle, for: UIControl.State())
+//        let attributedTitle = try? NSAttributedString(
+//            data: title.data(using: .utf8) ?? Data(),
+//            options: [.documentType: NSAttributedString.DocumentType.html],
+//            documentAttributes: nil
+//        )
+//        setAttributedTitle(attributedTitle, for: UIControl.State())
+//        setImage(UIImage(systemName: "\(Int(title.filter({$0.isNumber})) ?? 0).circle"), for: UIControl.State())
+        setTitle(title, for: UIControl.State())
 
-
+        
         setupView()
     }
     
@@ -180,6 +182,12 @@ open class TagView: UIButton {
         addSubview(removeButton)
         removeButton.tagView = self
 
+//        self.translatesAutoresizingMaskIntoConstraints = false
+//        self.imageView?.translatesAutoresizingMaskIntoConstraints = false
+////        self.titleLabel?.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 5.0).isActive = true
+//        self.imageView?.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -6.0).isActive = true
+//        self.imageView?.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0.0).isActive = true
+//        addSubview(subIcon)
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(self.longPress))
         self.addGestureRecognizer(longPress)
     }
@@ -191,9 +199,9 @@ open class TagView: UIButton {
     // MARK: - layout
 
     override open var intrinsicContentSize: CGSize {
-        var size = titleLabel?.attributedText?.string.size(withAttributes: [NSAttributedString.Key.font: UIFont.rounded(ofSize: 15, weight: .medium)]) ?? CGSize.zero
+        var size = CGSize(width: (imageView?.frame.size.width)! + (titleLabel?.frame.size.width)!, height: (titleLabel?.frame.size.height)!) //imageView?.frame.size + titleLabel?.frame.size + removeButton.iconSize
         size.height = textFont.pointSize + paddingY * 2
-        size.width += paddingX * 2
+        size.width += paddingX * 4
         if size.width < size.height {
             size.width = size.height
         }
@@ -206,16 +214,19 @@ open class TagView: UIButton {
     private func updateRightInsets() {
         if enableRemoveButton {
             titleEdgeInsets.right = paddingX  + removeButtonIconSize + paddingX
+            titleEdgeInsets.left = 0
         }
         else {
             titleEdgeInsets.right = paddingX
+            titleEdgeInsets.left = 0
+
         }
     }
     
     open override func layoutSubviews() {
         super.layoutSubviews()
         if enableRemoveButton {
-            removeButton.frame.size.width = paddingX + removeButtonIconSize + paddingX
+            removeButton.frame.size.width =  paddingX +  removeButtonIconSize + paddingX//paddingX +
             removeButton.frame.origin.x = self.frame.width - removeButton.frame.width
             removeButton.frame.size.height = self.frame.height
             removeButton.frame.origin.y = 0
@@ -225,9 +236,9 @@ open class TagView: UIButton {
 
 extension UIFont {
     class func rounded(ofSize size: CGFloat, weight: UIFont.Weight) -> UIFont {
-        let systemFont = UIFont.systemFont(ofSize: 15, weight: weight)
+        let systemFont = UIFont.systemFont(ofSize: 14, weight: weight)
 
-        guard #available(iOS 13.0, *), let descriptor = systemFont.fontDescriptor.withDesign(.rounded) else { return systemFont.withSize(14) }
+        let descriptor = systemFont.fontDescriptor.withDesign(.rounded)!
         return UIFont(descriptor: descriptor, size: size)
     }
 }

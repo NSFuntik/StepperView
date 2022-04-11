@@ -10,13 +10,15 @@ import UIKit
 
 internal class CloseButton: UIButton {
 
-    var iconSize: CGFloat = 13
+    var iconSize: CGFloat = 9
     var lineWidth: CGFloat = 1
-    var lineColor: UIColor = UIColor.white.withAlphaComponent(0.54)
+    var lineColor: UIColor = UIColor(named: "Orange")!
 
     weak var tagView: TagView?
-
+    
+    
     override func draw(_ rect: CGRect) {
+//        countImage = UIImage(systemName: "\(TagView.title().(for: UIControl.State())).circle")!
         let path = UIBezierPath()
 
         path.lineWidth = lineWidth
@@ -37,6 +39,8 @@ internal class CloseButton: UIButton {
         lineColor.setStroke()
 
         path.stroke()
+        
+//        addSubview(UIImage)
     }
 
 }
