@@ -299,3 +299,9 @@ struct ImagePicker: UIViewControllerRepresentable {
 		return Coordinator(completionHandler: completionHandler)
 	}
 }
+
+extension Set {
+    var toArray: Array<Any> {
+        return Array(self)
+    }
+}

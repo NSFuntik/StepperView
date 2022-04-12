@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 
 enum HomeTab: Int {
@@ -24,7 +25,12 @@ enum HomeTab: Int {
     }
 }
 class TabController: ObservableObject {
-    @Published var activeTab = HomeTab.requests
+    public var objectWillChange = PassthroughSubject<Void, Never>()
+    @Published var activeTab: HomeTab = .requests {
+        willSet {
+            objectWillChange.send()
+        }
+    }
     static let shared = TabController()
 
     func open(_ tab: HomeTab) {
@@ -35,7 +41,7 @@ struct ProfileHomeTabBarView: View {
     @State var provider: Provider = testProvider
     @Binding var actorType: ActorsEnum
     @State var customer: Customer = testCustomer
-    @StateObject private var tabController = TabController()
+    @StateObject var tabController: TabController
 
     @State var isFiltersPresented = false
     @State var tab: HomeTab = .orders
@@ -43,48 +49,40 @@ struct ProfileHomeTabBarView: View {
 
     var body: some View {
         NavigationView {
-            TabView(selection: $tabController.activeTab) {
-                EnrolledProfileView(actorType: $actorType)
-                    .navigationBarTitleDisplayMode(.inline)
-                    .navigationViewStyle(.stack)
-                    .tag(HomeTab.orders)
-                    .tabItem {
-                        Label("Orders", systemImage: "list.bullet.rectangle.portrait")
+                GeometryReader { geometry in
+                    VStack {
+                        Spacer()
+                        switch tabController.activeTab {
+                            case .orders:
+                                EnrolledProfileView(actorType: $actorType).navigationTitle("\(tabController.activeTab.title)")
+                            case .requests:
+                                CstRequestsTabView(provider: $provider, customer: $customer)
+                                    .navigationTitle("Open Requests").navigationBarTitleDisplayMode(.inline)
+                            case .search:
+                                ProviderSearchView().navigationTitle("Provider Search")
+                            case .favourites:
+                                FavoritesTabView(provider: $provider).navigationTitle("Favorite Providers")
+                        }
+                        Spacer()
+                        ZStack {
+                            //                    if showPopUp {
+                            //                        PlusMenu(widthAndHeight: geometry.size.width/7)
+                            //                            .offset(y: -geometry.size.height/6)
+                            //                    }
+                            HStack {
+                                TabBarIcon(tabController: tabController, assignedPage: .orders, width: geometry.size.width/4, height: geometry.size.height/28, systemIconName: "OrdersTabIcon", tabName: "Orders")
+                                TabBarIcon(tabController: tabController, assignedPage: .requests, width: geometry.size.width/4, height: geometry.size.height/28, systemIconName: "RequestsTabIcon", tabName: "Requests")
+                                TabBarIcon(tabController: tabController, assignedPage: .search, width: geometry.size.width/4, height: geometry.size.height/28, systemIconName: "SearchTabIcon", tabName: "Search")
+                                TabBarIcon(tabController: tabController, assignedPage: .favourites, width: geometry.size.width/4, height: geometry.size.height/28, systemIconName: "FavouritesTabIcon", tabName: "Favourites")
+                            }
+                            .frame(width: geometry.size.width, height: geometry.size.height/8)
+                            .background(.white)
+                        }//.overlay(Rectangle().stroke(lineWidth: 0.2).fill(Color.lightGray.opacity(0.2)).foregroundColor((Color.lightGray.opacity(0.2))))
                     }
-                    .navigationTitle("Orders")
-                    .navigationTitle("\($tab.wrappedValue.title)")
-
-                PrvRequestsTabView(provider: $provider, customer: $customer) .navigationTitle("Open Requests")
-                    .navigationBarTitleDisplayMode(.inline)
-                    .navigationViewStyle(.stack)
-                    .tabItem {
-                        Label("Requests", systemImage: "hand.raised")
-                    }
-                    .navigationTitle("Requests")
-                    .tag(HomeTab.requests)
-                    .navigationTitle("\($tab.wrappedValue.title)")
-                ProviderSearchView()
-                    .navigationBarTitleDisplayMode(.inline)
-                    .navigationViewStyle(.stack)
-                    .tabItem {
-                        Label("Search", systemImage: "magnifyingglass").navigationTitle("Provider Search")
-                    }
-                    .tag(HomeTab.search)
-                    .navigationTitle("\($tab.wrappedValue.title)")
-                FavoritesTabView(provider: $provider).navigationBarTitleDisplayMode(.inline)
-                    .navigationViewStyle(.stack)
-                    .tabItem {
-                        Label("Favorites", systemImage: "suit.heart").navigationTitle("Favourites")
-                    }
-                    .tag(HomeTab.favourites)
-                    .navigationTitle("\($tab.wrappedValue.title)")
-            }.environmentObject(tabController)
-            .navigationTitle("\($tab.wrappedValue.title)")
-            .toolbar {
-             
-                ToolbarItemGroup {
-                    HStack(alignment: .center) {
-
+                    .edgesIgnoringSafeArea(.bottom)
+                }
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
                         if actorType == .PROVIDER {
                             NavigationLink(destination: GoogleMapView(providers: .constant(
                                 [Address(postcode: "", town: "", street: "", -33.86, 151.20),
@@ -101,46 +99,72 @@ struct ProfileHomeTabBarView: View {
                                     .padding(5)
                             }
                         }
-                        Button {
-                            isFiltersPresented = true
-                        } label: {
-                            Image("FilterIcon")
-                                .resizable()
-                                .renderingMode(.template)
-                                .aspectRatio(contentMode: .fit)
-                                .foregroundColor(.accentColor)
-                                .frame(width: 30, height: 30, alignment: .trailing)
-                                .padding(5)
-                        }
+                    }
+                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                        HStack(alignment: .center) {
+                            Button {
+                                isFiltersPresented = true
+                            } label: {
+                                Image("FilterIcon")
+                                    .resizable()
+                                    .renderingMode(.template)
+                                    .aspectRatio(contentMode: .fit)
+                                    .foregroundColor(.accentColor)
+                                    .frame(width: 30, height: 30, alignment: .trailing)
+                                    .padding(5)
+                            }
+                            NavigationLink(destination: ProfileSetupView(actorType: $actorType, customer: $customer, provider: $provider)) {
+                                Image(actorType != .CUSTOMER ? "ProviderProfileIcon" : "CustomerProfileIcon")
+                                    .resizable()
+                                    .renderingMode(.template)
+                                    .aspectRatio(contentMode: .fit)
+                                    .foregroundColor(actorType == .CUSTOMER ? .accentColor : .infoBlue)
+                                    .frame(width: 30, height: 30, alignment: .trailing)
+                                    .padding(5)
+                            }
 
-
-                        NavigationLink(destination: ProfileSetupView(actorType: $actorType, customer: $customer, provider: $provider)) {
-                            Image(actorType != .CUSTOMER ? "ProviderProfileIcon" : "CustomerProfileIcon")
-                                .resizable()
-                                .renderingMode(.template)
-                                .aspectRatio(contentMode: .fit)
-                                .foregroundColor(actorType == .CUSTOMER ? .accentColor : .infoBlue)
-                                .frame(width: 30, height: 30, alignment: .trailing)
-                                .padding(5)
                         }
 
                     }
                 }
-
-
             }
-        }.navigationBarTitleDisplayMode(.inline)
-            .navigationViewStyle(.stack)
-
+            .environmentObject(tabController)
             .sheet(isPresented: $isFiltersPresented) { ProvidersFilterView().cornerRadius(35) }
-
-        //            .navigationBarHidden(true)
-
+            .navigationViewStyle(.stack)
     }
 }
 
+
 struct EntryProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileHomeTabBarView(actorType: .constant( .CUSTOMER))
+        ProfileHomeTabBarView(actorType: .constant( .CUSTOMER), tabController: .init())
+            .previewDevice("iPhone 6s")
+    }
+}
+
+struct TabBarIcon: View {
+    @StateObject var tabController: TabController
+    let assignedPage: HomeTab
+
+    let width, height: CGFloat
+    let systemIconName, tabName: String
+
+    var body: some View {
+        VStack {
+            Image(systemIconName)
+                .resizable()
+                .renderingMode(.template)
+                .aspectRatio(contentMode: .fit)
+                .frame(width: width, height: height)
+                .padding(.top, 10)
+            Text(tabName)
+                .font(.footnote)
+            Spacer()
+        }
+        .padding(.horizontal, -4)
+        .onTapGesture {
+            tabController.activeTab = assignedPage
+        }
+        .foregroundColor(tabController.activeTab == assignedPage ? .accentColor : .gray)
     }
 }

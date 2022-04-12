@@ -9,12 +9,17 @@ import SwiftUI
 
 struct FavoritesTabView: View {
     @Binding var provider: Provider
+    @EnvironmentObject var tabController: TabController
+
     var body: some View {
 
 
             VStack {
 
                 Text("Hello, World!")
+            }.onAppear {
+                $tabController.activeTab.wrappedValue = .favourites
+                $tabController.objectWillChange.animation()
             }
         
         .navigationBarTitleDisplayMode(.inline)

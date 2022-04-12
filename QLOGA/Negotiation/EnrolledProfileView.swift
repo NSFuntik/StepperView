@@ -33,7 +33,7 @@ struct EnrolledProfileView: View {
             }
         }
     }
-
+    @EnvironmentObject var tabController: TabController
     @ObservedObject var locationManager = LocationManager()
     @Binding var actorType: ActorsEnum
     @State var customer: Customer = testCustomer
@@ -76,7 +76,7 @@ struct EnrolledProfileView: View {
                         infoModal
                     }
 
-                }.padding(.horizontal, 20).padding(.top, 10)
+                }//.padding(.horizontal, 20).padding(.top, 10)
 
                 //
                     .sheet(isPresented: $isFiltersPresented) { ProvidersFilterView().cornerRadius(35) }

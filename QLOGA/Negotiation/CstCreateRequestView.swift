@@ -17,8 +17,7 @@ class RequestViewModel: ObservableObject {
     }
     static let shared = RequestViewModel()
 
-
-    @Published var notes = ""
+//    @Published var notes = ""
     init() {
         let requestsMeta: CstRequestMeta = try! newJSONDecoder().decode(CstRequestMeta.self, from: try! Data(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: "requests", ofType: "json")!)))
         self.requests = requestsMeta.requests
@@ -28,6 +27,7 @@ class RequestViewModel: ObservableObject {
 
     func createRequest(request: CstRequest, completion: @escaping () -> ()) {
         self.requests.append(request)
+            //.requests.append(request)
         completion()
     }
 
@@ -41,10 +41,17 @@ struct CstCreateRequestView: View {
     @State var showInfo = false
     @State var text = ""
     @State private var lastText = ""
+    @EnvironmentObject var requestsController: RequestViewModel
+    @EnvironmentObject var tabController: TabController
+
+   
+
 //    @StateObject var RequestVM = RequestViewModel()
 //    @FocusState private var focusedField: Field?
 //    @ObservedObject var CategoryVM: CategoriesViewModel
-    @Binding var category: Category
+//    @State var categories: [Category]
+    @State var categories: [CategoryService]
+
     @State var cstRequest = CstRequest(
         statusRecord: .init(date: getString(from: Date(), "YYYY-MM-DDTHH:MM:SS") + ".312336Z", actor: "CUSTOMER", actorId: 1002, action: "CREATE", status: "LIVE", display: "LIVE"),
         id: UUID.init().hashValue, offeredSum: 0, placedDate: Date(), orderedDate: Date(),
@@ -67,7 +74,7 @@ struct CstCreateRequestView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .center, spacing: 10) {
                     VStack {
-                        ForEach($category.projectedValue.services.filter({s in s.unitsCount.wrappedValue > 0}).sorted(by: {$0.id.wrappedValue < $1.id.wrappedValue}))
+                        ForEach($categories.sorted(by: {$0.id.wrappedValue < $1.id.wrappedValue}))//$categories.flatMap({$0.}).sorted(by: {$0.id.wrappedValue < $1.id.wrappedValue}))
                         { service in
                             Section {
                                 NavigationLink(destination: CategoryServiceDetailView(service: service)) {
@@ -363,13 +370,24 @@ struct CstCreateRequestView: View {
                     Button {
                         //                            RequestViewModel.ObjectWillChangePublisher
                         cstRequest.validDate = Date(timeIntervalSinceNow: TimeInterval(totalChars * 604800))
-                        let services: [CategoryService] = $category.wrappedValue.services.filter({s in s.unitsCount > 0}).sorted(by: {$0.id < $1.id})
-                        services.forEach { service in
-                            cstRequest.services.append(CstService(id: service.id, quantity: service.unitsCount, qserviceId: service.sortOrder))
+                        let services: [CategoryService] = categories
+//                            .flatMap { c in
+//                            c.services
+//                        }//$category.wrappedValue.services.filter({s in s.unitsCount > 0}).sorted(by: {$0.id < $1.id})
+
+//                        services.forEach { service in
+                        cstRequest.services = services.map({$0.toCstService()})
+                        print(cstRequest.services)//.append(CstService(id: service.id, quantity: service.unitsCount, qserviceId: service.sortOrder))
+//                        }
+                        requestsController.createRequest(request: cstRequest) {
+                            requestsController.$requests.sink(receiveValue: { reqs in
+                                for i in 0...2 {
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+//                                presentationMode.wrappedValue.dismiss()
+                            })
                         }
-                        RequestViewModel.shared.createRequest(request: cstRequest) {
-                            TabController.shared.open(HomeTab.requests)
-                        }
+
                     } label: {
                         VStack {
                             Rectangle().foregroundColor(.clear)

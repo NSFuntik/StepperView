@@ -28,25 +28,28 @@ class CategoriesViewModel: ObservableObject {
 }
 
 
-struct PrvRequestsTabView: View {
+struct CstRequestsTabView: View {
     @Binding var provider: Provider
     @Binding var customer: Customer
     @StateObject var CategoryController = CategoriesViewModel()
     @StateObject var requestsController = RequestViewModel()
+    @EnvironmentObject var tabController: TabController
 
     var body: some View {
-        VStack {
+        ZStack {
 
-            ScrollView {
 
                 VStack {
                     if requestsController.requests.count > 0 {
+                        List($requestsController.requests.projectedValue, id: \.self) { request in
+                            Section {
+//                            ScrollView {
 
-                        ForEach($requestsController.requests.projectedValue.indices) { i in
-                            RequestsCell(request: $requestsController.requests.element(at: i)!, category: $CategoryController.categories[i].wrappedValue)
-                                .background(.white).padding(10)
-                            Divider().foregroundColor(.secondary)
-                        }
+                                RequestsCell(request: request)
+                                    .background(.white).padding(10)
+//                                Divider().foregroundColor(.secondary)
+                            }
+                        }.listStyle(InsetListStyle())
                     } else {
                         Spacer(minLength: 100)
                         Image("RequestsImage")
@@ -58,40 +61,45 @@ struct PrvRequestsTabView: View {
                     }
                     Spacer()
                 }
+            VStack {
+                Spacer()
+                HStack {
+                    NavigationLink {
+                        CstOpenRequestsView(CategoryVM: CategoryController)
+                            .environmentObject(requestsController)
+                            .environmentObject(tabController)
+                    } label: {
+                        VStack {
+                            Rectangle().foregroundColor(.clear)
+                                .ignoresSafeArea(.container, edges: .horizontal)
+                                .overlay {
+                                    HStack {
+                                        Text("Create Open Request")
+                                            .withDoneButtonStyles(backColor: .Green, accentColor: .white)
+                                    }
+                                }.zIndex(1)
+                        }//.padding(.bottom, 15)
+                    }
+                }.frame(height: 50)
             }
-            HStack {
-                NavigationLink {
-                    CstOpenRequestsView(CategoryVM: CategoryController)
-                } label: {
-                    VStack {
-                        Rectangle().foregroundColor(.clear)
-                            .ignoresSafeArea(.container, edges: .horizontal)
-                            .overlay {
-                                HStack {
-                                    Text("Create Open Request")
-                                        .withDoneButtonStyles(backColor: .Green, accentColor: .white)
-                                }
-                            }.zIndex(1)
-                    }.padding(.bottom, 15)
-                }
-            }.frame(height: 50)
         }
-        .padding(20)
+//        .padding(.horizontal , 20)
     }
 }
 
 struct PrvRequestsTabView_Previews: PreviewProvider {
     static var previews: some View {
-        PrvRequestsTabView(provider: .constant(testProvider), customer: .constant(testCustomer))
+        CstRequestsTabView(provider: .constant(testProvider), customer: .constant(testCustomer))
     }
 }
 
 struct RequestsCell: View {
     typealias Int = ServiceType.ID
     @Binding var request: CstRequest
-    @State var category: Category
+//    @State var services: [CategoryService]
     var body: some View {
-            NavigationLink(destination: CstCreateRequestView(bottomSheetPosition: .hidden, showInfo: false, text: "", category: $category, cstRequest: request)) {
+        
+        NavigationLink(destination: CstCreateRequestView(bottomSheetPosition: .hidden, showInfo: false, text: "", categories: request.services.compactMap({$0.toCategoryService}), cstRequest: request)) {
                 VStack {
                 HStack {
                     Text("#\(request.id)(\(request.statusRecord.status))")
@@ -176,8 +184,26 @@ struct RequestsCell: View {
                     //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
                         .lineLimit(1)
                 }
+                HStack {
+                    Text("\(request.visits) Visit")
+                    Spacer()
+                    Image("Magnifier")
+                        .resizable()
+                        .frame(width: 10, height: 10)
+                        .scaledToFit()
+                        .foregroundColor(Color.infoBlue)
+                    Text("1")
+                        .padding(.trailing, 5)
+                    Image("Eye")
+                        .resizable()
+                        .frame(width: 10, height: 10)
+                        .scaledToFit()
+                        .foregroundColor(Color.infoBlue)
+                    Text("10")
+                        .padding(.trailing, 5)
+                }
 //                HStack {
-//                    RemovableTagListView(selected: $category.id, isRemovable: .constant(false),
+//                    RemovableTagListView(selected: nil, isRemovable: .constant(false),
 //                                         categoriesVM: CategoriesViewModel.shared,
 //                                         tags:
 //                            .constant(Set($category.projectedValue.services.filter({$0.unitsCount.wrappedValue > 0})
@@ -185,26 +211,14 @@ struct RequestsCell: View {
 //                                })))
 //                }
 
-//                Divider().padding(.horizontal, -10).padding(.leading, 10)
-//                HStack {
-//                    Text("\(request.visits) Visit")
-//                    Spacer()
-//                    Image("Magnifier")
-//                        .resizable()
-//                        .frame(width: 10, height: 10)
-//                        .scaledToFit()
-//                        .foregroundColor(Color.infoBlue)
-//                    Text("1")
-//                        .padding(.trailing, 5)
-//                    Image("Eye")
-//                        .resizable()
-//                        .frame(width: 10, height: 10)
-//                        .scaledToFit()
-//                        .foregroundColor(Color.infoBlue)
-//                    Text("10")
-//                        .padding(.trailing, 5)
-//                }
+
+
             }
         }
     }
+//    func getCategoriesFor(request: CstRequest) -> Category {
+//        request.services.map { s in
+//            s.qserviceId
+//        }
+//    }
 }

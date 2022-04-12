@@ -10,8 +10,11 @@ import Combine
 
 struct ActorTypePickerView: View {
     @State var selectedService: Int = 1
+    @State var actorType: ActorsEnum = .CUSTOMER
     @State var selectedActor: ActorsEnum = .CUSTOMER
-    @State var isPicked = false
+    @StateObject var viewRouter = TabController()
+
+    @State var isPicked = true
     var body: some View {
 
         ZStack {
@@ -76,7 +79,7 @@ struct ActorTypePickerView: View {
 
 
                 .fullScreenCover(isPresented: $isPicked, content: {
-                    ProfileHomeTabBarView(actorType: $selectedActor)
+                    ProfileHomeTabBarView(actorType: $actorType, tabController: viewRouter)
                 })
         }
 
@@ -134,7 +137,7 @@ extension ActorTypePickerView {
 
             VStack(alignment: .center, spacing: 30) {
                 Button {
-                    $selectedActor.wrappedValue = ActorsEnum.CUSTOMER
+                    $actorType.wrappedValue = ActorsEnum.CUSTOMER
                         isPicked = true
 
                 } label: {
@@ -172,7 +175,7 @@ extension ActorTypePickerView {
 
                 Button {
 
-                    selectedActor = ActorsEnum.PROVIDER
+                    $actorType.wrappedValue = ActorsEnum.PROVIDER
 
                         isPicked = true
 
@@ -210,8 +213,8 @@ extension ActorTypePickerView {
 
                     }).zIndex(1)
                 Button {
-                    selectedActor = ActorsEnum.CUSTOMER
-                    isPicked = true
+//                    selectedActor = ActorsEnum.CUSTOMER
+//                    isPicked = true
 
                 } label: {
                     VStack(alignment: .center, spacing: 10) {

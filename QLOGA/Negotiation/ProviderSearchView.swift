@@ -22,124 +22,127 @@ struct ProviderSearchView: View {
     @State var isLimited = true
 
     var body: some View {
-        VStack(alignment: .center, spacing: 5) {
-            ServicesScrollView.padding(.horizontal, -30)
-            VStack {
-                HStack {
-                    Text("Description")
-                        .foregroundColor(Color.black)
-                        .multilineTextAlignment(.leading)
-                        .font(Font.system(size: 20, weight: .medium, design: .rounded))
-                    Spacer()
-                }.padding(.vertical, 5)
-                Text(Services[selectedButton].description ?? descr)
-                    .foregroundColor(Color.black.opacity(0.8))
-                    .multilineTextAlignment(.leading)
-                    .font(Font.system(size: 14, weight: .light, design: .rounded))
-                    .lineLimit(isLimited ? 4 : 10)
-                HStack {
-                    Text(isLimited ? "Show more" : "Show less")
-                        .foregroundColor(Color.accentColor)
-                        .multilineTextAlignment(.leading)
-                        .font(Font.system(size: 13, weight: .light, design: .rounded))
-                        .padding(.top, -5)
-                        .onTapGesture {
-                            isLimited.toggle()
-                        }
-                    Spacer()
-                }
-            }.padding(.bottom, 20)
-            ScrollView(showsIndicators: false) {
+        VStack(alignment: .center) {
+
+            VStack(alignment: .leading, spacing: 5) {
+                ServicesScrollView.padding(.horizontal, -30)
                 VStack {
-                    ForEach(Array(Services[selectedButton].services), id: \.self) { type in
-                        Section {
-                            DisclosureGroup {
-                                VStack(spacing: 10) {
-                                    Text("Internal and external drain and sewer repair, including unblocking and cleaning and replacing drains, sewers and pipes.Internal and external drain and sewer repair, including unblocking and cleaning and replacing drains, sewers and pipes.")
-                                        .foregroundColor(Color.secondary.opacity(0.7))
-                                        .multilineTextAlignment(.leading)
-                                        .font(Font.system(size: 15, weight: .regular, design: .rounded))
-                                        .lineLimit(5)
-                                        .padding(10)
-                                    HStack(alignment: .center) {
-                                        Spacer()
-                                        NavigationLink(destination: SelectedServiceDetailView(serviceType: .Kitchen)) {
-                                            HStack {
-                                                Text("Details")
-                                                    .lineLimit(1)
-                                                    .font(.system(size: 20, weight: .regular, design: .default))
-                                                    .foregroundColor(.infoBlue)
-                                                    .frame(width: 100, height: 30)
-
-                                                    .background(
-                                                        RoundedRectangle(cornerRadius: 25)
-                                                            .stroke(Color.infoBlue, lineWidth: 4)
-                                                            .clipShape(RoundedRectangle(cornerRadius: 25))
-                                                            .background(RoundedRectangle(cornerRadius: 25).fill(Color.white)))
-                                                    .padding(1)
-                                                    .frame(width: 100, height: 30)
-                                            }
-                                        }
-                                        Spacer()
-                                        NavigationLink(destination: ProvidersView(service: Services[selectedButton])) {
-                                            HStack {
-                                                Text("Show providers")
-                                                    .lineLimit(1)
-                                                    .ignoresSafeArea(.all)
-                                                    .shadow(color: Color.secondary, radius: 1, x: 1, y: 1)
-                                                    .font(.system(size: 20, weight: .regular, design: .rounded))
-                                                    .foregroundColor(.white)
-                                                    .frame(width: 180, height: 32)
-                                                    .background(RoundedRectangle(cornerRadius: 25)
-                                                        .fill(Color.accentColor))
-                                                    .overlay(RoundedRectangle(cornerRadius: 25)
-                                                        .stroke(Color.white, lineWidth: 2)
-                                                        .shadow(color: Color.secondary.opacity(0.7), radius: 2, x: 2, y: 2.5)
-                                                        .clipShape(RoundedRectangle(cornerRadius: 25))
-                                                        .shadow(color: Color.lightGray.opacity(0.7), radius: 2, x: -2.5, y: -2.5)
-                                                        .clipShape(RoundedRectangle(cornerRadius: 25)).padding(0.6))
-                                            }
-                                            .frame(width: 180, height: 33)
-                                        }
-                                        Spacer()
-                                    }
-
-                                }.frame(width: UIScreen.main.bounds.width - 40, alignment: .center)
-                            } label: {
-                                HStack {
-                                    VStack(alignment: .leading) {
-                                        HStack {
-                                            Text(type.title)
-                                                .foregroundColor(Color.black.opacity(0.9))
-                                                .multilineTextAlignment(.leading)
-                                                .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                                                .lineLimit(1)
-                                                .padding(.leading, 10)
-                                            Spacer()
-                                        }
-                                        Spacer()
-                                        HStack {
-                                            Text("Time norm: " + type.timeNorm.description + " min/room")
-                                                .foregroundColor(Color.secondary.opacity(0.7))
-                                                .multilineTextAlignment(.leading)
-                                                .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                                                .lineLimit(1)
-                                                .padding(.leading, 10)
-                                            Spacer()
-                                        }
-                                    }
-                                }.padding(5).frame(height: 40)
+                    HStack {
+                        Text("Description")
+                            .foregroundColor(Color.black)
+                            .multilineTextAlignment(.leading)
+                            .font(Font.system(size: 20, weight: .medium, design: .rounded))
+                        Spacer()
+                    }.padding(.vertical, 5)
+                    Text(Services[selectedButton].description ?? descr)
+                        .foregroundColor(Color.black.opacity(0.8))
+                        .multilineTextAlignment(.leading)
+                        .font(Font.system(size: 14, weight: .light, design: .rounded))
+                        .lineLimit(isLimited ? 4 : 10)
+                    HStack {
+                        Text(isLimited ? "Show more" : "Show less")
+                            .foregroundColor(Color.accentColor)
+                            .multilineTextAlignment(.leading)
+                            .font(Font.system(size: 13, weight: .light, design: .rounded))
+                            .padding(.top, -5)
+                            .onTapGesture {
+                                isLimited.toggle()
                             }
-                            Divider().padding(.horizontal, -10).padding(.leading, 25)
-                        }
+                        Spacer()
                     }
-                }.padding(10).padding(.bottom, -10)
-                    .overlay(RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.secondary
-                            .opacity(0.7), lineWidth: 1).padding(1))
-            }
-            Spacer()
-        }.padding(.horizontal, 20)
+                }.padding(.bottom, 20)
+                ScrollView(showsIndicators: false) {
+                    VStack {
+                        ForEach(Array(Services[selectedButton].services), id: \.self) { type in
+                            Section {
+                                DisclosureGroup {
+                                    VStack(spacing: 10) {
+                                        Text("Internal and external drain and sewer repair, including unblocking and cleaning and replacing drains, sewers and pipes.Internal and external drain and sewer repair, including unblocking and cleaning and replacing drains, sewers and pipes.")
+                                            .foregroundColor(Color.secondary.opacity(0.7))
+                                            .multilineTextAlignment(.leading)
+                                            .font(Font.system(size: 15, weight: .regular, design: .rounded))
+                                            .lineLimit(5)
+                                            .padding(10)
+                                        HStack(alignment: .center) {
+                                            Spacer()
+                                            NavigationLink(destination: SelectedServiceDetailView(serviceType: .Kitchen)) {
+                                                HStack {
+                                                    Text("Details")
+                                                        .lineLimit(1)
+                                                        .font(.system(size: 20, weight: .regular, design: .default))
+                                                        .foregroundColor(.infoBlue)
+                                                        .frame(width: 100, height: 30)
+
+                                                        .background(
+                                                            RoundedRectangle(cornerRadius: 25)
+                                                                .stroke(Color.infoBlue, lineWidth: 4)
+                                                                .clipShape(RoundedRectangle(cornerRadius: 25))
+                                                                .background(RoundedRectangle(cornerRadius: 25).fill(Color.white)))
+                                                        .padding(1)
+                                                        .frame(width: 100, height: 30)
+                                                }
+                                            }
+                                            Spacer()
+                                            NavigationLink(destination: ProvidersView(service: Services[selectedButton])) {
+                                                HStack {
+                                                    Text("Show providers")
+                                                        .lineLimit(1)
+                                                        .ignoresSafeArea(.all)
+                                                        .shadow(color: Color.secondary, radius: 1, x: 1, y: 1)
+                                                        .font(.system(size: 20, weight: .regular, design: .rounded))
+                                                        .foregroundColor(.white)
+                                                        .frame(width: 180, height: 32)
+                                                        .background(RoundedRectangle(cornerRadius: 25)
+                                                            .fill(Color.accentColor))
+                                                        .overlay(RoundedRectangle(cornerRadius: 25)
+                                                            .stroke(Color.white, lineWidth: 2)
+                                                            .shadow(color: Color.secondary.opacity(0.7), radius: 2, x: 2, y: 2.5)
+                                                            .clipShape(RoundedRectangle(cornerRadius: 25))
+                                                            .shadow(color: Color.lightGray.opacity(0.7), radius: 2, x: -2.5, y: -2.5)
+                                                            .clipShape(RoundedRectangle(cornerRadius: 25)).padding(0.6))
+                                                }
+                                                .frame(width: 180, height: 33)
+                                            }
+                                            Spacer()
+                                        }
+
+                                    }.frame(width: UIScreen.main.bounds.width - 40, alignment: .center)
+                                } label: {
+                                    HStack {
+                                        VStack(alignment: .leading) {
+                                            HStack {
+                                                Text(type.title)
+                                                    .foregroundColor(Color.black.opacity(0.9))
+                                                    .multilineTextAlignment(.leading)
+                                                    .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                                                    .lineLimit(1)
+                                                    .padding(.leading, 10)
+                                                Spacer()
+                                            }
+                                            Spacer()
+                                            HStack {
+                                                Text("Time norm: " + type.timeNorm.description + " min/room")
+                                                    .foregroundColor(Color.secondary.opacity(0.7))
+                                                    .multilineTextAlignment(.leading)
+                                                    .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                                                    .lineLimit(1)
+                                                    .padding(.leading, 10)
+                                                Spacer()
+                                            }
+                                        }
+                                    }.padding(5).frame(height: 40)
+                                }
+                                Divider().padding(.horizontal, -10).padding(.leading, 25)
+                            }
+                        }
+                    }.padding(10).padding(.bottom, -10)
+                        .overlay(RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.secondary
+                                .opacity(0.7), lineWidth: 1).padding(1))
+                    Spacer(minLength: 50)
+                }
+            }.padding(.horizontal, 20)
+        }
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarTitle("Provider Search")
     }
@@ -176,6 +179,7 @@ extension ProviderSearchView {
                 }
             }.padding(.leading, 20)
         }.padding(.top, 10)
+        
     }
 }
 

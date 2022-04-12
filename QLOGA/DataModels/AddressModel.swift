@@ -66,7 +66,7 @@ struct CstAddress: Codable, Hashable {
             return Address(isBussinessOnly: self.businessOnly, postcode: self.postcode, town: self.town, street: self.line1, building: self.line2, apt: self.line3 ?? "", self.lat ?? 55.95204500604529, self.lng ??  -3.1981850325268777)
         }
         set { newValue
-            _ =  CstAddress.init(id: newValue.hashValue, familyId: 0, line1: newValue.street, line2: newValue.building, town: newValue.town, postcode: newValue.postcode, lat: newValue.latitude, lng: newValue.latitude, vrfs: [], businessOnly: newValue.isBussinessOnly, line3: newValue.apt)
+            self =  CstAddress.init(id: newValue.hashValue, familyId: 0, line1: newValue.street, line2: newValue.building, town: newValue.town, postcode: newValue.postcode, lat: newValue.latitude, lng: newValue.latitude, vrfs: [], businessOnly: newValue.isBussinessOnly, line3: newValue.apt)
         }
 
     }

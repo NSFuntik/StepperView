@@ -10,6 +10,7 @@ import SwiftUI
 struct PrvOrdersListTabView: View {
     @Binding var provider: Provider
     @Binding var customer: Customer
+    @EnvironmentObject var tabController: TabController
 
     var body: some View {
         VStack {

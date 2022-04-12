@@ -24,6 +24,10 @@ struct CstOpenRequestsView: View {
     @State var isLimited = true
     @State var tags: Set<String> = []
     @ObservedObject var CategoryVM: CategoriesViewModel
+    @EnvironmentObject var requestsController: RequestViewModel
+    @EnvironmentObject var tabController: TabController
+
+
     @State var CatTags: [(String, Int)] = []
     var body: some View {
         VStack(alignment: .center, spacing: 5) {
@@ -32,10 +36,12 @@ struct CstOpenRequestsView: View {
                     ServicesScrollView.padding(.horizontal, -30)
                     CstCatServiceCells
                 }.padding(.horizontal, 20).padding(.top, 10)
-                    if $CategoryVM.categories.wrappedValue.filter({cat in cat.services.filter({$0.unitsCount > 0}).count > 0}).count > 0 {
+                if $CategoryVM.categories.wrappedValue.filter({cat in cat.services.filter({$0.unitsCount > 0}).count > 0}).count > 0 {
                         VStack {
                             Spacer(minLength: UIScreen.main.bounds.height - 150)
-                            NavigationLink(destination: CstCreateRequestView(category: $CategoryVM.categories[CategoryVM.pickedService])) {
+                            NavigationLink(destination: CstCreateRequestView(categories: CategoryVM.categories.flatMap({cat in
+                                cat.services.filter({$0.unitsCount > 0})}))     .environmentObject(requestsController)
+                                .environmentObject(tabController)) {
                                 VStack {
                                     Spacer()
                                     Rectangle().foregroundColor(.clear)

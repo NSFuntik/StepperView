@@ -95,6 +95,9 @@ struct CstRequest: Codable, Hashable {
         case cstActions = "cstActions"
         case notes = "notes"
     }
+
+
+
 }
 
 //
@@ -156,16 +159,35 @@ enum CstCstAction: String, Codable, Hashable {
 
 // MARK: - CstService
 struct CstService: Codable, Hashable {
-    var id: Int
-    var quantity: Int
+    var id: Int?
+    var quantity: Int?
     var qserviceId: Int
+    var name, descr, unit, unitDescr: String?
+    var subject, works, exclusions: String?
+    var timeNorm, avatarID: Int?
+    var avatarURL: String?
+    var isEditable: Bool = false
 
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case quantity = "qty"
         case qserviceId = "qserviceId"
     }
+
+    var toCategoryService: CategoryService {
+        var CategoryService =  CategoryService(id: self.qserviceId, sortOrder: self.id, name: self.name, descr: self.descr, unit: self.unit, unitDescr: self.unitDescr, subject: self.subject, works: self.works, exclusions: self.exclusions, timeNorm: self.timeNorm, avatarID: self.avatarID, avatarURL: self.avatarURL)
+        CategoryService.unitsCount = self.quantity ?? 0
+        return CategoryService
+    }
 }
+
+var qServiceID: [Int : ServiceType] = [
+    330 : ServiceType.Gas
+
+
+
+
+]
 
 //
 // To read values from URLs:
