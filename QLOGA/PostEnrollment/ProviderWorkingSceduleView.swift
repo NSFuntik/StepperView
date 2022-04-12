@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ProviderWorkingSceduleView: View {
+    @Namespace var bottomID
     @Binding var provider: Provider
     @State var isPickedDate = false
     @State private var addNewValue = false
@@ -16,6 +17,7 @@ struct ProviderWorkingSceduleView: View {
     var body: some View {
         VStack {
             ScrollView(showsIndicators: false) {
+                ScrollViewReader { proxy in
                 HStack {
                     Text("WORKING HOURS")
                         .foregroundColor(Color.pickerTitle)
@@ -240,6 +242,9 @@ struct ProviderWorkingSceduleView: View {
                             $provider.offTime.wrappedValue.append(OffTime(from: $provider.offTime.wrappedValue.last?.to ?? "01/01/22 00:00", to: $provider.offTime.wrappedValue.last?.to ?? "01/01/22 12:00", isMultipleRange: true))
                             $provider.offTime.wrappedValue = $provider.offTime.wrappedValue.sorted(by: { $0.id < $1.id })
                             addNewValue = true
+                            withAnimation {
+                                proxy.scrollTo(bottomID, anchor: .bottom)
+                            }
                         } else {
                             $provider.offTime.last?.isActive.wrappedValue = true
                         }
@@ -334,9 +339,14 @@ struct ProviderWorkingSceduleView: View {
                                                 
                                             }.padding(.horizontal, 5).frame(height: 40).disabled(!offTime.isActive.wrappedValue)
                                         }
+                                        .onChange(of: $provider.offTime.wrappedValue.count) { _ in
+                                            withAnimation {
+                                                proxy.scrollTo($provider.offTime.wrappedValue.count - 1, anchor: .bottom)
+                                            }
+                                        }
                                     }
                                     
-                                    Divider().padding(.horizontal, -9).padding(.trailing, -20)
+                                    Divider().padding(.horizontal, -9).padding(.trailing, -20).id(bottomID)
                                 }
                                 
                             }.opacity(offTime.isActive.wrappedValue ? 1.0 : 0.2)
@@ -347,7 +357,9 @@ struct ProviderWorkingSceduleView: View {
                 }.padding(10)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary.opacity(0.7), lineWidth: 1).padding(1))
-                Spacer()
+
+                    Spacer()
+            }
             }
         }.padding(.horizontal, 20).padding(.top, 10)
             .toolbar {
@@ -386,3 +398,4 @@ struct ProviderWorkingSceduleView_Previews: PreviewProvider {
 }
 
 // "dd/MM/yyyy HH:mm"
+

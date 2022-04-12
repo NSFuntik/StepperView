@@ -93,6 +93,28 @@ struct Provider: Hashable {
     }
 }
 
+extension Array {
+
+    func mapToSet<T: Hashable>(_ transform: (Element) -> T) -> Set<T> {
+        var result = Set<T>()
+        for item in self {
+            result.insert(transform(item))
+        }
+        return result
+    }
+
+}
+
+extension RandomAccessCollection {
+    func element(at index: Index) -> Element? {
+        guard indices.contains(index) else {
+            return nil
+        }
+
+        return self[index]
+    }
+}
+
 struct ProviderPublicPortfolio: Hashable {
     // MARK: Lifecycle
 

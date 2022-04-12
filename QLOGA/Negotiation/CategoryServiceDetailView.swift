@@ -16,12 +16,14 @@ struct CategoryServiceDetailView: View {
                 .foregroundColor(Color.black)
                 .multilineTextAlignment(.leading)
                 .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                .lineLimit(2)
+                .minimumScaleFactor(0.8)
                 .padding()
                 .frame(width: UIScreen.main.bounds.width - 42, alignment: .leading)
                 .overlay(RoundedRectangle(cornerRadius: 10)
                     .stroke(lineWidth: 1.0)
                     .foregroundColor(Color.lightGray)
-                ).frame(height: 40).padding(1).padding(.vertical, 10)
+                ).frame(height: 45).padding(1).padding(.vertical, 10)
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 10) {
                     Label {

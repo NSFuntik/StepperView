@@ -41,6 +41,7 @@ struct ProfileSetupView: View {
 			}).padding(2)
 				.onChange(of: $selectedActor.wrappedValue, perform: { newValue in
 					$actorType.wrappedValue = newValue
+                    $selectedActor.wrappedValue = newValue
 					print(actorType)
 				})
 				.pickerStyle(SegmentedPickerStyle()) // <1>
@@ -218,7 +219,7 @@ struct ProfileSetupView: View {
                     }
 				}
 			}
-
+            Spacer(minLength: 30)
 		}.padding(.horizontal, 20).padding(.top, 10)
 			.onAppear {
 				selectedActor = actorType
@@ -229,7 +230,7 @@ struct ProfileSetupView: View {
 
 	// MARK: Private
 
-	@State private var selectedActor = ActorsEnum.CUSTOMER
+	@State var selectedActor = ActorsEnum.CUSTOMER
 }
 
 struct ProviderAccountSetupView_Previews: PreviewProvider {

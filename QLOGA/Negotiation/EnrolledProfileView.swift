@@ -16,7 +16,7 @@ struct EnrolledProfileView: View {
         case Orders
         case Quotes
         case Inquires
-        case Requests
+//        case Requests
         case Today
         var description: String {
             switch self {
@@ -26,8 +26,8 @@ struct EnrolledProfileView: View {
                     return "Quotes"
                 case .Inquires:
                     return "Inquires"
-                case .Requests:
-                    return "Requests"
+//                case .Requests:
+//                    return "Requests"
                 case .Today:
                     return "Today"
             }
@@ -49,7 +49,9 @@ struct EnrolledProfileView: View {
             VStack {
                 ZStack {
                     VStack {
-                        TabBarView(tabs: .constant([Tab.Orders.description, Tab.Quotes.description, Tab.Inquires.description, actorType != .CUSTOMER ? Tab.Requests.description : Tab.Today.description]),
+                        TabBarView(tabs: .constant([Tab.Orders.description, Tab.Quotes.description, Tab.Inquires.description,
+//                                                    actorType != .CUSTOMER ? Tab.Requests.description :
+                                                    Tab.Today.description]),
                                    selection: $selectedTab,
                                    underlineColor: .accentColor) { title, isSelected in
                             Text(title)
@@ -59,7 +61,7 @@ struct EnrolledProfileView: View {
                         }
                         VStack(alignment: .center) {
                             Spacer()
-                            Image("\(actorType != .CUSTOMER ? "prv" : "cst")-\(Tab(rawValue: actorType != .CUSTOMER ? $selectedTab.wrappedValue : $selectedTab.wrappedValue + 1)!.description.lowercased())")
+                            Image("\(actorType != .CUSTOMER ? "prv" : "cst")-\(Tab(rawValue: $selectedTab.wrappedValue)!.description.lowercased())")
                                 .resizable()
                                 .frame(width: 300, height: 375, alignment: .center)
                                 .scaledToFit()
@@ -69,17 +71,17 @@ struct EnrolledProfileView: View {
                             .background(Color.lightGray.opacity(0.2))
 
                     }
+                    .disabled(isModalPresented)
                     if isModalPresented {
                         infoModal
                     }
 
                 }.padding(.horizontal, 20).padding(.top, 10)
-                    
+
                 //
                     .sheet(isPresented: $isFiltersPresented) { ProvidersFilterView().cornerRadius(35) }
             }
 
-            //.disabled(isModalPresented)
 
 //            .navigationBarHidden(true)
 

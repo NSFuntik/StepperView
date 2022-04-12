@@ -18,7 +18,10 @@ post_install do |installer|
       config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
       config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
       config.build_settings["ONLY_ACTIVE_ARCH"] = "YES"
-
+ if config.name == 'Debug'
+       config.build_settings['OTHER_SWIFT_FLAGS'] = ['$(inherited)', '-Onone']
+       config.build_settings['SWIFT_OPTIMIZATION_LEVEL'] = '-O'
+     end
     end
   end
 end

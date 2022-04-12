@@ -53,6 +53,7 @@ struct ProfileTermsConditionsView: View {
                         .font(.system(size: 18, weight: .regular, design: .rounded))
                         .ignoresSafeArea(.all, edges: .horizontal)
                         .foregroundColor(isSelected ? .black : .lightGray)
+                        .frame(width: UIScreen.main.bounds.width / 2 - 30, alignment: .center)
                 }
             HStack {
                 ScrollView {
@@ -78,7 +79,7 @@ struct ProfileTermsConditionsView: View {
                     RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 1.0).foregroundColor(.lightGray)
                 }.padding(1).clipShape(RoundedRectangle(cornerRadius: 10))
                 Spacer()
-            }.padding(.top, 10)
+            }.padding(.vertical, 10)
         }.padding(.horizontal, 20)
             .navigationTitle("Terms & Conditions")
             .navigationBarTitleDisplayMode(.inline)
@@ -100,6 +101,9 @@ struct ProfileTermsConditionsView: View {
 
 struct ProfileTermsConditionsView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileTermsConditionsView(actorType: Binding(projectedValue: .constant(.PROVIDER)), customer: Binding(projectedValue: .constant(testCustomer)), provider: Binding(projectedValue: .constant(testProvider)))
+            NavigationView {
+                ProfileTermsConditionsView(actorType: Binding(projectedValue: .constant(.CUSTOMER)), customer: Binding(projectedValue: .constant(testCustomer)), provider: Binding(projectedValue: .constant(testProvider)))
+            }.previewDevice("iPhone X")
+
     }
 }

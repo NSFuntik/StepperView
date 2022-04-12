@@ -96,9 +96,9 @@ struct Category: Codable, Hashable, Identifiable {
 
 // MARK: - Service
 struct CategoryService: Codable, Hashable, Identifiable {
-    internal init(id: Int? = 0, sortOrder: Int? = nil, name: String? = "nil", descr: String? = "nil", unit: String? = "nil", unitDescr: String? = "nil", subject: String? = "nil", works: String? = "nil", exclusions: String? = "nil", timeNorm: Int? = 0, avatarID: Int? = 0, avatarURL: String? = "nil") {
-        self.id = 0
-        self.sortOrder = sortOrder ??  self.id
+    internal init(id: Int? = 0, sortOrder: Int? = 0, name: String? = "nil", descr: String? = "nil", unit: String? = "nil", unitDescr: String? = "nil", subject: String? = "nil", works: String? = "nil", exclusions: String? = "nil", timeNorm: Int? = 0, avatarID: Int? = 0, avatarURL: String? = "nil") {
+        self.id = sortOrder ?? CategoriesViewModel.shared.categories.endIndex
+        self.sortOrder =  self.id ?? sortOrder!
 //        self.unitsCount = unitsCount
         self.name = name
         self.descr = descr
@@ -122,14 +122,16 @@ struct CategoryService: Codable, Hashable, Identifiable {
     var avatarURL: String?
     var isEditable: Bool = false
     var price: Double = 30.0
-
+    
     enum CodingKeys: String, CodingKey {
         case id, sortOrder, name, descr, unit, unitDescr, subject, works, exclusions, timeNorm
         case avatarID
         case avatarURL
     }
 
-
+    func toCstService() -> CstService {
+        return CstService(id: self.sortOrder, quantity: self.unitsCount, qserviceId: self.sortOrder)
+    }
 
 }
 

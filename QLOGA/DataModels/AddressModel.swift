@@ -24,7 +24,7 @@ struct CstAddress: Codable, Hashable {
         self.vrfs = vrfs
         self.businessOnly = businessOnly
         self.line3 = line3
-        self.total = "\(self.line3) \(self.line2) \(self.line1) \(self.town) \(self.country) \(self.postcode)".replacingOccurrences(of: "  ", with: "")
+        self.total = "\(self.line3 ?? "") \(self.line2) \(self.line1) \(self.town) \(self.country) \(self.postcode)".replacingOccurrences(of: "  ", with: "")
 
     }
 
@@ -66,7 +66,7 @@ struct CstAddress: Codable, Hashable {
             return Address(isBussinessOnly: self.businessOnly, postcode: self.postcode, town: self.town, street: self.line1, building: self.line2, apt: self.line3 ?? "", self.lat ?? 55.95204500604529, self.lng ??  -3.1981850325268777)
         }
         set { newValue
-            var cstAddress =  CstAddress.init(id: newValue.hashValue, familyId: 0, line1: newValue.street, line2: newValue.building, town: newValue.town, postcode: newValue.postcode, lat: newValue.latitude, lng: newValue.latitude, vrfs: [], businessOnly: newValue.isBussinessOnly, line3: newValue.apt)
+            _ =  CstAddress.init(id: newValue.hashValue, familyId: 0, line1: newValue.street, line2: newValue.building, town: newValue.town, postcode: newValue.postcode, lat: newValue.latitude, lng: newValue.latitude, vrfs: [], businessOnly: newValue.isBussinessOnly, line3: newValue.apt)
         }
 
     }
@@ -110,7 +110,7 @@ struct Address: Hashable {
         self.street = street
         self.building = building
         self.apt = apt
-        self.total = "\(self.apt)\(self.building) \(self.street) \(self.town) \(self.postcode)".replacingOccurrences(of: "  ", with: "")
+        self.total = "\(self.apt) \(self.building) \(self.street) \(self.town) \(self.postcode)".replacingOccurrences(of: "  ", with: "")
         self.latitude = latitude
         self.longitude = longitude
     }
@@ -126,6 +126,17 @@ struct Address: Hashable {
     var latitude: Double
     var longitude: Double
     var total: String
+
+
+    var defaultAddress: CstAddress {
+        set { newValue
+            var defAddress = Address(isBussinessOnly: newValue.businessOnly, postcode: newValue.postcode, town: newValue.town, street: newValue.line1, building: newValue.line2, apt: newValue.line3 ?? "", newValue.lat ?? 55.95204500604529, newValue.lng ??  -3.1981850325268777)
+        }
+        get {
+            return  CstAddress.init(id: self.hashValue, familyId: 0, line1: self.street, line2: self.building, town: self.town, postcode: self.postcode, lat: self.latitude, lng: self.latitude, vrfs: [], businessOnly: self.isBussinessOnly, line3: self.apt)
+        }
+
+    }
 }
 
 enum ParkingType: String, CaseIterable, Identifiable {

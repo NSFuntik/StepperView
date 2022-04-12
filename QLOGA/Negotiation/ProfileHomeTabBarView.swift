@@ -7,41 +7,51 @@
 
 import SwiftUI
 
+
+enum HomeTab: Int {
+    case orders, requests, search, favourites
+    var title: String {
+        switch self {
+            case .orders:
+                return   "Orders"
+            case .requests:
+                return  "Open Requests"
+            case .search:
+                return "Provider Search"
+            case .favourites:
+                return "Favourite providers"
+        }
+    }
+}
+class TabController: ObservableObject {
+    @Published var activeTab = HomeTab.requests
+    static let shared = TabController()
+
+    func open(_ tab: HomeTab) {
+        activeTab = tab
+    }
+}
 struct ProfileHomeTabBarView: View {
     @State var provider: Provider = testProvider
     @Binding var actorType: ActorsEnum
     @State var customer: Customer = testCustomer
-    enum HomeTab: Int {
-        case orders, requests, search, favourites
-        var title: String {
-            switch self {
-                case .orders:
-                    return   "Orders"
-                case .requests:
-                    return  "Open Requests"
-                case .search:
-                    return "Provider Search"
-                case .favourites:
-                    return "Favourite providers"
-            }
-        }
-    }
+    @StateObject private var tabController = TabController()
+
     @State var isFiltersPresented = false
     @State var tab: HomeTab = .orders
     @ObservedObject var locationManager = LocationManager()
 
     var body: some View {
         NavigationView {
-
-            TabView(selection: $tab) {
+            TabView(selection: $tabController.activeTab) {
                 EnrolledProfileView(actorType: $actorType)
                     .navigationBarTitleDisplayMode(.inline)
                     .navigationViewStyle(.stack)
+                    .tag(HomeTab.orders)
                     .tabItem {
                         Label("Orders", systemImage: "list.bullet.rectangle.portrait")
                     }
                     .navigationTitle("Orders")
-                    .tag(HomeTab.orders)
                     .navigationTitle("\($tab.wrappedValue.title)")
 
                 PrvRequestsTabView(provider: $provider, customer: $customer) .navigationTitle("Open Requests")
@@ -68,7 +78,7 @@ struct ProfileHomeTabBarView: View {
                     }
                     .tag(HomeTab.favourites)
                     .navigationTitle("\($tab.wrappedValue.title)")
-            }
+            }.environmentObject(tabController)
             .navigationTitle("\($tab.wrappedValue.title)")
             .toolbar {
              
@@ -109,7 +119,7 @@ struct ProfileHomeTabBarView: View {
                                 .resizable()
                                 .renderingMode(.template)
                                 .aspectRatio(contentMode: .fit)
-                                .foregroundColor(.accentColor)
+                                .foregroundColor(actorType == .CUSTOMER ? .accentColor : .infoBlue)
                                 .frame(width: 30, height: 30, alignment: .trailing)
                                 .padding(5)
                         }

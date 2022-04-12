@@ -20,9 +20,18 @@ struct QLOGAApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     var body: some Scene {
         WindowGroup {
-            IntroView()
+#if DEBUG
+            ActorTypePickerView()
                 .environment(\.colorScheme, .light)
                 .preferredColorScheme(.light)
+#else
+            IntroView()
+//            ActorTypePickerView()
+                .environment(\.colorScheme, .light)
+                .preferredColorScheme(.light)
+
+#endif
+
         }
     }
 }

@@ -16,7 +16,7 @@ struct ProviderPortfolioAlbumView: View {
 	// MARK: Internal
 
 	@Binding var provider: Provider
-	@State var folders = Set<PortfolioFolder>()
+    @State var folders: Set<PortfolioFolder> = []
 	@FocusState var focusedReminder: Focusable?
 	@FocusState var isFocused: Bool
 	@State var isFocusing: Bool = false
@@ -110,25 +110,25 @@ struct ProviderPortfolioAlbumView: View {
 							Button {
 								folder.isFocused.wrappedValue = true
 								focusedReminder = .row(id: folder.id)
-								$isFocused.wrappedValue = true
-								$isFocusing.wrappedValue = true
+								isFocused = true
+								isFocusing = true
 							} label: {
 								Label("Rename", systemImage: "pencil")
 							}
 
 							Button {
-								$provider.portfolioFolders.wrappedValue = $provider.portfolioFolders.wrappedValue.filter { $0.id != folder.id }
+								provider.portfolioFolders = provider.portfolioFolders.filter { $0.id != folder.id }
 							} label: {
 								Label("Delete", systemImage: "trash")
 							}
 						}
-				}.onDelete { _ in $provider.portfolioFolders.wrappedValue = $provider.portfolioFolders.wrappedValue.filter { $0.isPicked != true }
+				}.onDelete { _ in provider.portfolioFolders = provider.portfolioFolders.filter { $0.isPicked != true }
 				}
 			}
 		}
 		.alert(isPresented: $createFolder, TextAlert(title: "Enter folder's name", placeholder: "New folder", accept: "Accept", cancel: "Cancel") { title in
 
-			$provider.portfolioFolders.wrappedValue.append(PortfolioFolder(title: title ?? "New folder", images: [], isFocused: false))
+			provider.portfolioFolders.append(PortfolioFolder(title: title ?? "New folder", images: [], isFocused: false))
 		})
 
 		.toolbar {
@@ -167,7 +167,7 @@ struct ProviderPortfolioAlbumView: View {
 				}
 			}
 		}.environment(\.editMode, $editMode)
-		.animation(.interactiveSpring(), value: $editMode.wrappedValue)
+		.animation(.interactiveSpring(), value: editMode)
 		.navigationBarTitleDisplayMode(.inline)
 		.navigationBarTitle("Albums")
 	}

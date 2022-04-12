@@ -251,7 +251,7 @@ struct InquiryOverview: View {
                                 .stroke(lineWidth: 1.0)
                                 .foregroundColor(Color.lightGray))
                     }
-                }.padding(.horizontal, 20)
+                }.padding(.horizontal, 20).padding(.top, 10)
                 Spacer(minLength: 100)
             }
 

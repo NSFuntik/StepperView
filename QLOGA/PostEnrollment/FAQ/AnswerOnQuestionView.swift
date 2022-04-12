@@ -35,11 +35,11 @@ struct AnswerOnQuestionView: View {
                     //                Spacer()
                     Spacer()
                 }
-                .padding(10).background(.ultraThinMaterial).cornerRadius(12)
+                .padding(10)//.background(.ultraThinMaterial).cornerRadius(12)
 
             }
             Spacer()
-        }.padding(.horizontal, 20).padding(.top, 10)
+        }.padding(.horizontal, 20).padding(.vertical, 10)
             .onAppear {
                answer = try! AttributedString(markdown: question.a,  options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace))
             }

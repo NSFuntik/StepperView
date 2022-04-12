@@ -106,6 +106,7 @@ struct ProviderServicesView: View {
                     .overlay(RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.secondary
                             .opacity(0.7), lineWidth: 1).padding(1))
+                Spacer(minLength: 20)
             }
             Spacer()
         }.padding(.horizontal, 20)

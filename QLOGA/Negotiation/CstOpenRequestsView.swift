@@ -8,25 +8,6 @@
 import SwiftUI
 
 
-class CategoriesViewModel: ObservableObject {
-//    typealias OffTime = OrderTime
-    @Published var categories: Categories = []
-    @Published var totalPrice: NSNumber?
-
-    var defaultCategories: Categories
-    static let shared = CategoriesViewModel()
-    @Published var OrderTime: OffTime = OffTime(from: "11/02/22 11:00", to: "11/02/22 21:00")
-    @Published var pickedService: Category.ID {
-        willSet {
-            objectWillChange.send()
-        }
-    }
-    init() {
-        self.pickedService = CategoryService.init().id
-        self.defaultCategories = try! newJSONDecoder().decode(Categories.self, from: try! Data(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: "categories", ofType: "json")!)))
-        categories.append(contentsOf: defaultCategories)
-    }
-}
 
 //        self.pickedCategories = self.categories.sorted(by: {$0.id < $1.id})
 //         = self.categories
@@ -37,12 +18,12 @@ class CategoriesViewModel: ObservableObject {
 
 struct CstOpenRequestsView: View {
 
-    @Binding var customer: Customer
+//    @Binding var customer: Customer
     //    @State var selectedButton: Int = CategoryService.init().id
     @State var opacity = 0
     @State var isLimited = true
-    @State var tags: [String] = []
-    @StateObject var CategoryVM = CategoriesViewModel()
+    @State var tags: Set<String> = []
+    @ObservedObject var CategoryVM: CategoriesViewModel
     @State var CatTags: [(String, Int)] = []
     var body: some View {
         VStack(alignment: .center, spacing: 5) {
@@ -54,7 +35,7 @@ struct CstOpenRequestsView: View {
                     if $CategoryVM.categories.wrappedValue.filter({cat in cat.services.filter({$0.unitsCount > 0}).count > 0}).count > 0 {
                         VStack {
                             Spacer(minLength: UIScreen.main.bounds.height - 150)
-                            NavigationLink(destination: CstCreateRequestView(CategoryVM: CategoryVM)) {
+                            NavigationLink(destination: CstCreateRequestView(category: $CategoryVM.categories[CategoryVM.pickedService])) {
                                 VStack {
                                     Spacer()
                                     Rectangle().foregroundColor(.clear)
@@ -64,7 +45,7 @@ struct CstOpenRequestsView: View {
                                                 Text("Add services")
                                                     .withDoneButtonStyles(backColor: .accentColor, accentColor: .white)
                                             }
-                                        }.zIndex(1).opacity(1)
+                                        }.zIndex(1)//.opacity($tags.wrappedValue.count > 0 ? 1 : 0)
                                 }.padding(.bottom, 15)
                         }
                     }
@@ -95,7 +76,7 @@ extension CstOpenRequestsView {
                                 }
                                 return "\(cat.name.wrappedValue!): \( cat.services.filter {$0.unitsCount.wrappedValue > 0}.count)" })
                     } set: { tags in
-
+                        self.tags = tags
                     })
 
                 }.layoutPriority(1).padding(.bottom, 30).animation(.easeInOut(duration: 0.5), value: tags).animation(.easeInOut(duration: 0.5)).transition(.slide)
@@ -242,7 +223,7 @@ extension CstOpenRequestsView {
 
 struct CstOpenRequestsView_Previews: PreviewProvider {
     static var previews: some View {
-        CstOpenRequestsView(customer: .constant(testCustomer), CategoryVM: .init())
+        CstOpenRequestsView( CategoryVM: .init())
     }
 }
 

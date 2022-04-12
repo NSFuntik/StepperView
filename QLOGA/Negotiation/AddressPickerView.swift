@@ -13,7 +13,7 @@ import SwiftUI
 struct AddressPickerView: View {
     @State var showMap = false
     @State private var price: Int = 0
-    @State var address: String = (CstAddress.init().total ?? "")
+    @State var address: String = ""
     @Binding var pickedAddress: CstAddress
     @FocusState var fieldIsFocused: Bool
     @State var actorType: ActorsEnum = .CUSTOMER
@@ -169,6 +169,7 @@ struct AddressPickerView: View {
             }.padding(.horizontal, 20).padding(.top, 10)
                 .onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        address = pickedAddress.total ?? ""
                         $focusedField.wrappedValue = .search
                         fieldIsFocused = true
                     }

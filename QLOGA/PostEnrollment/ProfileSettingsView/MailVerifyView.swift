@@ -5,7 +5,7 @@
 //  Created by Dmitry Mikhailov on 3/17/22.
 //
 
-import AnyFormatKitSwiftUI
+//import AnyFormatKitSwiftUI
 import SwiftUI
 struct MailVerifyView: View {
 	let bounds = UIScreen.main.bounds

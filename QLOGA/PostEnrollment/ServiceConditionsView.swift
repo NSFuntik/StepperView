@@ -111,7 +111,7 @@ struct ServiceConditionsView: View {
 				Spacer()
 			}
 			Spacer()
-		}.padding(.horizontal, 20).padding(.top, 10)
+		}.padding(.horizontal, 20).padding(.vertical, 10)
 			.navigationTitle("Conditions")
 			.navigationBarTitleDisplayMode(.inline)
 			.onAppear {

@@ -4,22 +4,33 @@
 //
 //  Created by Dmitry Mikhailov on 4/10/22.
 //
-
+import Combine
 import SwiftUI
 import AnyFormatKitSwiftUI
 import BottomSheetSwiftUI
 class RequestViewModel: ObservableObject {
-    @Published var requests: CstRequests = []
+    public let objectWillChange = PassthroughSubject<Void, Never>()
+    @Published var requests: CstRequests = [] {
+        willSet {
+            objectWillChange.send()
+        }
+    }
     static let shared = RequestViewModel()
+
+
     @Published var notes = ""
     init() {
         let requestsMeta: CstRequestMeta = try! newJSONDecoder().decode(CstRequestMeta.self, from: try! Data(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: "requests", ofType: "json")!)))
         self.requests = requestsMeta.requests
-        print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
         print(self.requests)
-        print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
         print(requestsMeta)
     }
+
+    func createRequest(request: CstRequest, completion: @escaping () -> ()) {
+        self.requests.append(request)
+        completion()
+    }
+
 }
 enum RequestBottomSheetPosition: CGFloat, CaseIterable {
     case middle = 0.4
@@ -29,14 +40,20 @@ struct CstCreateRequestView: View {
     @State var bottomSheetPosition: RequestBottomSheetPosition = .hidden
     @State var showInfo = false
     @State var text = ""
-    @State private var totalChars = 0
     @State private var lastText = ""
-    @StateObject var RequestVM = RequestViewModel()
-
-    @ObservedObject var CategoryVM: CategoriesViewModel
-    //    @State var totalPrice: NSNumber?
-    @FocusState var isEditingPrice: Bool
+//    @StateObject var RequestVM = RequestViewModel()
+//    @FocusState private var focusedField: Field?
+//    @ObservedObject var CategoryVM: CategoriesViewModel
+    @Binding var category: Category
+    @State var cstRequest = CstRequest(
+        statusRecord: .init(date: getString(from: Date(), "YYYY-MM-DDTHH:MM:SS") + ".312336Z", actor: "CUSTOMER", actorId: 1002, action: "CREATE", status: "LIVE", display: "LIVE"),
+        id: UUID.init().hashValue, offeredSum: 0, placedDate: Date(), orderedDate: Date(),
+        validDate: Date(timeInterval: TimeInterval(1), since: Date()),
+        visits: 1, address: testProvider.address.defaultAddress, services: [],
+        cstActions: [CstCstAction.cancel, .stop, .update], notes: "Enter your note")
+//    @FocusState var isEditingPrice: Bool
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+    @State private var totalChars = 1
 
     @State private var numberFormatter: NumberFormatter = {
         var nf = NumberFormatter()
@@ -47,10 +64,10 @@ struct CstCreateRequestView: View {
 
     var body: some View {//.filter{$0.unitsCount.wrappedValue > 0}.sorted(by: {$0.id < $1.id})
         ZStack {
-            ScrollView(.vertical, showsIndicators: true) {
+            ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .center, spacing: 10) {
                     VStack {
-                        ForEach($CategoryVM.categories.projectedValue[CategoryVM.pickedService].services.filter({s in s.unitsCount.wrappedValue > 0}).sorted(by: {$0.id.wrappedValue < $1.id.wrappedValue}))
+                        ForEach($category.projectedValue.services.filter({s in s.unitsCount.wrappedValue > 0}).sorted(by: {$0.id.wrappedValue < $1.id.wrappedValue}))
                         { service in
                             Section {
                                 NavigationLink(destination: CategoryServiceDetailView(service: service)) {
@@ -96,19 +113,21 @@ struct CstCreateRequestView: View {
                                 //                            .padding(.horizontal, 25)
                                 Spacer()
                                 DatePicker("",
-                                           selection: Binding(get: {
-                                    getDate(from: $CategoryVM.OrderTime.from, "dd/MM/yy HH:mm").wrappedValue
-                                }, set: { newValue in
-                                    $CategoryVM.OrderTime.from.wrappedValue = getString(from: newValue, "dd/MM/yy HH:mm")
-                                    let toDate = getDate(from: $CategoryVM.OrderTime.to, "dd/MM/yy HH:mm").wrappedValue
-                                    let fotmatter = DateFormatter()
-                                    fotmatter.dateFormat = "MMdd"
-                                    let fromDay = Int(fotmatter.string(from: newValue))!
-                                    let toDay = Int(fotmatter.string(from: toDate))!
-                                    if toDay < fromDay {
-                                        $CategoryVM.OrderTime.to.wrappedValue = getString(from: newValue, "dd/MM/yy HH:mm")
-                                    }
-                                }), displayedComponents: [.date, .hourAndMinute])
+                                           selection: $cstRequest.orderedDate
+//                                            Binding(get: {
+//                                    getDate(from: $cstRequest.orderedDate,"YYYY-MM-DDTHH:MM:SSZ").wrappedValue
+//                                }, set: { newValue in
+//                                    $CategoryVM.OrderTime.from.wrappedValue = getString(from: newValue, "YYYY-MM-DDTHH:MM:SSZ")
+//                                    let toDate = getDate(from: $cstRequest.orderedDate, "YYYY-MM-DDTHH:MM:SSZ").wrappedValue
+//                                    let fotmatter = DateFormatter()
+//                                    fotmatter.dateFormat = "YYYY-MM-DDTHH:MM:SSZ"
+//                                    let fromDay = Int(fotmatter.string(from: newValue))!
+//                                    let toDay = Int(fotmatter.string(from: toDate))!
+//                                    if toDay < fromDay {
+//                                        $CategoryVM.OrderTime.to.wrappedValue = getString(from: newValue, "YYYY-MM-DDTHH:MM:SSZ")
+//                                    }
+//                                })
+                                           , displayedComponents: [.date, .hourAndMinute])
 
                             }.padding(.horizontal, 5).frame(height: 40)
                             Divider().padding(.horizontal, -10).padding(.leading, 25)
@@ -124,20 +143,21 @@ struct CstCreateRequestView: View {
                                 Spacer()
                                 VStack(alignment: .trailing) {
                                     //                                FormatSumTextField(numberValue: $CategoryVM.totalPrice, textPattern: "£###.##")
-                                    //                                TextField("Total price:", value: CategoryVM.totalPrice,
-                                    //                                          formatter: numberFormatter, prompt: Text("£80.00"))
+                                    TextField("Total price:", value: $cstRequest.offeredSum, formatter: numberFormatter, prompt: Text("£80.00"))
 
-                                    Text("£80.00")
+//                                    Text("£80.00")
 
                                         .font(Font.system(size: 17,
                                                           weight: .semibold,
                                                           design: .rounded))
                                         .foregroundColor(Color.black)
                                         .keyboardType(.decimalPad)
+                                        .gesture(DragGesture()
+                                        .onChanged{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)})
                                         .toolbar{
                                             ToolbarItem(placement: .keyboard, content: {
                                                 Button(role: ButtonRole.destructive) {
-
+                                                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                                                 } label: {
                                                     Text("Done")
                                                 }})
@@ -151,9 +171,8 @@ struct CstCreateRequestView: View {
                             .stroke(Color.secondary
                                 .opacity(0.7), lineWidth: 1).padding(1))
 
+
                     VStack {
-
-
                         Button {
                             self.presentationMode.wrappedValue.dismiss()
                         } label: {
@@ -163,7 +182,7 @@ struct CstCreateRequestView: View {
                                     .overlay {
                                         HStack {
                                             Text("Add services")
-                                                //.withDoneButtonStyles(backColor: .white, accentColor: .accentColor)
+                                            //.withDoneButtonStyles(backColor: .white, accentColor: .accentColor)
                                                 .withDoneButtonStyles(backColor: .white, accentColor: .accentColor, isWide: false, width: UIScreen.main.bounds.width - 50, height: 50)
                                         }
                                     }
@@ -176,14 +195,15 @@ struct CstCreateRequestView: View {
 
                     VStack {
                         //        if actorType != .CUSTOMER {}
-                        NavigationLink(destination: AddressPickerView(pickedAddress: $RequestVM.requests[0].address)) {
+                        NavigationLink(destination: AddressPickerView(pickedAddress: $cstRequest.address)) {
                             Label {
                                 Text("Address")
                                     .foregroundColor(Color.black)
                                     .multilineTextAlignment(.leading)
                                     .font(Font.system(size: 17, weight: .regular, design: .rounded))
                                 Spacer()
-                                Text($RequestVM.requests[0].address.wrappedValue.total ?? "")
+//                                Text($RequestVM.requests[0].address.wrappedValue.total ?? "")
+                                Text(cstRequest.address.total ?? "")
                                     .lineLimit(2)
                                     .foregroundColor(Color.secondary)
                                     .font(Font.system(size: 13, weight: .regular, design: .rounded))
@@ -204,7 +224,7 @@ struct CstCreateRequestView: View {
                         Divider().background(Color.secondary).padding(.leading, 50)
                         Section {
                             DisclosureGroup {
-                                Picker("Visits count", selection: $RequestVM.requests[0].visits) {
+                                Picker("Visits count", selection: $cstRequest.visits) {
                                     ForEach(1 ..< 20) {
                                         Text("\($0)")
                                     }.frame( height: 60, alignment: .center)
@@ -216,7 +236,7 @@ struct CstCreateRequestView: View {
                                         .multilineTextAlignment(.leading)
                                         .font(Font.system(size: 17, weight: .regular, design: .rounded))
                                     Spacer()
-                                    Text($RequestVM.requests[0].visits.wrappedValue.description)
+                                    Text("\(cstRequest.visits)")
                                         .lineLimit(2)
                                         .foregroundColor(Color.secondary)
                                         .font(Font.system(size: 13, weight: .regular, design: .rounded))
@@ -270,14 +290,14 @@ struct CstCreateRequestView: View {
                         }
                         Divider().background(Color.secondary).padding(.leading, 50)
                         Section {
-                            NavigationLink(destination: EditorView(note: $RequestVM.requests[0].wrappedValue.notes)) {
+                            NavigationLink(destination: EditorView(note: $cstRequest.notes)) {
                                 Label {
                                     Text("Notes")
                                         .foregroundColor(Color.black)
                                         .multilineTextAlignment(.leading)
                                         .font(Font.system(size: 17, weight: .regular, design: .rounded))
                                     Spacer()
-                                    Text("")
+                                    Text("\(cstRequest.notes)")
                                         .lineLimit(2)
                                         .foregroundColor(Color.secondary)
                                         .font(Font.system(size: 13, weight: .regular, design: .rounded))
@@ -301,7 +321,7 @@ struct CstCreateRequestView: View {
                         Section {
 
                                 DisclosureGroup {
-                                    Picker("Visits count", selection: $RequestVM.requests[0].visits) {
+                                    Picker("Visits count", selection: $totalChars) {
                                         ForEach(1 ..< 20) {
                                             Text("\($0)")
                                         }.frame( height: 60, alignment: .center)
@@ -313,7 +333,7 @@ struct CstCreateRequestView: View {
                                         .multilineTextAlignment(.leading)
                                         .font(Font.system(size: 17, weight: .regular, design: .rounded))
                                     Spacer()
-                                    Text("")
+                                    Text("\(totalChars.description)")
                                         .lineLimit(2)
                                         .foregroundColor(Color.secondary)
                                         .font(Font.system(size: 13, weight: .regular, design: .rounded))
@@ -339,14 +359,40 @@ struct CstCreateRequestView: View {
                                 .opacity(0.7), lineWidth: 1).padding(1))
                     Spacer()
                 }
+                VStack {
+                    Button {
+                        //                            RequestViewModel.ObjectWillChangePublisher
+                        cstRequest.validDate = Date(timeIntervalSinceNow: TimeInterval(totalChars * 604800))
+                        let services: [CategoryService] = $category.wrappedValue.services.filter({s in s.unitsCount > 0}).sorted(by: {$0.id < $1.id})
+                        services.forEach { service in
+                            cstRequest.services.append(CstService(id: service.id, quantity: service.unitsCount, qserviceId: service.sortOrder))
+                        }
+                        RequestViewModel.shared.createRequest(request: cstRequest) {
+                            TabController.shared.open(HomeTab.requests)
+                        }
+                    } label: {
+                        VStack {
+                            Rectangle().foregroundColor(.clear)
+                                .ignoresSafeArea(.container, edges: .horizontal)
+                                .overlay {
+                                    HStack {
+                                        Text("Create Open Request")
+                                        //.withDoneButtonStyles(backColor: .white, accentColor: .accentColor)
+                                            .withDoneButtonStyles(backColor: .accentColor, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width - 50, height: 50)
+                                    }
+                                }
+                        }
+                    }
+                }
+                .padding(.vertical, 20)
+                Spacer(minLength: 100)
             }
-
         }
 
 
         .bottomSheet(bottomSheetPosition: $bottomSheetPosition,
                      options: [.allowContentDrag, .tapToDissmiss, .swipeToDismiss,
-                               .cornerRadius(15), .shadow(color: .white, radius: 3, x: 3, y: 3),
+                               .cornerRadius(15),
                                .noBottomPosition, .appleScrollBehavior,
                                .dragIndicatorColor(Color.lightGray.opacity(0.5)),
                                .showCloseButton(action: { self.bottomSheetPosition = .hidden })],
@@ -361,7 +407,7 @@ struct CstCreateRequestView: View {
                     //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
                         .lineLimit(1)
                     Spacer()
-                    Text(getString(from: $RequestVM.requests[0].wrappedValue.placedDate, "dd/MM/yy HH:mm"))
+                    Text(getString(from: cstRequest.placedDate, "dd/MM/yy HH:mm"))
                         .multilineTextAlignment(.trailing)
                         .font(Font.system(size: 20, weight: .regular, design: .rounded))
                         .foregroundColor(.secondary)
@@ -376,7 +422,7 @@ struct CstCreateRequestView: View {
                     //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
                         .lineLimit(1)
                     Spacer()
-                    Text(getString(from: $RequestVM.requests[0].wrappedValue.placedDate, "dd/MM/yy HH:mm"))
+                    Text(getString(from: cstRequest.placedDate, "dd/MM/yy HH:mm"))
                         .multilineTextAlignment(.trailing)
                         .font(Font.system(size: 20, weight: .regular, design: .rounded))
                         .foregroundColor(.secondary)
@@ -384,14 +430,14 @@ struct CstCreateRequestView: View {
                         .lineLimit(1)
                 }
                 HStack {
-                    Text("Untill")
+                    Text("Until")
                         .multilineTextAlignment(.leading)
                         .font(Font.system(size: 20, weight: .regular, design: .rounded))
                         .foregroundColor(.secondary)
                     //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
                         .lineLimit(1)
                     Spacer()
-                    Text(getString(from: $RequestVM.requests[0].wrappedValue.validDate, "dd/MM/yy HH:mm"))
+                    Text(getString(from: cstRequest.validDate, "dd/MM/yy HH:mm"))
                         .multilineTextAlignment(.trailing)
                         .font(Font.system(size: 20, weight: .regular, design: .rounded))
                         .foregroundColor(.secondary)
@@ -406,7 +452,7 @@ struct CstCreateRequestView: View {
                     //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
                         .lineLimit(1)
                     Spacer()
-                    Text($RequestVM.requests[0].wrappedValue.visits.description)
+                    Text(cstRequest.visits.description)
                         .multilineTextAlignment(.trailing)
                         .font(Font.system(size: 20, weight: .regular, design: .rounded))
                         .foregroundColor(.secondary)
@@ -427,18 +473,17 @@ struct EditorView: View {
     }
     @FocusState private var focusedField: FocusField?
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
-    @State var note: String
-    @StateObject var requestVM = RequestViewModel()
-    @State var input = ""
+    @Binding var note: String
+//    @StateObject var requestVM = RequestViewModel()
     var body: some View {
         NavigationView {
             ZStack {
                 Color.white.opacity(0.3).edgesIgnoringSafeArea(.all)
                 TextEditor(text: $note)
                     .focused($focusedField, equals: .field)
-                    .onChange(of: input, perform: { newValue in
-                        $requestVM.notes.wrappedValue = newValue
-                    })
+//                    .onChange(of: input, perform: { newValue in
+//                        $requestVM.notes.wrappedValue = newValue
+//                    })
                     .font(.body)
                     .foregroundColor(.secondary)
                     .padding()// Text color
@@ -450,7 +495,6 @@ struct EditorView: View {
                         HStack {
                             Spacer()
                             Button(role: ButtonRole.destructive) {
-                                $requestVM.notes.wrappedValue = $input.wrappedValue
                                 presentationMode.wrappedValue.dismiss()
                             } label: {
                                 Text("Save")
@@ -464,7 +508,7 @@ struct EditorView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationViewStyle(.stack)
                 .onAppear {
-                    input = $requestVM.notes.wrappedValue
+
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         self.focusedField = .field
                     }

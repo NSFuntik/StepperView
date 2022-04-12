@@ -340,6 +340,7 @@ struct ProfileSettingsView: View {
 							.stroke(Color.secondary
 								.opacity(0.7), lineWidth: 1).padding(1))
 				}.padding(.top, 20)
+                Spacer(minLength: 30)
 			}
 		}.padding(.horizontal, 20).padding(.top, 10)
 
@@ -418,54 +419,46 @@ struct ProfileSettingsView: View {
 				}.padding(.horizontal, 5).frame(height: 40)
 				Divider().padding(.horizontal, -10).padding(.leading, 25)
 			}
-			ZStack {
-				DisclosureGroup(isExpanded: $isPickedDate) {
-					DatePicker(
-						"Birthday",
-						selection: $customer.birthday,
-						in: ...Date(),
-						displayedComponents: [.date])
-						.datePickerStyle(.graphical)
-						.onSubmit {
-							$isPickedDate.wrappedValue = false
-						}
-				} label: {
-					HStack(alignment: .top) {
-						Text("Birthday")
-							.foregroundColor(Color.black.opacity(0.9))
-							.multilineTextAlignment(.leading)
-							.font(Font.system(size: 17, weight: .regular, design: .rounded))
-							.lineLimit(1)
-						Spacer()
-						if $isPickedDate.wrappedValue {
-							Text(getString(from: $customer.birthday.wrappedValue))
-								.foregroundColor(Color.white)
-								.multilineTextAlignment(.trailing)
-								.font(Font.system(size: 17, weight: .regular, design: .rounded))
-								.lineLimit(1)
-								.padding(3)
-								.background(RoundedRectangle(cornerRadius: 5).fill(Color.lightGray))
-						}
-					}
-				}
-				HStack {
-					Spacer()
-					if !$isPickedDate.wrappedValue {
-						Text(getString(from: $customer.birthday.wrappedValue))
-							.foregroundColor(Color.white)
-							.multilineTextAlignment(.trailing)
-							.font(Font.system(size: 17, weight: .regular, design: .rounded))
-							.lineLimit(1)
-							.padding(3)
-							.background(RoundedRectangle(cornerRadius: 5).fill(Color.lightGray))
-							.offset(x: 10)
-							.onTapGesture {
-								$isPickedDate.wrappedValue.toggle()
-							}
-					}
-				}
-				.padding(.leading, 10)
-			}
+            HStack(alignment: .center) {
+//                Text("Birthday")
+//                    .foregroundColor(Color.black.opacity(0.9))
+//                    .multilineTextAlignment(.leading)
+//                    .font(Font.system(size: 17, weight: .regular, design: .rounded))
+//                    .lineLimit(1)
+//                Spacer()
+                DatePicker(
+                    "Birthday",
+                    selection: $customer.birthday,
+                    in: ...Date(),
+                    displayedComponents: [.date])
+//                .datePickerStyle(.compact)
+                .onSubmit {
+                    $isPickedDate.wrappedValue = false
+                }
+            }
+//            ZStack {
+//                DisclosureGroup(isExpanded: $isPickedDate) {
+//
+//                } label: {
+//				}
+//				HStack {
+//					Spacer()
+//					if !$isPickedDate.wrappedValue {
+//						Text(getString(from: $customer.birthday.wrappedValue))
+//							.foregroundColor(Color.white)
+//							.multilineTextAlignment(.trailing)
+//							.font(Font.system(size: 17, weight: .regular, design: .rounded))
+//							.lineLimit(1)
+//							.padding(3)
+//							.background(RoundedRectangle(cornerRadius: 5).fill(Color.lightGray))
+//							.offset(x: 10)
+//							.onTapGesture {
+//								$isPickedDate.wrappedValue.toggle()
+//							}
+//					}
+//				}
+//				.padding(.leading, 10)
+//			}
 			.padding(.horizontal).frame(height: $isPickedDate.wrappedValue ? .infinity : 40)
 			Divider().padding(.horizontal, -10).padding(.leading, 25)
 		}
@@ -545,7 +538,7 @@ struct ProfileSettingsView_Previews: PreviewProvider {
 	static var previews: some View {
 		Group {
 			NavigationView {
-				ProfileSettingsView(actorType: .PROVIDER, customer: Binding(projectedValue: .constant(testCustomer)), provider: Binding(projectedValue: .constant(testProvider)))
+				ProfileSettingsView(actorType: .CUSTOMER, customer: Binding(projectedValue: .constant(testCustomer)), provider: Binding(projectedValue: .constant(testProvider)))
 			}.previewDevice("iPhone 6s")
 		}
 	}
