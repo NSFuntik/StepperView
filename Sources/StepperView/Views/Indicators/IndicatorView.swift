@@ -54,11 +54,12 @@ struct IndicatorView: View {
                 .widthPreference(column: index)
                 .foregroundColor(color)
                 .eraseToAnyView()
-        case .image(let image, let width):
+        case .image(let image, let width, let color):
             return image
                 .resizable()
                 .frame(width: width, height: width)
                 .widthPreference(column: index)
+                .foregroundColor(color)
                 .eraseToAnyView()
         case .custom(let view):
                 return view
