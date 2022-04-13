@@ -175,19 +175,13 @@ struct CstService: Codable, Hashable {
     }
 
     var toCategoryService: CategoryService {
-        var CategoryService =  CategoryService(id: self.qserviceId, sortOrder: self.id, name: self.name, descr: self.descr, unit: self.unit, unitDescr: self.unitDescr, subject: self.subject, works: self.works, exclusions: self.exclusions, timeNorm: self.timeNorm, avatarID: self.avatarID, avatarURL: self.avatarURL)
+        var CategoryService =  CategoryService(id: self.id!, sortOrder: self.qserviceId, name: self.name, descr: self.descr, unit: self.unit, unitDescr: self.unitDescr, subject: self.subject, works: self.works, exclusions: self.exclusions, timeNorm: self.timeNorm, avatarID: self.avatarID, avatarURL: self.avatarURL)
         CategoryService.unitsCount = self.quantity ?? 0
         return CategoryService
     }
 }
 
-var qServiceID: [Int : ServiceType] = [
-    330 : ServiceType.Gas
 
-
-
-
-]
 
 //
 // To read values from URLs:

@@ -11,7 +11,7 @@ import SwiftUI
 struct IntroView: View {
 	@State var address: String = "Enter new address"
 //	@State var address: String = "EH2 2ER Edinburgh Princes Street 09"
-	@State var selectedButton: Int = ServiceType.Cleaning.id
+	@State var selectedButton: Int = CategoryType.Cleaning.id
 	@State var isSearchEnabled = false
 	@State var actorType: ActorsEnum = .CUSTOMER
 	var body: some View {

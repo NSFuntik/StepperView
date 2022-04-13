@@ -18,7 +18,7 @@ struct ProviderSearchView: View {
 
     // MARK: Internal
 
-    @State var selectedButton: Int = ServiceType.Gas.id
+    @State var selectedButton: Int = CategoryType.Gas.id
     @State var isLimited = true
 
     var body: some View {

@@ -21,9 +21,9 @@ class CategoriesViewModel: ObservableObject {
         }
     }
     init() {
-        self.pickedService = CategoryService.init().id
         self.defaultCategories = try! newJSONDecoder().decode(Categories.self, from: try! Data(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: "categories", ofType: "json")!)))
-        categories.append(contentsOf: defaultCategories)
+        self.pickedService = defaultCategories.first!.id 
+        self.categories.append(contentsOf: defaultCategories)
     }
 }
 
@@ -31,25 +31,30 @@ class CategoriesViewModel: ObservableObject {
 struct CstRequestsTabView: View {
     @Binding var provider: Provider
     @Binding var customer: Customer
-    @StateObject var CategoryController = CategoriesViewModel()
+    @StateObject var CategoryController = CategoriesViewModel.init()
     @StateObject var requestsController = RequestViewModel()
     @EnvironmentObject var tabController: TabController
-
+  
     var body: some View {
         ZStack {
-
-
                 VStack {
                     if requestsController.requests.count > 0 {
                         List($requestsController.requests.projectedValue, id: \.self) { request in
-                            Section {
-//                            ScrollView {
 
-                                RequestsCell(request: request)
-                                    .background(.white).padding(10)
-//                                Divider().foregroundColor(.secondary)
+                                Section {
+
+                                    RequestsCell(request: request).environmentObject(CategoryController.CategoryVM)
+                                       .padding(10)
+                                        .tag(request.wrappedValue.id)
+                                    //                                Divider().foregroundColor(.secondary)
+
+
+                                if requestsController.requests.last!.id == request.id.wrappedValue {
+                                    Spacer(minLength: 100)
+                                }
                             }
                         }.listStyle(InsetListStyle())
+
                     } else {
                         Spacer(minLength: 100)
                         Image("RequestsImage")
@@ -82,6 +87,8 @@ struct CstRequestsTabView: View {
                     }
                 }.frame(height: 50)
             }
+        }.onAppear {
+//            tabController.activeActor = actorType
         }
 //        .padding(.horizontal , 20)
     }
@@ -94,131 +101,154 @@ struct PrvRequestsTabView_Previews: PreviewProvider {
 }
 
 struct RequestsCell: View {
-    typealias Int = ServiceType.ID
+    typealias Int = CategoryType.ID
     @Binding var request: CstRequest
+    @State var catID: CategoryType.ID = 0
+    @EnvironmentObject var CategoryController: CategoriesViewModel
+    @State private var numberFormatter: NumberFormatter = {
+        var nf = NumberFormatter()
+        nf.multiplier = 0.01
+        nf.numberStyle = .currency
+        nf.locale = .init(identifier: "en_GB")
+        return nf
+    }()
+
 //    @State var services: [CategoryService]
     var body: some View {
         
-        NavigationLink(destination: CstCreateRequestView(bottomSheetPosition: .hidden, showInfo: false, text: "", categories: request.services.compactMap({$0.toCategoryService}), cstRequest: request)) {
+        NavigationLink(destination: CstCreateRequestView(categories: request.services.map({$0.toCategoryService}), cstRequest: $request.wrappedValue).environmentObject(CategoryController.CategoryVM)) {
                 VStack {
                 HStack {
-                    Text("#\(request.id)(\(request.statusRecord.status))")
-//                        .multilineTextAlignment(.leading)
-//                        .font(Font.system(size: 17, weight: .regular, design: .rounded))
-//                        .foregroundColor(.black)
-//                    //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
-//                        .lineLimit(1)
+                    HStack(spacing: 0)  {
+                        Text("#\(request.id)") .font(Font.system(size: 17, weight: .regular, design: .rounded)).foregroundColor(.black)
+                        Text("(\(request.statusRecord.status))")
+                            .font(Font.system(size: 17, weight: .regular, design: .rounded)).foregroundColor(.lightGray)
+                    }
                     Spacer()
-                    Text("£\(request.offeredSum).00")                     .multilineTextAlignment(.trailing)
-                        .font(Font.system(size: 18, weight: .medium, design: .rounded))
-                        .foregroundColor(.black)
-                    //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
-                        .lineLimit(1)
-                }
-                    Divider().padding(.horizontal, -10).padding(.leading, 10)                            .ignoresSafeArea(.container, edges: .horizontal)
-
-                HStack {
-                    Text("Placed")
-                        .multilineTextAlignment(.leading)
-
-                        .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                        .foregroundColor(.black)
-                    //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
-                        .lineLimit(1)
-                    Spacer()
-                    Text(getString(from: request.placedDate, "dd/MM/yy HH:mm"))
+                    Text(numberFormatter.string(from: request.offeredSum as NSNumber)!)
                         .multilineTextAlignment(.trailing)
-                        .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                        .font(Font.system(size: 18, weight: .semibold, design: .rounded))
                         .foregroundColor(.black)
-                    //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
                         .lineLimit(1)
-                }
-                    Divider().foregroundColor(.black)
-                HStack {
-                    Text("Ordered:")
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(Color.accentColor)
                         .multilineTextAlignment(.leading)
+                        .font(Font.system(size: 15, weight: .regular, design: .rounded))
+                        .padding(.horizontal, 5)
+                        .padding(.trailing, -10)
+                }.padding(.vertical, 5)
+//                    Divider().background(Color.lightGray.opacity(0.2))
+                    VStack(spacing: 7) {
 
-                        .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                        .foregroundColor(.black)
-                    //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
-                        .lineLimit(1)
-                    Spacer()
-                    Text(getString(from: request.placedDate, "dd/MM/yy HH:mm"))
-                        .multilineTextAlignment(.trailing)
-                        .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                        .foregroundColor(.black)
-                    //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
-                        .lineLimit(1)
+                        HStack {
+                            Text("Placed")
+                                .multilineTextAlignment(.leading)
+
+                                .font(Font.system(size: 17, weight: .light, design: .rounded))
+                                .foregroundColor(.black)
+                            //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
+                                .lineLimit(1)
+                            Spacer()
+                            Text(getString(from: request.placedDate, "dd/MM/yy HH:mm"))
+                                .multilineTextAlignment(.trailing)
+                                .font(Font.system(size: 17, weight: .light, design: .rounded))
+                                .foregroundColor(.black)
+                            //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
+                                .lineLimit(1)
+                        }
+                        Divider().background(Color.lightGray.opacity(0.2))
+                        HStack {
+                            Text("Ordered:")
+                                .multilineTextAlignment(.leading)
+
+                                .font(Font.system(size: 17, weight: .light, design: .rounded))
+                                .foregroundColor(.black)
+                                .lineLimit(1)
+                            Spacer()
+                            Text(getString(from: request.placedDate, "dd/MM/yy HH:mm"))
+                                .multilineTextAlignment(.trailing)
+                                .font(Font.system(size: 17, weight: .light, design: .rounded))
+                                .foregroundColor(.black)
+                                .lineLimit(1)
+                        }
+                        Divider().background(Color.lightGray.opacity(0.2))
+                        HStack {
+                            Text("Valid until:")
+                                .multilineTextAlignment(.leading)
+                                .font(Font.system(size: 17, weight: .light, design: .rounded))
+                                .foregroundColor(.black)
+                                .lineLimit(1)
+                            Spacer()
+                            Text(getString(from: request.validDate, "dd/MM/yy HH:mm"))
+                                .multilineTextAlignment(.trailing)
+                                .font(Font.system(size: 17, weight: .light, design: .rounded))
+                                .foregroundColor(.black)
+                                .lineLimit(1)
+                        }
+                    }
+//                    Divider().background(Color.lightGray.opacity(1))
+                    VStack(alignment: .leading, spacing: 5) {
+                    RemovableTagListView(selected: $catID, isRemovable: .constant(false),
+                                         categoriesVM: CategoriesViewModel.shared,
+                                         tags:
+                            .constant(Set(getCategoriesFor(request: request).frequency.map({ category, count in
+                                return "\(category.title): \(count)"
+                            })))).disabled(true)
+
+                    HStack {
+                        Text("\(request.visits) Visit")
+                        Spacer()
+                        Image("Magnifier")
+                            .resizable()
+                            .renderingMode(.template)
+                            .frame(width: 10, height: 10)
+                            .scaledToFit()
+                            .foregroundColor(Color.infoBlue)
+                        Text("1")
+                            .padding(.trailing, 5)
+                        Image("Eye")
+                            .resizable()
+                            .renderingMode(.template)
+                            .frame(width: 10, height: 10)
+                            .scaledToFit()
+                            .foregroundColor(Color.infoBlue)
+                        Text("10")
+                            .padding(.trailing, 5)
+                    }.padding([.top], 10)
                 }
-                    Divider().padding(.horizontal, -10).padding(.leading, 10)                            .ignoresSafeArea(.container, edges: .horizontal)
-
-                HStack {
-                    Text("Valid until:")
-                        .multilineTextAlignment(.leading)
-                        .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                        .foregroundColor(.black)
-                    //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
-                        .lineLimit(1)
-                    Spacer()
-                    Text(getString(from: request.validDate, "dd/MM/yy HH:mm"))
-                        .multilineTextAlignment(.trailing)
-                        .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                        .foregroundColor(.black)
-                    //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
-                        .lineLimit(1)
-                }
-                    Divider().padding(.horizontal, -10).padding(.leading, 10)                            .ignoresSafeArea(.container, edges: .horizontal)
-
-                HStack {
-                    Text("Looked")
-                        .multilineTextAlignment(.leading)
-                        .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                        .foregroundColor(.black)
-                    //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
-                        .lineLimit(1)
-                    Spacer()
-                    Text(request.visits.description)
-                        .multilineTextAlignment(.trailing)
-                        .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                        .foregroundColor(.black)
-                    //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
-                        .lineLimit(1)
-                }
-                HStack {
-                    Text("\(request.visits) Visit")
-                    Spacer()
-                    Image("Magnifier")
-                        .resizable()
-                        .frame(width: 10, height: 10)
-                        .scaledToFit()
-                        .foregroundColor(Color.infoBlue)
-                    Text("1")
-                        .padding(.trailing, 5)
-                    Image("Eye")
-                        .resizable()
-                        .frame(width: 10, height: 10)
-                        .scaledToFit()
-                        .foregroundColor(Color.infoBlue)
-                    Text("10")
-                        .padding(.trailing, 5)
-                }
-//                HStack {
-//                    RemovableTagListView(selected: nil, isRemovable: .constant(false),
-//                                         categoriesVM: CategoriesViewModel.shared,
-//                                         tags:
-//                            .constant(Set($category.projectedValue.services.filter({$0.unitsCount.wrappedValue > 0})
-//                                .compactMap {_ in return "\(category.name.wrappedValue!): \(request.services.filter {$0.unitsCount.wrappedValue > 0}.count)"
-//                                })))
-//                }
-
-
 
             }
         }
     }
-//    func getCategoriesFor(request: CstRequest) -> Category {
-//        request.services.map { s in
-//            s.qserviceId
-//        }
-//    }
+    func getCategoriesFor(request: CstRequest) -> [CategoryType] {
+        var categories: [CategoryType] = []
+        let qServiceIDDict = qServiceID
+        request.services.forEach { s in
+            qServiceIDDict.keys.compactMap { qId in
+                if qId == s.qserviceId {
+                    categories.append(qServiceID[qId]!)
+                }
+            }
+        }
+        return categories
+    }
 }
+
+extension Sequence where Element: Hashable {
+    var frequency: [Element: Int] { reduce(into: [:]) { $0[$1, default: 0] += 1 } }
+}
+//HStack {
+//    Text("Looked")
+//        .multilineTextAlignment(.leading)
+//        .font(Font.system(size: 17, weight: .regular, design: .rounded))
+//        .foregroundColor(.black)
+//    //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
+//        .lineLimit(1)
+//    Spacer()
+//    Text(request.visits.description)
+//        .multilineTextAlignment(.trailing)
+//        .font(Font.system(size: 17, weight: .regular, design: .rounded))
+//        .foregroundColor(.black)
+//    //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
+//        .lineLimit(1)
+//    }

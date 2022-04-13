@@ -14,11 +14,9 @@ struct ActorTypePickerView: View {
     @State var selectedActor: ActorsEnum = .CUSTOMER
     @StateObject var viewRouter = TabController()
 
-    @State var isPicked = true
+    @State var isPicked = false
     var body: some View {
-
         ZStack {
-
             VStack(alignment: .center, spacing: 10) {
                 HStack(alignment: .center) {
                     ServicesScrollView

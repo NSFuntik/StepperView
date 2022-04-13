@@ -255,7 +255,7 @@ private extension UIControl {
 
 
 extension Int {
-    var serviceTypeID: ServiceType {
-        return ServiceType.init(rawValue: self)!
+    var serviceTypeID: CategoryType {
+        return CategoryType.init(rawValue: self)!
     }
 }

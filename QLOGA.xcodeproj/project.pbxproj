@@ -14,6 +14,8 @@
 		1136534C27D2C972008168DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1136534B27D2C972008168DA /* LaunchScreen.storyboard */; };
 		1136534E27D33A8B008168DA /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1136534D27D33A8B008168DA /* LocationManager.swift */; };
 		1136535027D36BB6008168DA /* ServiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1136534F27D36BB6008168DA /* ServiceModel.swift */; };
+		11365928280618E90038A50F /* qServiceIDsDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11365927280618E90038A50F /* qServiceIDsDictionary.swift */; };
+		1136592A280647E60038A50F /* StaticCategoriesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11365929280647E60038A50F /* StaticCategoriesData.swift */; };
 		114159DF27D36C720091C254 /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114159DE27D36C720091C254 /* AddressModel.swift */; };
 		114159E127D36D0D0091C254 /* ProviderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114159E027D36D0D0091C254 /* ProviderModel.swift */; };
 		1145CB7E28020DE7006E11A9 /* CstOpenRequestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1145CB7D28020DE7006E11A9 /* CstOpenRequestsView.swift */; };
@@ -111,6 +113,8 @@
 		1136534B27D2C972008168DA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1136534D27D33A8B008168DA /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocationManager.swift; path = QLOGA/Helpers/LocationManager.swift; sourceTree = SOURCE_ROOT; };
 		1136534F27D36BB6008168DA /* ServiceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceModel.swift; sourceTree = "<group>"; };
+		11365927280618E90038A50F /* qServiceIDsDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = qServiceIDsDictionary.swift; sourceTree = "<group>"; };
+		11365929280647E60038A50F /* StaticCategoriesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticCategoriesData.swift; sourceTree = "<group>"; };
 		114159DE27D36C720091C254 /* AddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressModel.swift; sourceTree = "<group>"; };
 		114159E027D36D0D0091C254 /* ProviderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderModel.swift; sourceTree = "<group>"; };
 		1145CB7D28020DE7006E11A9 /* CstOpenRequestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CstOpenRequestsView.swift; sourceTree = "<group>"; };
@@ -238,6 +242,8 @@
 				1136534F27D36BB6008168DA /* ServiceModel.swift */,
 				1145CB7F280215AF006E11A9 /* CategoriesModel.swift */,
 				11A2780C28031EA90063D706 /* RequestModel.swift */,
+				11365927280618E90038A50F /* qServiceIDsDictionary.swift */,
+				11365929280647E60038A50F /* StaticCategoriesData.swift */,
 				114159DE27D36C720091C254 /* AddressModel.swift */,
 				11DD968B27FE55530005500A /* FAQModel.swift */,
 				11E31E5027D6738900B603E0 /* CleaningServiceModel.swift */,
@@ -683,6 +689,7 @@
 				119BE20A27D234C200B2D70F /* PhoneVerifyView.swift in Sources */,
 				11DD967127FDD8D60005500A /* RichText.swift in Sources */,
 				119BE20C27D234D300B2D70F /* AddressVerifyView.swift in Sources */,
+				1136592A280647E60038A50F /* StaticCategoriesData.swift in Sources */,
 				119BE1E727D2314E00B2D70F /* AddressSearchView.swift in Sources */,
 				119BE1F727D2323B00B2D70F /* ProviderVerificationsView.swift in Sources */,
 				119BE20727D2345300B2D70F /* EnrollmentInfoView.swift in Sources */,
@@ -691,6 +698,7 @@
 				11DD967A27FE13610005500A /* TagView.swift in Sources */,
 				1136535027D36BB6008168DA /* ServiceModel.swift in Sources */,
 				116DC78827D8F67000EFF552 /* EKWrapper.swift in Sources */,
+				11365928280618E90038A50F /* qServiceIDsDictionary.swift in Sources */,
 				119BE1EF27D231C400B2D70F /* ProviderOverview.swift in Sources */,
 				119CA41C27EF57A10082282C /* ProfilePublicView.swift in Sources */,
 				11DD968C27FE55530005500A /* FAQModel.swift in Sources */,
@@ -848,7 +856,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -916,7 +924,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.3;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.funtik.QLOGA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

@@ -127,7 +127,7 @@ struct ProfileHomeTabBarView: View {
 
                     }
                 }
-            }
+        }
             .environmentObject(tabController)
             .sheet(isPresented: $isFiltersPresented) { ProvidersFilterView().cornerRadius(35) }
             .navigationViewStyle(.stack)

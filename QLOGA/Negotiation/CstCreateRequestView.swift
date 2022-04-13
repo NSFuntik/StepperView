@@ -15,6 +15,8 @@ class RequestViewModel: ObservableObject {
             objectWillChange.send()
         }
     }
+    @Published var saved = false // This can store any value.
+
     static let shared = RequestViewModel()
 
 //    @Published var notes = ""
@@ -43,7 +45,8 @@ struct CstCreateRequestView: View {
     @State private var lastText = ""
     @EnvironmentObject var requestsController: RequestViewModel
     @EnvironmentObject var tabController: TabController
-
+    @EnvironmentObject var CategoryVM: CategoriesViewModel
+    @State var requestInfo: CstRequest? = nil
    
 
 //    @StateObject var RequestVM = RequestViewModel()
@@ -54,16 +57,17 @@ struct CstCreateRequestView: View {
 
     @State var cstRequest = CstRequest(
         statusRecord: .init(date: getString(from: Date(), "YYYY-MM-DDTHH:MM:SS") + ".312336Z", actor: "CUSTOMER", actorId: 1002, action: "CREATE", status: "LIVE", display: "LIVE"),
-        id: UUID.init().hashValue, offeredSum: 0, placedDate: Date(), orderedDate: Date(),
+        id: 0, offeredSum: 0, placedDate: Date(), orderedDate: Date(),
         validDate: Date(timeInterval: TimeInterval(1), since: Date()),
         visits: 1, address: testProvider.address.defaultAddress, services: [],
         cstActions: [CstCstAction.cancel, .stop, .update], notes: "Enter your note")
 //    @FocusState var isEditingPrice: Bool
-    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+    @Environment(\.dismiss) var dismiss
     @State private var totalChars = 1
 
     @State private var numberFormatter: NumberFormatter = {
         var nf = NumberFormatter()
+        nf.multiplier = 0.01
         nf.numberStyle = .currency
         nf.locale = .init(identifier: "en_GB")
         return nf
@@ -181,7 +185,7 @@ struct CstCreateRequestView: View {
 
                     VStack {
                         Button {
-                            self.presentationMode.wrappedValue.dismiss()
+                            dismiss()
                         } label: {
                             VStack {
                                 Rectangle().foregroundColor(.clear)
@@ -189,8 +193,7 @@ struct CstCreateRequestView: View {
                                     .overlay {
                                         HStack {
                                             Text("Add services")
-                                            //.withDoneButtonStyles(backColor: .white, accentColor: .accentColor)
-                                                .withDoneButtonStyles(backColor: .white, accentColor: .accentColor, isWide: false, width: UIScreen.main.bounds.width - 50, height: 50)
+                                                .withDoneButtonStyles(backColor: .white, accentColor: .accentColor, isWide: false, width: UIScreen.main.bounds.width - 50, height: 50, isShadowOn: false)
                                         }
                                     }
                             }
@@ -232,8 +235,8 @@ struct CstCreateRequestView: View {
                         Section {
                             DisclosureGroup {
                                 Picker("Visits count", selection: $cstRequest.visits) {
-                                    ForEach(1 ..< 20) {
-                                        Text("\($0)")
+                                    ForEach(0 ..< 20) {
+                                     if   $0 > 0 { Text("\($0)") }
                                     }.frame( height: 60, alignment: .center)
                                 }.pickerStyle(.wheel)
                             } label: {
@@ -329,8 +332,8 @@ struct CstCreateRequestView: View {
 
                                 DisclosureGroup {
                                     Picker("Visits count", selection: $totalChars) {
-                                        ForEach(1 ..< 20) {
-                                            Text("\($0)")
+                                        ForEach(0 ..< 20) {
+                                            if   $0 > 0 { Text("\($0)") }
                                         }.frame( height: 60, alignment: .center)
                                     }.pickerStyle(.wheel)
                                 } label: {
@@ -365,27 +368,21 @@ struct CstCreateRequestView: View {
                             .stroke(Color.secondary
                                 .opacity(0.7), lineWidth: 1).padding(1))
                     Spacer()
+
                 }
+
                 VStack {
                     Button {
-                        //                            RequestViewModel.ObjectWillChangePublisher
                         cstRequest.validDate = Date(timeIntervalSinceNow: TimeInterval(totalChars * 604800))
                         let services: [CategoryService] = categories
-//                            .flatMap { c in
-//                            c.services
-//                        }//$category.wrappedValue.services.filter({s in s.unitsCount > 0}).sorted(by: {$0.id < $1.id})
-
-//                        services.forEach { service in
                         cstRequest.services = services.map({$0.toCstService()})
-                        print(cstRequest.services)//.append(CstService(id: service.id, quantity: service.unitsCount, qserviceId: service.sortOrder))
-//                        }
+                        cstRequest.id = (requestsController.requests.last?.id ?? requestsController.requests.count) + 1
                         requestsController.createRequest(request: cstRequest) {
-                            requestsController.$requests.sink(receiveValue: { reqs in
-                                for i in 0...2 {
-                                    presentationMode.wrappedValue.dismiss()
-                                }
-//                                presentationMode.wrappedValue.dismiss()
-                            })
+//                            requestsController.$requests.sink(receiveValue: { _ in
+                                requestsController.saved = true
+                                dismiss()
+//                                dismiss()
+////                            })
                         }
 
                     } label: {
@@ -395,7 +392,6 @@ struct CstCreateRequestView: View {
                                 .overlay {
                                     HStack {
                                         Text("Create Open Request")
-                                        //.withDoneButtonStyles(backColor: .white, accentColor: .accentColor)
                                             .withDoneButtonStyles(backColor: .accentColor, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width - 50, height: 50)
                                     }
                                 }
@@ -406,8 +402,30 @@ struct CstCreateRequestView: View {
                 Spacer(minLength: 100)
             }
         }
-
-
+//        .onAppear {
+//            print("00000000000000000000000000000000000000000000000000\n\n\n")
+//
+//            print(categories)
+//        }
+        .onAppear {
+            if categories.filter({$0.name == nil}).isEmpty == false {
+                var newServices: [CategoryService] = []
+                categories.forEach { cat in
+                    if cat.name == nil {
+                        if var newCat = StaticCategories[cat.id] {
+                            if newServices.contains(where: {$0.id == newCat.id}) == false {
+                                newCat.unitsCount = cat.unitsCount
+                                //                            categories = categories.filter({$0.id != cat.id})
+                                newServices.append(newCat)
+                            }
+                        }
+                    }
+                    categories.removeAll()
+                    categories.append(contentsOf: newServices)
+                    categories.uniqued()
+            }
+            }
+        }
         .bottomSheet(bottomSheetPosition: $bottomSheetPosition,
                      options: [.allowContentDrag, .tapToDissmiss, .swipeToDismiss,
                                .cornerRadius(15),
@@ -532,5 +550,11 @@ struct EditorView: View {
                     }
                 }
         }
+    }
+}
+extension Sequence where Element: Hashable {
+    func uniqued() -> [Element] {
+        var set = Set<Element>()
+        return filter { set.insert($0).inserted }
     }
 }

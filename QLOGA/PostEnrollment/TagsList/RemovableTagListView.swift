@@ -14,7 +14,7 @@ import Combine
 struct RemovableTagListView: UIViewRepresentable {
 
 //    @Environment(\.colorScheme) var colorScheme
-    @Binding var selected: ServiceType.ID
+    @Binding var selected: CategoryType.ID
     @Binding var isRemovable: Bool
     @ObservedObject var categoriesVM: CategoriesViewModel
     @Binding var tags: Set<String>
@@ -79,11 +79,11 @@ struct RemovableTagListView: UIViewRepresentable {
 }
 
 class RemovableTagListViewCoordinator: TagListViewDelegate {
-    @Binding var selected: ServiceType.ID
+    @Binding var selected: CategoryType.ID
     var parent: RemovableTagListView
     @ObservedObject var categoriesVM: CategoriesViewModel
 
-    init(parent: RemovableTagListView, selected: Binding<ServiceType.ID>, categories: ObservedObject<CategoriesViewModel>) {
+    init(parent: RemovableTagListView, selected: Binding<CategoryType.ID>, categories: ObservedObject<CategoriesViewModel>) {
         self.parent = parent
         self._selected = selected
         self.categoriesVM = categories.wrappedValue
@@ -95,15 +95,15 @@ class RemovableTagListViewCoordinator: TagListViewDelegate {
         }
 
         tagView.isSelected = !tagView.isSelected
-        $selected.wrappedValue = ServiceType.init(rawValue: ServiceType.allCases.first(where: {$0.title.hasPrefix(String(tagView.currentTitle?.filter{$0.isLetter} ?? ""))})?.rawValue ?? selected)?.id ?? selected
+        $selected.wrappedValue = CategoryType.init(rawValue: CategoryType.allCases.first(where: {$0.title.hasPrefix(String(tagView.currentTitle?.filter{$0.isLetter} ?? ""))})?.rawValue ?? selected)?.id ?? selected
     }
 
     func tagRemoveButtonPressed(_ title: String, tagView: TagView, sender: TagListView) {
                 sender.removeTagView(tagView)
                 parent.tags.remove(title)
         let suffix = title.filter({$0.isLetter})
-       guard ServiceType.allCases.filter({$0.title == suffix}).isEmpty == false,
-             let serviceId = ServiceType.allCases.filter({$0.title == suffix}).first?.id else { return }
+       guard CategoryType.allCases.filter({$0.title == suffix}).isEmpty == false,
+             let serviceId = CategoryType.allCases.filter({$0.title == suffix}).first?.id else { return }
         $categoriesVM.categories.wrappedValue[serviceId].services = (categoriesVM.categories.filter({title.contains($0.name!)}).first?.services.filter({$0.unitsCount < 0}))!
 
         $categoriesVM.categories.wrappedValue[serviceId].services.insert(contentsOf: categoriesVM.defaultCategories[serviceId].services, at: 0)

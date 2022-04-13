@@ -23,7 +23,7 @@
 import Foundation
 import SwiftUI
 
-enum ServiceType: Int, CaseIterable, Identifiable  {
+enum CategoryType: Int, CaseIterable, Identifiable  {
     case Gas = 0
     case Cleaning = 1
     case Pets = 2
@@ -79,13 +79,13 @@ enum ServiceType: Int, CaseIterable, Identifiable  {
 
 // MARK: - Category
 struct Category: Codable, Hashable, Identifiable {
-    var id: ServiceType.ID
+    var id: CategoryType.ID
     var sortOrder: Int?
     var name, descr: String?
     var avatarURL, mapURL: String?
     var services: [CategoryService]
     var totalPrice: NSNumber? = NSNumber.init(value: 30.0)
-    typealias ID = ServiceType.ID
+    typealias ID = CategoryType.ID
     enum CodingKeys: String, CodingKey {
         case id, sortOrder, name, descr
         case avatarURL
@@ -130,7 +130,7 @@ struct CategoryService: Codable, Hashable, Identifiable {
     }
 
     func toCstService() -> CstService {
-        return CstService(id: self.sortOrder, quantity: self.unitsCount, qserviceId: self.sortOrder)
+        return CstService(id: self.sortOrder, quantity: self.unitsCount, qserviceId: self.id, name: self.name, descr: self.descr, unit: self.unit, unitDescr: self.unitDescr, subject: self.subject, works: self.works, exclusions: self.exclusions, timeNorm: self.timeNorm, avatarID: self.avatarID, avatarURL: self.avatarURL, isEditable: self.isEditable)
     }
 
 }

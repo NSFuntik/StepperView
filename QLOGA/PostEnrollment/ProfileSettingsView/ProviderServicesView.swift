@@ -12,7 +12,7 @@ final class SelectService: ObservableObject {
     public let objectWillChange = PassthroughSubject<Void, Never>()
 
     static let shared = SelectService()
-    @Published var id: ServiceType.ID = ServiceType.Gas.id {
+    @Published var id: CategoryType.ID = CategoryType.Gas.id {
         willSet {
             objectWillChange.send()
         }

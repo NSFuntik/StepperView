@@ -12,7 +12,7 @@ import SwiftUI
 struct Service: Identifiable, Hashable {
     // MARK: Lifecycle
 
-    init(id: ServiceType, image: String = "Computing", name: String = "", description: String = "", types: [ServiceCleaningType] = [], timeNorm: Int = 30) {
+    init(id: CategoryType, image: String = "Computing", name: String = "", description: String = "", types: [ServiceCleaningType] = [], timeNorm: Int = 30) {
         self.id = id.id
         self.image = image
         self.name = name
@@ -21,7 +21,7 @@ struct Service: Identifiable, Hashable {
         self.timeNorm = timeNorm
     }
 
-    var id: ServiceType.ID
+    var id: CategoryType.ID
     var image: String
     var name: String
     var description: String?

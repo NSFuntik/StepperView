@@ -16,9 +16,9 @@ import AVFoundation
 }
 
 extension StringProtocol {
-    var getServiceID: ServiceType {
-        return (ServiceType(rawValue: ServiceType.allCases
-            .first(where: { $0.title.hasPrefix(String(self.filter({$0.isLetter}).prefix($0.title.count - 1)))})!.id)) ?? ServiceType.Cleaning
+    var getServiceID: CategoryType {
+        return (CategoryType(rawValue: CategoryType.allCases
+            .first(where: { $0.title.hasPrefix(String(self.filter({$0.isLetter}).prefix($0.title.count - 1)))})!.id)) ?? CategoryType.Cleaning
     }
 }
 

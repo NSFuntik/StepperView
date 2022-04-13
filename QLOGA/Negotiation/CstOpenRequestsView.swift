@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import Combine
 
 
 //        self.pickedCategories = self.categories.sorted(by: {$0.id < $1.id})
@@ -26,9 +26,9 @@ struct CstOpenRequestsView: View {
     @ObservedObject var CategoryVM: CategoriesViewModel
     @EnvironmentObject var requestsController: RequestViewModel
     @EnvironmentObject var tabController: TabController
-
-
+    @Environment(\.dismiss) var dismiss
     @State var CatTags: [(String, Int)] = []
+
     var body: some View {
         VStack(alignment: .center, spacing: 5) {
             ZStack {
@@ -40,8 +40,11 @@ struct CstOpenRequestsView: View {
                         VStack {
                             Spacer(minLength: UIScreen.main.bounds.height - 150)
                             NavigationLink(destination: CstCreateRequestView(categories: CategoryVM.categories.flatMap({cat in
-                                cat.services.filter({$0.unitsCount > 0})}))     .environmentObject(requestsController)
-                                .environmentObject(tabController)) {
+                                cat.services.filter({$0.unitsCount > 0})}))
+                                .environmentObject(CategoryVM)
+                                .environmentObject(requestsController)
+                                .environmentObject(tabController)
+                                ) {
                                 VStack {
                                     Spacer()
                                     Rectangle().foregroundColor(.clear)
@@ -57,6 +60,17 @@ struct CstOpenRequestsView: View {
                     }
                 }
             }
+        }.onChange(of: requestsController.saved) { i in
+            withAnimation {
+                dismiss()
+            }
+        }
+        .onAppear {
+            requestsController.$saved.sink(receiveValue: { saved in
+                guard saved else { return }
+                requestsController.saved = false
+                dismiss()
+            })
         }
     }
 }
@@ -217,7 +231,6 @@ extension CstOpenRequestsView {
                         }
                     }.onChange(of: $CategoryVM.pickedService.wrappedValue) { i in
                         withAnimation {
-
                             value.scrollTo($CategoryVM.pickedService.wrappedValue, anchor: .center)
                         }
                     }
