@@ -24,40 +24,40 @@ public struct StepperView: View {
     @Environment(\.stepperMode) var stepperMode
     /// spacing between each of the step indicators
     @Environment(\.spacing) var spacing
-    
+
     /// empty initilazer
     public init() { }
-    
+
     /// provides the content and behavior of this view.
     public var body: some View {
         switch stepperMode {
-        case .vertical:
-            return StepIndicatorVerticalView(cells: steps,
-                                             alignments: alignments.isEmpty ? (0..<steps.count).map {_ in  StepperAlignment.center } : alignments,
-                                             indicationType: indicationType,
-                                             lineOptions: lineOptions,
-                                             verticalSpacing: spacing)
+            case .vertical:
+                return StepIndicatorVerticalView(cells: steps,
+                                                 alignments: alignments.isEmpty ? (0..<steps.count).map {_ in  StepperAlignment.center } : alignments,
+                                                 indicationType: indicationType,
+                                                 lineOptions: lineOptions,
+                                                 verticalSpacing: spacing)
                 .eraseToAnyView()
-        case .horizontal:
-            return StepIndicatorHorizontalView(cells: steps,
-                                               alignments: alignments,
-                                               indicationType: indicationType,
-                                               lineOptions: lineOptions,
-                                               horizontalSpacing: spacing)
+            case .horizontal:
+                return StepIndicatorHorizontalView(cells: steps,
+                                                   alignments: alignments,
+                                                   indicationType: indicationType,
+                                                   lineOptions: lineOptions,
+                                                   horizontalSpacing: spacing)
                 .eraseToAnyView()
         }
     }
 }
 
 /**
-    Options for stepper view alignments
- 
-    ````
-    case top
-    case center
-    case bottoom
-    ````
-*/
+ Options for stepper view alignments
+
+ ````
+ case top
+ case center
+ case bottoom
+ ````
+ */
 @available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 public enum StepperAlignment: String, CaseIterable {
     /// aligns step Indicator  to top
@@ -69,13 +69,13 @@ public enum StepperAlignment: String, CaseIterable {
 }
 
 /**
-    Options for displaying step indications can be either `Circle` or `Image`or `custom(View)`
- 
-    ````
-    case circle(Color, Width)op
-    case image(Image, Width)
-    case custom(Content)
-    ````
+ Options for displaying step indications can be either `Circle` or `Image`or `custom(View)`
+
+ ````
+ case circle(Color, Width)op
+ case image(Image, Width)
+ case custom(Content)
+ ````
  */
 @available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 public enum StepperIndicationType<Content:View> {
@@ -84,7 +84,7 @@ public enum StepperIndicationType<Content:View> {
     /// option to customize  `Circle` indicator  `Color` and `width`
     case circle(Color, Width)
     /// option to  use  `image` indicator
-    case image(Image, Width)
+    case image(Image, Width, Color)
     /// option for Animation
     case animation(NumberedCircleView)
     /// option to use custom `View` as step indicator
@@ -92,13 +92,13 @@ public enum StepperIndicationType<Content:View> {
 }
 
 /**
-   Options for customizing line with either  `defaults` or  custom `width`  and `Color`
+ Options for customizing line with either  `defaults` or  custom `width`  and `Color`
 
-   ````
-   case defaults
-   case custom(CGFloat, Color)
-   ````
-*/
+ ````
+ case defaults
+ case custom(CGFloat, Color)
+ ````
+ */
 @available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 public enum StepperLineOptions {
     /// default line option
@@ -110,13 +110,13 @@ public enum StepperLineOptions {
 }
 
 /**
-   Options for aligns the step indicator either in `vertical` or `horizontal`
+ Options for aligns the step indicator either in `vertical` or `horizontal`
 
-   ````
-   case vertical
-   case horizontal
-   ````
-*/
+ ````
+ case vertical
+ case horizontal
+ ````
+ */
 public enum StepperMode:String, CaseIterable {
     /// portrait mode
     case vertical
@@ -125,13 +125,13 @@ public enum StepperMode:String, CaseIterable {
 }
 
 /**
-   Options for aligns the step indicator either in `pending` or `completed`
+ Options for aligns the step indicator either in `pending` or `completed`
 
-   ````
-   case pending
-   case completed
-   ````
-*/
+ ````
+ case pending
+ case completed
+ ````
+ */
 public enum StepLifeCycle:String, CaseIterable {
     /// pending mode
     case pending

@@ -24,39 +24,40 @@ struct PitStopView<PitStop:View>: View {
     var lineOptions:StepperLineOptions = StepperLineOptions.custom(1, Color.gray)
     /// Index position to calculate the height of the pitstop view
     var heightIndex:Int
-    
+
     /// environment variable to access pitstop options
     @Environment(\.autoSpacing) var autoSpacing
-      
+
     /// Provides the content and behavior of this view.
     var body: some View {
         VStack(spacing:0) {
             PitStopLineView(options: lineOptions, proxy: proxy, value: value, width: self.$width)
             Circle()
-                .frame(width: self.lineXPosition/3, height: self.lineXPosition/3)
+            //                .frame(width: self.lineXPosition/3, height: self.lineXPosition/3)
+                .frame(width: 0, height: 0)
                 .foregroundColor(self.getColor(from: lineOptions))
                 .offset(x: proxy[value].midX - self.width / 2 - Utils.minimumSpacing, y: proxy[value].maxY)
         }.widthKey()
             .onPreferenceChange(WidthKey.self, perform: { (value) in
                 self.width = value ?? 12
             })
-            // to draw text next to pitstop.
+        // to draw text next to pitstop.
             .anchorPreference(key: BoundsPreferenceKey.self, value: .bounds) { $0 }
             .overlayPreferenceValue(BoundsPreferenceKey.self) { (preferences) in
                 GeometryReader { reader in
                     preferences.map { value in
-                            self.pitStop
-                                .frame(width: self.proxy.size.width * Utils.halfSpacing, alignment: .leading)
-                                .offset(x: self.lineXPosition + 30, y:  reader[value].maxY + Utils.halfSpacing)
-                                .font(.caption)
-                                .lineLimit(nil)
-                                .padding(.bottom, self.autoSpacing ? 5 * Utils.standardSpacing : 0.0)
-                                .pitstopHeightPreference(column: self.heightIndex)
+                        self.pitStop
+                            .frame(width: self.proxy.size.width * Utils.halfSpacing, alignment: .leading)
+                            .offset(x: self.lineXPosition + 30, y:  reader[value].maxY + Utils.halfSpacing)
+                            .font(.caption)
+                            .lineLimit(nil)
+                            .padding(.bottom, self.autoSpacing ? 5 * Utils.standardSpacing : 0.0)
+                            .pitstopHeightPreference(column: self.heightIndex)
                     }
                 }
-        }
+            }
     }
-    
+
     /// Returns the `Color` from the line options provided.
     /// - Parameter lineOptions: contains options to customize `width`  and `Color` of the line
     func getColor(from lineOptions: StepperLineOptions) -> Color {

@@ -17,7 +17,7 @@ extension VerticalAlignment {
             return context[.top]
         }
     }
-    
+
     /// custom bottom alignment
     private enum CustomBottomAlignment: AlignmentID {
         static func defaultValue(in context: ViewDimensions) -> CGFloat {
@@ -25,7 +25,7 @@ extension VerticalAlignment {
             return context[.bottom]
         }
     }
-    
+
     /// custom center alignment
     private enum CustomCenterAlignment: AlignmentID {
         static func defaultValue(in context: ViewDimensions) -> CGFloat {
@@ -33,22 +33,22 @@ extension VerticalAlignment {
             return context[VerticalAlignment.center]
         }
     }
-    
+
     /// vertical alignment value for top
     static let customTop = VerticalAlignment(CustomTopAlignment.self)
-    
+
     /// vertical alignment value for bottom
     static let customBottom = VerticalAlignment(CustomBottomAlignment.self)
-    
+
     /// vertical alignment value for center
     static let customCenter = VerticalAlignment(CustomCenterAlignment.self)
-    
+
     /// default value for top
     static var topValue: CGFloat = 0.0
-    
+
     /// default value for center
     static var centerValue: CGFloat = 0.0
-    
+
     /// default value for bottom
     static var bottomValue: CGFloat = 0.0
 }
