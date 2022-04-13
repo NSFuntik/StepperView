@@ -10,6 +10,7 @@ PODS:
   - GoogleMaps/Maps (6.1.1):
     - GoogleMaps/Base
   - GooglePlaces (6.1.1)
+  - StepperView (1.6.7)
 
 DEPENDENCIES:
   - AnyFormatKitSwiftUI (~> 0.5.3)
@@ -17,6 +18,7 @@ DEPENDENCIES:
   - CalendarKit (from `https://bitbucket.org/qloga/calendarkit/src/QLoGaMods/CalendarKit.git`, branch `QLoGaMods`)
   - GoogleMaps
   - GooglePlaces
+  - StepperView (~> 1.6.7)
 
 SPEC REPOS:
   trunk:
@@ -24,6 +26,7 @@ SPEC REPOS:
     - AnyFormatKitSwiftUI
     - GoogleMaps
     - GooglePlaces
+    - StepperView
 
 EXTERNAL SOURCES:
   BottomSheetSwiftUI:
@@ -48,7 +51,8 @@ SPEC CHECKSUMS:
   CalendarKit: 7d9b437555584f5a208ab30bfff9eed55a8aef9b
   GoogleMaps: 94e6e0851beece6678af9f508f4918b7a7c61722
   GooglePlaces: 9c1f3baa75191b94dfc12b80a801292e03977f73
+  StepperView: 9b88922ef65712410c0e95c460cd115d33cfd933
 
-PODFILE CHECKSUM: 7b346374a0872d194b479cee29485efa3ae4f862
+PODFILE CHECKSUM: 1804afe353c239a09cabf01233d6c756c84732ca
 
 COCOAPODS: 1.11.3

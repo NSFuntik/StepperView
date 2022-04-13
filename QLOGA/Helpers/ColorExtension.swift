@@ -8,6 +8,10 @@
 import SwiftUI
 
 extension Color {
+    public static var Purple: Color {
+        return Color("Purple")
+    }
+
     public static var lightGray: Color {
         return Color("LightGray")
     }

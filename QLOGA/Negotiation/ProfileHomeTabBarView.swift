@@ -65,10 +65,6 @@ struct ProfileHomeTabBarView: View {
                         }
                         Spacer()
                         ZStack {
-                            //                    if showPopUp {
-                            //                        PlusMenu(widthAndHeight: geometry.size.width/7)
-                            //                            .offset(y: -geometry.size.height/6)
-                            //                    }
                             HStack {
                                 TabBarIcon(tabController: tabController, assignedPage: .orders, width: geometry.size.width/4, height: geometry.size.height/28, systemIconName: "OrdersTabIcon", tabName: "Orders")
                                 TabBarIcon(tabController: tabController, assignedPage: .requests, width: geometry.size.width/4, height: geometry.size.height/28, systemIconName: "RequestsTabIcon", tabName: "Requests")
@@ -77,7 +73,7 @@ struct ProfileHomeTabBarView: View {
                             }
                             .frame(width: geometry.size.width, height: geometry.size.height/8)
                             .background(.white)
-                        }//.overlay(Rectangle().stroke(lineWidth: 0.2).fill(Color.lightGray.opacity(0.2)).foregroundColor((Color.lightGray.opacity(0.2))))
+                        }
                     }
                     .edgesIgnoringSafeArea(.bottom)
                 }

@@ -9,6 +9,7 @@ target 'QLOGA' do
   pod 'BottomSheetSwiftUI', :git => 'https://bitbucket.org/qloga/bottomsheet/src/QLoGaMods/bottomsheet.git', :branch => 'QLoGaMods'
   pod 'CalendarKit', :git => 'https://bitbucket.org/qloga/calendarkit/src/QLoGaMods/CalendarKit.git', :branch => 'QLoGaMods'
   pod 'AnyFormatKitSwiftUI', '~> 0.5.3'
+  pod 'StepperView','~> 1.6.7'
   # Pods for QLOGA
 
 end
