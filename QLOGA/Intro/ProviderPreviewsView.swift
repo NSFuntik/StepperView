@@ -58,7 +58,7 @@ struct ProviderPreviewsView: View {
             }
         }.padding(.top, 10)
             .foregroundColor(.accentColor)
-//            .listStyle(InsetListStyle())
+            .listStyle(InsetListStyle())
             .navigationTitle("Previews: \(reviews.count)")
     }
 }

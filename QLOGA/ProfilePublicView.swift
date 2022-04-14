@@ -40,9 +40,9 @@ struct ProfilePublicView: View {
                 }.frame(height: 150, alignment: .top).offset(y: -4)
                 Spacer()
                 VStack(alignment: .leading, spacing: 11) {
-                    if actorType == .CUSTOMER {
-                        Spacer()
-                    }
+//                    if actorType == .CUSTOMER {
+//                        Spacer()
+//                    }
                     HStack(alignment: .center) {
                         Text(actorType == .CUSTOMER ? $customer.wrappedValue.name  + " " +  $customer.wrappedValue.middleMame + " " +  $customer.wrappedValue.surname : $provider.wrappedValue.name)
                             .font(.system(size: 150, weight: .medium, design: .rounded))
@@ -56,24 +56,30 @@ struct ProfilePublicView: View {
                         Button {
                             $provider.isActive.wrappedValue.toggle()
                         } label: {
-                            Image(systemName: provider.isActive ? "heart" : "heart.fill").foregroundColor(.red)
+                            Image(systemName: !provider.isActive ? "heart" : "heart.fill").foregroundColor(.red)
                                 .font(.system(size: 17, weight: .regular, design: .default))
 
                         }
                     }
+                    .offset(y: actorType == .CUSTOMER ? 5 : 0)
+
+
                     Text("Active")
                         .lineLimit(1)
                         .font(.system(size: 17, weight: .regular, design: .default))
                         .foregroundColor(.accentColor)
                         .frame(width: 80, height: 20)
                         .background(
-                            RoundedRectangle(cornerRadius: 7)
+                            RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.accentColor, lineWidth: 2)
-                                .clipShape(RoundedRectangle(cornerRadius: 7))
-                                .background(RoundedRectangle(cornerRadius: 7).fill(Color.white)))
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .background(RoundedRectangle(cornerRadius: 10).fill(Color.white)))
                         .padding(1)
                         .frame(width: 80, height: 20, alignment: .center).padding(.top, -7.5)
                         .disabled(!provider.isActive)
+                    if actorType == .CUSTOMER {
+                        Spacer()
+                    }
                     if actorType == .CUSTOMER {
                         HStack(alignment: .center) {
                             Text("Completed orders:")
@@ -127,6 +133,9 @@ struct ProfilePublicView: View {
                                                   weight: .medium,
                                                   design: .rounded))
                         }
+                        Spacer()
+                    }
+                    if actorType == .CUSTOMER {
                         Spacer()
                     }
                 }.frame(height: 150, alignment: .top)

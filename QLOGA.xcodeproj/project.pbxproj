@@ -69,6 +69,10 @@
 		119CA42327EF57A10082282C /* ServiceConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119CA41727EF57A10082282C /* ServiceConditionsView.swift */; };
 		119CA42427EF57A10082282C /* LanguagesPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119CA41827EF57A10082282C /* LanguagesPickerView.swift */; };
 		119CA42727EF57BC0082282C /* qloga_data_protection.md in Resources */ = {isa = PBXBuildFile; fileRef = 119CA42527EF57BC0082282C /* qloga_data_protection.md */; };
+		119CF3BA2808B85700AEAE27 /* CustomerSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119CF3B92808B85700AEAE27 /* CustomerSearchView.swift */; };
+		119CF3BC2808CF7400AEAE27 /* CustomerRequestInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119CF3BB2808CF7400AEAE27 /* CustomerRequestInfoView.swift */; };
+		119CF3BE2808DA4300AEAE27 /* CategoriesChooserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119CF3BD2808DA4300AEAE27 /* CategoriesChooserView.swift */; };
+		119CF3C02808DCAA00AEAE27 /* QuoteOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119CF3BF2808DCAA00AEAE27 /* QuoteOverView.swift */; };
 		11A2780A28031AEF0063D706 /* qqq-models.ts in Resources */ = {isa = PBXBuildFile; fileRef = 11A2780828031AEF0063D706 /* qqq-models.ts */; };
 		11A2780B28031AEF0063D706 /* p4p-models.ts in Resources */ = {isa = PBXBuildFile; fileRef = 11A2780928031AEF0063D706 /* p4p-models.ts */; };
 		11A2780D28031EA90063D706 /* RequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A2780C28031EA90063D706 /* RequestModel.swift */; };
@@ -170,6 +174,10 @@
 		119CA41727EF57A10082282C /* ServiceConditionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceConditionsView.swift; sourceTree = "<group>"; };
 		119CA41827EF57A10082282C /* LanguagesPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguagesPickerView.swift; sourceTree = "<group>"; };
 		119CA42527EF57BC0082282C /* qloga_data_protection.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = qloga_data_protection.md; sourceTree = "<group>"; };
+		119CF3B92808B85700AEAE27 /* CustomerSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSearchView.swift; sourceTree = "<group>"; };
+		119CF3BB2808CF7400AEAE27 /* CustomerRequestInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerRequestInfoView.swift; sourceTree = "<group>"; };
+		119CF3BD2808DA4300AEAE27 /* CategoriesChooserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesChooserView.swift; sourceTree = "<group>"; };
+		119CF3BF2808DCAA00AEAE27 /* QuoteOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteOverView.swift; sourceTree = "<group>"; };
 		11A2780828031AEF0063D706 /* qqq-models.ts */ = {isa = PBXFileReference; explicitFileType = sourcecode.javascript; fileEncoding = 4; path = "qqq-models.ts"; sourceTree = "<group>"; };
 		11A2780928031AEF0063D706 /* p4p-models.ts */ = {isa = PBXFileReference; explicitFileType = sourcecode.javascript; fileEncoding = 4; path = "p4p-models.ts"; sourceTree = "<group>"; };
 		11A2780C28031EA90063D706 /* RequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestModel.swift; sourceTree = "<group>"; };
@@ -287,6 +295,7 @@
 				119BE20827D2348800B2D70F /* Intro */,
 				119BE22927D2383300B2D70F /* Enrollment */,
 				119BE22C27D2387C00B2D70F /* PostEnrollment */,
+				119CA41027EF57A10082282C /* ProfilePublicView.swift */,
 				11DD965A27FDCDF80005500A /* Negotiation */,
 				119BE1DC27D230E000B2D70F /* Assets.xcassets */,
 				1136534927D2C83D008168DA /* Info.plist */,
@@ -355,7 +364,6 @@
 				119CA41527EF57A10082282C /* ProfileSetupView.swift */,
 				11DD968127FE484B0005500A /* FAQ */,
 				11DD965F27FDCEDC0005500A /* ProfileSettingsView */,
-				119CA41027EF57A10082282C /* ProfilePublicView.swift */,
 				11DD968627FE4CE30005500A /* Album */,
 				119CA41627EF57A10082282C /* ProviderWorkingSceduleView.swift */,
 				119CA41727EF57A10082282C /* ServiceConditionsView.swift */,
@@ -393,6 +401,10 @@
 				11DD966227FDD06A0005500A /* FavoritesTabView.swift */,
 				11A2781928032EA40063D706 /* AddressPickerView.swift */,
 				119BE1EA27D2318800B2D70F /* ProviderSearchView.swift */,
+				119CF3B92808B85700AEAE27 /* CustomerSearchView.swift */,
+				119CF3BB2808CF7400AEAE27 /* CustomerRequestInfoView.swift */,
+				119CF3BD2808DA4300AEAE27 /* CategoriesChooserView.swift */,
+				119CF3BF2808DCAA00AEAE27 /* QuoteOverView.swift */,
 				1145CB8328022B84006E11A9 /* CategoryServiceDetailView.swift */,
 			);
 			path = Negotiation;
@@ -663,6 +675,7 @@
 				116DC78927D8F67000EFF552 /* CalendarView.swift in Sources */,
 				119CA40C27EF561C0082282C /* PortfolioModel.swift in Sources */,
 				119BE1FD27D2330100B2D70F /* SelectedServiceDetailView.swift in Sources */,
+				119CF3BE2808DA4300AEAE27 /* CategoriesChooserView.swift in Sources */,
 				119CA42127EF57A10082282C /* ProfileSetupView.swift in Sources */,
 				114159DF27D36C720091C254 /* AddressModel.swift in Sources */,
 				11DD966127FDD0070005500A /* CstRequestsTabView.swift in Sources */,
@@ -700,8 +713,11 @@
 				119CA42027EF57A10082282C /* AlbumFolderView.swift in Sources */,
 				11A2780D28031EA90063D706 /* RequestModel.swift in Sources */,
 				11DD967A27FE13610005500A /* TagView.swift in Sources */,
+				119CF3BC2808CF7400AEAE27 /* CustomerRequestInfoView.swift in Sources */,
 				1136535027D36BB6008168DA /* ServiceModel.swift in Sources */,
 				116DC78827D8F67000EFF552 /* EKWrapper.swift in Sources */,
+				119CF3BA2808B85700AEAE27 /* CustomerSearchView.swift in Sources */,
+				119CF3C02808DCAA00AEAE27 /* QuoteOverView.swift in Sources */,
 				11365928280618E90038A50F /* qServiceIDsDictionary.swift in Sources */,
 				119BE1EF27D231C400B2D70F /* ProviderOverview.swift in Sources */,
 				119CA41C27EF57A10082282C /* ProfilePublicView.swift in Sources */,

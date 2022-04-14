@@ -5,7 +5,7 @@
 //  Created by Dmitry Mikhailov on 4/13/22.
 //
 
-import UIKit
+import UIKit 
 var StaticCategories: [Int: CategoryService] = [
 
     330: CategoryService(id: 330, sortOrder: 1, name: "Emergency boiler repair",

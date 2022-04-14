@@ -11,32 +11,42 @@ import Combine
 
 
 struct FavoritesTabView: View {
-    @State var provider: [Provider] = [testProvider, testProvider,testProvider,testProvider, testProvider]
+    @Binding var actorType: ActorsEnum
+    @State var providers: [Provider] = [testProvider, testProvider, testProvider, testProvider, testProvider]
+    @State var customers: [Customer] = [testCustomer, testCustomer, testCustomer, testCustomer, testCustomer]
     @EnvironmentObject var tabController: TabController
     var body: some View {
         VStack {
-            List($provider) { prv in
-                Section {
-                    FavoritesCell(provider: prv)
-                }
-            }.listStyle(.inset)
+            if actorType == .CUSTOMER {
+                List($providers) { prv in
+                    Section {
+                        FavoriteProvidersCell(provider: prv)
+                    }
+                }.listStyle(.inset)
+            } else {
+                List($customers) { cst in
+                    Section {
+                        FavoriteCustomersCell(customer: cst)
+                    }
+                }.listStyle(.inset)
+            }
 //            Text("Hello, World!")
         }
         
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle("Favorite providers").navigationViewStyle(.stack)
+        .navigationTitle("Favorite \(actorType == .CUSTOMER ? "Providers" : "Customers")").navigationViewStyle(.stack)
     }
 }
 
 struct FavoritesTabView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            FavoritesTabView()
+            FavoritesTabView(actorType: .constant(.CUSTOMER))
         }.previewDevice("iPhone 6s")
     }
 }
 
-struct FavoritesCell: View {
+struct FavoriteProvidersCell: View {
     @Binding var provider: Provider
 //    @State var tags : RemovableTagListView?    //    @EnvironmentObject var tabController: TabController
 //    init(provider: Binding<Provider>) {
@@ -130,5 +140,74 @@ struct FavoritesCell: View {
             }
         }
         return categories
+    }
+}
+
+struct FavoriteCustomersCell: View {
+    @Binding var customer: Customer
+
+    var body: some View {
+        NavigationLink(destination: ProfilePublicView(actorType: .CUSTOMER, customer: $customer, provider: .constant(testProvider))) {
+            HStack {
+                VStack(alignment: .center, spacing: 0) {
+                    Image(customer.avatar)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 100, height: 110, alignment: .center)
+                        .cornerRadius(10)
+                        .overlay(RoundedRectangle(cornerRadius: 10)
+                            .stroke(lineWidth: 1.0)
+                            .foregroundColor(Color.lightGray)).padding(1).padding(.top, 2)
+
+                }.padding(.trailing, 10)
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(customer.name + " " + customer.surname)
+                        .foregroundColor(Color.black.opacity(0.8))
+                        .multilineTextAlignment(.leading)
+                        .frame(width: 200, height: 25, alignment: .topLeading)
+                        .font(Font.system(size: 200,
+                                          weight: .medium,
+                                          design: .rounded))
+                        .minimumScaleFactor(0.05)
+                    Text(customer.address.town)
+                        .foregroundColor(Color.black.opacity(0.8))
+                        .multilineTextAlignment(.leading)
+                        .font(Font.system(size: 15,
+                                          weight: .regular,
+                                          design: .rounded))
+                        .frame(width: 100, alignment: .leading)
+                    Text(customer.address.total)
+                        .lineLimit(1)
+                        .foregroundColor(Color.secondary.opacity(0.8))
+                        .font(Font.system(size: 13,
+                                          weight: .regular,
+                                          design: .rounded))
+                        .frame(width: 210, alignment: .leading)
+                        .ignoresSafeArea(.container, edges: .trailing)
+                        .padding(.vertical, 5)
+                    Button {
+                        //                            dismiss()
+                    } label: {
+                        VStack {
+                            Rectangle().foregroundColor(.clear)
+                                .ignoresSafeArea(.container, edges: .horizontal)
+                                .overlay {
+                                    HStack {
+                                        Text("Quote")
+                                            .withDoneButtonStyles(backColor: .Green, accentColor: .white, isWide: false, width: 200, height: 30, isShadowOn: true)
+                                    }
+                                }
+                        }
+                    }.frame(width: 200, height: 30, alignment: .bottomLeading)
+
+                }
+            }.padding(.vertical, 5)
+
+        }.onAppear {
+
+            //            self.tags =
+            //            self.tags?.fontSize = 8
+            //            self.tags.frame(width: 200, height: 60, alignment: .leading)
+        }
     }
 }

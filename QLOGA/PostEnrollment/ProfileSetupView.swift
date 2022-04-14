@@ -15,37 +15,40 @@ struct ProfileSetupView: View {
 		self._customer = customer
 		self._provider = provider
 		self._actorType = actorType
+//        self.selectedActor = self.actorType
 	}
-
+    @EnvironmentObject var tabController: TabController
 	// MARK: Internal
-
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    @GestureState private var dragOffset = CGSize.zero
+    @State var defaultActor: ActorsEnum = .QLOGA
 	@Binding var actorType: ActorsEnum
 	@Binding var customer: Customer
 	@Binding var provider: Provider
 
 	var body: some View {
 		VStack {
-			Picker("", selection: $selectedActor, content: {
+			Picker("", selection: $actorType, content: {
 				Text("Customer")
 					.padding(5)
 					.tag(ActorsEnum.CUSTOMER)
-					.onTapGesture {
-						actorType = .CUSTOMER
-					}
+//					.onTapGesture {
+//                        selectedActor = .CUSTOMER
+//					}
 				Text("Provider")
 					.padding(5)
 					.tag(ActorsEnum.PROVIDER)
-					.onTapGesture {
-						actorType = .PROVIDER
-					}
+//					.onTapGesture {
+//                        selectedActor = .PROVIDER
+//					}
 			}).padding(2)
-				.onChange(of: $selectedActor.wrappedValue, perform: { newValue in
-					$actorType.wrappedValue = newValue
-                    $selectedActor.wrappedValue = newValue
-					print(actorType)
-				})
+//				.onChange(of: $selectedActor.wrappedValue, perform: { newValue in
+//					$actorType.wrappedValue = newValue
+//                    $selectedActor.wrappedValue = newValue
+//					print(selectedActor)
+//				})
 				.pickerStyle(SegmentedPickerStyle()) // <1>
-			Image(selectedActor != .CUSTOMER ? "ProviderImage" : "CustomerImage")
+			Image(actorType != .CUSTOMER ? "ProviderImage" : "CustomerImage")
 				.resizable()
 				.frame(width: 144, height: 144, alignment: .center)
 				.aspectRatio(contentMode: .fit)
@@ -75,7 +78,7 @@ struct ProfileSetupView: View {
 							.padding(1)
 					}
 
-					if selectedActor != .CUSTOMER {
+					if actorType != .CUSTOMER {
                         NavigationLink(destination: ProviderServicesView(provider: $provider).environmentObject(SelectService.shared)) {
 							Label {
 								Text("Services")
@@ -150,7 +153,7 @@ struct ProfileSetupView: View {
 						}
 					}
 
-					NavigationLink(destination: ProfilePublicView(actorType: $actorType.wrappedValue, customer: $customer, provider: $provider)) {
+                    NavigationLink(destination: ProfilePublicView(actorType: $actorType.wrappedValue, customer: $customer, provider: $provider)) {
 						Label {
 							Text("Show public profile")
 								.foregroundColor(Color.black)
@@ -197,7 +200,7 @@ struct ProfileSetupView: View {
                     }
                     NavigationLink(destination: ProfileTermsConditionsView(actorType: $actorType, customer: $customer, provider: $provider)) {
                         Label {
-                            Text("\(selectedActor != .CUSTOMER ? "Provider" : "Customer")`s Terms & Conditions")
+                            Text("\(actorType != .CUSTOMER ? "Provider" : "Customer")`s Terms & Conditions")
                                 .foregroundColor(Color.black)
                                 .multilineTextAlignment(.leading)
                                 .font(Font.system(size: 17, weight: .regular, design: .rounded))
@@ -218,19 +221,43 @@ struct ProfileSetupView: View {
                             .padding(1)
                     }
 				}
-			}
-            Spacer(minLength: 30)
-		}.padding(.horizontal, 20).padding(.top, 10)
+                Spacer(minLength: 50)
+            }.ignoresSafeArea(.container, edges: .bottom)
+		}.ignoresSafeArea(.container, edges: .bottom).padding(.horizontal, 20).padding(.top, 10)
 			.onAppear {
-				selectedActor = actorType
+                defaultActor = actorType
 			}
+
 			.navigationBarTitleDisplayMode(.inline)
 			.navigationTitle("Your account")
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: Button(action : {
+                if defaultActor == actorType {
+//                    actorType = selectedActor
+                    self.mode.wrappedValue.dismiss()
+                } else {
+                    self.tabController.open(.orders)
+//                    actorType = selectedActor
+                    self.mode.wrappedValue.dismiss()
+                }
+            }){
+                HStack {
+                    Image(systemName: "chevron.left").foregroundColor(.accentColor)
+                        .aspectRatio(contentMode: .fit)
+                    Text(defaultActor == actorType ? "Back" : "Orders").foregroundColor(.accentColor)
+                }
+            })
+            .gesture(DragGesture().updating($dragOffset, body: { (value, state, transaction) in
+                if(value.startLocation.x < 20 && value.translation.width > 100) {
+                    self.mode.wrappedValue.dismiss()
+                }
+
+            }))
 	}
 
 	// MARK: Private
 
-	@State var selectedActor = ActorsEnum.CUSTOMER
+//	@State var selectedActor = ActorsEnum.QLOGA
 }
 
 struct ProviderAccountSetupView_Previews: PreviewProvider {

@@ -26,7 +26,7 @@ enum HomeTab: Int {
 }
 class TabController: ObservableObject {
     public var objectWillChange = PassthroughSubject<Void, Never>()
-    @Published var activeTab: HomeTab = .requests {
+    @Published var activeTab: HomeTab = .orders {
         willSet {
             objectWillChange.send()
         }
@@ -54,25 +54,35 @@ struct ProfileHomeTabBarView: View {
                         Spacer()
                         switch tabController.activeTab {
                             case .orders:
-                                EnrolledProfileView(actorType: $actorType).navigationTitle("\(tabController.activeTab.title)")
+                                EnrolledProfileView(actorType: $actorType).navigationTitle("\(tabController.activeTab.title)").navigationBarTitleDisplayMode(.inline)
                             case .requests:
                                 CstRequestsTabView(provider: $provider, customer: $customer)
                                     .navigationTitle("Open Requests").navigationBarTitleDisplayMode(.inline)
                             case .search:
-                                ProviderSearchView().navigationTitle("Provider Search")
+                                if actorType == .CUSTOMER {
+                                    ProviderSearchView().navigationTitle("Provider Search").navigationBarTitleDisplayMode(.inline)
+                                } else {
+                                    CustomerSearchView().navigationTitle("Provider Search").navigationBarTitleDisplayMode(.inline)
+                                }
                             case .favourites:
-                                FavoritesTabView().navigationTitle("Favorite Providers")
+                                FavoritesTabView(actorType: $actorType).navigationTitle("Favorite \(actorType == .CUSTOMER ? "Providers" : "Customers")").navigationBarTitleDisplayMode(.inline)
                         }
                         Spacer()
                         ZStack {
                             HStack {
-                                TabBarIcon(tabController: tabController, assignedPage: .orders, width: geometry.size.width/4, height: geometry.size.height/28, systemIconName: "OrdersTabIcon", tabName: "Orders")
-                                TabBarIcon(tabController: tabController, assignedPage: .requests, width: geometry.size.width/4, height: geometry.size.height/28, systemIconName: "RequestsTabIcon", tabName: "Requests")
-                                TabBarIcon(tabController: tabController, assignedPage: .search, width: geometry.size.width/4, height: geometry.size.height/28, systemIconName: "SearchTabIcon", tabName: "Search")
-                                TabBarIcon(tabController: tabController, assignedPage: .favourites, width: geometry.size.width/4, height: geometry.size.height/28, systemIconName: "FavouritesTabIcon", tabName: "Favourites")
+                                    if actorType == .CUSTOMER {
+                                    TabBarIcon(tabController: tabController, assignedPage: .orders, width: geometry.size.width/4, height: geometry.size.height/28, systemIconName: "OrdersTabIcon", tabName: "Orders")
+                                    TabBarIcon(tabController: tabController, assignedPage: .requests, width: geometry.size.width/4, height: geometry.size.height/28, systemIconName: "RequestsTabIcon", tabName: "Requests")
+                                    TabBarIcon(tabController: tabController, assignedPage: .search, width: geometry.size.width/4, height: geometry.size.height/28, systemIconName: "SearchTabIcon", tabName: "Search")
+                                    TabBarIcon(tabController: tabController, assignedPage: .favourites, width: geometry.size.width/4, height: geometry.size.height/28, systemIconName: "FavouritesTabIcon", tabName: "Favourites")
+                                    } else if actorType == .PROVIDER {
+                                        TabBarIcon(tabController: tabController, assignedPage: .orders, width: geometry.size.width/3, height: geometry.size.height/28, systemIconName: "OrdersTabIcon", tabName: "Orders")
+                                        TabBarIcon(tabController: tabController, assignedPage: .search, width: geometry.size.width/3, height: geometry.size.height/28, systemIconName: "SearchTabIcon", tabName: "Search")
+                                        TabBarIcon(tabController: tabController, assignedPage: .favourites, width: geometry.size.width/3, height: geometry.size.height/28, systemIconName: "FavouritesTabIcon", tabName: "Favourites")
+                                    }
                             }
                             .frame(width: geometry.size.width, height: geometry.size.height/8)
-                            .background(.white)
+                            .background(.white.opacity(0.8))
                         }
                     }
                     .edgesIgnoringSafeArea(.bottom)
@@ -109,7 +119,7 @@ struct ProfileHomeTabBarView: View {
                                     .frame(width: 30, height: 30, alignment: .trailing)
                                     .padding(5)
                             }
-                            NavigationLink(destination: ProfileSetupView(actorType: $actorType, customer: $customer, provider: $provider)) {
+                            NavigationLink(destination: ProfileSetupView(actorType: $actorType, customer: $customer, provider: $provider).environmentObject(tabController)) {
                                 Image(actorType != .CUSTOMER ? "ProviderProfileIcon" : "CustomerProfileIcon")
                                     .resizable()
                                     .renderingMode(.template)

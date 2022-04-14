@@ -110,7 +110,7 @@ struct Address: Hashable {
         self.street = street
         self.building = building
         self.apt = apt
-        self.total = "\(self.apt) \(self.building) \(self.street) \(self.town) \(self.postcode)".replacingOccurrences(of: "  ", with: "")
+        self.total = "\(self.apt)\(self.apt != "" ? "," : "") \(self.building), \(self.street), \(self.town), \(self.postcode)".replacingOccurrences(of: "  ", with: "").replacingOccurrences(of: "\n", with: " ")
         self.latitude = latitude
         self.longitude = longitude
     }
