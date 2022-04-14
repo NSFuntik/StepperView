@@ -24,31 +24,37 @@ struct RemovableTagListView: UIViewRepresentable {
     func makeUIView(context: Context) -> TagListView {
         let tagListView = TagListView()
 //        tagListView.enableRemoveButton = false
-        tagListView.addTagViews(Array($tags.wrappedValue.compactMap(tagListView.createNewTagView).sorted(by: {$0.bounds.width < $1.bounds.width})))
-        initView(view: tagListView)
+        tagListView.addTagViews(Array($tags.wrappedValue.compactMap(tagListView.createNewTagView).sorted(by: {$0.frame.width < $1.frame.width})))
         tagListView.textFont = .rounded(ofSize: fontSize, weight: fontSize < 10 ? .light : .medium)
+        initView(view: tagListView)
         tagListView.delegate = context.coordinator
 
         tagListView.enableRemoveButton = $isRemovable.wrappedValue
+
+        defer { tagListView.rearrangeViews() }
         return tagListView
     }
 
     func updateUIView(_ view: TagListView, context: Context) {
-        if !context.coordinator.parent.$tags.wrappedValue.isStrictSubset(of: $tags.wrappedValue) {
-
-            withAnimation(.linear) {
-                let seld = view.selectedTags().first
-                view.removeAllTags()
-                view.addTagViews(Array($tags.wrappedValue.compactMap(view.createNewTagView).sorted(by: {$0.bounds.width < $1.bounds.width})))
-                    .map {
-//                    ($0.currentAttributedTitle == seld?.currentAttributedTitle) ? $0.isSelected = true : $0.updateConfiguration()
-                        ($0.currentTitle == seld?.currentTitle) ? $0.isSelected = true : $0.updateConfiguration()
-                }
-                initView(view: view)
-            }
+        if view.textFont.pointSize < 10 {
             do { view.rearrangeViews() }
         }
+        if context.coordinator.parent.tags != self.tags {
+            if !context.coordinator.parent.$tags.wrappedValue.isStrictSubset(of: $tags.wrappedValue) {
 
+                withAnimation(.linear) {
+                    let seld = view.selectedTags().first
+                    view.removeAllTags()
+                    view.addTagViews(Array($tags.wrappedValue.compactMap(view.createNewTagView).sorted(by: {$0.bounds.width < $1.bounds.width})))
+                        .map {
+                            //                    ($0.currentAttributedTitle == seld?.currentAttributedTitle) ? $0.isSelected = true : $0.updateConfiguration()
+                            ($0.currentTitle == seld?.currentTitle) ? $0.isSelected = true : $0.updateConfiguration()
+                        }
+                    initView(view: view)
+                }
+                do { view.rearrangeViews() }
+            }
+        }
     }
 
     func makeCoordinator() -> RemovableTagListViewCoordinator {
@@ -70,6 +76,9 @@ struct RemovableTagListView: UIViewRepresentable {
         view.paddingY = fontSize / 2
         view.marginX = fontSize / 2
         view.marginY = fontSize / 2
+//        if view.textFont.pointSize < 10 {
+            do { view.rearrangeViews() }
+//        }
 
 //        view.paddingY = fontSize / 2
         
@@ -85,6 +94,7 @@ class RemovableTagListViewCoordinator: TagListViewDelegate {
     @State var fontSize: CGFloat
 
     init(parent: RemovableTagListView, selected: Binding<CategoryType.ID>, categories: ObservedObject<CategoriesViewModel>, fontSize: CGFloat) {
+
         self.parent = parent
         self._selected = selected
         self.categoriesVM = categories.wrappedValue

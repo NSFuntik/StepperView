@@ -265,8 +265,8 @@ open class TagListView: UIView {
         else if let shared = UIApplication.value(forKey: "sharedApplication") as? UIApplication {
             isRtl = shared.userInterfaceLayoutDirection == .leftToRight
         }
-        
-        var alignment = self.alignment
+
+        var alignment = Alignment.leading
         
         if alignment == .leading {
             alignment = isRtl ? .right : .left

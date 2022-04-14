@@ -21,6 +21,7 @@ final class SelectService: ObservableObject {
 struct ProviderServicesView: View {
     @StateObject var selectedService: SelectService = SelectService()
     @State private var scrollOffset: CGFloat = 0
+    @State var tags: Set<String> = []
 
     init(provider: Binding<Provider>) {
         UITableView.appearance().backgroundColor = UIColor.white
@@ -32,7 +33,7 @@ struct ProviderServicesView: View {
     @Binding var provider: Provider
 
     var body: some View {
-        VStack(alignment: .center, spacing: 5) {
+        VStack(alignment: .leading, spacing: 0) {
             ServicesScrollView.frame(height: 100)
             VStack {
                 HStack {
@@ -57,18 +58,20 @@ struct ProviderServicesView: View {
                     Spacer()
                 }
             }.padding(.bottom, 20)
+            HStack {
+                RemovableTagListView(selected: $selectedService.id , isRemovable: .constant(false), categoriesVM: .init(),
+                                     tags:
+                                        Binding { Set($provider.choicedServices.filter { !$0.services.isEmpty }
+                                            .sorted(by: { $0.id.wrappedValue < $1.id.wrappedValue })
+
+                                            .map { "\($0.name.wrappedValue): \($0.services.count)" })
+                } set: { tags in
+                    self.tags = tags
+                })
+                //                Spacer()
+            }.padding(.bottom, 20).animation(.easeInOut(duration: 0.5), value: tags).transition(.slide)
 
             ScrollView(showsIndicators: false) {
-                VStack {
-                    RemovableTagListView(selected: $selectedService.id , isRemovable: .constant(false), categoriesVM: .init(),
-                                         tags:
-                                            Binding { Set($provider.choicedServices.filter { !$0.services.isEmpty }
-                                                .sorted(by: { $0.id.wrappedValue < $1.id.wrappedValue })
-
-                                                .map { "\($0.name.wrappedValue): \($0.services.count)" })
-                    } set: { tags in  })
-                    Spacer()
-                }.padding(.bottom, 10)
                 VStack {
                     ForEach(Services.sorted(by: { $0.id < $1.id })[$selectedService.id.wrappedValue].services, id: \.id) { type in
                         Section {
@@ -107,7 +110,7 @@ struct ProviderServicesView: View {
                         .stroke(Color.secondary
                             .opacity(0.7), lineWidth: 1).padding(1))
                 Spacer(minLength: 20)
-            }
+            }.layoutPriority(1)
             Spacer()
         }.padding(.horizontal, 20)
             .navigationBarTitleDisplayMode(.inline)

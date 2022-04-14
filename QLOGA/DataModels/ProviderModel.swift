@@ -235,7 +235,9 @@ var testProvider: Provider = .init(id: 0, isActive: true,
                                     StaticCategories[1010]!,
                                     StaticCategories[1020]!,
                                     StaticCategories[700]!,
-                                    StaticCategories[720]!
+                                    StaticCategories[720]!,
+                                    StaticCategories[320]!,
+                                    StaticCategories[330]!
                                    ]
 )
 

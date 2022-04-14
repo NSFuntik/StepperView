@@ -106,6 +106,7 @@ struct RequestsCell: View {
     typealias Int = CategoryType.ID
     @Binding var request: CstRequest
     @State var catID: CategoryType.ID = 0
+    
     @EnvironmentObject var CategoryController: CategoriesViewModel
     @EnvironmentObject var requestsController: RequestViewModel
     @State var statusColor = Color.accentColor

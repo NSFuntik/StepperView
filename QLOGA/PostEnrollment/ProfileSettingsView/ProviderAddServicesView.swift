@@ -163,7 +163,7 @@ struct ProviderAddServicesView: View {
 
 
             }.padding(.horizontal, 20).padding(.vertical, 10)
-            Rectangle().foregroundColor(.white).ignoresSafeArea(.container, edges: .horizontal)
+            Rectangle().foregroundColor(.white).ignoresSafeArea(.container, edges: .horizontal).padding(.vertical, 10)
                 .overlay {
                     VStack {
                         Spacer()
