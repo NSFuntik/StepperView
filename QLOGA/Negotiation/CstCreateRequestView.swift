@@ -46,7 +46,8 @@ struct CstCreateRequestView: View {
     @EnvironmentObject var requestsController: RequestViewModel
     @EnvironmentObject var tabController: TabController
     @EnvironmentObject var CategoryVM: CategoriesViewModel
-    @State var requestInfo: CstRequest? = nil
+//    var rootView: some View
+//    @State var requestInfo: CstRequest? = nil
    
 
 //    @StateObject var RequestVM = RequestViewModel()
@@ -371,8 +372,8 @@ struct CstCreateRequestView: View {
                         Spacer()
 
                     }
-
                     VStack {
+                    if requestsController.requests.first(where: {$0.id == cstRequest.id}) == nil {
                         Button {
                             cstRequest.validDate = Date(timeIntervalSinceNow: TimeInterval(totalChars * 604800))
                             let services: [CategoryService] = categories
@@ -398,6 +399,55 @@ struct CstCreateRequestView: View {
                                     }
                             }
                         }
+                    } else {
+                        HStack {
+                        Button {
+                            $requestsController.requests.first(where: {$0.id.wrappedValue == cstRequest.id})?.validDate.wrappedValue = Date()
+                            $requestsController.requests.first(where: {$0.id.wrappedValue == cstRequest.id})?.statusRecord.status.wrappedValue = "CANCELED"
+                        } label: {
+                            VStack {
+                                Rectangle().foregroundColor(.clear)
+                                    .ignoresSafeArea(.container, edges: .horizontal)
+                                    .overlay {
+                                        HStack {
+                                            Text("Cancel")
+                                                .withDoneButtonStyles(backColor: .red, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width / 4, height: 50)
+                                        }
+                                    }
+                            }
+                        }
+                            Button {
+                                $requestsController.requests.first(where: {$0.id.wrappedValue == cstRequest.id})?.validDate.wrappedValue = Date()
+                                $requestsController.requests.first(where: {$0.id.wrappedValue == cstRequest.id})?.statusRecord.status.wrappedValue = "STOPPED"
+                            } label: {
+                                VStack {
+                                    Rectangle().foregroundColor(.clear)
+                                        .ignoresSafeArea(.container, edges: .horizontal)
+                                        .overlay {
+                                            HStack {
+                                                Text("Stop")
+                                                    .withDoneButtonStyles(backColor: .lightGray, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width / 4, height: 50)
+                                            }
+                                        }
+                                }
+                            }
+
+                            Button {
+
+                            } label: {
+                                VStack {
+                                    Rectangle().foregroundColor(.clear)
+                                        .ignoresSafeArea(.container, edges: .horizontal)
+                                        .overlay {
+                                            HStack {
+                                                Text("Update")
+                                                    .withDoneButtonStyles(backColor: .green, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width / 4, height: 50)
+                                            }
+                                        }
+                                }
+                            }
+                        }
+                    }
                     }
                     .padding(.vertical, 20)
                     Spacer(minLength: 100)
@@ -426,6 +476,7 @@ struct CstCreateRequestView: View {
                     categories.removeAll()
                     categories.append(contentsOf: newServices)
                     categories.uniqued()
+
             }
             }
         }
@@ -515,7 +566,7 @@ struct CstCreateRequestView: View {
                         //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
                             .lineLimit(1)
                     }
-                    
+
                 }.padding([.horizontal], 20) .padding(.top, 10)
                     .frame(maxHeight: UIScreen.main.bounds.height / 4, alignment: .top)
             }

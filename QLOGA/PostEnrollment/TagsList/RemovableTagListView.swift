@@ -19,18 +19,17 @@ struct RemovableTagListView: UIViewRepresentable {
     @ObservedObject var categoriesVM: CategoriesViewModel
     @Binding var tags: Set<String>
 
-    var fontSize: CGFloat = 14
+    @State var fontSize: CGFloat = 14
     //    @State  var chips: [TagView] = []
     func makeUIView(context: Context) -> TagListView {
         let tagListView = TagListView()
 //        tagListView.enableRemoveButton = false
         tagListView.addTagViews(Array($tags.wrappedValue.compactMap(tagListView.createNewTagView).sorted(by: {$0.bounds.width < $1.bounds.width})))
         initView(view: tagListView)
+        tagListView.textFont = .rounded(ofSize: fontSize, weight: fontSize < 10 ? .light : .medium)
         tagListView.delegate = context.coordinator
-        tagListView.textFont = .rounded(ofSize: 14, weight: .medium)
 
         tagListView.enableRemoveButton = $isRemovable.wrappedValue
-
         return tagListView
     }
 
@@ -53,7 +52,7 @@ struct RemovableTagListView: UIViewRepresentable {
     }
 
     func makeCoordinator() -> RemovableTagListViewCoordinator {
-        return RemovableTagListViewCoordinator(parent: self, selected: $selected, categories: _categoriesVM)
+        return RemovableTagListViewCoordinator(parent: self, selected: $selected, categories: _categoriesVM, fontSize: fontSize)
     }
 
     fileprivate func initView(view: TagListView) {
@@ -62,8 +61,8 @@ struct RemovableTagListView: UIViewRepresentable {
         view.removeIconLineColor = UIColor(named: "Orange")!
         view.removeButtonIconSize = 9
         view.tagBackgroundColor = .clear
-        view.textFont = .rounded(ofSize: 14, weight: .medium)
-        
+        view.textFont = .rounded(ofSize: fontSize, weight: fontSize < 10 ? .light : .medium)
+//        view.rearrangeViews()
         view.borderColor = .lightGray
         view.borderWidth = 1
         view.cornerRadius = 12
@@ -71,7 +70,8 @@ struct RemovableTagListView: UIViewRepresentable {
         view.paddingY = fontSize / 2
         view.marginX = fontSize / 2
         view.marginY = fontSize / 2
-        view.paddingY = fontSize / 2
+
+//        view.paddingY = fontSize / 2
         
 //        view.rearrangeViews()
 //        view.layer.setNeedsDisplay(CGRect(x: 0, y: 0, width: Int(view.frame.width), height:  view.rows * 20))
@@ -82,11 +82,14 @@ class RemovableTagListViewCoordinator: TagListViewDelegate {
     @Binding var selected: CategoryType.ID
     var parent: RemovableTagListView
     @ObservedObject var categoriesVM: CategoriesViewModel
+    @State var fontSize: CGFloat
 
-    init(parent: RemovableTagListView, selected: Binding<CategoryType.ID>, categories: ObservedObject<CategoriesViewModel>) {
+    init(parent: RemovableTagListView, selected: Binding<CategoryType.ID>, categories: ObservedObject<CategoriesViewModel>, fontSize: CGFloat) {
         self.parent = parent
         self._selected = selected
         self.categoriesVM = categories.wrappedValue
+        self.fontSize = fontSize
+        
     }
 
     func tagPressed(_ title: String, tagView: TagView, sender: TagListView) {

@@ -7,18 +7,19 @@
 
 import Foundation
 import SwiftUI
-struct Provider: Hashable {
+struct Provider: Hashable, Identifiable {
     // MARK: Lifecycle
 
-    init(isActive: Bool = true, name: String, greetings: String? = "", phone: String = "", email: String = "",
+    init(id: Int, isActive: Bool = true, name: String, greetings: String? = "", phone: String = "", email: String = "",
          address: Address = Address(postcode: "", town: "", street: ""), cancellation: Int, coverage: String = "", avatar: String = "Avatar",
          calloutCharge: Bool, distance: Double = 0.0, rating: Double, employment: ProviderType,
          portfolio: ProviderPublicPortfolio = ProviderPublicPortfolio(images: [], description: ""), verifications: [VerificationType] = [], reviews: [Review] = [],
          languages: [Language] = [], website: String = "", registrationDetails: String = "", businesInsuranceDetails: String = "", description: String = "",
          isPhoneVisible: Bool = true, isOffTimeVisible: Bool = true, choicedServices: [Service] = [],
          workingHours: [WorkHours] = defaultWorkingHours, offTime: [OffTime] = [OffTime(from: "11/02/22 11:00", to: "11/02/22 21:00")],
-         portfolioFolders: [PortfolioFolder] = [])
+         portfolioFolders: [PortfolioFolder] = [], services: [CategoryService] = [])
     {
+        self.id = id
         self.isActive = isActive
         self.greetings = greetings
         self.avatar = avatar
@@ -46,10 +47,11 @@ struct Provider: Hashable {
         self.workingHours = workingHours
         self.offTime = offTime
         self.portfolioFolders = portfolioFolders
+        self.services = services
     }
-
+    typealias ID = Int
     // MARK: Internal
-
+    var id: Int
     var isActive: Bool
     var greetings: String?
     var avatar: String
@@ -78,6 +80,7 @@ struct Provider: Hashable {
     var workingHours: [WorkHours]
     var offTime: [OffTime]
     var portfolioFolders: [PortfolioFolder]
+    var services: [CategoryService]
 
     func getPosition(item: Service) -> Int {
 
@@ -157,49 +160,6 @@ enum CertificationType: String, CaseIterable, Identifiable {
     var id: String { self.rawValue }
 }
 
-var Providers: [Provider] = [
-    Provider(isActive: true,
-             name: "Duncan McCleod Cleaning",
-             greetings: "Help with daily cleaning",
-             phone: "+44 123456789",
-             email: "orgpork@mail.com",
-             address: Address(postcode: "EH2 2ER", town: "Edinburgh", street: "Princes Street", building: "309", apt: "", 55.95207, -3.19768),
-             cancellation: 6,
-             avatar: "WomanCleaner",
-             calloutCharge: true,
-             distance: 12.5,
-             rating: 4.4,
-             employment: .Individual,
-             portfolio: ProviderPublicPortfolio(images: ["PortfolioImage0",
-                                                         "PortfolioImage1",
-                                                         "PortfolioImage2",
-                                                         "PortfolioImage3",
-                                                         "PortfolioImage4",
-                                                         "PortfolioImage5"],
-                                                description: portfolioDesc),
-             verifications: [.IDs, .Phone, .Address],
-             reviews: [Review(image: "ReviewAvatar", rate: 4.1, description: "Prompt payment, polite and respectful"),
-                       Review(image: "ReviewAvatar", rate: 4.1, description: "Prompt payment, polite and respectful"),
-                       Review(image: "ReviewAvatar", rate: 3.9, description: "Prompt payment, polite and respectful"),
-                       Review(image: "Avatar", rate: 2.1, description: "Prompt payment, polite and respectful"),
-                       Review(image: "ReviewAvatar", rate: 4.6, description: "Prompt payment, polite and respectful"),
-                       Review(image: "ReviewAvatar", rate: 1.1, description: "Prompt payment, polite and respectful"),
-                       Review(image: "ReviewAvatar", rate: 3.7, description: "Prompt payment, polite and respectful"),
-                       Review(image: "ReviewAvatar", rate: 4.1, description: "Prompt payment, polite and respectful"),
-                       Review(image: "ReviewAvatar", rate: 4.1, description: "Prompt payment, polite and respectful"),
-                       Review(image: "ReviewAvatar", rate: 2.2, description: "Prompt payment, polite and respectful"),
-                       Review(image: "ReviewAvatar", rate: 4.1, description: "Prompt payment, polite and respectful"),
-                       Review(image: "ReviewAvatar", rate: 4.1, description: "Prompt payment, polite and respectful"),
-                       Review(image: "ReviewAvatar", rate: 4.1, description: "Prompt payment, polite and respectful"),
-                       Review(image: "ReviewAvatar", rate: 4.1, description: "Prompt payment, polite and respectful")],
-             languages: [Language.English, Language.French, Language.Germany]),
-    Provider(name: "Kai's Elderly care", cancellation: 1, avatar: "WomanCleaner", calloutCharge: true, rating: 2.1, employment: .Individual),
-    Provider(name: "The gardener", cancellation: 0, calloutCharge: false, rating: 4.9, employment: .Agency),
-    Provider(name: "Special nails services", cancellation: 3, avatar: "WomanCleaner", calloutCharge: true, rating: 4.3, employment: .Individual),
-    Provider(name: "Kai's Elderly care ...", cancellation: 5, calloutCharge: true, rating: 4.1, employment: .Agency),
-    Provider(name: "The gardener", cancellation: 4, calloutCharge: true, rating: 3.9, employment: .Individual),
-    Provider(name: "Kai's Hills therapy", cancellation: 2, avatar: "WomanCleaner", calloutCharge: false, rating: 4.3, employment: .Agency)
-]
 
 enum ProviderType: String, CaseIterable, Identifiable {
     case All
@@ -211,7 +171,7 @@ enum ProviderType: String, CaseIterable, Identifiable {
     var id: String { self.rawValue }
 }
 
-var testProvider: Provider = .init(isActive: true,
+var testProvider: Provider = .init(id: 0, isActive: true,
                                    name: "Duncan McCleod Cleaning",
                                    greetings: "Help with daily cleaning",
                                    phone: "+44 123456789",
@@ -267,7 +227,17 @@ var testProvider: Provider = .init(isActive: true,
                                         PortfolioImage(image: "PortfolioImage2", title: "Kitchen 2", uploadDate: "22/02/22 09:41"),
                                         PortfolioImage(image: "PortfolioImage3", title: "Kitchen 3", uploadDate: "23/02/22 06:06")
                                     ])
-                                   ])
+                                   ],
+                                   services: [
+                                    StaticCategories[10]!,
+                                    StaticCategories[30]!,
+                                    StaticCategories[40]!,
+                                    StaticCategories[1010]!,
+                                    StaticCategories[1020]!,
+                                    StaticCategories[700]!,
+                                    StaticCategories[720]!
+                                   ]
+)
 
 let portfolioDesc =
     """
@@ -311,3 +281,46 @@ func getLanguages(languages: [Language]) -> String {
 
     return verifics
 }
+var Providers: [Provider] = [
+    Provider(id: 10, isActive: true,
+             name: "Duncan McCleod Cleaning",
+             greetings: "Help with daily cleaning",
+             phone: "+44 123456789",
+             email: "orgpork@mail.com",
+             address: Address(postcode: "EH2 2ER", town: "Edinburgh", street: "Princes Street", building: "309", apt: "", 55.95207, -3.19768),
+             cancellation: 6,
+             avatar: "WomanCleaner",
+             calloutCharge: true,
+             distance: 12.5,
+             rating: 4.4,
+             employment: .Individual,
+             portfolio: ProviderPublicPortfolio(images: ["PortfolioImage0",
+                                                         "PortfolioImage1",
+                                                         "PortfolioImage2",
+                                                         "PortfolioImage3",
+                                                         "PortfolioImage4",
+                                                         "PortfolioImage5"],
+                                                description: portfolioDesc),
+             verifications: [.IDs, .Phone, .Address],
+             reviews: [Review(image: "ReviewAvatar", rate: 4.1, description: "Prompt payment, polite and respectful"),
+                       Review(image: "ReviewAvatar", rate: 4.1, description: "Prompt payment, polite and respectful"),
+                       Review(image: "ReviewAvatar", rate: 3.9, description: "Prompt payment, polite and respectful"),
+                       Review(image: "Avatar", rate: 2.1, description: "Prompt payment, polite and respectful"),
+                       Review(image: "ReviewAvatar", rate: 4.6, description: "Prompt payment, polite and respectful"),
+                       Review(image: "ReviewAvatar", rate: 1.1, description: "Prompt payment, polite and respectful"),
+                       Review(image: "ReviewAvatar", rate: 3.7, description: "Prompt payment, polite and respectful"),
+                       Review(image: "ReviewAvatar", rate: 4.1, description: "Prompt payment, polite and respectful"),
+                       Review(image: "ReviewAvatar", rate: 4.1, description: "Prompt payment, polite and respectful"),
+                       Review(image: "ReviewAvatar", rate: 2.2, description: "Prompt payment, polite and respectful"),
+                       Review(image: "ReviewAvatar", rate: 4.1, description: "Prompt payment, polite and respectful"),
+                       Review(image: "ReviewAvatar", rate: 4.1, description: "Prompt payment, polite and respectful"),
+                       Review(image: "ReviewAvatar", rate: 4.1, description: "Prompt payment, polite and respectful"),
+                       Review(image: "ReviewAvatar", rate: 4.1, description: "Prompt payment, polite and respectful")],
+             languages: [Language.English, Language.French, Language.Germany], services: []),
+    Provider(id: 11, name: "Kai's Elderly care", cancellation: 1, avatar: "WomanCleaner", calloutCharge: true, rating: 2.1, employment: .Individual),
+    Provider(id: 12, name: "The gardener", cancellation: 0, calloutCharge: false, rating: 4.9, employment: .Agency),
+    Provider(id: 13, name: "Special nails services", cancellation: 3, avatar: "WomanCleaner", calloutCharge: true, rating: 4.3, employment: .Individual),
+    Provider(id:14, name: "Kai's Elderly care ...", cancellation: 5, calloutCharge: true, rating: 4.1, employment: .Agency),
+    Provider(id: 15, name: "The gardener", cancellation: 4, calloutCharge: true, rating: 3.9, employment: .Individual),
+    Provider(id: 16, name: "Kai's Hills therapy", cancellation: 2, avatar: "WomanCleaner", calloutCharge: false, rating: 4.3, employment: .Agency)
+]

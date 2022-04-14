@@ -61,7 +61,7 @@ struct ProfileHomeTabBarView: View {
                             case .search:
                                 ProviderSearchView().navigationTitle("Provider Search")
                             case .favourites:
-                                FavoritesTabView(provider: $provider).navigationTitle("Favorite Providers")
+                                FavoritesTabView().navigationTitle("Favorite Providers")
                         }
                         Spacer()
                         ZStack {

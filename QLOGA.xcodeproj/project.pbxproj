@@ -390,9 +390,9 @@
 				1145CB7D28020DE7006E11A9 /* CstOpenRequestsView.swift */,
 				11663FC52802CBF40041B56D /* CstCreateRequestView.swift */,
 				11CD451B28073FFD009795A6 /* RequestTrackingView.swift */,
+				11DD966227FDD06A0005500A /* FavoritesTabView.swift */,
 				11A2781928032EA40063D706 /* AddressPickerView.swift */,
 				119BE1EA27D2318800B2D70F /* ProviderSearchView.swift */,
-				11DD966227FDD06A0005500A /* FavoritesTabView.swift */,
 				1145CB8328022B84006E11A9 /* CategoryServiceDetailView.swift */,
 			);
 			path = Negotiation;

@@ -18,7 +18,7 @@ DEPENDENCIES:
   - CalendarKit (from `https://bitbucket.org/qloga/calendarkit/src/QLoGaMods/CalendarKit.git`, branch `QLoGaMods`)
   - GoogleMaps
   - GooglePlaces
-  - StepperView (~> 1.6.7)
+  - StepperView (from `https://bitbucket.org/qloga/stepperview.git`, branch `qloga`)
 
 SPEC REPOS:
   trunk:
@@ -26,7 +26,6 @@ SPEC REPOS:
     - AnyFormatKitSwiftUI
     - GoogleMaps
     - GooglePlaces
-    - StepperView
 
 EXTERNAL SOURCES:
   BottomSheetSwiftUI:
@@ -35,6 +34,9 @@ EXTERNAL SOURCES:
   CalendarKit:
     :branch: QLoGaMods
     :git: https://bitbucket.org/qloga/calendarkit/src/QLoGaMods/CalendarKit.git
+  StepperView:
+    :branch: qloga
+    :git: https://bitbucket.org/qloga/stepperview.git
 
 CHECKOUT OPTIONS:
   BottomSheetSwiftUI:
@@ -43,6 +45,9 @@ CHECKOUT OPTIONS:
   CalendarKit:
     :commit: 3bb83f428ecf106e3e0dcec3a4b7cdc20f5006d6
     :git: https://bitbucket.org/qloga/calendarkit/src/QLoGaMods/CalendarKit.git
+  StepperView:
+    :commit: a7e6e5994460c23a89d5284b6e363a0ddabbf280
+    :git: https://bitbucket.org/qloga/stepperview.git
 
 SPEC CHECKSUMS:
   AnyFormatKit: b0dbb2a5f2fe7a0fc97f401f8a219a47ee63a335
@@ -53,6 +58,6 @@ SPEC CHECKSUMS:
   GooglePlaces: 9c1f3baa75191b94dfc12b80a801292e03977f73
   StepperView: 9b88922ef65712410c0e95c460cd115d33cfd933
 
-PODFILE CHECKSUM: 1804afe353c239a09cabf01233d6c756c84732ca
+PODFILE CHECKSUM: a03d6bd45f2964936c9cbf6144d74c4acbcfb636
 
 COCOAPODS: 1.11.3

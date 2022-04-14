@@ -13,8 +13,14 @@ struct ActorTypePickerView: View {
     @State var actorType: ActorsEnum = .CUSTOMER
     @State var selectedActor: ActorsEnum = .CUSTOMER
     @StateObject var viewRouter = TabController()
+#if DEBUG
+    @State var isPicked = true
 
+#else
     @State var isPicked = false
+
+#endif
+
     var body: some View {
         ZStack {
             VStack(alignment: .center, spacing: 10) {

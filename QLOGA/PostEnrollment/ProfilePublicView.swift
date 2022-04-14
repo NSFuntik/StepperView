@@ -360,7 +360,7 @@ struct ProfilePublicView: View {
                     .multilineTextAlignment(.leading)
                     .font(Font.system(size: 17, weight: .regular, design: .rounded))
                 Spacer()
-                Text("\($provider.wrappedValue.choicedServices[CategoryType.Cleaning.id].services.count.description)")
+                Text("\($provider.wrappedValue.services.count.description)")
                     .foregroundColor(Color.secondary)
                     .font(Font.system(size: 17, weight: .regular, design: .rounded))
             } icon: {
@@ -373,19 +373,61 @@ struct ProfilePublicView: View {
                     .foregroundColor(Color.lightGray)
                 ).frame(height: 50).padding(1)
             ScrollView {
-                ForEach(Array($provider.choicedServices[CategoryType.Cleaning.id].services.wrappedValue), id: \.self) { service in
+                ForEach($provider.services, id: \.self) { service in
                     HStack(alignment: .center, spacing: 15) {
                         Image(systemName: "circle.fill")
                             .foregroundColor(Color.accentColor)
                             .multilineTextAlignment(.leading)
                             .font(Font.system(size: 7, weight: .regular, design: .rounded))
-                        Text(service.title)
+                        Text(service.name.wrappedValue ?? "")
                             .foregroundColor(Color.secondary)
                             .multilineTextAlignment(.leading)
                             .font(Font.system(size: 17, weight: .light, design: .rounded))
                         Spacer()
                     }.padding(2)
                 }.padding(.top, 10)
+                VStack {
+                    Label {
+                        Text("Rating")
+                            .foregroundColor(Color.black)
+                            .multilineTextAlignment(.leading)
+                            .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                        Spacer()
+                        Text("\(String(format: "%g", $provider.rating.wrappedValue))/5")
+                            .foregroundColor(Color.secondary)
+                            .font(Font.system(size: 15, weight: .medium, design: .monospaced))
+                    } icon: {
+                        Image("RatingIcon")
+                            .resizable().scaledToFit().aspectRatio( contentMode: .fit)
+                            .frame(width: 25, height: 25, alignment: .center)
+                    }.padding(10)
+                        .overlay(RoundedRectangle(cornerRadius: 10)
+                            .stroke(lineWidth: 1.0)
+                            .foregroundColor(Color.lightGray))
+                        .padding(1)
+
+                    HStack {
+                        Text("Comminications")
+                            .foregroundColor(Color.secondary)
+                            .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                        Spacer()
+                        StarsView(rating: 4.0)
+                    }.padding(5)
+                    HStack {
+                        Text("Friendlyness")
+                            .foregroundColor(Color.secondary)
+                            .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                        Spacer()
+                        StarsView(rating: 4.0)
+                    }.padding(5)
+                    HStack {
+                        Text("Timely arrival")
+                            .foregroundColor(Color.secondary)
+                            .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                        Spacer()
+                        StarsView(rating: 2.5)
+                    }.padding(5)
+                }.padding(.vertical, 10)
             }
         }.padding(.vertical, 20)
     }

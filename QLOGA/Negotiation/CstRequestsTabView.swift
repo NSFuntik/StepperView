@@ -43,7 +43,9 @@ struct CstRequestsTabView: View {
 
                                 Section {
 
-                                    RequestsCell(request: request).environmentObject(CategoryController.CategoryVM)
+                                    RequestsCell(request: request)
+                                        .environmentObject(CategoryController.CategoryVM)
+                                        .environmentObject(requestsController)
                                        .padding(10)
                                         .tag(request.wrappedValue.id)
                                     //                                Divider().foregroundColor(.secondary)
@@ -105,6 +107,8 @@ struct RequestsCell: View {
     @Binding var request: CstRequest
     @State var catID: CategoryType.ID = 0
     @EnvironmentObject var CategoryController: CategoriesViewModel
+    @EnvironmentObject var requestsController: RequestViewModel
+    @State var statusColor = Color.accentColor
     @State private var numberFormatter: NumberFormatter = {
         var nf = NumberFormatter()
         nf.multiplier = 0.01
@@ -116,13 +120,17 @@ struct RequestsCell: View {
 //    @State var services: [CategoryService]
     var body: some View {
         
-        NavigationLink(destination: CstCreateRequestView(categories: request.services.map({$0.toCategoryService}), cstRequest: $request.wrappedValue).environmentObject(CategoryController.CategoryVM)) {
+        NavigationLink(destination: CstCreateRequestView(categories: request.services.map({$0.toCategoryService}),
+                                                         cstRequest: $request.wrappedValue)
+            .environmentObject(CategoryController.CategoryVM)
+            .environmentObject(requestsController)) {
                 VStack {
                 HStack {
                     HStack(spacing: 0)  {
                         Text("#\(request.id)") .font(Font.system(size: 17, weight: .regular, design: .rounded)).foregroundColor(.black)
                         Text("(\(request.statusRecord.status))")
-                            .font(Font.system(size: 17, weight: .regular, design: .rounded)).foregroundColor(.lightGray)
+                            .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                            .foregroundColor(statusColor)
                     }
                     Spacer()
                     Text(numberFormatter.string(from: request.offeredSum as NSNumber)!)
@@ -218,7 +226,21 @@ struct RequestsCell: View {
                 }
 
             }
-        }
+            }.onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    withAnimation(.spring()) {
+
+                        $request.wrappedValue.services = $request.wrappedValue.services
+                    }
+                }
+                if request.statusRecord.status == "CANCELED" {
+                   statusColor = Color.red
+                } else if request.statusRecord.status == "STOPPED" {
+                    statusColor = Color.yellow
+                } else {
+                    statusColor = Color.accentColor
+                }
+            }
     }
     func getCategoriesFor(request: CstRequest) -> [CategoryType] {
         var categories: [CategoryType] = []

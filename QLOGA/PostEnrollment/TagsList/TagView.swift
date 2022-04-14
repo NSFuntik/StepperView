@@ -34,6 +34,13 @@ open class TagView: UIButton {
             reloadStyles()
         }
     }
+
+    @IBInspectable open var textSize: CGFloat = 14 {
+        didSet {
+            reloadStyles()
+        }
+    }
+
     @IBInspectable open var selectedTextColor: UIColor = UIColor.black {
         didSet {
             reloadStyles()
@@ -83,7 +90,9 @@ open class TagView: UIButton {
     
     @IBInspectable open var textFont: UIFont = .rounded(ofSize: 14, weight: .medium) {
         didSet {
-            titleLabel?.font = textFont
+            titleLabel?.font = textFont.withSize(textSize)
+            titleLabel?.adjustsFontSizeToFitWidth
+
         }
     }
     

@@ -6,21 +6,22 @@
 //
 
 import SwiftUI
+import Combine
+
+
 
 struct FavoritesTabView: View {
-    @Binding var provider: Provider
+    @State var provider: [Provider] = [testProvider, testProvider,testProvider,testProvider, testProvider]
     @EnvironmentObject var tabController: TabController
-
     var body: some View {
-
-
-            VStack {
-
-                Text("Hello, World!")
-            }.onAppear {
-                $tabController.activeTab.wrappedValue = .favourites
-                $tabController.objectWillChange.animation()
-            }
+        VStack {
+            List($provider) { prv in
+                Section {
+                    FavoritesCell(provider: prv)
+                }
+            }.listStyle(.inset)
+//            Text("Hello, World!")
+        }
         
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("Favorite providers").navigationViewStyle(.stack)
@@ -29,6 +30,101 @@ struct FavoritesTabView: View {
 
 struct FavoritesTabView_Previews: PreviewProvider {
     static var previews: some View {
-        FavoritesTabView(provider: .constant(testProvider))
+        NavigationView {
+            FavoritesTabView()
+        }.previewDevice("iPhone 6s")
+    }
+}
+
+struct FavoritesCell: View {
+    @Binding var provider: Provider
+//    @State var tags : RemovableTagListView?    //    @EnvironmentObject var tabController: TabController
+//    init(provider: Binding<Provider>) {
+//        self._provider = provider
+////        self.tags.makeUIView(context: .dynamic)
+////        self.tags..rearrangeViews()
+//    }
+    var body: some View {
+        NavigationLink(destination: ProfilePublicView(actorType: .PROVIDER, customer: .constant(testCustomer), provider: $provider)) {
+            HStack {
+                VStack(alignment: .center, spacing: 0) {
+                    Image(provider.avatar)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 100, height: 130, alignment: .center)
+                        .cornerRadius(10)
+                        .overlay(RoundedRectangle(cornerRadius: 10)
+                            .stroke(lineWidth: 1.0)
+                            .foregroundColor(Color.lightGray)).padding(1).padding(.top, 2)
+                }
+                VStack(alignment: .leading, spacing: 0) {
+                    Text(provider.name)
+                        .foregroundColor(Color.black.opacity(0.8))
+                        .multilineTextAlignment(.leading)
+                        .frame(width: 200, height: 30, alignment: .topLeading)
+                        .font(Font.system(size: 200,
+                                          weight: .medium,
+                                          design: .rounded))
+                        .minimumScaleFactor(0.05)
+                    Text(provider.address.town)
+                        .foregroundColor(Color.black.opacity(0.8))
+                        .multilineTextAlignment(.leading)
+                        .font(Font.system(size: 15,
+                                          weight: .regular,
+                                          design: .rounded))
+                        .frame(width: 100, alignment: .leading)
+
+                    Section {
+                        RemovableTagListView(selected: .constant(0.serviceTypeID.rawValue), isRemovable: .constant(false),
+                                             categoriesVM: CategoriesViewModel.shared,
+                                             tags:
+                                .constant(Set($provider.wrappedValue.services.compactMap({ category in
+                                    return "\(qServiceID[category.id]!.title)"//: \(count)"
+                                }))), fontSize: 9).frame(width: 230, height: 60, alignment: .leading).ignoresSafeArea().disabled(true)
+
+                    }//.scaleEffect(0.7)
+                    .padding(.vertical, 5)
+
+                        Button {
+//                            dismiss()
+                        } label: {
+                            VStack {
+                                Rectangle().foregroundColor(.clear)
+                                    .ignoresSafeArea(.container, edges: .horizontal)
+                                    .overlay {
+                                        HStack {
+                                            Text("Direct Inquiry")
+                                                .withDoneButtonStyles(backColor: .Green, accentColor: .white, isWide: false, width: 200, height: 30, isShadowOn: true)
+                                        }
+                                    }
+                            }
+                        }.frame(width: 200, height: 30, alignment: .leading)
+
+                }
+            }.padding(.vertical, 5)
+
+        }.onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                withAnimation(.spring(response: 0.55, dampingFraction: 0.825, blendDuration: 0.5)) {
+
+                    $provider.wrappedValue.services = $provider.wrappedValue.services
+                }
+            }
+//            self.tags =
+//            self.tags?.fontSize = 8
+//            self.tags.frame(width: 200, height: 60, alignment: .leading)
+        }
+        }
+    func getCategoriesFor(provider: Provider) -> [CategoryType] {
+        var categories: [CategoryType] = []
+        let qServiceIDDict = qServiceID
+        provider.services.forEach { s in
+            qServiceIDDict.keys.compactMap { qId in
+                if qId == s.sortOrder {
+                    categories.append(qServiceID[qId]!)
+                }
+            }
+        }
+        return categories
     }
 }

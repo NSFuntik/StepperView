@@ -199,12 +199,20 @@ open class TagListView: UIView {
             }
         }
     }
-    
-    @objc open dynamic var textFont: UIFont = .rounded(ofSize: 14, weight: .medium)  {
+    @objc open dynamic var textSize: CGFloat = 14  {
         didSet {
             defer { rearrangeViews() }
             tagViews.forEach {
-                $0.textFont = textFont
+                $0.textSize = textSize
+            }
+        }
+    }
+    
+    @objc open dynamic var textFont: UIFont = .rounded(ofSize: 13, weight: .medium)  {
+        didSet {
+            defer { rearrangeViews() }
+            tagViews.forEach {
+                $0.textFont = textFont.withSize(textSize)
             }
         }
     }
@@ -214,7 +222,11 @@ open class TagListView: UIView {
     open private(set) var tagViews: [TagView] = []
     private(set) var tagBackgroundViews: [UIView] = []
     private(set) var rowViews: [UIView] = []
-    private(set) var tagViewHeight: CGFloat = 20
+    private(set) var tagViewHeight: CGFloat = 20 {
+        didSet {
+            invalidateIntrinsicContentSize()
+        }
+    }
     private(set) var rows = 0 {
         didSet {
             invalidateIntrinsicContentSize()
@@ -236,7 +248,7 @@ open class TagListView: UIView {
         super.layoutSubviews()
     }
     
-     func rearrangeViews() {
+    public func rearrangeViews() {
 //        tagViews.reserveCapacity(ServiceType.allCases.count)
         let views = tagViews as [UIView] + tagBackgroundViews + rowViews
         views.forEach {

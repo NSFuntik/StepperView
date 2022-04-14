@@ -96,9 +96,9 @@ struct Category: Codable, Hashable, Identifiable {
 
 // MARK: - Service
 struct CategoryService: Codable, Hashable, Identifiable {
-    internal init(id: Int? = 0, sortOrder: Int? = 0, name: String? = "nil", descr: String? = "nil", unit: String? = "nil", unitDescr: String? = "nil", subject: String? = "nil", works: String? = "nil", exclusions: String? = "nil", timeNorm: Int? = 0, avatarID: Int? = 0, avatarURL: String? = "nil") {
-        self.id = sortOrder ?? CategoriesViewModel.shared.categories.endIndex
-        self.sortOrder =  self.id ?? sortOrder!
+    internal init(id: Int, sortOrder: Int = 0, name: String? = "nil", descr: String? = "nil", unit: String? = "nil", unitDescr: String? = "nil", subject: String? = "nil", works: String? = "nil", exclusions: String? = "nil", timeNorm: Int? = 0, avatarID: Int? = 0, avatarURL: String? = "nil") {
+        self.id = id
+        self.sortOrder = sortOrder
 //        self.unitsCount = unitsCount
         self.name = name
         self.descr = descr
