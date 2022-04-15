@@ -10,8 +10,8 @@ import Combine
 
 struct ActorTypePickerView: View {
     @State var selectedService: Int = 1
-    @State var actorType: ActorsEnum = .PROVIDER
-    @State var selectedActor: ActorsEnum = .PROVIDER
+    @State var actorType: ActorsEnum = .CUSTOMER
+    @State var selectedActor: ActorsEnum = .CUSTOMER
     @StateObject var viewRouter = TabController()
 #if DEBUG
     @State var isPicked = true

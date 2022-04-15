@@ -16,7 +16,7 @@ struct QuoteOverView: View {
     @State var showAlert = false
     @State var actorType: ActorsEnum = .PROVIDER
     @State var isPicked = false
-
+    @Environment(\.dismiss) var dismiss
     var body: some View {
         ZStack {
             ScrollView {
@@ -57,7 +57,9 @@ struct QuoteOverView: View {
                         .stroke(Color.secondary
                             .opacity(0.7), lineWidth: 1).padding(1)).padding(.horizontal, 20).padding(.top, 10)
                     VStack(alignment: .center) {
-                        NavigationLink(destination: InquiryServicesView()) {
+                        Button(action : {
+                            dismiss()
+                        }) {
                             HStack {
                                 Text("Add services")
                                     .lineLimit(1)
@@ -248,7 +250,9 @@ struct QuoteOverView: View {
             }
             VStack {
                 Spacer()
-                NavigationLink(destination: QuoteOverView(customer: $customer)) {
+                Button(action : {
+                    isPicked = true
+                }) {
                     Text("Add service").withDoneButtonStyles(backColor: .accentColor, accentColor: .white)
                 }
 
@@ -270,14 +274,13 @@ struct QuoteOverView: View {
             HStack {
                 Image(systemName: "chevron.left").foregroundColor(.accentColor)
                     .aspectRatio(contentMode: .fit)
-                Text("Revert").foregroundColor(.accentColor)
+                Text("Revert").bold().foregroundColor(.red)
             }
         })
         .alert("You have chosen to return to the list of services - in this case, the provider you have chosen and its services will not be saved! Are you sure?", isPresented: $showAlert) {
             Button("Decline", role: .cancel) { showAlert = false}
 
             Button("Allow", role: .destructive) {
-
                 isPicked = true
             }
 

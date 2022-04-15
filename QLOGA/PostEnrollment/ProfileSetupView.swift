@@ -244,7 +244,13 @@ struct ProfileSetupView: View {
                 HStack {
                     Image(systemName: "chevron.left").foregroundColor(.accentColor)
                         .aspectRatio(contentMode: .fit)
-                    Text(defaultActor == actorType ? "Back" : "Orders").foregroundColor(.accentColor)
+                    if defaultActor == actorType {
+                        Text("Back").foregroundColor(.accentColor)
+                    } else {
+                        Text("Orders").foregroundColor(.accentColor).bold()
+
+                    }
+//                    Text(defaultActor == actorType ? "Back" : "Orders").foregroundColor(.accentColor)
                 }
             })
             .gesture(DragGesture().updating($dragOffset, body: { (value, state, transaction) in

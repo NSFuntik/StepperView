@@ -55,7 +55,7 @@ struct CstOpenRequestsView: View {
                                                 .withDoneButtonStyles(backColor: .accentColor, accentColor: .white)
                                         }
                                     }.zIndex(1)//.opacity($tags.wrappedValue.count > 0 ? 1 : 0)
-                            }.padding(.bottom, 15)
+                            }.padding(.bottom, 20)
                         }
                     }
                 }
