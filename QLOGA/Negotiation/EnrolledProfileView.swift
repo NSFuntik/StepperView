@@ -16,7 +16,6 @@ struct EnrolledProfileView: View {
         case Orders
         case Quotes
         case Inquires
-//        case Requests
         case Today
         var description: String {
             switch self {
@@ -38,7 +37,7 @@ struct EnrolledProfileView: View {
     @Binding var actorType: ActorsEnum
     @State var customer: Customer = testCustomer
     @State var provider: Provider = testProvider
-
+    @StateObject var ordersController = OrdersViewModel()
     @State var isModalPresented = false
     @State var isFiltersPresented = false
     @State var isNotShowAgain = false
@@ -60,13 +59,17 @@ struct EnrolledProfileView: View {
                                 .foregroundColor(isSelected ? .black : .lightGray)
                         }
                         VStack(alignment: .center) {
-                            Spacer()
-                            Image("\(actorType != .CUSTOMER ? "prv" : "cst")-\(Tab(rawValue: $selectedTab.wrappedValue)!.description.lowercased())")
-                                .resizable()
-                                .frame(width: 300, height: 375, alignment: .center)
-                                .scaledToFit()
-                                .aspectRatio(1, contentMode: .fit)
-                            Spacer()
+                            if ordersController.orders.isEmpty || $selectedTab.wrappedValue != 0 {
+                                Spacer()
+                                Image("\(actorType != .CUSTOMER ? "prv" : "cst")-\(Tab(rawValue: $selectedTab.wrappedValue)!.description.lowercased())")
+                                    .resizable()
+                                    .frame(width: 300, height: 375, alignment: .center)
+                                    .scaledToFit()
+                                    .aspectRatio(1, contentMode: .fit)
+                                Spacer()
+                            } else {
+                                PrvOrdersListTabView(provider: $provider, customer: $customer, ordersController: ordersController)
+                            }
                         }.frame(width: UIScreen.main.bounds.width)
                             .background(Color.lightGray.opacity(0.2))
 

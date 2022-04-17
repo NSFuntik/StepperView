@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ActorsEnum: String, CaseIterable, Identifiable {
+enum ActorsEnum: String, CaseIterable, Identifiable, Codable {
     case QLOGA
     case CUSTOMER
     case  PROVIDER

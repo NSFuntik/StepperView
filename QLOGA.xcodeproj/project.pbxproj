@@ -22,6 +22,7 @@
 		1145CB80280215AF006E11A9 /* CategoriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1145CB7F280215AF006E11A9 /* CategoriesModel.swift */; };
 		1145CB82280215CC006E11A9 /* categories.json in Resources */ = {isa = PBXBuildFile; fileRef = 1145CB81280215CC006E11A9 /* categories.json */; };
 		1145CB8428022B84006E11A9 /* CategoryServiceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1145CB8328022B84006E11A9 /* CategoryServiceDetailView.swift */; };
+		11500E7B280C998600E45A97 /* OrdersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11500E7A280C998600E45A97 /* OrdersModel.swift */; };
 		115A86E927D6A7320064AE36 /* ImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115A86E827D6A7320064AE36 /* ImageViewer.swift */; };
 		11663FC62802CBF40041B56D /* CstCreateRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11663FC52802CBF40041B56D /* CstCreateRequestView.swift */; };
 		116C193627DDEA4F00755425 /* ActorsEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116C193527DDEA4F00755425 /* ActorsEnum.swift */; };
@@ -126,6 +127,7 @@
 		1145CB7F280215AF006E11A9 /* CategoriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesModel.swift; sourceTree = "<group>"; };
 		1145CB81280215CC006E11A9 /* categories.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = categories.json; sourceTree = "<group>"; };
 		1145CB8328022B84006E11A9 /* CategoryServiceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CategoryServiceDetailView.swift; path = /Users/miha/Developer/QLOGA/QLOGA/Negotiation/CategoryServiceDetailView.swift; sourceTree = "<absolute>"; };
+		11500E7A280C998600E45A97 /* OrdersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersModel.swift; sourceTree = "<group>"; };
 		115A86E827D6A7320064AE36 /* ImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewer.swift; sourceTree = "<group>"; };
 		11663FC52802CBF40041B56D /* CstCreateRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CstCreateRequestView.swift; sourceTree = "<group>"; };
 		116C193527DDEA4F00755425 /* ActorsEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorsEnum.swift; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 				111166EA27DA89FA00A03E42 /* ReviewModel.swift */,
 				116C193527DDEA4F00755425 /* ActorsEnum.swift */,
 				119CA40B27EF561C0082282C /* PortfolioModel.swift */,
+				11500E7A280C998600E45A97 /* OrdersModel.swift */,
 			);
 			path = DataModels;
 			sourceTree = "<group>";
@@ -677,6 +680,7 @@
 				119BE1FD27D2330100B2D70F /* SelectedServiceDetailView.swift in Sources */,
 				119CF3BE2808DA4300AEAE27 /* CategoriesChooserView.swift in Sources */,
 				119CA42127EF57A10082282C /* ProfileSetupView.swift in Sources */,
+				11500E7B280C998600E45A97 /* OrdersModel.swift in Sources */,
 				114159DF27D36C720091C254 /* AddressModel.swift in Sources */,
 				11DD966127FDD0070005500A /* CstRequestsTabView.swift in Sources */,
 				116C193627DDEA4F00755425 /* ActorsEnum.swift in Sources */,

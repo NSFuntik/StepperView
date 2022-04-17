@@ -109,7 +109,7 @@ struct RequestsCell: View {
     
     @EnvironmentObject var CategoryController: CategoriesViewModel
     @EnvironmentObject var requestsController: RequestViewModel
-    @State var statusColor = Color.accentColor
+    @State var statusColor = Color.Green
     @State private var numberFormatter: NumberFormatter = {
         var nf = NumberFormatter()
         nf.multiplier = 0.01
@@ -129,9 +129,6 @@ struct RequestsCell: View {
                 HStack {
                     HStack(spacing: 0)  {
                         Text("#\(request.id)") .font(Font.system(size: 17, weight: .regular, design: .rounded)).foregroundColor(.black)
-                        Text("(\(request.statusRecord.status))")
-                            .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                            .foregroundColor(statusColor)
                     }
                     Spacer()
                     Text(numberFormatter.string(from: request.offeredSum as NSNumber)!)
@@ -139,16 +136,22 @@ struct RequestsCell: View {
                         .font(Font.system(size: 18, weight: .semibold, design: .rounded))
                         .foregroundColor(.black)
                         .lineLimit(1)
-                    Image(systemName: "chevron.right")
-                        .foregroundColor(Color.accentColor)
-                        .multilineTextAlignment(.leading)
-                        .font(Font.system(size: 15, weight: .regular, design: .rounded))
-                        .padding(.horizontal, 5)
-                        .padding(.trailing, -10)
+//                    Image(systemName: "chevron.right")
+//                        .foregroundColor(Color.Green)
+//                        .multilineTextAlignment(.leading)
+//                        .font(Font.system(size: 15, weight: .regular, design: .rounded))
+//                        .padding(.horizontal, 5)
+//                        .padding(.trailing, -10)
                 }.padding(.vertical, 5)
 //                    Divider().background(Color.lightGray.opacity(0.2))
+                    HStack {
+                        Text("\(request.statusRecord.status)")
+                            .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                            .foregroundColor(statusColor)
+                        Spacer()
+                        Text("\(request.visits) Visit")
+                    }.padding(.top, -5.5).padding(.vertical, 5)
                     VStack(spacing: 7) {
-
                         HStack {
                             Text("Placed")
                                 .multilineTextAlignment(.leading)
@@ -205,7 +208,6 @@ struct RequestsCell: View {
                             })))).disabled(true)
 
                     HStack {
-                        Text("\(request.visits) Visit")
                         Spacer()
                         Image("Magnifier")
                             .resizable()

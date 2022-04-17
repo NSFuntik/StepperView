@@ -25,7 +25,7 @@ struct QLOGAApp: App {
                 .environment(\.colorScheme, .light)
                 .preferredColorScheme(.light)
 #else
-            IntroView()
+            ActorTypePickerView()
 //            ActorTypePickerView()
                 .environment(\.colorScheme, .light)
                 .preferredColorScheme(.light)

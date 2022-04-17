@@ -23,8 +23,9 @@ struct ServiceConditionsView: View {
 								.foregroundColor(Color.black.opacity(0.9))
 								.multilineTextAlignment(.leading)
 								.font(Font.system(size: 17, weight: .regular, design: .rounded))
-								.lineLimit(1)
+								.lineLimit(2)
 								.padding(.leading, 10)
+                                .minimumScaleFactor(0.8)
 							Spacer()
 						}
 						.onChange(of: $isCustomerProvides.wrappedValue) { newValue in
@@ -77,6 +78,7 @@ struct ServiceConditionsView: View {
 					.foregroundColor(Color.secondary)
 					.multilineTextAlignment(.leading)
 					.font(Font.system(size: 17, weight: .regular, design: .rounded))
+
 				Spacer()
 			}
 			VStack {
@@ -87,8 +89,10 @@ struct ServiceConditionsView: View {
 								.foregroundColor(Color.black.opacity(0.9))
 								.multilineTextAlignment(.leading)
 								.font(Font.system(size: 17, weight: .regular, design: .rounded))
-								.lineLimit(1)
+								.lineLimit(2)
 								.padding(.leading, 10)
+                                .minimumScaleFactor(0.8)
+
 							Spacer()
 						}
 						.onChange(of: $isNoExternalWindows.wrappedValue) { newValue in
@@ -99,7 +103,7 @@ struct ServiceConditionsView: View {
 									$conditions.wrappedValue.filter { $0 != "No cleaning of external-facing sides of windows" }
 							}
 						}
-					}.padding(.horizontal, 5).frame(height: 40)
+					}.padding(.horizontal, 5).frame(idealHeight: 40, maxHeight: 60)
 				}
 			}.padding(10)
 				.overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary.opacity(0.7), lineWidth: 1).padding(1))

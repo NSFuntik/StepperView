@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CategoriesChooserView: View {
     @Binding var customer: Customer
+    @State var amount: Double
     var body: some View {
         ZStack {
             VStack {
@@ -106,12 +107,20 @@ struct CategoriesChooserView: View {
             }
             VStack {
                 Spacer()
-                NavigationLink(destination: QuoteOverView(customer: $customer)) {
+                NavigationLink(destination: QuoteOverView(customer: $customer, amount: amount)) {
                     Text("Add service").withDoneButtonStyles(backColor: .accentColor, accentColor: .white)
                 }
 
                 .zIndex(1)//.opacity($tags.wrappedValue.count > 0 ? 1 : 0)
             }.padding(.bottom, 20)
+        }.onAppear {
+            var cust = customer
+            cust.services = customer.services.map { s in
+                var serv = s
+                serv.unitsCount = 1
+                return serv
+            }
+            customer = cust
         }
         .ignoresSafeArea(.container, edges: .bottom)
         .padding(.horizontal, 20).padding(.top, 10)

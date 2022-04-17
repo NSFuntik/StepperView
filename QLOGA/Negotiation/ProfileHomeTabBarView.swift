@@ -14,7 +14,7 @@ enum HomeTab: Int {
     var title: String {
         switch self {
             case .orders:
-                return   "Orders"
+                return "Orders"
             case .requests:
                 return  "Open Requests"
             case .search:

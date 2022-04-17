@@ -126,6 +126,9 @@ struct OffTime: Identifiable, Hashable, Equatable {
 	}
 }
 
+
+
+
 // extension Int {
 //    func update(_ offTime:  Binding<OffTime>) -> Binding<OffTime> {
 //        let fotmatter = DateFormatter()

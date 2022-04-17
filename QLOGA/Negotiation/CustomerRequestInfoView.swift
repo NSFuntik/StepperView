@@ -102,7 +102,7 @@ struct CustomerRequestInfoView: View {
                                         .multilineTextAlignment(.leading)
                                         .font(Font.system(size: 17, weight: .regular, design: .rounded))
                                     Spacer()
-                                    Text(poundsFormatter.string(from: Int(customer.address.building)! as NSNumber)!)
+                                    Text(poundsFormatter.string(from: Int(customer.address.building)! * 100 as NSNumber)!)
                                         .multilineTextAlignment(.trailing)
                                         .font(Font.system(size: 17, weight: .semibold, design: .rounded))
                                         .foregroundColor(.black)
@@ -188,7 +188,7 @@ struct CustomerRequestInfoView: View {
             }.ignoresSafeArea(.container, edges: .bottom)
             VStack {
                 Spacer()
-                NavigationLink(destination: CategoriesChooserView(customer: $customer)) {
+                NavigationLink(destination: CategoriesChooserView(customer: $customer, amount: Double(Int(customer.address.building)! * 100))) {
                     Text("Quote").withDoneButtonStyles(backColor: .accentColor, accentColor: .white)
                 }.background(.clear)
 

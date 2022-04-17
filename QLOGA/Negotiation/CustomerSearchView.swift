@@ -25,7 +25,7 @@ struct CustomerSearchView: View {
 }
 var poundsFormatter: NumberFormatter = {
     var nf = NumberFormatter()
-    nf.multiplier = 1
+    nf.multiplier = 0.01
     nf.numberStyle = .currency
     nf.locale = .init(identifier: "en_GB")
     return nf
@@ -59,7 +59,7 @@ struct CustomerRequestCell: View {
                         .foregroundColor(customer.address.apt != "" ? .infoBlue : .clear)
 //                }
                 Spacer()
-                Text(poundsFormatter.string(from: Int(customer.address.building)! as NSNumber)!)
+                Text(poundsFormatter.string(from: Int(customer.address.building)! * 100 as NSNumber)!)
                     .multilineTextAlignment(.trailing)
                     .font(Font.system(size: 17, weight: .semibold, design: .rounded))
                     .foregroundColor(.black)

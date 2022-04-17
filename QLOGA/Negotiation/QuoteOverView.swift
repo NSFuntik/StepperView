@@ -9,13 +9,23 @@ import SwiftUI
 
 struct QuoteOverView: View {
     @Binding var customer: Customer
-    @State var totalSum: Double = 0
+    var totalSum: Double {
+        get {
+            return Double(customer.services.map({$0.unitsCount * Int($0.price)}).reduce(0, +))
+        }
+        set {
+            totalSum = newValue
+        }
+    }
+    @State var amount: Double
     @State var isChargeOn = false
     @State var calloutCharge = 0.0
     @State var cancellation = 0
     @State var showAlert = false
     @State var actorType: ActorsEnum = .PROVIDER
     @State var isPicked = false
+    @State var isExist = false
+    @State var services: [CategoryService] = []
     @Environment(\.dismiss) var dismiss
     var body: some View {
         ZStack {
@@ -82,10 +92,34 @@ struct QuoteOverView: View {
                                     .multilineTextAlignment(.leading)
                                     .font(Font.system(size: 19, weight: .regular, design: .default))
                                 Spacer()
-                                Text("\(poundsFormatter.string(from: $totalSum.wrappedValue as NSNumber)!)")
-                                    .foregroundColor(Color.black)
-                                    .multilineTextAlignment(.leading)
-                                    .font(Font.system(size: 19, weight: .bold, design: .default))
+                                if isExist {
+                                    Text(poundsFormatter.string(from: customer.services.map({$0.unitsCount * Int($0.price)}).reduce(0, +) as NSNumber)!)
+                                        .foregroundColor(Color.black)
+                                        .multilineTextAlignment(.leading)
+                                        .font(Font.system(size: 19, weight: .bold, design: .default))
+
+                                } else {
+
+                                    VStack(alignment: .trailing) {
+                                        TextField("Total price:", value: $amount, formatter: poundsFormatter, prompt: Text(isExist ? "£\( String(customer.services.map({$0.unitsCount * Int($0.price * 100)}).reduce(0, +) * 100)).00" : (poundsFormatter.string(from: Int(customer.address.building)! * 100 as NSNumber)!)))
+                                            .font(Font.system(size: 17,
+                                                              weight: .semibold,
+                                                              design: .rounded))
+                                            .foregroundColor(Color.black)
+                                            .keyboardType(.decimalPad)
+                                            .gesture(DragGesture()
+                                                .onChanged{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)})
+                                            .toolbar{
+                                                ToolbarItem(placement: .keyboard, content: {
+                                                    Button(role: ButtonRole.destructive) {
+                                                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                                                    } label: {
+                                                        Text("Done")
+                                                    }})
+                                            }
+                                            .multilineTextAlignment(.trailing)
+                                    }
+                                }
                             }
                             VStack {
                                 Group {
@@ -120,8 +154,8 @@ struct QuoteOverView: View {
                                     Section {
                                         DisclosureGroup {
                                             Picker("Cancellation period", selection: $cancellation) {
-                                                ForEach(0 ..< 24) {
-                                                    if   $0 > 0 { Text("\($0)") }
+                                                ForEach(0 ..< 72) {
+                                                    if   $0 > 0 { Text("\($0) hrs") }
                                                 }
                                             }.pickerStyle(.wheel)
                                         } label: {
@@ -131,7 +165,7 @@ struct QuoteOverView: View {
                                                     .multilineTextAlignment(.leading)
                                                     .font(Font.system(size: 17, weight: .regular, design: .rounded))
                                                 Spacer()
-                                                Text("\(cancellation)")
+                                                Text("\(cancellation) hrs")
                                                     .lineLimit(2)
                                                     .foregroundColor(Color.secondary)
                                                     .font(Font.system(size: 17, weight: .regular, design: .rounded))
@@ -251,6 +285,10 @@ struct QuoteOverView: View {
             VStack {
                 Spacer()
                 Button(action : {
+                    Orders.append(OrderContent(statusRecord: OrderStatusRecord(date: getString(from: Date()), actor: actorType.rawValue, actorId: 0, action: "VISIT_ADDED", note: "", status: "VISIT_ADDED", display: "VISIT_ADDED", actionDisplay: "VISIT_ADDED", actionPast: "VISIT_ADDED"), id: Int.random(in: 200...5000), addr: customer.address.defaultAddress,
+                                               amount: amount == 0.0 ? Int(customer.services.map({$0.unitsCount * Int($0.price)}).reduce(0, +) * 100) * 100 : Int(amount), callout: isChargeOn, serviceDate: Date(), services: customer.services.map({ s in
+                        return OrderService(id: s.avatarID ?? Int.random(in: 200...5000), conditions: [0], qty: s.unitsCount, cost: Int(s.price), timeNorm: s.timeNorm ?? 30, qserviceId: s.id)
+                    }), provider: OrderProvider(id: 1002, calloutCharge: false, services: [], resourceIds: [], favs: [], ratings: [], portfolio: []), providerOrg: OrderProviderOrg(name: "Kai\'s Elderly care business (London)", offTime: [], workingHours: [], verifications: [], settings: QLOGA.OrderSettings()), cstPerson: OrderCstPerson(verifications: [], settings: OrderSettings(), payMethods: []), dayPlans: [], cstActions: [], prvActions: [], payments: [], assigns: []))
                     isPicked = true
                 }) {
                     Text("Add service").withDoneButtonStyles(backColor: .accentColor, accentColor: .white)
@@ -258,29 +296,34 @@ struct QuoteOverView: View {
 
                 .zIndex(1)//.opacity($tags.wrappedValue.count > 0 ? 1 : 0)
             }.padding(.bottom, 20)
-        }.onAppear {
-            $customer.services.wrappedValue.compactMap({ s in
-                totalSum = totalSum + (Double(s.unitsCount) * s.price)
-            })
+        }
+        .onAppear {
+            if !services.isEmpty {
+                customer.services = services
+            }
         }
         .ignoresSafeArea(.container, edges: .bottom)
         .padding(.horizontal, 20).padding(.top, 10)
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle("Quote (incomplete)")
-        .navigationBarBackButtonHidden(true)
+        .navigationTitle("Quote overview")
+        .navigationBarBackButtonHidden(!isExist)
         .navigationBarItems(leading: Button(action : {
             showAlert = true
         }){
-            HStack {
-                Image(systemName: "chevron.left").foregroundColor(.accentColor)
-                    .aspectRatio(contentMode: .fit)
-                Text("Revert").bold().foregroundColor(.red)
+            if !isExist {
+
+                HStack {
+                    Image(systemName: "chevron.left").foregroundColor(.accentColor)
+                        .aspectRatio(contentMode: .fit)
+                    Text("Revert").bold().foregroundColor(.red)
+                }
             }
         })
         .alert("You have chosen to return to the list of services - in this case, the provider you have chosen and its services will not be saved! Are you sure?", isPresented: $showAlert) {
             Button("Decline", role: .cancel) { showAlert = false}
 
             Button("Allow", role: .destructive) {
+
                 isPicked = true
             }
 

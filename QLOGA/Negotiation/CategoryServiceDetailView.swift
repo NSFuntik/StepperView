@@ -111,6 +111,17 @@ struct CategoryServiceDetailView: View {
                     .font(Font.system(size: 17, weight: .regular, design: .rounded))
 
             }
+            VStack(alignment: .leading, spacing: 3) {
+                Text("Conditions:")
+                    .foregroundColor(Color.black)
+                    .multilineTextAlignment(.leading)
+                    .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                Text(service.works ?? "nil")
+                    .foregroundColor(Color.lightGray)
+                    .multilineTextAlignment(.leading)
+                    .font(Font.system(size: 17, weight: .regular, design: .rounded))
+
+            }
             Spacer()
         }.padding(.horizontal, 20)
             .navigationTitle("Selected service").navigationBarTitleDisplayMode(.inline)

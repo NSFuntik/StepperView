@@ -11,7 +11,7 @@ struct ProfileSetupView: View {
 	// MARK: Lifecycle
 
 	init(actorType: Binding<ActorsEnum>, customer: Binding<Customer>, provider: Binding<Provider>) {
-		UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(named: "AccentColor")!
+		UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(named: "Accent Color")!
 		self._customer = customer
 		self._provider = provider
 		self._actorType = actorType
