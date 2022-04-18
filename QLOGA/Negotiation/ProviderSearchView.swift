@@ -71,7 +71,7 @@ struct ProviderSearchView: View {
                                                         .lineLimit(1)
                                                         .font(.system(size: 20, weight: .regular, design: .default))
                                                         .foregroundColor(.infoBlue)
-                                                        .frame(width: 100, height: 30)
+                                                        .frame(width: 100, height: 40)
 
                                                         .background(
                                                             RoundedRectangle(cornerRadius: 25)
@@ -79,29 +79,17 @@ struct ProviderSearchView: View {
                                                                 .clipShape(RoundedRectangle(cornerRadius: 25))
                                                                 .background(RoundedRectangle(cornerRadius: 25).fill(Color.white)))
                                                         .padding(1)
-                                                        .frame(width: 100, height: 30)
+                                                        .frame(width: 100, height: 40)
                                                 }
                                             }
                                             Spacer()
                                             NavigationLink(destination: ProvidersView(service: Services[selectedButton])) {
                                                 HStack {
                                                     Text("Show providers")
-                                                        .lineLimit(1)
-                                                        .ignoresSafeArea(.all)
-                                                        .shadow(color: Color.secondary, radius: 1, x: 1, y: 1)
-                                                        .font(.system(size: 20, weight: .regular, design: .rounded))
-                                                        .foregroundColor(.white)
-                                                        .frame(width: 180, height: 32)
-                                                        .background(RoundedRectangle(cornerRadius: 25)
-                                                            .fill(Color.accentColor))
-                                                        .overlay(RoundedRectangle(cornerRadius: 25)
-                                                            .stroke(Color.white, lineWidth: 2)
-                                                            .shadow(color: Color.secondary.opacity(0.7), radius: 2, x: 2, y: 2.5)
-                                                            .clipShape(RoundedRectangle(cornerRadius: 25))
-                                                            .shadow(color: Color.lightGray.opacity(0.7), radius: 2, x: -2.5, y: -2.5)
-                                                            .clipShape(RoundedRectangle(cornerRadius: 25)).padding(0.6))
+                                                        .withDoneButtonStyles(backColor: .Green, accentColor: .white, isWide: false, width: 200, height: 40, isShadowOn: false).padding(1)
+
                                                 }
-                                                .frame(width: 180, height: 33)
+                                                .frame(width: 200, height: 45)
                                             }
                                             Spacer()
                                         }

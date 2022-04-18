@@ -6,32 +6,57 @@
 //
 
 import SwiftUI
+import Combine
 
+
+
+
+enum ProviderTodayTab: Int, CaseIterable, Identifiable {
+    var id: Int { self.rawValue }
+    case Today
+    case Orders
+    case Quotes
+    case Inquires
+    var description: String {
+        switch self {
+            case .Today:
+                return "Today"
+            case .Orders:
+                return "Orders"
+            case .Quotes:
+                return "Quotes"
+            case .Inquires:
+                return "Inquires"
+        }
+    }
+}
+enum CustomerTodayTab: Int, CaseIterable, Identifiable {
+    var id: Int { self.rawValue }
+    case Today
+    case Orders
+    case Inquires
+    case Quotes
+    var description: String {
+        switch self {
+            case .Today:
+                return "Today"
+            case .Orders:
+                return "Orders"
+            case .Inquires:
+                return "Inquires"
+            case .Quotes:
+                return "Quotes"
+        }
+    }
+}
 struct EnrolledProfileView: View {
+    var allPrvTitles: [String] = [ProviderTodayTab.Today.description, ProviderTodayTab.Orders.description, ProviderTodayTab.Quotes.description, ProviderTodayTab.Inquires.description]
+    var allCstTitles: [String] = [CustomerTodayTab.Today.description, CustomerTodayTab.Orders.description, CustomerTodayTab.Inquires.description, CustomerTodayTab.Quotes.description]
 
     @State private var selectedTab = 0
 
-    enum Tab: Int, CaseIterable, Identifiable {
-        var id: Int { self.rawValue }
-        case Orders
-        case Quotes
-        case Inquires
-        case Today
-        var description: String {
-            switch self {
-                case .Orders:
-                    return "Orders"
-                case .Quotes:
-                    return "Quotes"
-                case .Inquires:
-                    return "Inquires"
-//                case .Requests:
-//                    return "Requests"
-                case .Today:
-                    return "Today"
-            }
-        }
-    }
+    //    @StateObject var todayTabController: TodayTabController
+
     @EnvironmentObject var tabController: TabController
     @ObservedObject var locationManager = LocationManager()
     @Binding var actorType: ActorsEnum
@@ -43,53 +68,53 @@ struct EnrolledProfileView: View {
     @State var isNotShowAgain = false
 
     var body: some View {
-//        NavigationView { // Add here
+        VStack {
+            ZStack {
+                VStack {
+                    TabBarView(tabs: .constant(actorType != .CUSTOMER ? allPrvTitles : allCstTitles),
+                               selection: $selectedTab,
+                               underlineColor: .accentColor) { title, isSelected in
+                        Text(title)
+                            .font(.system(size: 18, weight: .regular, design: .rounded))
+                            .ignoresSafeArea(.all, edges: .horizontal)
+                            .foregroundColor(isSelected ? .black : .lightGray)
+                    }
+                    VStack(alignment: .center) {
+                        if ProviderTodayTab(rawValue: $selectedTab.wrappedValue) == .Today || CustomerTodayTab(rawValue: $selectedTab.wrappedValue) == .Today {
+                            TodayListTabView(provider: $provider, customer: $customer, actorType: $actorType, ordersController: ordersController)
+                        } else if ProviderTodayTab(rawValue: $selectedTab.wrappedValue) == .Orders || CustomerTodayTab(rawValue: $selectedTab.wrappedValue) == .Orders {
+                            PrvOrdersListTabView(provider: $provider, customer: $customer, ordersController: ordersController, actorType: $actorType)
+                        } else if ProviderTodayTab(rawValue: $selectedTab.wrappedValue) == .Inquires, CustomerTodayTab(rawValue: $selectedTab.wrappedValue) == .Quotes {
+                            InquiryListTabView(provider: $provider, customer: $customer, actorType: $actorType, ordersController: ordersController)
+                        } else {
+                            //                                Spacer()
 
-            VStack {
-                ZStack {
-                    VStack {
-                        TabBarView(tabs: .constant([Tab.Orders.description, Tab.Quotes.description, Tab.Inquires.description,
-//                                                    actorType != .CUSTOMER ? Tab.Requests.description :
-                                                    Tab.Today.description]),
-                                   selection: $selectedTab,
-                                   underlineColor: .accentColor) { title, isSelected in
-                            Text(title)
-                                .font(.system(size: 18, weight: .regular, design: .rounded))
-                                .ignoresSafeArea(.all, edges: .horizontal)
-                                .foregroundColor(isSelected ? .black : .lightGray)
+                            Image(actorType == .CUSTOMER ? "cst-\(CustomerTodayTab(rawValue: $selectedTab.wrappedValue)!.description.lowercased())" : "prv-\(ProviderTodayTab(rawValue: $selectedTab.wrappedValue)!.description.lowercased())")
+                                .resizable()
+                                .frame(width: 300, height: 375, alignment: .center)
+                                .scaledToFit()
+                                .aspectRatio(1, contentMode: .fit)
+
+                            Spacer()
                         }
-                        VStack(alignment: .center) {
-                            if ordersController.orders.isEmpty || $selectedTab.wrappedValue != 0 {
-                                Spacer()
-                                Image("\(actorType != .CUSTOMER ? "prv" : "cst")-\(Tab(rawValue: $selectedTab.wrappedValue)!.description.lowercased())")
-                                    .resizable()
-                                    .frame(width: 300, height: 375, alignment: .center)
-                                    .scaledToFit()
-                                    .aspectRatio(1, contentMode: .fit)
-                                Spacer()
-                            } else {
-                                PrvOrdersListTabView(provider: $provider, customer: $customer, ordersController: ordersController)
-                            }
-                        }.frame(width: UIScreen.main.bounds.width)
-                            .background(Color.lightGray.opacity(0.2))
 
-                    }
-                    .disabled(isModalPresented)
-                    if isModalPresented {
-                        infoModal
-                    }
+                        //                            else {
+                        //                                PrvOrdersListTabView(provider: $provider, customer: $customer, ordersController: ordersController)
+                        //                            }
+                    }.frame(width: UIScreen.main.bounds.width)
+                        .background(Color.lightGray.opacity(0.2))
 
-                }//.padding(.horizontal, 20).padding(.top, 10)
+                }
+                .disabled(isModalPresented)
+                if isModalPresented {
+                    infoModal
+                }
 
-                //
-                    .sheet(isPresented: $isFiltersPresented) { ProvidersFilterView().cornerRadius(35) }
-            }
+            }//.padding(.horizontal, 20).padding(.top, 10)
 
-
-//            .navigationBarHidden(true)
-
-//        }
-
+            //
+            .sheet(isPresented: $isFiltersPresented) { ProvidersFilterView().cornerRadius(35) }
+        }
     }
 }
 

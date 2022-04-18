@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 struct ActorTypePickerView: View {
-    @State var selectedService: Int = 1
+    @State var selectedService: Int = 0
     @State var actorType: ActorsEnum = .PROVIDER
     @State var selectedActor: ActorsEnum = .CUSTOMER
     @StateObject var viewRouter = TabController()

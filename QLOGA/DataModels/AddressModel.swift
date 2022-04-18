@@ -42,7 +42,7 @@ struct CstAddress: Codable, Hashable {
     var businessOnly: Bool = false
     var line3: String? = ""
     var total: String?
-
+    
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case familyId = "familyId"
@@ -102,7 +102,7 @@ struct Address: Hashable {
     // MARK: Lifecycle
 
     init(isBussinessOnly: Bool = false, postcode: String, town: String, street: String, building: String = "",
-         apt: String = "", _ latitude: Double = 55.95204500604529, _ longitude: Double = -3.1981850325268777)
+         apt: String = "", _ latitude: Double = 55.95204500604529, _ longitude: Double = -3.1981850325268777, country: String = "GB")
     {
         self.isBussinessOnly = isBussinessOnly
         self.postcode = postcode
@@ -113,6 +113,7 @@ struct Address: Hashable {
         self.total = "\(self.apt)\(self.apt != "" ? "," : "") \(self.building), \(self.street), \(self.town), \(self.postcode)".replacingOccurrences(of: "  ", with: "").replacingOccurrences(of: "\n", with: " ")
         self.latitude = latitude
         self.longitude = longitude
+        self.country = country
     }
 
     // MARK: Internal
@@ -126,7 +127,7 @@ struct Address: Hashable {
     var latitude: Double
     var longitude: Double
     var total: String
-
+    var country: String
 
     var defaultAddress: CstAddress {
         set { newValue

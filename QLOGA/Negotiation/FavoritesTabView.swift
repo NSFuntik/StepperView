@@ -30,7 +30,7 @@ struct FavoritesTabView: View {
                     }
                 }.listStyle(.inset)
             }
-//            Text("Hello, World!")
+            //            Text("Hello, World!")
         }
         
         .navigationBarTitleDisplayMode(.inline)
@@ -48,12 +48,12 @@ struct FavoritesTabView_Previews: PreviewProvider {
 
 struct FavoriteProvidersCell: View {
     @Binding var provider: Provider
-//    @State var tags : RemovableTagListView?    //    @EnvironmentObject var tabController: TabController
-//    init(provider: Binding<Provider>) {
-//        self._provider = provider
-////        self.tags.makeUIView(context: .dynamic)
-////        self.tags..rearrangeViews()
-//    }
+    //    @State var tags : RemovableTagListView?    //    @EnvironmentObject var tabController: TabController
+    //    init(provider: Binding<Provider>) {
+    //        self._provider = provider
+    ////        self.tags.makeUIView(context: .dynamic)
+    ////        self.tags..rearrangeViews()
+    //    }
     var body: some View {
         NavigationLink(destination: ProfilePublicView(actorType: .PROVIDER, customer: .constant(testCustomer), provider: $provider)) {
             HStack {
@@ -95,22 +95,22 @@ struct FavoriteProvidersCell: View {
                             .layoutPriority(1)
                         Spacer()
                     }.scaleEffect(0.75).offset(x: -30)
-                    .padding(.vertical, 5)
+                        .padding(.vertical, 5)
 
-                        Button {
-//                            dismiss()
-                        } label: {
-                            VStack {
-                                Rectangle().foregroundColor(.clear)
-                                    .ignoresSafeArea(.container, edges: .horizontal)
-                                    .overlay {
-                                        HStack {
-                                            Text("Direct Inquiry")
-                                                .withDoneButtonStyles(backColor: .Green, accentColor: .white, isWide: false, width: 200, height: 30, isShadowOn: true)
-                                        }
+                    Button {
+                        //                            dismiss()
+                    } label: {
+                        VStack {
+                            Rectangle().foregroundColor(.clear)
+                                .ignoresSafeArea(.container, edges: .horizontal)
+                                .overlay {
+                                    HStack {
+                                        Text("Direct Inquiry")
+                                            .withDoneButtonStyles(backColor: .Green, accentColor: .white, isWide: false, width: 200, height: 35, isShadowOn: true)
                                     }
-                            }
-                        }.frame(width: 200, height: 30, alignment: .topLeading).offset(y: -3)
+                                }
+                        }
+                    }.frame(width: 200, height: 40, alignment: .topLeading).offset(y: -3)
 
                 }
             }.padding(.vertical, 5)
@@ -124,11 +124,11 @@ struct FavoriteProvidersCell: View {
                     $provider.wrappedValue.services = $provider.wrappedValue.services
                 }
             }
-//            self.tags =
-//            self.tags?.fontSize = 8
-//            self.tags.frame(width: 200, height: 60, alignment: .leading)
+            //            self.tags =
+            //            self.tags?.fontSize = 8
+            //            self.tags.frame(width: 200, height: 60, alignment: .leading)
         }
-        }
+    }
     func getCategoriesFor(provider: Provider) -> [CategoryType] {
         var categories: [CategoryType] = []
         let qServiceIDDict = qServiceID
@@ -194,11 +194,11 @@ struct FavoriteCustomersCell: View {
                                 .overlay {
                                     HStack {
                                         Text("Quote")
-                                            .withDoneButtonStyles(backColor: .Green, accentColor: .white, isWide: false, width: 200, height: 30, isShadowOn: true)
+                                            .withDoneButtonStyles(backColor: .Green, accentColor: .white, isWide: false, width: 200, height: 35, isShadowOn: true)
                                     }
                                 }
                         }
-                    }.frame(width: 200, height: 30, alignment: .bottomLeading)
+                    }.frame(width: 200, height: 40, alignment: .bottomLeading)
 
                 }
             }.padding(.vertical, 5)

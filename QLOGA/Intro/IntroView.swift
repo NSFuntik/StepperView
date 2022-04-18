@@ -41,13 +41,7 @@ struct IntroView: View {
 				.navigationBarTitle("").navigationBarHidden(true)
 		}.environment(\.colorScheme, .light)
 	}
-#if DEBUG
 
-//	let destination = ProfileHomeTabBarView(provider: testProvider, actorType: $actorType)//
-
-#else
-	let destination = EnrollmentInfoView(actorType: .CUSTOMER)
-#endif
 }
 
 extension IntroView {

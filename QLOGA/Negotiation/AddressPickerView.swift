@@ -11,7 +11,7 @@ import CoreLocation
 import SwiftUI
 
 struct AddressPickerView: View {
-    @State var showMap = false
+    @State var showMap = true
     @State private var price: Int = 0
     @State var address: String = ""
     @Binding var pickedAddress: CstAddress

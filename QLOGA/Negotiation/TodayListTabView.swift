@@ -1,38 +1,20 @@
 //
-//  ProviderOrdersListTabView.swift
+//  TodayTabView.swift
 //  QLOGA
 //
-//  Created by Dmitry Mikhailov on 4/6/22.
+//  Created by Dmitry Mikhailov on 4/18/22.
 //
 
 import SwiftUI
 import Combine
-class OrdersViewModel: ObservableObject {
-    //    typealias OffTime = OrderTime
-    @Published var orders: [OrderContent] = []
-    @StateObject var CategoryVM = CategoriesViewModel()
 
-    //    @Published var totalPrice: NSNumber?
-    var ordersRoot: OrdersRoot
-
-    var defaultOrders: [OrderContent]
-    static let shared = OrdersViewModel()
-
-    init() {
-        self.ordersRoot = try! newJSONDecoder().decode(OrdersRoot.self, from: try! Data(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: "orders", ofType: "json")!)))
-        self.defaultOrders = ordersRoot.content
-        
-        print(self.defaultOrders)
-        self.orders.append(contentsOf: defaultOrders)
-    }
-}
-struct PrvOrdersListTabView: View {
+struct TodayListTabView: View {
     @Binding var provider: Provider
     @Binding var customer: Customer
+    @Binding var actorType: ActorsEnum
     @EnvironmentObject var tabController: TabController
     @ObservedObject var ordersController: OrdersViewModel
     @State var orders = Orders
-    @Binding var actorType: ActorsEnum
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 0) {
@@ -40,33 +22,33 @@ struct PrvOrdersListTabView: View {
                 ForEach(orders.indices, id: \.self) { orderId in
                     VStack {
                         //.padding(.leading, 20)
-                        OrdersListCell(order: orders[orderId], customer: $customer, actorType: $actorType)
+                        TodayListCell(order: orders[orderId], customer: $customer, actorType: $actorType)
                         Divider().background(Color.accentColor)
                     }.background(Color.white)
                 }
                 Spacer()
             }.padding(.top, 5).listStyle(.grouped)
         }
+
     }
 }
 
-struct ProviderOrdersListTabView_Previews: PreviewProvider {
+struct TodayListTabViewListTabView_Previews: PreviewProvider {
     static var previews: some View {
-        PrvOrdersListTabView(provider: .constant(testProvider), customer: .constant(testCustomer), ordersController: OrdersViewModel.shared, actorType:  .constant(.PROVIDER))
+        TodayListTabView(provider: .constant(testProvider), customer: .constant(testCustomer), actorType:  .constant(.PROVIDER), ordersController: OrdersViewModel.shared)
     }
 }
 
 
-struct OrdersListCell: View {
+struct TodayListCell: View {
     typealias Int = CategoryType.ID
     @State var catID: CategoryType.ID = 0
     @State var order: OrderContent
     @Binding var customer: Customer
     @State var tags: Set<String> = []
     @Binding var actorType: ActorsEnum
+
     var body: some View {
-
-
         VStack(alignment: .leading, spacing: 10) {
             NavigationLink(destination: QuoteOverView(customer: $customer, amount: Double(order.amount),  isChargeOn: order.callout, calloutCharge: Double(order.calloutAmount ?? 0 / 100), cancellation: order.cancelHrs ?? 0, showAlert: false, actorType: ActorsEnum(rawValue: order.statusRecord.actor) ?? .CUSTOMER, isPicked: false, isExist: true, services: order.services.compactMap({ s in
                 var serv = StaticCategories[s.qserviceId]
@@ -75,16 +57,19 @@ struct OrdersListCell: View {
                 return serv
             }))) {
                 VStack(alignment: .leading, spacing: 10) {
-
-                    Text("\(order.statusRecord.status.capitalized.replacingOccurrences(of: "_", with: " "))")
-                        .font(.system(size: 17, weight: .regular, design: .rounded))
-                        .foregroundColor(.red)
                     HStack {
+
                         if order.dayPlans.count > 0 {
+                            Text("Order")
+                                .font(.system(size: 17, weight: .semibold, design: .rounded))
+                                .foregroundColor(.secondary)
                             Text("\(order.dayPlans.count + 1) Visits")
                                 .font(.system(size: 17, weight: .semibold, design: .rounded))
                                 .foregroundColor(.lightGray)
                         } else {
+                            Text("Inquiry")
+                                .font(.system(size: 17, weight: .semibold, design: .rounded))
+                                .foregroundColor(.secondary)
                             Text("\(getString(from: order.serviceDate))")
                                 .font(.system(size: 17, weight: .regular, design: .rounded))
                                 .foregroundColor(.black)
@@ -113,9 +98,11 @@ struct OrdersListCell: View {
                         }
                     }
                 }
-            }
+            }.zIndex(0)
             if actorType == .PROVIDER {
+
                 NavigationLink(destination: GoogleMapView(providers: .constant([]), pickedAddress: $order.addr.defaultAddress)) {
+
                     HStack(alignment: .top, spacing: 5) {
                         Image("MapSymbol")
                             .renderingMode(.template)
@@ -136,6 +123,11 @@ struct OrdersListCell: View {
 
                     }.padding(.vertical, 5).frame(idealHeight: 20, maxHeight: 40)
                 }
+
+                //                        NavigationLink(destination: GoogleMapView(providers: .constant([]), pickedAddress: $order.addr.defaultAddress)) {
+
+                //                        }.layoutPriority(1).zIndex(1)
+
             } else {
                 HStack(alignment: .top, spacing: 5) {
                     Text(order.addr.total ?? "")
@@ -150,23 +142,27 @@ struct OrdersListCell: View {
 
                 }.padding(.vertical, 5).frame(idealHeight: 20, maxHeight: 40)
             }
-            RemovableTagListView(selected: $catID, isRemovable: .constant(false),
-                                 categoriesVM: CategoriesViewModel.shared,
-                                 tags:
-                                    Binding { Set(getCategoriesFor(order: order).frequency.map({ category, count in
-                return " \(category.title): \(count)"
-            }))} set: { tags in
-                self.tags = tags
-            }, fontSize: 21.5).scaleEffect(0.78).offset(x: -40)
+            HStack {
 
-                .disabled(true)
+                RemovableTagListView(selected: $catID, isRemovable: .constant(false),
+                                     categoriesVM: CategoriesViewModel.shared,
+                                     tags:
+                                        Binding { Set(getCategoriesFor(order: order).frequency.map({ category, count in
+                    return " \(category.title): \(count)"
+                }))} set: { tags in
+                    self.tags = tags
+                }, fontSize: 21.5).padding(1)
+            }
+            .scaleEffect(0.78).offset(x: -40)
+
+            .disabled(true)
+
 
         }.padding(15).padding(.bottom, 5)
             .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    withAnimation(.spring()) {
-                        $order.wrappedValue.services = $order.wrappedValue.services
-                    }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+
+                    $order.wrappedValue = $order.wrappedValue
                 }
             }
     }
@@ -184,22 +180,3 @@ struct OrdersListCell: View {
         return categories
     }
 }
-
-
-func getDate(from dateString: String, _ dateFormat: String) -> Date {
-    let formatter = DateFormatter()
-    formatter.dateFormat = dateFormat
-    formatter.amSymbol = ""
-    formatter.pmSymbol = ""
-    let date: Date = formatter.date(from: dateString)!
-
-    return date
-}
-
-//func getString(from date: Date, _ dateFormat: String) -> String {
-//    let formatter = DateFormatter()
-//    formatter.dateFormat = dateFormat
-//    let string: String = formatter.string(from: date)
-//
-//    return string
-//}

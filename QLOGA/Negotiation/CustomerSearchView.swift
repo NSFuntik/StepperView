@@ -20,7 +20,7 @@ struct CustomerSearchView: View {
         }
         .padding(.horizontal, 20).padding(.top, 10)
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarTitle("Provider Search")
+        .navigationTitle("Customer Search")
     }
 }
 var poundsFormatter: NumberFormatter = {
@@ -39,17 +39,28 @@ struct CustomerRequestCell: View {
                 Text(" " + customer.name + " " + customer.surname)
                     .foregroundColor(Color.secondary).lineLimit(1)
                     .font(.system(size: 17.0, weight: .regular, design: .rounded))
+
+                    .multilineTextAlignment(.leading)
                 Spacer()
-            }.padding(4)
+                Text("\(String(format: "%g", customer.distance)) mls")
+                    .foregroundColor(Color.Orange).lineLimit(1)
+                    .font(.system(size: 15.0, weight: .light, design: .rounded))
+
+                NavigationLink(destination: GoogleMapView(providers: .constant([]), pickedAddress: $customer.address)) {
+                        Image("MapSymbol")
+                            .renderingMode(.template)
+                            .resizable()
+                            .scaledToFit().aspectRatio(contentMode: .fit)
+                            .foregroundColor(.Green)
+                            .frame(width: 17, height: 17, alignment: .center)
+                    }
+            }.frame(width: UIScreen.main.bounds.width - 150).padding(4)
             NavigationLink(destination: CustomerRequestInfoView(customer: $customer)) {
             HStack {
                 Text(getString(from: Date(), "dd/MM/yy HH:MM"))
                     .foregroundColor(Color.black).lineLimit(1)
                     .font(.system(size: 17.0, weight: .regular, design: .rounded))
                 Spacer()
-                Text("\(String(format: "%g", customer.distance)) miles")
-                    .foregroundColor(Color.Orange).lineLimit(1)
-                    .font(.system(size: 15.0, weight: .light, design: .rounded))
                 Spacer()
 //                if customer.address.apt != ""  {
                     Image(customer.address.isBussinessOnly ? "ParkingIcon" : "NoParkingIcon")
@@ -76,6 +87,7 @@ struct CustomerRequestCell: View {
                     .stroke(lineWidth: 1.0)
                     .foregroundColor(Color.lightGray))
                 .padding(1)
+                .frame(height: 45)
             }
         }
     }
@@ -86,7 +98,7 @@ struct CustomerSearchView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             CustomerSearchView()
-                .previewDevice("iPhone 6s").navigationTitle("Provider Search")
+                .previewDevice("iPhone 6s").navigationTitle("Customer Search")
         }
     }
 }

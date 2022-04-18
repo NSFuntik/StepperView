@@ -71,12 +71,12 @@ struct ProfileHomeTabBarView: View {
                         ZStack {
                             HStack {
                                     if actorType == .CUSTOMER {
-                                    TabBarIcon(tabController: tabController, assignedPage: .orders, width: geometry.size.width/4, height: geometry.size.height/28, systemIconName: "OrdersTabIcon", tabName: "Orders")
+                                    TabBarIcon(tabController: tabController, assignedPage: .orders, width: geometry.size.width/4, height: geometry.size.height/28, systemIconName: "OrdersTabIcon", tabName: "Today")
                                     TabBarIcon(tabController: tabController, assignedPage: .requests, width: geometry.size.width/4, height: geometry.size.height/28, systemIconName: "RequestsTabIcon", tabName: "Requests")
                                     TabBarIcon(tabController: tabController, assignedPage: .search, width: geometry.size.width/4, height: geometry.size.height/28, systemIconName: "SearchTabIcon", tabName: "Search")
                                     TabBarIcon(tabController: tabController, assignedPage: .favourites, width: geometry.size.width/4, height: geometry.size.height/28, systemIconName: "FavouritesTabIcon", tabName: "Favourites")
                                     } else if actorType == .PROVIDER {
-                                        TabBarIcon(tabController: tabController, assignedPage: .orders, width: geometry.size.width/3, height: geometry.size.height/28, systemIconName: "OrdersTabIcon", tabName: "Orders")
+                                        TabBarIcon(tabController: tabController, assignedPage: .orders, width: geometry.size.width/3, height: geometry.size.height/28, systemIconName: "OrdersTabIcon", tabName: "Today")
                                         TabBarIcon(tabController: tabController, assignedPage: .search, width: geometry.size.width/3, height: geometry.size.height/28, systemIconName: "SearchTabIcon", tabName: "Search")
                                         TabBarIcon(tabController: tabController, assignedPage: .favourites, width: geometry.size.width/3, height: geometry.size.height/28, systemIconName: "FavouritesTabIcon", tabName: "Favourites")
                                     }
@@ -91,9 +91,7 @@ struct ProfileHomeTabBarView: View {
                     ToolbarItem(placement: .navigationBarLeading) {
                         if actorType == .PROVIDER {
                             NavigationLink(destination: GoogleMapView(providers: .constant(
-                                [Address(postcode: "", town: "", street: "", -33.86, 151.20),
-                                 Address(postcode: "", town: "", street: "", -33.26, 151.24),
-                                 Address(postcode: "", town: "", street: "", -32.26, 151.34)]),
+                                Customers.map({$0.address})),
                                                                       pickedAddress: .constant(Address(postcode: "", town: "", street: "",
                                                                                                        locationManager.latitude, locationManager.longitude)))) {
                                 Image("MapIcon")

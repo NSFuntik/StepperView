@@ -291,7 +291,7 @@ struct QuoteOverView: View {
                     }), provider: OrderProvider(id: 1002, calloutCharge: false, services: [], resourceIds: [], favs: [], ratings: [], portfolio: []), providerOrg: OrderProviderOrg(name: "Kai\'s Elderly care business (London)", offTime: [], workingHours: [], verifications: [], settings: QLOGA.OrderSettings()), cstPerson: OrderCstPerson(verifications: [], settings: OrderSettings(), payMethods: []), dayPlans: [], cstActions: [], prvActions: [], payments: [], assigns: []))
                     isPicked = true
                 }) {
-                    Text("Add service").withDoneButtonStyles(backColor: .accentColor, accentColor: .white)
+                    Text("Send Quote").withDoneButtonStyles(backColor: .accentColor, accentColor: .white)
                 }
 
                 .zIndex(1)//.opacity($tags.wrappedValue.count > 0 ? 1 : 0)

@@ -8,6 +8,7 @@
 import CoreLocation
 import MapKit
 import SwiftUI
+import UIKit
 #if DEBUG
 
 #else
@@ -17,6 +18,8 @@ import GoogleMaps
 
 struct GoogleMapView: View {
     @Binding var providers: [Address]?
+//    @Binding var customers: [Address]?
+
 //    @Binding var pickerCstAddress: CstAddress
     @Binding var pickedAddress: Address
     @State var isFiltersPresented = false
@@ -37,10 +40,10 @@ struct GoogleMapView: View {
                 } label: {
                     Image("FilterIcon")
                         .resizable()
-                        .frame(width: 30, height: 30, alignment: .center)
+                        .renderingMode(.template)
                         .aspectRatio(contentMode: .fit)
-                        .accentColor(Color.accentColor)
                         .foregroundColor(.accentColor)
+                        .frame(width: 30, height: 30, alignment: .trailing)
                         .padding(5)
                 }
             }
@@ -71,20 +74,24 @@ struct GoogleMapsView: UIViewRepresentable {
         let camera = GMSCameraPosition.camera(withLatitude: locationManager.latitude, longitude: locationManager.longitude, zoom: zoom)
         let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
         mapView.isMyLocationEnabled = true
-
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            mapView.animate(toLocation: CLLocationCoordinate2D(latitude: CLLocationDegrees(pickedAddress.latitude), longitude: CLLocationDegrees(pickedAddress.longitude)))
+        }
         return mapView
     }
 
     func updateUIView(_ mapView: GMSMapView, context: Context) {
-        mapView.animate(toLocation: CLLocationCoordinate2D(latitude: CLLocationDegrees(pickedAddress.latitude), longitude: CLLocationDegrees(pickedAddress.longitude)))
+
         if providers != [] {
             for provider in providers {
                 let marker: GMSMarker = .init()
                 marker.position = CLLocationCoordinate2D(latitude: provider.latitude, longitude: provider.longitude)
 
-                marker.title = provider.total
-                marker.snippet = "Welcome to \(provider.town)"
-                marker.icon = UIImage(named: "MapPoint")
+                marker.title = "\(provider.country)"
+                marker.snippet = "\(provider.building), \(provider.street), \(provider.town)"
+//                marker.snippet = "Welcome to \(provider.town)"
+
+                marker.icon = UIImage(named: "MapSymbol")
                 marker.map = mapView
             }
         }
@@ -95,6 +102,7 @@ struct GoogleMapsView: UIViewRepresentable {
         marker.icon = UIImage(named: "MapPoint")
         marker.map = mapView
         mapView.selectedMarker = marker
+
     }
 }
 

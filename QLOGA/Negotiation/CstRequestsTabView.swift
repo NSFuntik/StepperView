@@ -229,7 +229,8 @@ struct RequestsCell: View {
                 }
 
             }
-            }.onAppear {
+            }
+            .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     withAnimation(.spring()) {
 
@@ -262,18 +263,3 @@ struct RequestsCell: View {
 extension Sequence where Element: Hashable {
     var frequency: [Element: Int] { reduce(into: [:]) { $0[$1, default: 0] += 1 } }
 }
-//HStack {
-//    Text("Looked")
-//        .multilineTextAlignment(.leading)
-//        .font(Font.system(size: 17, weight: .regular, design: .rounded))
-//        .foregroundColor(.black)
-//    //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
-//        .lineLimit(1)
-//    Spacer()
-//    Text(request.visits.description)
-//        .multilineTextAlignment(.trailing)
-//        .font(Font.system(size: 17, weight: .regular, design: .rounded))
-//        .foregroundColor(.black)
-//    //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
-//        .lineLimit(1)
-//    }

@@ -8,18 +8,7 @@
 import SwiftUI
 import Combine
 
-
-//        self.pickedCategories = self.categories.sorted(by: {$0.id < $1.id})
-//         = self.categories
-//        pickedCategories.append(contentsOf: categories)
-//(contentsOfFile: Bundle.main.path(forResource: "faq", ofType: "json")!, encoding: .utf8)!)
-
-
-
 struct CstOpenRequestsView: View {
-
-    //    @Binding var customer: Customer
-    //    @State var selectedButton: Int = CategoryService.init().id
     @State var opacity = 0
     @State var isLimited = true
     @State var tags: Set<String> = []

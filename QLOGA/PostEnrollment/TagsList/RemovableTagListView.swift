@@ -71,7 +71,7 @@ struct RemovableTagListView: UIViewRepresentable {
 //        view.rearrangeViews()
         view.borderColor = .lightGray
         view.borderWidth = 1
-        view.cornerRadius = 12
+        view.cornerRadius = 13
         view.paddingX = fontSize / 2 + 2
         view.paddingY = fontSize / 2
         view.marginX = fontSize / 2
