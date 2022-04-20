@@ -21,10 +21,6 @@ struct TodayListTabView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: -22) {
-
-//                ForEach((actorType != .CUSTOMER ? Orders + PrvInquires : Orders + CstQuotes).indices, id: \.self) { orderId in
-//                    VStack {
-                        //.padding(.leading, 20)
                 if actorType == .CUSTOMER {
                     if  !CstInquires.isEmpty {
                         InquiryListTabView(provider: $provider, customer: $customer, actorType: $actorType, ordersController: ordersController)
@@ -37,18 +33,10 @@ struct TodayListTabView: View {
                     }
                     InquiryListTabView(provider: $provider, customer: $customer, actorType: $actorType, ordersController: ordersController)
                 }
-                PrvOrdersListTabView(provider: $provider, customer: $customer, ordersController: ordersController, actorType: $actorType)
-
-//                        TodayListCell(order: (actorType != .CUSTOMER ? Orders + PrvInquires + PrvQuotes: Orders + CstQuotes + CstInquires)[orderId], customer: $customer, actorType: $actorType).padding(.horizontal, 10)
-
-//                    }
-//                }
+                OrdersListTabView(provider: $provider, customer: $customer, ordersController: ordersController, actorType: $actorType)
                 Spacer()
             }.padding(.top, 15).listStyle(.grouped)
         }.background(Color.white.opacity(0.7))
-//        .onAppear {
-//            orders = actorType != .CUSTOMER ? Orders + Inquires : Orders + Quotes
-//        }
     }
 }
 
@@ -63,9 +51,6 @@ struct TodayListCell: View {
     typealias Int = CategoryType.ID
     @State var catID: CategoryType.ID = 0
     @State var order: OrderContent
-//    var statusColors: [Color]
-//    "#FEE4E1","Visit Callout Charge requested"
-//    "c2": "#FFB3AB"
     @Binding var customer: Customer
     @State var tags: Set<String> = []
     @Binding var actorType: ActorsEnum
@@ -75,41 +60,39 @@ struct TodayListCell: View {
             NavigationLink(destination: OrderDetailView(actorType: $actorType, orderType: .Order, order: $order)) {
                 VStack(alignment: .leading, spacing: 10) {
                     VStack {
-
                         HStack {
                             Text(order.statusRecord.status.display)
                                 .font(.system(size: 17, weight: .regular, design: .rounded))
                                 .foregroundColor(.black).padding(EdgeInsets(top: 10, leading: 15, bottom: 0, trailing: 10))
                             Spacer()
-
                         }
-                        Divider().background(Color.lightGray)//.padding(.top, -5)
-
+                        Divider().background(Color.lightGray)
                     }
-                    .background(LinearGradient(gradient: Gradient(colors: [Color(hex: order.statusRecord.status.colors[0])!, Color(hex: order.statusRecord.status.colors[1])!]), startPoint: .leading, endPoint: .trailing))
-                        .padding([.top, .horizontal], -15)
-                        HStack {
-                            if order.dayPlans.count > 0 {
-                                Text("\(order.dayPlans.count + 1) Visits")
-                                    .font(.system(size: 17, weight: .semibold, design: .rounded))
-                                    .foregroundColor(.secondary)
-                            } else {
-                                Text("\(getString(from: order.serviceDate, "MM-DD-YYYY HH:mm"))")
-                                    .font(.system(size: 17, weight: .regular, design: .rounded))
-                                    .foregroundColor(.black)
-                            }
-                            Spacer()
-                            Text(poundsFormatter.string(from: order.amount as NSNumber)!)//order.services.map({$0.qty * $0.cost}).reduce(0, +) as NSNumber)!)
+                    .background(LinearGradient(gradient: Gradient(colors: [Color(hex: order.statusRecord.status.colors[0])!,
+                                                                           Color(hex: order.statusRecord.status.colors[1])!]),
+                                               startPoint: .leading, endPoint: .trailing))
+                    .padding([.top, .horizontal], -15)
+                    HStack {
+                        if order.dayPlans.count > 0 {
+                            Text("\(order.dayPlans.count + 1) Visits")
                                 .font(.system(size: 17, weight: .semibold, design: .rounded))
+                                .foregroundColor(.secondary)
+                        } else {
+                            Text("\(getString(from: order.serviceDate, "MM-DD-YYYY HH:mm"))")
+                                .font(.system(size: 17, weight: .regular, design: .rounded))
                                 .foregroundColor(.black)
                         }
+                        Spacer()
+                        Text(poundsFormatter.string(from: order.amount as NSNumber)!)//order.services.map({$0.qty * $0.cost}).reduce(0, +) as NSNumber)!)
+                            .font(.system(size: 17, weight: .semibold, design: .rounded))
+                            .foregroundColor(.black)
+                    }
                     if order.dayPlans.count > 0 {
                         VStack(alignment: .leading, spacing: 5) {
                             HStack(alignment: .center, spacing: 0) {
                                 Text("First Visit: \(order.dayPlans.last!.day) \(order.dayPlans.first!.visit1.time!)")
                                     .font(.system(size: 17, weight: .regular, design: .rounded))
                                     .foregroundColor(.black)
-
                                 Spacer()
                             }
                             HStack(alignment: .center, spacing: 0) {
@@ -117,16 +100,13 @@ struct TodayListCell: View {
                                     .font(.system(size: 17, weight: .regular, design: .rounded))
                                     .foregroundColor(.black)
                                 Spacer()
-
                             }
                         }
                     }
                 }
             }.zIndex(0)
             if actorType == .PROVIDER {
-
                 NavigationLink(destination: GoogleMapView(providers: .constant([]), pickedAddress: $order.addr.defaultAddress)) {
-
                     HStack(alignment: .top, spacing: 5) {
                         Image("MapSymbol")
                             .renderingMode(.template)
@@ -134,7 +114,6 @@ struct TodayListCell: View {
                             .scaledToFit().aspectRatio(contentMode: .fit)
                             .foregroundColor(.accentColor)
                             .frame(width: 20, height: 20, alignment: .center)
-
                         Text(order.addr.total ?? "")
                             .lineLimit(3)
                             .foregroundColor(Color.secondary.opacity(0.8))
@@ -144,7 +123,6 @@ struct TodayListCell: View {
                             .lineLimit(3)
                             .multilineTextAlignment(.leading)
                         Spacer()
-
                     }.padding(.vertical, 10).frame(idealHeight: 30, maxHeight: 45)
                 }
             } else {
@@ -158,11 +136,9 @@ struct TodayListCell: View {
                         .lineLimit(3)
                         .multilineTextAlignment(.leading)
                     Spacer()
-
                 }.padding(.vertical, 5).frame(idealHeight: 20, maxHeight: 40)
             }
             HStack {
-
                 RemovableTagListView(selected: $catID, isRemovable: .constant(false),
                                      categoriesVM: CategoriesViewModel.shared,
                                      tags:
@@ -173,16 +149,12 @@ struct TodayListCell: View {
                 }, fontSize: 21.5).padding(1)
             }
             .scaleEffect(0.78).offset(x: -40)
-
             .disabled(true)
-
-
         }.padding(15).background(Color.white)
             .clipShape(RoundedRectangle(cornerRadius: 13))
             .overlay(RoundedRectangle(cornerRadius: 13).stroke(lineWidth: 1).fill(Color.lightGray))
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-
                     $order.wrappedValue = $order.wrappedValue
                 }
             }

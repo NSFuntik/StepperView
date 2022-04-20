@@ -89,7 +89,7 @@
 		11A2781A28032EA40063D706 /* AddressPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A2781928032EA40063D706 /* AddressPickerView.swift */; };
 		11B6FEF727FF367F00162DFC /* ProfileTermsConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B6FEF627FF367F00162DFC /* ProfileTermsConditionsView.swift */; };
 		11CD451C28073FFD009795A6 /* RequestTrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CD451B28073FFD009795A6 /* RequestTrackingView.swift */; };
-		11DD965C27FDCE6A0005500A /* PrvOrdersListTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DD965B27FDCE6A0005500A /* PrvOrdersListTabView.swift */; };
+		11DD965C27FDCE6A0005500A /* OrdersListTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DD965B27FDCE6A0005500A /* OrdersListTabView.swift */; };
 		11DD965E27FDCE950005500A /* ProfileHomeTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DD965D27FDCE950005500A /* ProfileHomeTabBarView.swift */; };
 		11DD966127FDD0070005500A /* CstRequestsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DD966027FDD0070005500A /* CstRequestsTabView.swift */; };
 		11DD966327FDD06A0005500A /* FavoritesTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DD966227FDD06A0005500A /* FavoritesTabView.swift */; };
@@ -201,7 +201,7 @@
 		11A2781928032EA40063D706 /* AddressPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressPickerView.swift; sourceTree = "<group>"; };
 		11B6FEF627FF367F00162DFC /* ProfileTermsConditionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTermsConditionsView.swift; sourceTree = "<group>"; };
 		11CD451B28073FFD009795A6 /* RequestTrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTrackingView.swift; sourceTree = "<group>"; };
-		11DD965B27FDCE6A0005500A /* PrvOrdersListTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrvOrdersListTabView.swift; sourceTree = "<group>"; };
+		11DD965B27FDCE6A0005500A /* OrdersListTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersListTabView.swift; sourceTree = "<group>"; };
 		11DD965D27FDCE950005500A /* ProfileHomeTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHomeTabBarView.swift; sourceTree = "<group>"; };
 		11DD966027FDD0070005500A /* CstRequestsTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CstRequestsTabView.swift; sourceTree = "<group>"; };
 		11DD966227FDD06A0005500A /* FavoritesTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesTabView.swift; sourceTree = "<group>"; };
@@ -413,7 +413,7 @@
 				114D1CFD280DE26D00DA3901 /* TodayListTabView.swift */,
 				114D1D01280E0AE800DA3901 /* InquiryListTabView.swift */,
 				111332DD280F6C8000062287 /* QuotesListTabView.swift */,
-				11DD965B27FDCE6A0005500A /* PrvOrdersListTabView.swift */,
+				11DD965B27FDCE6A0005500A /* OrdersListTabView.swift */,
 				11DD966027FDD0070005500A /* CstRequestsTabView.swift */,
 				1145CB7D28020DE7006E11A9 /* CstOpenRequestsView.swift */,
 				11663FC52802CBF40041B56D /* CstCreateRequestView.swift */,
@@ -768,7 +768,7 @@
 				1145CB7E28020DE7006E11A9 /* CstOpenRequestsView.swift in Sources */,
 				114D1D02280E0AE800DA3901 /* InquiryListTabView.swift in Sources */,
 				119CA40627EF558D0082282C /* TextFieldAlert.swift in Sources */,
-				11DD965C27FDCE6A0005500A /* PrvOrdersListTabView.swift in Sources */,
+				11DD965C27FDCE6A0005500A /* OrdersListTabView.swift in Sources */,
 				112CC74027D4E37200B8700A /* ColorExtension.swift in Sources */,
 				119BE1F127D231D700B2D70F /* ProviderPreviewsView.swift in Sources */,
 				114D1D00280E022B00DA3901 /* StatusesEnum.swift in Sources */,

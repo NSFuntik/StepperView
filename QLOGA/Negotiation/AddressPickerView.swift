@@ -15,16 +15,15 @@ struct AddressPickerView: View {
     @State private var price: Int = 0
     @State var address: String = ""
     @Binding var pickedAddress: CstAddress
-    @FocusState var fieldIsFocused: Bool
     @State var actorType: ActorsEnum = .CUSTOMER
+    @FocusState var fieldIsFocused: Bool
     @FocusState private var isFocused: Bool
+    @FocusState private var focusedField: Field?
 
     enum Field: Hashable {
         case search
         case postcode
     }
-
-    @FocusState private var focusedField: Field?
 
     var body: some View {
         VStack(alignment: .center) {
@@ -48,7 +47,8 @@ struct AddressPickerView: View {
 
                     NavigationLink(destination: GoogleMapView(providers: .constant([]), pickedAddress: $pickedAddress.defaultAddress)) {
                         if showMap {
-                            Image(systemName: "mappin.and.ellipse").foregroundColor(Color.accentColor).zIndex(2).font(.system(size: 20, weight: .regular, design: .rounded))
+                            Image(systemName: "mappin.and.ellipse")
+                                .foregroundColor(Color.accentColor).zIndex(2).font(.system(size: 20, weight: .regular, design: .rounded))
                         }
                     }
                 }.zIndex(2)
@@ -59,7 +59,6 @@ struct AddressPickerView: View {
                             showMap = false
                         }
                     }
-
                 if CstAddresses.filter({ $0.postcode.contains($address.wrappedValue) || $0.line1.contains($address.wrappedValue) }) != [] {
                     VStack {
                         List(CstAddresses.filter { $0.postcode.contains($address.wrappedValue) || $0.line1.contains($address.wrappedValue) }, id: \.self) { adr in
@@ -102,7 +101,6 @@ struct AddressPickerView: View {
                                     }.pickerStyle(.menu)
                                 }
                             }.padding(.horizontal, 5)
-
                             Divider().padding(.horizontal, 5)
                         }
                         Section {
@@ -133,10 +131,10 @@ struct AddressPickerView: View {
                                     }, set: { new in
                                         pickedAddress.line3 = new
                                     }))
-                                        .multilineTextAlignment(.trailing)
-                                        .keyboardType(.numberPad)
-                                        .ignoresSafeArea(.keyboard)
-                                        .focused($isFocused)
+                                    .multilineTextAlignment(.trailing)
+                                    .keyboardType(.numberPad)
+                                    .ignoresSafeArea(.keyboard)
+                                    .focused($isFocused)
                                 }.padding(5)
                             }.transition(.opacity).animation(.easeInOut, value: $showMap.wrappedValue).ignoresSafeArea(.keyboard)
                             Divider().padding(.horizontal, 5)
@@ -182,7 +180,6 @@ struct AddressPickerView: View {
                         }
                     }
                 }
-
                 .navigationTitle("Address").navigationBarTitleDisplayMode(.inline).background(NavigationConfiguration())
         }.ignoresSafeArea(.keyboard)
     }
@@ -191,7 +188,6 @@ struct AddressPickerView: View {
 struct AddressPickerView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-//            AddressPickerView(address: .constant(""), pickedAddress: Address(postcode: "EH2 2ER", town: "Edinburgh", street: "Princes Street", building: "09"), actorType: .PROVIDER)
             AddressPickerView( pickedAddress: .constant(CstAddress()))
         }
         .previewInterfaceOrientation(.portrait)

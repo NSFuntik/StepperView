@@ -40,9 +40,6 @@ struct ProfilePublicView: View {
                 }.frame(height: 150, alignment: .top).offset(y: -4)
                 Spacer()
                 VStack(alignment: .leading, spacing: 11) {
-//                    if actorType == .CUSTOMER {
-//                        Spacer()
-//                    }
                     HStack(alignment: .center) {
                         Text(actorType == .CUSTOMER ? $customer.wrappedValue.name  + " " +  $customer.wrappedValue.middleMame + " " +  $customer.wrappedValue.surname : $provider.wrappedValue.name)
                             .font(.system(size: 150, weight: .medium, design: .rounded))
@@ -56,13 +53,13 @@ struct ProfilePublicView: View {
                         Button {
                             $provider.isActive.wrappedValue.toggle()
                         } label: {
-                            Image(systemName: !provider.isActive ? "heart" : "heart.fill").foregroundColor(.red)
+                            Image(systemName: !provider.isActive ? "heart" : "heart.fill")
+                                .foregroundColor(.red)
                                 .font(.system(size: 17, weight: .regular, design: .default))
-
                         }
                     }
                     .offset(y: actorType == .CUSTOMER ? 5 : 0)
-
+                    .padding(.bottom, 5)
 
                     Text("Active")
                         .lineLimit(1)
@@ -95,7 +92,6 @@ struct ProfilePublicView: View {
                                                   design: .rounded))
                         }
                         Spacer(minLength: 30)
-
                     } else {
                         HStack(alignment: .center) {
                             Text("Callout charge:")
@@ -140,8 +136,6 @@ struct ProfilePublicView: View {
                     }
                 }.frame(height: 150, alignment: .top)
             }
-
-            //			Divider().background(Color.lightGray).padding(.horizontal, -50)
             ScrollView(showsIndicators: false) {
                 if actorType == .CUSTOMER {
                     customerRating
@@ -286,27 +280,21 @@ struct ProfilePublicView: View {
                     .foregroundColor(Color.lightGray)
                 ).padding(1)
                 Spacer()
-            }.padding(.top, -7)
-                .overlay(ImageViewer(image: $image,
-                                     viewerShown: self.$showImageViewer))
-                .onAppear {
-                    $image.wrappedValue = Image($customer.avatar.wrappedValue)
-                    if actorType == .PROVIDER {
-                        typealias Provider = Customer
-                    } else {
-                        typealias Customer = Provider
-                    }
+            }
+            .padding(.top, -7)
+            .overlay(ImageViewer(image: $image,
+                                 viewerShown: self.$showImageViewer))
+            .onAppear {
+                $image.wrappedValue = Image($customer.avatar.wrappedValue)
+                if actorType == .PROVIDER {
+                    typealias Provider = Customer
+                } else {
+                    typealias Customer = Provider
                 }
-                .navigationBarTitle(actorType == .CUSTOMER ? "Customer" : "Provider")
-                .navigationBarTitleDisplayMode(.inline)
+            }
+            .navigationBarTitle(actorType == .CUSTOMER ? "Customer" : "Provider")
+            .navigationBarTitleDisplayMode(.inline)
         }.padding(.horizontal, 20).padding(.top, 10)
-        //			.toolbar {
-        //				Button {
-        //					$provider.isActive.wrappedValue.toggle()
-        //				} label: {
-        //					Image(systemName: provider.isActive ? "heart" : "heart.fill").foregroundColor(.red)
-        //				}
-        //			}
     }
 
     var customerRating: some View {
@@ -449,7 +437,7 @@ struct ProfilePublicView_Previews: PreviewProvider {
         }.previewDevice("iPhone 6s")
     }
 }
-
+//MARK: - It'll be used
 // {
 // Label {
 // Text("Rating")

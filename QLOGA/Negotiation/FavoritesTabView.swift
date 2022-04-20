@@ -8,8 +8,6 @@
 import SwiftUI
 import Combine
 
-
-
 struct FavoritesTabView: View {
     @Binding var actorType: ActorsEnum
     @State var providers: [Provider] = [testProvider, testProvider, testProvider, testProvider, testProvider]
@@ -30,11 +28,10 @@ struct FavoritesTabView: View {
                     }
                 }.listStyle(.inset)
             }
-            //            Text("Hello, World!")
         }
-        
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle("Favorite \(actorType == .CUSTOMER ? "Providers" : "Customers")").navigationViewStyle(.stack)
+        .navigationTitle("Favorite \(actorType == .CUSTOMER ? "Providers" : "Customers")")
+        .navigationViewStyle(.stack)
     }
 }
 
@@ -48,12 +45,6 @@ struct FavoritesTabView_Previews: PreviewProvider {
 
 struct FavoriteProvidersCell: View {
     @Binding var provider: Provider
-    //    @State var tags : RemovableTagListView?    //    @EnvironmentObject var tabController: TabController
-    //    init(provider: Binding<Provider>) {
-    //        self._provider = provider
-    ////        self.tags.makeUIView(context: .dynamic)
-    ////        self.tags..rearrangeViews()
-    //    }
     var body: some View {
         NavigationLink(destination: ProfilePublicView(actorType: .PROVIDER, customer: .constant(testCustomer), provider: $provider)) {
             HStack {
@@ -98,7 +89,7 @@ struct FavoriteProvidersCell: View {
                         .padding(.vertical, 5)
 
                     Button {
-                        //                            dismiss()
+
                     } label: {
                         VStack {
                             Rectangle().foregroundColor(.clear)
@@ -111,22 +102,14 @@ struct FavoriteProvidersCell: View {
                                 }
                         }
                     }.frame(width: 200, height: 40, alignment: .topLeading).offset(y: -3)
-
                 }
             }.padding(.vertical, 5)
-
         }.onAppear {
-
-
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 withAnimation(.spring(response: 0.55, dampingFraction: 0.825, blendDuration: 0.5)) {
-
                     $provider.wrappedValue.services = $provider.wrappedValue.services
                 }
             }
-            //            self.tags =
-            //            self.tags?.fontSize = 8
-            //            self.tags.frame(width: 200, height: 60, alignment: .leading)
         }
     }
     func getCategoriesFor(provider: Provider) -> [CategoryType] {
@@ -186,7 +169,7 @@ struct FavoriteCustomersCell: View {
                         .ignoresSafeArea(.container, edges: .trailing)
                         .padding(.vertical, 5)
                     Button {
-                        //                            dismiss()
+
                     } label: {
                         VStack {
                             Rectangle().foregroundColor(.clear)
@@ -199,15 +182,8 @@ struct FavoriteCustomersCell: View {
                                 }
                         }
                     }.frame(width: 200, height: 40, alignment: .bottomLeading)
-
                 }
             }.padding(.vertical, 5)
-
-        }.onAppear {
-
-            //            self.tags =
-            //            self.tags?.fontSize = 8
-            //            self.tags.frame(width: 200, height: 60, alignment: .leading)
         }
     }
 }

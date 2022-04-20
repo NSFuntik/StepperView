@@ -18,9 +18,7 @@ internal class CloseButton: UIButton {
     
     
     override func draw(_ rect: CGRect) {
-//        countImage = UIImage(systemName: "\(TagView.title().(for: UIControl.State())).circle")!
         let path = UIBezierPath()
-
         path.lineWidth = lineWidth
         path.lineCapStyle = .round
 
@@ -39,8 +37,5 @@ internal class CloseButton: UIButton {
         lineColor.setStroke()
 
         path.stroke()
-        
-//        addSubview(UIImage)
     }
-
 }

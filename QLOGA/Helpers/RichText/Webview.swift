@@ -57,7 +57,6 @@ struct Webview: UIViewRepresentable {
         func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
             if navigationAction.navigationType == WKNavigationType.linkActivated {
                 if let url = navigationAction.request.url {
-
                     let root = UIApplication.shared.windows.first?.rootViewController
                     switch self.parent.linkOpenType {
                     case .SFSafariView:
@@ -68,7 +67,7 @@ struct Webview: UIViewRepresentable {
                         root?.present(SFSafariViewController(url: url, configuration: configuration), animated: true, completion: nil)
                     case .Safari :
                         UIApplication.shared.open(url)
-                    case .none :
+                        case nil :
                         print(url)
                         case .some(.none):
                             print(url)
@@ -91,31 +90,13 @@ struct Webview: UIViewRepresentable {
         webview.scrollView.bounces = true
         webview.navigationDelegate = context.coordinator
         webview.scrollView.isScrollEnabled = false
-        let htmlStart = """
-            <HTML>
-            <head>
-                <meta name='viewport' content='width=device-width, shrink-to-fit=YES, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'>
-            </head>
-            """
-        let htmlEnd = "</BODY></HTML>"
-        let htmlString = "\(htmlStart)\(html)\(htmlEnd)"//\(css(colorScheme: self.colorScheme))
         webview.loadHTMLString(html, baseURL: URL(string: "pub.qloga.com"))
         webview.isOpaque = false
-//        webview.backgroundColor = UIColor.clear
         webview.scrollView.backgroundColor = UIColor.clear
-        //
         return webview
     }
 
     public func updateUIView(_ uiView: WKWebView, context: Context) {
-        let htmlStart = """
-            <HTML>
-            <head>
-                <meta name='viewport' content='width=device-width, shrink-to-fit=YES, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'>
-            </head>
-            """
-        let htmlEnd = "</BODY></HTML>"
-        let htmlString = "\(htmlStart)\(html)\(htmlEnd)"//\(css(colorScheme: self.colorScheme))
         webview.loadHTMLString(html, baseURL: URL(string: "pub.qloga.com"))
     }
 

@@ -9,8 +9,7 @@ import SwiftUI
 
 struct AnswerOnQuestionView: View {
     @Binding var question: Question
-    //    @Binding var answer: String
-   @State var answer: AttributedString = AttributedString("")
+    @State var answer: AttributedString = AttributedString("")
     var body: some View {
         VStack(alignment: .center, spacing: 40) {
             HStack {
@@ -28,15 +27,11 @@ struct AnswerOnQuestionView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 HStack {
                     Text(answer)
-//                        .foregroundColor(Color.secondary)
                         .multilineTextAlignment(.leading)
                         .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                    //                    .scaledToFit()
-                    //                Spacer()
                     Spacer()
                 }
-                .padding(10)//.background(.ultraThinMaterial).cornerRadius(12)
-
+                .padding(10)
             }
             Spacer()
         }.padding(.horizontal, 20).padding(.vertical, 10)
@@ -45,8 +40,3 @@ struct AnswerOnQuestionView: View {
             }
     }
 }
-//struct AnswerOnQuestionView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AnswerOnQuestionView(question: .constant(""), answer: .constant(""))
-//    }
-//}

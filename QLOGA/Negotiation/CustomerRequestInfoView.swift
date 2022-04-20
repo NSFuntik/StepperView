@@ -13,10 +13,8 @@ struct CustomerRequestInfoView: View {
         ZStack {
             VStack {
                 ScrollView(.vertical, showsIndicators: false) {
-
                     Group  {
                         VStack {
-                            //        if actorType != .CUSTOMER {}
                             NavigationLink(destination: ProfilePublicView(actorType: .CUSTOMER, customer: $customer, provider: .constant(testProvider))) {
                                 HStack {
                                     Text(customer.name + " " + customer.surname)
@@ -74,25 +72,29 @@ struct CustomerRequestInfoView: View {
                                 }.padding(7)
                             }.frame(height: 40)
                         }.padding(10)
-                    }.overlay(RoundedRectangle(cornerRadius: 10)
+                    }
+                    .overlay(RoundedRectangle(cornerRadius: 10)
                         .stroke(lineWidth: 1.0)
                         .foregroundColor(Color.lightGray)
                     ).padding(1)
-                    HStack(alignment: .top) {
-                        Text(customer.address.total)
-                            .lineLimit(2)
-                            .foregroundColor(Color.secondary.opacity(0.8))
-                            .font(Font.system(size: 17,
-                                              weight: .regular,
-                                              design: .rounded))
-                        Spacer()
-                        Image("MapSymbol")
-                            .renderingMode(.template)
-                            .resizable()
-                            .scaledToFit().aspectRatio(contentMode: .fit)
-                            .foregroundColor(.accentColor)
-                            .frame(width: 25, height: 25, alignment: .center)
-                    }.padding(10)
+                    NavigationLink(destination: GoogleMapView(providers: .constant([]), pickedAddress: $customer.address)) {
+                        HStack(alignment: .top) {
+                            Text(customer.address.total)
+                                .lineLimit(2)
+                                .foregroundColor(Color.secondary.opacity(0.8))
+                                .font(Font.system(size: 17,
+                                                  weight: .regular,
+                                                  design: .rounded))
+                                .multilineTextAlignment(.leading)
+                            Spacer()
+                            Image("MapSymbol")
+                                .renderingMode(.template)
+                                .resizable()
+                                .scaledToFit().aspectRatio(contentMode: .fit)
+                                .foregroundColor(.accentColor)
+                                .frame(width: 25, height: 25, alignment: .center)
+                        }.padding(10)
+                    }
                     Group {
                         VStack {
                             Section {
@@ -148,7 +150,8 @@ struct CustomerRequestInfoView: View {
                                         .font(.system(size: 17.0, weight: .light, design: .rounded))
                                 }.padding(7)
                             }.frame(height: 40)
-                        }.padding(10)
+                        }
+                        .padding(10)
                         .overlay(RoundedRectangle(cornerRadius: 10)
                             .stroke(lineWidth: 1.0)
                             .foregroundColor(Color.lightGray)
@@ -164,11 +167,12 @@ struct CustomerRequestInfoView: View {
                             Text("\(customer.services.count.description)")
                                 .foregroundColor(Color.secondary)
                                 .font(Font.system(size: 15, weight: .medium, design: .monospaced))
-                        }.padding(15)
-                            .overlay(RoundedRectangle(cornerRadius: 10)
-                                .stroke(lineWidth: 1.0)
-                                .foregroundColor(Color.lightGray))
-                            .padding(1)
+                        }
+                        .padding(15)
+                        .overlay(RoundedRectangle(cornerRadius: 10)
+                            .stroke(lineWidth: 1.0)
+                            .foregroundColor(Color.lightGray))
+                        .padding(1)
                         ForEach($customer.services, id: \.self) { service in
                             HStack(alignment: .center, spacing: 15) {
                                 Image(systemName: "circle.fill")
@@ -191,10 +195,9 @@ struct CustomerRequestInfoView: View {
                 NavigationLink(destination: CategoriesChooserView(customer: $customer, amount: Double(Int(customer.address.building)! * 100))) {
                     Text("Quote").withDoneButtonStyles(backColor: .accentColor, accentColor: .white)
                 }.background(.clear)
-
-//                .zIndex(1)//.opacity($tags.wrappedValue.count > 0 ? 1 : 0)
             }.padding(.bottom, 20).background(.clear)
-        }.ignoresSafeArea(.container, edges: .bottom)
+        }
+        .ignoresSafeArea(.container, edges: .bottom)
         .padding(.horizontal, 20).padding(.top, 10)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarTitle("Customer")
@@ -207,5 +210,4 @@ struct CustomerRequestView_Previews: PreviewProvider {
             CustomerRequestInfoView(customer: .constant(Customers[0]))
         }.navigationTitle("Provider Search").previewDevice("iPhone 6s")
     }
-
 }

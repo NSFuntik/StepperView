@@ -18,27 +18,25 @@ struct InquiryListTabView: View {
 
     var body: some View {
         if (actorType != .CUSTOMER ? PrvInquires : CstInquires).isEmpty {
+            Spacer()
             Image(actorType == .CUSTOMER ? "cst-inquires" : "prv-inquires")
                 .resizable()
                 .frame(width: 300, height: 375, alignment: .center)
                 .scaledToFit()
                 .aspectRatio(1, contentMode: .fit)
-
             Spacer()
         } else {
             ScrollView {
                 LazyVStack(spacing: 15) {
                     ForEach((actorType != .CUSTOMER ? PrvInquires : CstInquires).indices, id: \.self) { orderId in
                         VStack {
-                            //.padding(.leading, 20)
-                            InquiryListCell(order: (actorType != .CUSTOMER ? PrvInquires : CstInquires)[orderId], customer: $customer, actorType: $actorType).padding(.horizontal, 10)
-
+                            InquiryListCell(order: (actorType != .CUSTOMER ? PrvInquires : CstInquires)[orderId], customer: $customer, actorType: $actorType)
+                                .padding(.horizontal, 10)
                         }
                     }
                     Spacer()
                 }.padding(.top, 15).listStyle(.grouped)
             }.background(Color.white.opacity(0.7))
-
         }
     }
 }
@@ -63,18 +61,23 @@ struct InquiryListCell: View {
             NavigationLink(destination: OrderDetailView(actorType: $actorType, orderType: .Inquiry, order: $order)) {
                 VStack(alignment: .leading, spacing: 10) {
                     VStack {
-
                         HStack {
                             Text(order.statusRecord.status.display)
                                 .font(.system(size: 17, weight: .regular, design: .rounded))
                                 .foregroundColor(.black).padding(EdgeInsets(top: 10, leading: 15, bottom: 0, trailing: 10))
                             Spacer()
-
+                            Image(systemName: "chevron.right")
+                                .foregroundColor(order.statusRecord.status == .QUOTE || order.statusRecord.status == .INQUIRY ? .accentColor : .white)
+                                .multilineTextAlignment(.leading)
+                                .font(Font.system(size: 20, weight: .semibold, design: .rounded))
+                                .padding(.trailing, 15)
+                                .padding(.top, 10)
                         }
-                        Divider().background(Color.lightGray)//.padding(.top, -5)
-
+                        Divider().background(Color.lightGray)
                     }
-                    .background(LinearGradient(gradient: Gradient(colors: [Color(hex: order.statusRecord.status.colors[0])!, Color(hex: order.statusRecord.status.colors[1])!]), startPoint: .leading, endPoint: .trailing))
+                    .background(LinearGradient(gradient: Gradient(colors: [Color(hex: order.statusRecord.status.colors[0])!,
+                                                                           Color(hex: order.statusRecord.status.colors[1])!]),
+                                               startPoint: .leading, endPoint: .trailing))
                     .padding([.top, .horizontal], -15)
                     HStack {
                         if order.dayPlans.count > 0 {
@@ -87,7 +90,7 @@ struct InquiryListCell: View {
                                 .foregroundColor(.black)
                         }
                         Spacer()
-                        Text(poundsFormatter.string(from: order.amount as NSNumber)!)//order.services.map({$0.qty * $0.cost}).reduce(0, +) as NSNumber)!)
+                        Text(poundsFormatter.string(from: order.amount as NSNumber)!)
                             .font(.system(size: 17, weight: .semibold, design: .rounded))
                             .foregroundColor(.black)
                     }
@@ -97,7 +100,6 @@ struct InquiryListCell: View {
                                 Text("First Visit: \(order.dayPlans.last!.day) \(order.dayPlans.first!.visit1.time!)")
                                     .font(.system(size: 17, weight: .regular, design: .rounded))
                                     .foregroundColor(.black)
-
                                 Spacer()
                             }
                             HStack(alignment: .center, spacing: 0) {
@@ -105,24 +107,14 @@ struct InquiryListCell: View {
                                     .font(.system(size: 17, weight: .regular, design: .rounded))
                                     .foregroundColor(.black)
                                 Spacer()
-
                             }
                         }
                     }
                 }
             }.zIndex(0)
             if actorType == .PROVIDER {
-
                 NavigationLink(destination: GoogleMapView(providers: .constant([]), pickedAddress: $order.addr.defaultAddress)) {
-
-                    HStack(alignment: .top, spacing: 5) {
-                        Image("MapSymbol")
-                            .renderingMode(.template)
-                            .resizable()
-                            .scaledToFit().aspectRatio(contentMode: .fit)
-                            .foregroundColor(.accentColor)
-                            .frame(width: 20, height: 20, alignment: .center)
-
+                    HStack(alignment: .center, spacing: 5) {
                         Text(order.addr.total ?? "")
                             .lineLimit(3)
                             .foregroundColor(Color.secondary.opacity(0.8))
@@ -132,7 +124,12 @@ struct InquiryListCell: View {
                             .lineLimit(3)
                             .multilineTextAlignment(.leading)
                         Spacer()
-
+                        Image("MapSymbol")
+                            .renderingMode(.template)
+                            .resizable()
+                            .scaledToFit().aspectRatio(contentMode: .fit)
+                            .foregroundColor(.accentColor)
+                            .frame(width: 20, height: 20, alignment: .center)
                     }.padding(.vertical, 10).frame(idealHeight: 30, maxHeight: 45)
                 }
             } else {
@@ -146,34 +143,31 @@ struct InquiryListCell: View {
                         .lineLimit(3)
                         .multilineTextAlignment(.leading)
                     Spacer()
-
                 }.padding(.vertical, 5).frame(idealHeight: 20, maxHeight: 40)
             }
             HStack {
-
                 RemovableTagListView(selected: $catID, isRemovable: .constant(false),
                                      categoriesVM: CategoriesViewModel.shared,
                                      tags:
-                                        Binding { Set(getCategoriesFor(order: order).frequency.map({ category, count in
-                    return " \(category.title): \(count)"
-                }))} set: { tags in
-                    self.tags = tags
-                }, fontSize: 21.5).padding(1)
+                                        Binding { Set(getCategoriesFor(order: order)
+                                            .frequency.map({ category, count in
+                                                return " \(category.title): \(count)"
+                                            }))} set: { tags in
+                                                self.tags = tags
+                                            },
+                                     fontSize: 21.5).padding(1)
             }
             .scaleEffect(0.78).offset(x: -40)
-
             .disabled(true)
-
-
-        }.padding(15).background(Color.white)
-            .clipShape(RoundedRectangle(cornerRadius: 13))
-            .overlay(RoundedRectangle(cornerRadius: 13).stroke(lineWidth: 1).fill(Color.lightGray))
-            .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-
-                    $order.wrappedValue = $order.wrappedValue
-                }
+        }
+        .padding(15).background(Color.white)
+        .clipShape(RoundedRectangle(cornerRadius: 13))
+        .overlay(RoundedRectangle(cornerRadius: 13).stroke(lineWidth: 1).fill(Color.lightGray))
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                $order.wrappedValue = $order.wrappedValue
             }
+        }
     }
 
     func getCategoriesFor(order: OrderContent) -> [CategoryType] {

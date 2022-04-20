@@ -15,21 +15,17 @@ enum OrderType: String, CaseIterable, Identifiable, Codable {
 }
 
 struct OrderDetailView: View {
-    //    @Binding var customer: Customer
-    //    @Binding var provider: Provider
     @Binding var actorType: ActorsEnum
-
     var totalSum: Double {
         get {
             return Double(order.services.map({$0.qty * Int($0.cost)}).reduce(0, +))
         }
         set {
-            totalSum = newValue
+            self.totalSum = newValue
         }
     }
     @State var orderType: OrderType
     @Binding var order: OrderContent
-//    @State var amount: Double
     @State var isChargeOn = false
     @State var calloutCharge = 0.0
     @State var cancellation = 0
@@ -43,7 +39,7 @@ struct OrderDetailView: View {
             ScrollView {
                 VStack(alignment: .center, spacing: 20) {
                     VStack {
-                        ForEach($services)//$categories.flatMap({$0.}).sorted(by: {$0.id.wrappedValue < $1.id.wrappedValue}))
+                        ForEach($services)
                         { service in
                             Section {
                                 NavigationLink(destination: CategoryServiceDetailView(service: service)) {
@@ -54,7 +50,6 @@ struct OrderDetailView: View {
                                                 .multilineTextAlignment(.leading)
                                                 .font(Font.system(size: 17, weight: .regular, design: .rounded))
                                                 .lineLimit(1)
-                                            //                                            .padding(.leading, 10)
                                             Spacer()
                                             Text(service.unitsCount.wrappedValue.description)
                                                 .foregroundColor(Color.lightGray.opacity(0.9))
@@ -102,13 +97,12 @@ struct OrderDetailView: View {
                                     .font(Font.system(size: 19, weight: .regular, design: .default))
                                 Spacer()
                                 if isExist {
-                                    Text(poundsFormatter.string(from: order.amount as! NSNumber)!)
+                                    Text(poundsFormatter.string(from: order.amount as NSNumber)!)
                                         .foregroundColor(Color.black)
                                         .multilineTextAlignment(.leading)
                                         .font(Font.system(size: 19, weight: .bold, design: .default))
 
                                 } else {
-
                                     VStack(alignment: .trailing) {
                                         TextField("Total price:", value: $order.amount, formatter: poundsFormatter, prompt: Text(isExist ? "£\( String(order.services.map({$0.qty * Int($0.cost * 100)}).reduce(0, +) * 100)).00" : (poundsFormatter.string(from: order.amount * 100 as NSNumber)!)))
                                             .font(Font.system(size: 17,
@@ -178,16 +172,15 @@ struct OrderDetailView: View {
                                                     .lineLimit(2)
                                                     .foregroundColor(Color.secondary)
                                                     .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                                            }
-                                            .frame(height: 40)
+                                            }.frame(height: 40)
                                         }
                                     }
                                 }.padding(.horizontal, 5)
-                            }.padding(10)
-                                .overlay(RoundedRectangle(cornerRadius: 15)
-                                    .stroke(lineWidth: 1.0)
-                                    .foregroundColor(Color.lightGray))
-
+                            }
+                            .padding(10)
+                            .overlay(RoundedRectangle(cornerRadius: 15)
+                                .stroke(lineWidth: 1.0)
+                                .foregroundColor(Color.lightGray))
                             VStack {
                                 Group {
                                     NavigationLink(destination: AddressPickerView(pickedAddress: $order.addr)) {
@@ -290,7 +283,6 @@ struct OrderDetailView: View {
                     }.padding(.horizontal, 20).padding(.top, 10)
                     Spacer(minLength: 120)
                 }
-
             }
             VStack {
                 Spacer()
@@ -334,7 +326,7 @@ struct OrderDetailView: View {
                 }
 
             }.padding(.bottom, 17.5)
-                .zIndex(1)//.opacity($tags.wrappedValue.count > 0 ? 1 : 0)
+                .zIndex(1)
         }
         .onAppear {
             services = $order.services.map({

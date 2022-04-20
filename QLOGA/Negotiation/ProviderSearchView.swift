@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ProviderSearchView: View {
-    // MARK: Lifecycle
 
     init() {
         UITableView.appearance().backgroundColor = UIColor.white
@@ -16,14 +15,11 @@ struct ProviderSearchView: View {
         UITableView.appearance().sectionIndexColor = UIColor(named: "AccentColor")?.withAlphaComponent(0.6)
     }
 
-    // MARK: Internal
-
     @State var selectedButton: Int = CategoryType.Gas.id
     @State var isLimited = true
 
     var body: some View {
         VStack(alignment: .center) {
-
             VStack(alignment: .leading, spacing: 5) {
                 ServicesScrollView.padding(.horizontal, -30)
                 VStack {
@@ -72,7 +68,6 @@ struct ProviderSearchView: View {
                                                         .font(.system(size: 20, weight: .regular, design: .default))
                                                         .foregroundColor(.infoBlue)
                                                         .frame(width: 100, height: 40)
-
                                                         .background(
                                                             RoundedRectangle(cornerRadius: 25)
                                                                 .stroke(Color.infoBlue, lineWidth: 4)
@@ -88,12 +83,10 @@ struct ProviderSearchView: View {
                                                     Text("Show providers")
                                                         .withDoneButtonStyles(backColor: .Green, accentColor: .white, isWide: false, width: 200, height: 40, isShadowOn: false).padding(1)
 
-                                                }
-                                                .frame(width: 200, height: 45)
+                                                }.frame(width: 200, height: 45)
                                             }
                                             Spacer()
                                         }
-
                                     }.frame(width: UIScreen.main.bounds.width - 40, alignment: .center)
                                 } label: {
                                     HStack {
@@ -123,16 +116,17 @@ struct ProviderSearchView: View {
                                 Divider().padding(.horizontal, -10).padding(.leading, 25)
                             }
                         }
-                    }.padding(10).padding(.bottom, -10)
-                        .overlay(RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.secondary
-                                .opacity(0.7), lineWidth: 1).padding(1))
+                    }
+                    .padding(10).padding(.bottom, -10)
+                    .overlay(RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.secondary
+                            .opacity(0.7), lineWidth: 1).padding(1))
                     Spacer(minLength: 50)
                 }
             }.padding(.horizontal, 20)
         }
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarTitle("Provider Search")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitle("Provider Search")
     }
 }
 
@@ -155,7 +149,6 @@ extension ProviderSearchView {
                                         .stroke(selectedButton == service.id ? Color.accentColor : Color.lightGray.opacity(0.6),
                                                 lineWidth: selectedButton == service.id ? 2.0 : 1.5)
                                 ).padding(.bottom, -3).padding(.top, 1)
-
                             Text(service.name)
                                 .foregroundColor(Color.black)
                                 .font(.system(size: 15.0, weight: .light, design: .rounded))
@@ -167,7 +160,6 @@ extension ProviderSearchView {
                 }
             }.padding(.leading, 20)
         }.padding(.top, 10)
-        
     }
 }
 

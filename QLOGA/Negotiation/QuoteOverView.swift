@@ -14,7 +14,7 @@ struct QuoteOverView: View {
             return Double(customer.services.map({$0.unitsCount * Int($0.price)}).reduce(0, +))
         }
         set {
-            totalSum = newValue
+            self.totalSum = newValue
         }
     }
     @State var amount: Double
@@ -32,7 +32,7 @@ struct QuoteOverView: View {
             ScrollView {
                 VStack(alignment: .center, spacing: 20) {
                     VStack {
-                        ForEach($customer.services)//$categories.flatMap({$0.}).sorted(by: {$0.id.wrappedValue < $1.id.wrappedValue}))
+                        ForEach($customer.services)
                         { service in
                             Section {
                                 NavigationLink(destination: CategoryServiceDetailView(service: service)) {
@@ -43,7 +43,6 @@ struct QuoteOverView: View {
                                                 .multilineTextAlignment(.leading)
                                                 .font(Font.system(size: 17, weight: .regular, design: .rounded))
                                                 .lineLimit(1)
-                                            //                                            .padding(.leading, 10)
                                             Spacer()
                                             Text(service.unitsCount.wrappedValue.description)
                                                 .foregroundColor(Color.lightGray.opacity(0.9))
@@ -99,7 +98,6 @@ struct QuoteOverView: View {
                                         .font(Font.system(size: 19, weight: .bold, design: .default))
 
                                 } else {
-
                                     VStack(alignment: .trailing) {
                                         TextField("Total price:", value: $amount, formatter: poundsFormatter, prompt: Text(isExist ? "£\( String(customer.services.map({$0.unitsCount * Int($0.price * 100)}).reduce(0, +) * 100)).00" : (poundsFormatter.string(from: Int(customer.address.building)! * 100 as NSNumber)!)))
                                             .font(Font.system(size: 17,
@@ -169,16 +167,15 @@ struct QuoteOverView: View {
                                                     .lineLimit(2)
                                                     .foregroundColor(Color.secondary)
                                                     .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                                            }
-                                            .frame(height: 40)
+                                            }.frame(height: 40)
                                         }
                                     }
                                 }.padding(.horizontal, 5)
-                            }.padding(10)
-                                .overlay(RoundedRectangle(cornerRadius: 15)
-                                    .stroke(lineWidth: 1.0)
-                                    .foregroundColor(Color.lightGray))
-
+                            }
+                            .padding(10)
+                            .overlay(RoundedRectangle(cornerRadius: 15)
+                                .stroke(lineWidth: 1.0)
+                                .foregroundColor(Color.lightGray))
                         VStack {
                             Group {
                                 NavigationLink(destination: AddressPickerView(pickedAddress: $customer.address.defaultAddress)) {
@@ -303,8 +300,7 @@ struct QuoteOverView: View {
                 }) {
                     Text("Send Quote").withDoneButtonStyles(backColor: .accentColor, accentColor: .white)
                 }
-
-                .zIndex(1)//.opacity($tags.wrappedValue.count > 0 ? 1 : 0)
+                .zIndex(1)
             }.padding(.bottom, 15)
         }
         .onAppear {
@@ -321,7 +317,6 @@ struct QuoteOverView: View {
             showAlert = true
         }){
             if !isExist {
-
                 HStack {
                     Image(systemName: "chevron.left").foregroundColor(.accentColor)
                         .aspectRatio(contentMode: .fit)
@@ -330,22 +325,11 @@ struct QuoteOverView: View {
             }
         })
         .alert("You have chosen to return to the list of services - in this case, the provider you have chosen and its services will not be saved! Are you sure?", isPresented: $showAlert) {
-            Button("Decline", role: .cancel) { showAlert = false}
-
-            Button("Allow", role: .destructive) {
-
-                isPicked = true
-            }
-
+            Button("Decline", role: .cancel) {      showAlert = false }
+            Button("Allow", role: .destructive) {   isPicked = true }
         }
         .fullScreenCover(isPresented: $isPicked, content: {
             ProfileHomeTabBarView(actorType: $actorType, tabController: TabController.shared)
         })
     }
 }
-
-//struct QuoteOverView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        QuoteOverView()
-//    }
-//}

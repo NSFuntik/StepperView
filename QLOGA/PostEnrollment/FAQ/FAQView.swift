@@ -12,17 +12,13 @@ class FAQViewModel: ObservableObject {
     @Published var data: FAQModel = []
     init() {
         self.data = try! newJSONDecoder().decode(FAQModel.self, from: try! Data(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: "faq", ofType: "json")!)))
-        //(contentsOfFile: Bundle.main.path(forResource: "faq", ofType: "json")!, encoding: .utf8)!)
     }
 }
-
-
 
 struct FAQView: View {
     @Binding var provider: Provider
     @Binding var customer: Customer
     @State var actorType: ActorsEnum
-//    @State var FAQ: FAQModel
     @ObservedObject var faqVM = FAQViewModel()
 
     var body: some View {
@@ -65,11 +61,3 @@ struct FAQView: View {
         .navigationTitle("Frequently Asked Questions")
     }
 }
-
-//struct FAQView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FAQView(provider: Binding(projectedValue: .constant(.PROVIDER)),
-//                customer: Binding(projectedValue: .constant(testCustomer)),
-//                actorType: .PROVIDER, FAQ: FAQModel.init())
-//    }
-//}

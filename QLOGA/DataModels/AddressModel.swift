@@ -65,41 +65,13 @@ struct CstAddress: Codable, Hashable {
 
             return Address(isBussinessOnly: self.businessOnly, postcode: self.postcode, town: self.town, street: self.line1, building: self.line2, apt: self.line3 ?? "", self.lat ?? 55.95204500604529, self.lng ??  -3.1981850325268777)
         }
-        set { newValue
+        set {
             self =  CstAddress.init(id: newValue.hashValue, familyId: 0, line1: newValue.street, line2: newValue.building, town: newValue.town, postcode: newValue.postcode, lat: newValue.latitude, lng: newValue.latitude, vrfs: [], businessOnly: newValue.isBussinessOnly, line3: newValue.apt)
         }
-
     }
-//    func getFrom(string: String) -> CstAddress {
-//        var cstAddress = CstAddress(country: <#T##String#>, line1: <#T##String#>, line2: <#T##String#>, town: <#T##String#>, postcode: <#T##String#>)
-//        var line3: String
-//        string.compactMap { i in
-//            if i.isNumber {
-//                return Int(i)
-//            } else if i.isPunctuation {
-//                return Character(i)
-//            } esle return nil
-//        }
-//        if string.first?.isNumber {
-//            line3 =  string.prefix { char in
-//                char.isNumber
-//            }
-//        } else {
-//
-//        }
-//        string = string.trimmingCharacters(in: <#T##CharacterSet#>)
-//        if string.replacingOccurrences(of: ", ", with: ",").replacingOccurrences(of: " ", with: "").components(separatedBy: ",").count
-//    }
 }
 
-
-
-
-
-
-
 struct Address: Hashable {
-    // MARK: Lifecycle
 
     init(isBussinessOnly: Bool = false, postcode: String, town: String, street: String, building: String = "",
          apt: String = "", _ latitude: Double = 55.95204500604529, _ longitude: Double = -3.1981850325268777, country: String = "GB")
@@ -130,8 +102,8 @@ struct Address: Hashable {
     var country: String
 
     var defaultAddress: CstAddress {
-        set { newValue
-            var defAddress = Address(isBussinessOnly: newValue.businessOnly, postcode: newValue.postcode, town: newValue.town, street: newValue.line1, building: newValue.line2, apt: newValue.line3 ?? "", newValue.lat ?? 55.95204500604529, newValue.lng ??  -3.1981850325268777)
+        set {
+            self = Address(isBussinessOnly: newValue.businessOnly, postcode: newValue.postcode, town: newValue.town, street: newValue.line1, building: newValue.line2, apt: newValue.line3 ?? "", newValue.lat ?? 55.95204500604529, newValue.lng ??  -3.1981850325268777)
         }
         get {
             return  CstAddress.init(id: self.hashValue, familyId: 0, line1: self.street, line2: self.building, town: self.town, postcode: self.postcode, lat: self.latitude, lng: self.latitude, vrfs: [], businessOnly: self.isBussinessOnly, line3: self.apt)

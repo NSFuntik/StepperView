@@ -15,11 +15,10 @@ class RequestViewModel: ObservableObject {
             objectWillChange.send()
         }
     }
-    @Published var saved = false // This can store any value.
+    @Published var saved = false
 
     static let shared = RequestViewModel()
 
-//    @Published var notes = ""
     init() {
         let requestsMeta: CstRequestMeta = try! newJSONDecoder().decode(CstRequestMeta.self, from: try! Data(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: "requests", ofType: "json")!)))
         self.requests = requestsMeta.requests
@@ -29,7 +28,6 @@ class RequestViewModel: ObservableObject {
 
     func createRequest(request: CstRequest, completion: @escaping () -> ()) {
         self.requests.append(request)
-            //.requests.append(request)
         completion()
     }
 
@@ -46,26 +44,15 @@ struct CstCreateRequestView: View {
     @EnvironmentObject var requestsController: RequestViewModel
     @EnvironmentObject var tabController: TabController
     @EnvironmentObject var CategoryVM: CategoriesViewModel
-//    var rootView: some View
-//    @State var requestInfo: CstRequest? = nil
-   
-
-//    @StateObject var RequestVM = RequestViewModel()
-//    @FocusState private var focusedField: Field?
-//    @ObservedObject var CategoryVM: CategoriesViewModel
-//    @State var categories: [Category]
     @State var categories: [CategoryService]
-
     @State var cstRequest = CstRequest(
         statusRecord: .init(date: getString(from: Date(), "YYYY-MM-DDTHH:MM:SS") + ".312336Z", actor: "CUSTOMER", actorId: 1002, action: "CREATE", status: "LIVE", display: "LIVE"),
         id: 0, offeredSum: 0, placedDate: Date(), orderedDate: Date(),
         validDate: Date(timeInterval: TimeInterval(1), since: Date()),
         visits: 1, address: testProvider.address.defaultAddress, services: [],
         cstActions: [CstCstAction.cancel, .stop, .update], notes: "Enter your note")
-//    @FocusState var isEditingPrice: Bool
     @Environment(\.dismiss) var dismiss
     @State private var totalChars = 1
-
     @State private var numberFormatter: NumberFormatter = {
         var nf = NumberFormatter()
         nf.multiplier = 0.01
@@ -74,14 +61,13 @@ struct CstCreateRequestView: View {
         return nf
     }()
 
-    var body: some View {//.filter{$0.unitsCount.wrappedValue > 0}.sorted(by: {$0.id < $1.id})
+    var body: some View {
         VStack {
-
             ZStack {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .center, spacing: 10) {
                         VStack {
-                            ForEach($categories.sorted(by: {$0.id.wrappedValue < $1.id.wrappedValue}))//$categories.flatMap({$0.}).sorted(by: {$0.id.wrappedValue < $1.id.wrappedValue}))
+                            ForEach($categories.sorted(by: {$0.id.wrappedValue < $1.id.wrappedValue}))
                             { service in
                                 Section {
                                     NavigationLink(destination: CategoryServiceDetailView(service: service)) {
@@ -92,7 +78,6 @@ struct CstCreateRequestView: View {
                                                     .multilineTextAlignment(.leading)
                                                     .font(Font.system(size: 17, weight: .regular, design: .rounded))
                                                     .lineLimit(1)
-                                                //                                            .padding(.leading, 10)
                                                 Spacer()
                                                 Text(service.unitsCount.wrappedValue.description)
                                                     .foregroundColor(Color.lightGray.opacity(0.9))
@@ -123,12 +108,10 @@ struct CstCreateRequestView: View {
                                         .font(Font.system(size: 17,
                                                           weight: .regular,
                                                           design: .rounded))
-                                    //                            .padding(.horizontal, 25)
                                     Spacer()
                                     DatePicker("",
-                                               selection: $cstRequest.orderedDate
-                                               , displayedComponents: [.date, .hourAndMinute])
-
+                                               selection: $cstRequest.orderedDate,
+                                               displayedComponents: [.date, .hourAndMinute])
                                 }.padding(.horizontal, 5).frame(height: 40)
                                 Divider().padding(.horizontal, -10).padding(.leading, 25)
                             }
@@ -139,7 +122,6 @@ struct CstCreateRequestView: View {
                                         .font(Font.system(size: 17,
                                                           weight: .regular,
                                                           design: .rounded))
-
                                     Spacer()
                                     VStack(alignment: .trailing) {
                                         TextField("Total price:", value: $cstRequest.offeredSum, formatter: numberFormatter, prompt: Text("£80.00"))
@@ -192,7 +174,6 @@ struct CstCreateRequestView: View {
                                             .multilineTextAlignment(.leading)
                                             .font(Font.system(size: 17, weight: .regular, design: .rounded))
                                         Spacer()
-                                        //                                Text($RequestVM.requests[0].address.wrappedValue.total ?? "")
                                         Text(cstRequest.address.total ?? "")
                                             .lineLimit(2)
                                             .foregroundColor(Color.secondary)
@@ -349,12 +330,6 @@ struct CstCreateRequestView: View {
                                             .lineLimit(2)
                                             .foregroundColor(Color.secondary)
                                             .font(Font.system(size: 13, weight: .regular, design: .rounded))
-
-                                        //                                    Image(systemName: "chevron.right")
-                                        //                                        .foregroundColor(Color.accentColor)
-                                        //                                        .multilineTextAlignment(.leading)
-                                        //                                        .font(Font.system(size: 20, weight: .regular, design: .rounded))
-                                        //                                        .padding(.leading, 10)
                                     } icon: {
                                         Image("RequestScheduleIcon")
                                             .resizable()
@@ -370,96 +345,85 @@ struct CstCreateRequestView: View {
                                 .stroke(Color.secondary
                                     .opacity(0.7), lineWidth: 1).padding(1))
                         Spacer()
-
                     }
                     VStack {
-                    if requestsController.requests.first(where: {$0.id == cstRequest.id}) == nil {
-                        Button {
-                            cstRequest.validDate = Date(timeIntervalSinceNow: TimeInterval(totalChars * 604800))
-                            let services: [CategoryService] = categories
-                            cstRequest.services = services.map({$0.toCstService()})
-                            cstRequest.id = (requestsController.requests.last?.id ?? requestsController.requests.count) + 1
-                            requestsController.createRequest(request: cstRequest) {
-                                //                            requestsController.$requests.sink(receiveValue: { _ in
-                                requestsController.saved = true
-                                dismiss()
-                                //                                dismiss()
-                                ////                            })
-                            }
-
-                        } label: {
-                            VStack {
-                                Rectangle().foregroundColor(.clear)
-                                    .ignoresSafeArea(.container, edges: .horizontal)
-                                    .overlay {
-                                        HStack {
-                                            Text("Create Open Request")
-                                                .withDoneButtonStyles(backColor: .accentColor, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width - 50, height: 50)
-                                        }
-                                    }
-                            }
-                        }
-                    } else {
-                        HStack {
-                        Button {
-                            $requestsController.requests.first(where: {$0.id.wrappedValue == cstRequest.id})?.validDate.wrappedValue = Date()
-                            $requestsController.requests.first(where: {$0.id.wrappedValue == cstRequest.id})?.statusRecord.status.wrappedValue = "CANCELED"
-                        } label: {
-                            VStack {
-                                Rectangle().foregroundColor(.clear)
-                                    .ignoresSafeArea(.container, edges: .horizontal)
-                                    .overlay {
-                                        HStack {
-                                            Text("Cancel")
-                                                .withDoneButtonStyles(backColor: .red, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width / 4, height: 50)
-                                        }
-                                    }
-                            }
-                        }
+                        if requestsController.requests.first(where: {$0.id == cstRequest.id}) == nil {
                             Button {
-                                $requestsController.requests.first(where: {$0.id.wrappedValue == cstRequest.id})?.validDate.wrappedValue = Date()
-                                $requestsController.requests.first(where: {$0.id.wrappedValue == cstRequest.id})?.statusRecord.status.wrappedValue = "STOPPED"
+                                cstRequest.validDate = Date(timeIntervalSinceNow: TimeInterval(totalChars * 604800))
+                                let services: [CategoryService] = categories
+                                cstRequest.services = services.map({$0.toCstService()})
+                                cstRequest.id = (requestsController.requests.last?.id ?? requestsController.requests.count) + 1
+                                requestsController.createRequest(request: cstRequest) {
+                                    requestsController.saved = true
+                                    dismiss()
+                                }
                             } label: {
                                 VStack {
                                     Rectangle().foregroundColor(.clear)
                                         .ignoresSafeArea(.container, edges: .horizontal)
                                         .overlay {
                                             HStack {
-                                                Text("Stop")
-                                                    .withDoneButtonStyles(backColor: .lightGray, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width / 4, height: 50)
+                                                Text("Create Open Request")
+                                                    .withDoneButtonStyles(backColor: .accentColor, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width - 50, height: 50)
                                             }
                                         }
                                 }
                             }
-
-                            Button {
-
-                            } label: {
-                                VStack {
-                                    Rectangle().foregroundColor(.clear)
-                                        .ignoresSafeArea(.container, edges: .horizontal)
-                                        .overlay {
-                                            HStack {
-                                                Text("Update")
-                                                    .withDoneButtonStyles(backColor: .green, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width / 4, height: 50)
+                        } else {
+                            HStack {
+                                Button {
+                                    $requestsController.requests.first(where: {$0.id.wrappedValue == cstRequest.id})?.validDate.wrappedValue = Date()
+                                    $requestsController.requests.first(where: {$0.id.wrappedValue == cstRequest.id})?.statusRecord.status.wrappedValue = "CANCELED"
+                                } label: {
+                                    VStack {
+                                        Rectangle().foregroundColor(.clear)
+                                            .ignoresSafeArea(.container, edges: .horizontal)
+                                            .overlay {
+                                                HStack {
+                                                    Text("Cancel")
+                                                        .withDoneButtonStyles(backColor: .red, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width / 4, height: 50)
+                                                }
                                             }
-                                        }
+                                    }
+                                }
+                                Button {
+                                    $requestsController.requests.first(where: {$0.id.wrappedValue == cstRequest.id})?.validDate.wrappedValue = Date()
+                                    $requestsController.requests.first(where: {$0.id.wrappedValue == cstRequest.id})?.statusRecord.status.wrappedValue = "STOPPED"
+                                } label: {
+                                    VStack {
+                                        Rectangle().foregroundColor(.clear)
+                                            .ignoresSafeArea(.container, edges: .horizontal)
+                                            .overlay {
+                                                HStack {
+                                                    Text("Stop")
+                                                        .withDoneButtonStyles(backColor: .lightGray, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width / 4, height: 50)
+                                                }
+                                            }
+                                    }
+                                }
+                                Button {
+
+                                } label: {
+                                    VStack {
+                                        Rectangle().foregroundColor(.clear)
+                                            .ignoresSafeArea(.container, edges: .horizontal)
+                                            .overlay {
+                                                HStack {
+                                                    Text("Update")
+                                                        .withDoneButtonStyles(backColor: .green, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width / 4, height: 50)
+                                                }
+                                            }
+                                    }
                                 }
                             }
                         }
-                    }
                     }
                     .padding(.vertical, 20)
                     Spacer(minLength: 100)
                 }
             }
-
-        } .padding(.horizontal, 20).padding(.top, 10)
-//        .onAppear {
-//            print("00000000000000000000000000000000000000000000000000\n\n\n")
-//
-//            print(categories)
-//        }
+        }
+        .padding(.horizontal, 20).padding(.top, 10)
         .onAppear {
             if categories.filter({$0.name == nil}).isEmpty == false {
                 var newServices: [CategoryService] = []
@@ -468,7 +432,6 @@ struct CstCreateRequestView: View {
                         if var newCat = StaticCategories[cat.id] {
                             if newServices.contains(where: {$0.id == newCat.id}) == false {
                                 newCat.unitsCount = cat.unitsCount
-                                //                            categories = categories.filter({$0.id != cat.id})
                                 newServices.append(newCat)
                             }
                         }
@@ -476,11 +439,9 @@ struct CstCreateRequestView: View {
                     categories.removeAll()
                     categories.append(contentsOf: newServices)
                     categories.uniqued()
-
-            }
+                }
             }
         }
-
         .navigationTitle("Request")
         .navigationBarTitleDisplayMode(.inline)
         .navigationViewStyle(.stack)
@@ -490,7 +451,7 @@ struct CstCreateRequestView: View {
                                .shadow(color: .lightGray, radius: 1, x:1,  y: 1), .noBottomPosition, .showCloseButton(action: {
                                    bottomSheetPosition = .hidden
                                })],
-                     headerContent: {
+         headerContent: {
             VStack {
                 HStack(alignment: .center) {
                     Spacer()
@@ -502,76 +463,37 @@ struct CstCreateRequestView: View {
                 }
             }.frame(height: 20)
         },
-                     mainContent: {
+         mainContent: {
             Section {
-
                 VStack(spacing: 5) {
                     HStack {
                         Text("Placed")
-                            .multilineTextAlignment(.leading)
-                            .font(Font.system(size: 20, weight: .regular, design: .rounded))
-                            .foregroundColor(.secondary)
-                        //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
-                            .lineLimit(1)
                         Spacer()
                         Text(getString(from: cstRequest.placedDate, "dd/MM/yy HH:mm"))
-                            .multilineTextAlignment(.trailing)
-                            .font(Font.system(size: 20, weight: .regular, design: .rounded))
-                            .foregroundColor(.secondary)
-                        //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
-                            .lineLimit(1)
                     }
                     HStack {
                         Text("Upload")
-                            .multilineTextAlignment(.leading)
-                            .font(Font.system(size: 20, weight: .regular, design: .rounded))
-                            .foregroundColor(.secondary)
-                        //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
-                            .lineLimit(1)
                         Spacer()
                         Text(getString(from: cstRequest.placedDate, "dd/MM/yy HH:mm"))
-                            .multilineTextAlignment(.trailing)
-                            .font(Font.system(size: 20, weight: .regular, design: .rounded))
-                            .foregroundColor(.secondary)
-                        //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
-                            .lineLimit(1)
                     }
                     HStack {
                         Text("Until")
-                            .multilineTextAlignment(.leading)
-                            .font(Font.system(size: 20, weight: .regular, design: .rounded))
-                            .foregroundColor(.secondary)
-                        //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
-                            .lineLimit(1)
                         Spacer()
                         Text(getString(from: cstRequest.validDate, "dd/MM/yy HH:mm"))
-                            .multilineTextAlignment(.trailing)
-                            .font(Font.system(size: 20, weight: .regular, design: .rounded))
-                            .foregroundColor(.secondary)
-                        //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
-                            .lineLimit(1)
                     }
                     HStack {
                         Text("Looked")
-                            .multilineTextAlignment(.leading)
-                            .font(Font.system(size: 20, weight: .regular, design: .rounded))
-                            .foregroundColor(.secondary)
-                        //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
-                            .lineLimit(1)
                         Spacer()
                         Text(cstRequest.visits.description)
-                            .multilineTextAlignment(.trailing)
-                            .font(Font.system(size: 20, weight: .regular, design: .rounded))
-                            .foregroundColor(.secondary)
-                        //                        .shadow(color: Color.lightGray, radius: 1, x: 1, y: 1)
-                            .lineLimit(1)
                     }
-
-                }.padding([.horizontal], 20) .padding(.top, 10)
-                    .frame(maxHeight: UIScreen.main.bounds.height / 4, alignment: .top)
+                }
+                .font(Font.system(size: 20, weight: .regular, design: .rounded))
+                .foregroundColor(.secondary)
+                .lineLimit(1)
+                .padding([.horizontal], 20) .padding(.top, 10)
+                .frame(maxHeight: UIScreen.main.bounds.height / 4, alignment: .top)
             }
         }).minimumScaleFactor(0.8)
-
     }
 }
 struct EditorView: View {
@@ -581,45 +503,38 @@ struct EditorView: View {
     @FocusState private var focusedField: FocusField?
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     @Binding var note: String
-//    @StateObject var requestVM = RequestViewModel()
     var body: some View {
         NavigationView {
             ZStack {
                 Color.white.opacity(0.3).edgesIgnoringSafeArea(.all)
                 TextEditor(text: $note)
                     .focused($focusedField, equals: .field)
-//                    .onChange(of: input, perform: { newValue in
-//                        $requestVM.notes.wrappedValue = newValue
-//                    })
                     .font(.body)
                     .foregroundColor(.secondary)
-                    .padding()// Text color
-                    .background(Color.white.opacity(0.2)) // TextEditor's Background Color
-
+                    .padding()
+                    .background(Color.white.opacity(0.2))
             }
-                .toolbar {
-                    ToolbarItem(placement: .keyboard) {
-                        HStack {
-                            Spacer()
-                            Button(role: ButtonRole.destructive) {
-                                presentationMode.wrappedValue.dismiss()
-                            } label: {
-                                Text("Save")
-                                    .foregroundColor(.Orange)
-                                    .font(Font.system(size: 20, weight: .regular, design: .rounded))
-                            }
-
+            .toolbar {
+                ToolbarItem(placement: .keyboard) {
+                    HStack {
+                        Spacer()
+                        Button(role: ButtonRole.destructive) {
+                            presentationMode.wrappedValue.dismiss()
+                        } label: {
+                            Text("Save")
+                                .foregroundColor(.Orange)
+                                .font(Font.system(size: 20, weight: .regular, design: .rounded))
                         }
                     }
                 }
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationViewStyle(.stack)
-                .onAppear {
-
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        self.focusedField = .field
-                    }
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationViewStyle(.stack)
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.focusedField = .field
                 }
+            }
         }
     }
 }

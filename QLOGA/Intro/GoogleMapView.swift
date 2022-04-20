@@ -9,7 +9,7 @@ import CoreLocation
 import MapKit
 import SwiftUI
 import UIKit
-#if DEBUG
+#if targetEnvironment(simulator)
 
 #else
 import GoogleMaps
@@ -27,7 +27,7 @@ struct GoogleMapView: View {
 
     var body: some View {
         VStack {
-#if DEBUG
+#if targetEnvironment(simulator)
             Map(coordinateRegion: $region).edgesIgnoringSafeArea(.all)
 #else
             GoogleMapsView(pickedAddress: $pickedAddress.wrappedValue, providers: providers!).edgesIgnoringSafeArea(.all)
@@ -62,7 +62,7 @@ struct GoogleMapView_Previews: PreviewProvider {
                       pickedAddress: .constant(Address(postcode: "EH2 2ER", town: "Edinburgh", street: "Princes Street", building: "09")))
     }
 }
-#if !DEBUG
+#if !targetEnvironment(simulator)
 
 struct GoogleMapsView: UIViewRepresentable {
     private let zoom: Float = 15.0

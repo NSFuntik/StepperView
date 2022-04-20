@@ -17,11 +17,6 @@ struct GeneralQuestionsView: View {
                     .multilineTextAlignment(.leading)
                     .font(Font.system(size: 17, weight: .regular, design: .rounded))
                 Spacer()
-//                Image(systemName: "chevron.right")
-//                    .foregroundColor(Color.accentColor)
-//                    .multilineTextAlignment(.leading)
-//                    .font(Font.system(size: 20, weight: .regular, design: .rounded))
-//                    .padding(.leading, 10)
             } icon: {
                 Image(FAQItem.icon)
                     .resizable().scaledToFit().aspectRatio(contentMode: .fit)
@@ -54,7 +49,9 @@ struct GeneralQuestionsView: View {
                         }
                     }
                 }
-            }.padding(.top, 7).overlay(RoundedRectangle(cornerRadius: 10)
+            }
+            .padding(.top, 7)
+            .overlay(RoundedRectangle(cornerRadius: 10)
                 .stroke(lineWidth: 1.0)
                 .foregroundColor(Color.lightGray)
             ).padding(1)
@@ -62,9 +59,3 @@ struct GeneralQuestionsView: View {
         }.padding(.horizontal, 20).padding(.top, 10)
     }
 }
-
-//struct GeneralQuestionsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        GeneralQuestionsView(.constant(<#T##value: FAQItem##FAQItem#>))
-//    }
-//}

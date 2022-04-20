@@ -8,9 +8,6 @@
 import SwiftUI
 import Combine
 
-
-
-
 enum ProviderTodayTab: Int, CaseIterable, Identifiable {
     var id: Int { self.rawValue }
     case Today
@@ -50,19 +47,18 @@ enum CustomerTodayTab: Int, CaseIterable, Identifiable {
     }
 }
 struct EnrolledProfileView: View {
-    var allPrvTitles: [String] = [ProviderTodayTab.Today.description, ProviderTodayTab.Orders.description, ProviderTodayTab.Quotes.description, ProviderTodayTab.Inquires.description]
-    var allCstTitles: [String] = [CustomerTodayTab.Today.description, CustomerTodayTab.Orders.description, CustomerTodayTab.Inquires.description, CustomerTodayTab.Quotes.description]
+    var allPrvTitles: [String] = [ProviderTodayTab.Today.description, ProviderTodayTab.Orders.description,
+                                  ProviderTodayTab.Quotes.description, ProviderTodayTab.Inquires.description]
+    var allCstTitles: [String] = [CustomerTodayTab.Today.description, CustomerTodayTab.Orders.description,
+                                  CustomerTodayTab.Inquires.description, CustomerTodayTab.Quotes.description]
 
     @State private var selectedTab = 0
-
-    //    @StateObject var todayTabController: TodayTabController
-
     @EnvironmentObject var tabController: TabController
     @ObservedObject var locationManager = LocationManager()
+    @StateObject var ordersController = OrdersViewModel()
     @Binding var actorType: ActorsEnum
     @State var customer: Customer = testCustomer
     @State var provider: Provider = testProvider
-    @StateObject var ordersController = OrdersViewModel()
     @State var isModalPresented = false
     @State var isFiltersPresented = false
     @State var isNotShowAgain = false
@@ -84,7 +80,7 @@ struct EnrolledProfileView: View {
                             if CustomerTodayTab(rawValue: $selectedTab.wrappedValue) == .Today {
                                 TodayListTabView(provider: $provider, customer: $customer, actorType: $actorType, ordersController: ordersController)
                             } else if CustomerTodayTab(rawValue: $selectedTab.wrappedValue) == .Orders {
-                                PrvOrdersListTabView(provider: $provider, customer: $customer, ordersController: ordersController, actorType: $actorType)
+                                OrdersListTabView(provider: $provider, customer: $customer, ordersController: ordersController, actorType: $actorType)
                             }  else if CustomerTodayTab(rawValue: $selectedTab.wrappedValue) == .Quotes {
                                 QuotesListTabView(provider: $provider, customer: $customer, actorType: $actorType, ordersController: ordersController)
                             } else if CustomerTodayTab(rawValue: $selectedTab.wrappedValue) == .Inquires {
@@ -94,29 +90,21 @@ struct EnrolledProfileView: View {
                             if ProviderTodayTab(rawValue: $selectedTab.wrappedValue) == .Today {
                                 TodayListTabView(provider: $provider, customer: $customer, actorType: $actorType, ordersController: ordersController)
                             } else if ProviderTodayTab(rawValue: $selectedTab.wrappedValue) == .Orders {
-                                PrvOrdersListTabView(provider: $provider, customer: $customer, ordersController: ordersController, actorType: $actorType)
+                                OrdersListTabView(provider: $provider, customer: $customer, ordersController: ordersController, actorType: $actorType)
                             }  else if ProviderTodayTab(rawValue: $selectedTab.wrappedValue) == .Quotes {
                                 QuotesListTabView(provider: $provider, customer: $customer, actorType: $actorType, ordersController: ordersController)
                             } else if ProviderTodayTab(rawValue: $selectedTab.wrappedValue) == .Inquires {
                                 InquiryListTabView(provider: $provider, customer: $customer, actorType: $actorType, ordersController: ordersController)
                             }
                         }
-
-                        //                            else {
-                        //                                PrvOrdersListTabView(provider: $provider, customer: $customer, ordersController: ordersController)
-                        //                            }
                     }.frame(width: UIScreen.main.bounds.width)
                         .background(Color.lightGray.opacity(0.2))
-
                 }
                 .disabled(isModalPresented)
                 if isModalPresented {
                     infoModal
                 }
-
-            }//.padding(.horizontal, 20).padding(.top, 10)
-
-            //
+            }
             .sheet(isPresented: $isFiltersPresented) { ProvidersFilterView().cornerRadius(35) }
         }
     }
