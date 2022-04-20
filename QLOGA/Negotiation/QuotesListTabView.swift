@@ -17,7 +17,7 @@ struct QuotesListTabView: View {
     @State var orders: [OrderContent] = []
 
     var body: some View {
-        if (actorType != .CUSTOMER ? PrvQuotes : CstQuotes).isEmpty {
+        if (actorType != .CUSTOMER ? OrdersCotroller.shared.PrvQuotes : OrdersCotroller.shared.CstQuotes).isEmpty {
             Spacer()
             Image(actorType == .CUSTOMER ? "cst-quotes" : "prv-quotes")
                 .resizable()
@@ -25,17 +25,12 @@ struct QuotesListTabView: View {
                 .scaledToFit()
                 .aspectRatio(1, contentMode: .fit)
             Spacer()
-            Image(systemName: "chevron.right")
-                .foregroundColor(Color.white)
-                .multilineTextAlignment(.leading)
-                .font(Font.system(size: 20, weight: .regular, design: .rounded))
-                .padding(.leading, 10)
         } else {
             ScrollView {
                 LazyVStack(spacing: 15) {
-                    ForEach((actorType != .CUSTOMER ? PrvQuotes : CstQuotes).indices, id: \.self) { orderId in
+                    ForEach((actorType != .CUSTOMER ? OrdersCotroller.shared.PrvQuotes : OrdersCotroller.shared.CstQuotes).indices, id: \.self) { orderId in
                         VStack {
-                            QuotesListCell(order: (actorType != .CUSTOMER ? PrvQuotes : CstQuotes)[orderId], customer: $customer, actorType: $actorType)
+                            QuotesListCell(order: (actorType != .CUSTOMER ? OrdersCotroller.shared.PrvQuotes : OrdersCotroller.shared.CstQuotes)[orderId], customer: $customer, actorType: $actorType)
                                 .padding(.horizontal, 10)
                         }
                     }

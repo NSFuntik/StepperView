@@ -287,14 +287,13 @@ struct QuoteOverView: View {
                         return OrderService(id: s.avatarID ?? Int.random(in: 200...5000), conditions: [0], qty: s.unitsCount, cost: Int(s.price), timeNorm: s.timeNorm ?? 30, qserviceId: s.id)
                     }), provider: OrderProvider(id: 1002, calloutCharge: false, services: [], resourceIds: [], favs: [], ratings: [], portfolio: []), providerOrg: OrderProviderOrg(name: "Kai\'s Elderly care business (London)", offTime: [], workingHours: [], verifications: [], settings: QLOGA.OrderSettings()), cstPerson: OrderCstPerson(verifications: [], settings: OrderSettings(), payMethods: []), dayPlans: [], cstActions: [], prvActions: [], payments: [], assigns: [])
                     if actorType == .PROVIDER {
-
-                        PrvQuotes.append(quote)
-                        quote.statusRecord.status = .INQUIRY
-                        CstInquires.append(quote)
+                        OrdersCotroller.shared.PrvQuotes.append(quote)
+                        quote.statusRecord.status = .QUOTE
+                        OrdersCotroller.shared.CstQuotes.append(quote)
                     } else {
-                        CstQuotes.append(quote)
+                        OrdersCotroller.shared.CstQuotes.append(quote)
                         quote.statusRecord.status = .INQUIRY
-                        PrvInquires.append(quote)
+                        OrdersCotroller.shared.PrvInquires.append(quote)
                     }
                     isPicked = true
                 }) {

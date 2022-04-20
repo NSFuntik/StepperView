@@ -88,6 +88,7 @@
 		11A27817280323A80063D706 /* favs.json in Resources */ = {isa = PBXBuildFile; fileRef = 11A27812280323A80063D706 /* favs.json */; };
 		11A2781A28032EA40063D706 /* AddressPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A2781928032EA40063D706 /* AddressPickerView.swift */; };
 		11B6FEF727FF367F00162DFC /* ProfileTermsConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B6FEF627FF367F00162DFC /* ProfileTermsConditionsView.swift */; };
+		11C1912F2810A50A0037E445 /* OrderExecutionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C1912E2810A50A0037E445 /* OrderExecutionView.swift */; };
 		11CD451C28073FFD009795A6 /* RequestTrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CD451B28073FFD009795A6 /* RequestTrackingView.swift */; };
 		11DD965C27FDCE6A0005500A /* OrdersListTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DD965B27FDCE6A0005500A /* OrdersListTabView.swift */; };
 		11DD965E27FDCE950005500A /* ProfileHomeTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DD965D27FDCE950005500A /* ProfileHomeTabBarView.swift */; };
@@ -200,6 +201,7 @@
 		11A27812280323A80063D706 /* favs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = favs.json; sourceTree = "<group>"; };
 		11A2781928032EA40063D706 /* AddressPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressPickerView.swift; sourceTree = "<group>"; };
 		11B6FEF627FF367F00162DFC /* ProfileTermsConditionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTermsConditionsView.swift; sourceTree = "<group>"; };
+		11C1912E2810A50A0037E445 /* OrderExecutionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderExecutionView.swift; sourceTree = "<group>"; };
 		11CD451B28073FFD009795A6 /* RequestTrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTrackingView.swift; sourceTree = "<group>"; };
 		11DD965B27FDCE6A0005500A /* OrdersListTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersListTabView.swift; sourceTree = "<group>"; };
 		11DD965D27FDCE950005500A /* ProfileHomeTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHomeTabBarView.swift; sourceTree = "<group>"; };
@@ -311,8 +313,8 @@
 				119BE20827D2348800B2D70F /* Intro */,
 				119BE22927D2383300B2D70F /* Enrollment */,
 				119BE22C27D2387C00B2D70F /* PostEnrollment */,
-				119CA41027EF57A10082282C /* ProfilePublicView.swift */,
 				11DD965A27FDCDF80005500A /* Negotiation */,
+				11C1912E2810A50A0037E445 /* OrderExecutionView.swift */,
 				119BE1DC27D230E000B2D70F /* Assets.xcassets */,
 				1136534927D2C83D008168DA /* Info.plist */,
 				119CA42527EF57BC0082282C /* qloga_data_protection.md */,
@@ -370,6 +372,7 @@
 			isa = PBXGroup;
 			children = (
 				119D5D2C27FF7BC800517AC3 /* ProfileSetup */,
+				119CA41027EF57A10082282C /* ProfilePublicView.swift */,
 			);
 			path = PostEnrollment;
 			sourceTree = "<group>";
@@ -410,10 +413,6 @@
 				11FC6D5527FFAA1A00465AC5 /* ActorTypePickerView.swift */,
 				11DD965D27FDCE950005500A /* ProfileHomeTabBarView.swift */,
 				119CA40F27EF57A10082282C /* EnrolledProfileView.swift */,
-				114D1CFD280DE26D00DA3901 /* TodayListTabView.swift */,
-				114D1D01280E0AE800DA3901 /* InquiryListTabView.swift */,
-				111332DD280F6C8000062287 /* QuotesListTabView.swift */,
-				11DD965B27FDCE6A0005500A /* OrdersListTabView.swift */,
 				11DD966027FDD0070005500A /* CstRequestsTabView.swift */,
 				1145CB7D28020DE7006E11A9 /* CstOpenRequestsView.swift */,
 				11663FC52802CBF40041B56D /* CstCreateRequestView.swift */,
@@ -424,9 +423,13 @@
 				119CF3B92808B85700AEAE27 /* CustomerSearchView.swift */,
 				119CF3BB2808CF7400AEAE27 /* CustomerRequestInfoView.swift */,
 				119CF3BD2808DA4300AEAE27 /* CategoriesChooserView.swift */,
-				119CF3BF2808DCAA00AEAE27 /* QuoteOverView.swift */,
-				111332DF280F6F7500062287 /* OrderDetailView.swift */,
 				1145CB8328022B84006E11A9 /* CategoryServiceDetailView.swift */,
+				119CF3BF2808DCAA00AEAE27 /* QuoteOverView.swift */,
+				114D1CFD280DE26D00DA3901 /* TodayListTabView.swift */,
+				114D1D01280E0AE800DA3901 /* InquiryListTabView.swift */,
+				111332DD280F6C8000062287 /* QuotesListTabView.swift */,
+				11DD965B27FDCE6A0005500A /* OrdersListTabView.swift */,
+				111332DF280F6F7500062287 /* OrderDetailView.swift */,
 			);
 			path = Negotiation;
 			sourceTree = "<group>";
@@ -778,6 +781,7 @@
 				11DD966F27FDD8D60005500A /* Webview.swift in Sources */,
 				119BE1ED27D231AF00B2D70F /* ProvidersView.swift in Sources */,
 				1136534E27D33A8B008168DA /* LocationManager.swift in Sources */,
+				11C1912F2810A50A0037E445 /* OrderExecutionView.swift in Sources */,
 				11DD968527FE4CA90005500A /* GeneralQuestionsView.swift in Sources */,
 				11DD967827FE13610005500A /* TagListView.swift in Sources */,
 			);

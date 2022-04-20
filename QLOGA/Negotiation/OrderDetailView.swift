@@ -292,32 +292,157 @@ struct OrderDetailView: View {
                     }) {
                         Text("Cancel").withDoneButtonStyles(backColor: .red, accentColor: .white, isShadowOn: true)
                     }
-                } else if orderType == .Quote {
-                    HStack(alignment: .center, spacing: 15) {
-                        Button(action : {
-                            dismiss()
-                        }) {
-                            Text("Cancel").withDoneButtonStyles(backColor: .red, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width / 4, height: 45, isShadowOn: true)
-                        }
-                        Button(action : {
-                            dismiss()
-                        }) {
-                            Text("Update").withDoneButtonStyles(backColor: .green, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width / 4 * 2.5, height: 45, isShadowOn: true)
-                        }
-                    }
                 } else if orderType == .Inquiry {
                     Button(action : {
+                        if actorType == .CUSTOMER {
+                            if var prvQuote = OrdersCotroller.shared.PrvInquires.first(where: {$0.id == order.id}) {
+                                prvQuote.statusRecord.status = .ACCEPTED
+                                OrdersCotroller.shared.PrvInquires = OrdersCotroller.shared.PrvInquires.filter({$0.id != prvQuote.id})
+                                OrdersCotroller.shared.PrvOrders.append(prvQuote)
+                                OrdersCotroller.shared.CstInquires = OrdersCotroller.shared.CstInquires.filter({$0.id != prvQuote.id})
+                                order.statusRecord.status = .NEEDS_FUNDING
+                                OrdersCotroller.shared.CstOrders.append(order)
+                            }
+                        }
+                        if actorType == .PROVIDER {
+                            if var cstQuote = OrdersCotroller.shared.CstInquires.first(where: {$0.id == order.id}) {
+                                cstQuote.statusRecord.status = .NEEDS_FUNDING
+                                OrdersCotroller.shared.CstInquires = OrdersCotroller.shared.CstInquires.filter({$0.id != cstQuote.id})
+                                OrdersCotroller.shared.CstOrders.append(cstQuote)
+                                OrdersCotroller.shared.PrvInquires = OrdersCotroller.shared.PrvInquires.filter({$0.id != cstQuote.id})
+                                order.statusRecord.status = .ACCEPTED
+                                OrdersCotroller.shared.PrvOrders.append(order)
+                            }
+                        }
                         dismiss()
                     }) {
                         Text("Accept").withDoneButtonStyles(backColor: .green, accentColor: .white, height: 45, isShadowOn: true)
                     }
                     HStack(alignment: .center, spacing: 15) {
                         Button(action : {
+                            if actorType == .CUSTOMER {
+                                if var prvQuote = OrdersCotroller.shared.PrvInquires.first(where: {$0.id == order.id}) {
+                                    prvQuote.statusRecord.status = .CST_DECLINED
+                                    OrdersCotroller.shared.PrvInquires = OrdersCotroller.shared.PrvInquires.filter({$0.id != prvQuote.id})
+                                    OrdersCotroller.shared.PrvInquires.append(prvQuote)
+                                    OrdersCotroller.shared.CstInquires = OrdersCotroller.shared.CstInquires.filter({$0.id != prvQuote.id})
+                                    order.statusRecord.status = .CANCELLED
+                                    OrdersCotroller.shared.CstInquires.append(order)
+                                }
+                            }
+                            if actorType == .PROVIDER {
+                                if var cstQuote = OrdersCotroller.shared.CstInquires.first(where: {$0.id == order.id}) {
+                                    cstQuote.statusRecord.status = .PRV_DECLINED
+                                    OrdersCotroller.shared.CstInquires = OrdersCotroller.shared.CstInquires.filter({$0.id != cstQuote.id})
+                                    OrdersCotroller.shared.CstInquires.append(cstQuote)
+                                    OrdersCotroller.shared.PrvInquires = OrdersCotroller.shared.PrvInquires.filter({$0.id != cstQuote.id})
+                                    order.statusRecord.status = .CANCELLED
+                                    OrdersCotroller.shared.PrvInquires.append(order)
+                                }
+                            }
                             dismiss()
                         }) {
                             Text("Cancel").withDoneButtonStyles(backColor: .red, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width / 4, height: 45, isShadowOn: true)
                         }
                         Button(action : {
+                            if actorType == .CUSTOMER {
+                                if var prvQuote = OrdersCotroller.shared.PrvInquires.first(where: {$0.id == order.id}) {
+                                    prvQuote.statusRecord.status = .QUOTE
+                                    OrdersCotroller.shared.PrvInquires = OrdersCotroller.shared.PrvInquires.filter({$0.id != prvQuote.id})
+                                    OrdersCotroller.shared.PrvQuotes.append(prvQuote)
+                                    OrdersCotroller.shared.CstInquires = OrdersCotroller.shared.CstInquires.filter({$0.id != prvQuote.id})
+                                    order.statusRecord.status = .QUOTE
+                                    OrdersCotroller.shared.CstQuotes.append(order)
+                                }
+                            }
+                            if actorType == .PROVIDER {
+                                if var prvQuote = OrdersCotroller.shared.CstInquires.first(where: {$0.id == order.id}) {
+                                    prvQuote.statusRecord.status = .QUOTE
+                                    OrdersCotroller.shared.CstInquires = OrdersCotroller.shared.CstInquires.filter({$0.id != prvQuote.id})
+                                    OrdersCotroller.shared.CstQuotes.append(prvQuote)
+                                    OrdersCotroller.shared.PrvInquires = OrdersCotroller.shared.PrvInquires.filter({$0.id != prvQuote.id})
+                                    order.statusRecord.status = .QUOTE
+                                    OrdersCotroller.shared.PrvQuotes.append(order)
+                                }
+                            }
+                            dismiss()
+                        }) {
+                            Text("Update").withDoneButtonStyles(backColor: .green, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width / 4 * 2.5, height: 45, isShadowOn: true)
+                        }
+                    }
+                } else if orderType == .Quote {
+                    Button(action : {
+                        if actorType == .CUSTOMER {
+                            if var prvQuote = OrdersCotroller.shared.PrvQuotes.first(where: {$0.id == order.id}) {
+                                prvQuote.statusRecord.status = .ACCEPTED
+                                OrdersCotroller.shared.PrvQuotes = OrdersCotroller.shared.PrvQuotes.filter({$0.id != prvQuote.id})
+                                OrdersCotroller.shared.PrvOrders.append(prvQuote)
+                                OrdersCotroller.shared.CstQuotes = OrdersCotroller.shared.CstQuotes.filter({$0.id != prvQuote.id})
+                                order.statusRecord.status = .NEEDS_FUNDING
+                                OrdersCotroller.shared.CstOrders.append(order)
+                            }
+                        }
+                        if actorType == .PROVIDER {
+                            if var cstQuote = OrdersCotroller.shared.CstQuotes.first(where: {$0.id == order.id}) {
+                                cstQuote.statusRecord.status = .NEEDS_FUNDING
+                                OrdersCotroller.shared.CstQuotes = OrdersCotroller.shared.CstQuotes.filter({$0.id != cstQuote.id})
+                                OrdersCotroller.shared.CstOrders.append(cstQuote)
+                                OrdersCotroller.shared.PrvQuotes = OrdersCotroller.shared.PrvQuotes.filter({$0.id != cstQuote.id})
+                                order.statusRecord.status = .ACCEPTED
+                                OrdersCotroller.shared.PrvOrders.append(order)
+                            }
+                        }
+                        dismiss()
+                    }) {
+                        Text("Accept").withDoneButtonStyles(backColor: .green, accentColor: .white, height: 45, isShadowOn: true)
+                    }
+                    HStack(alignment: .center, spacing: 15) {
+                        Button(action : {
+                            if actorType == .CUSTOMER {
+                                if var prvQuote = OrdersCotroller.shared.PrvQuotes.first(where: {$0.id == order.id}) {
+                                    prvQuote.statusRecord.status = .CST_DECLINED
+                                    OrdersCotroller.shared.PrvQuotes = OrdersCotroller.shared.PrvQuotes.filter({$0.id != prvQuote.id})
+                                    OrdersCotroller.shared.PrvQuotes.append(prvQuote)
+                                    OrdersCotroller.shared.CstQuotes = OrdersCotroller.shared.CstQuotes.filter({$0.id != prvQuote.id})
+                                    order.statusRecord.status = .CANCELLED
+                                    OrdersCotroller.shared.CstQuotes.append(order)
+                                }
+                            }
+                            if actorType == .PROVIDER {
+                                if var cstQuote = OrdersCotroller.shared.CstQuotes.first(where: {$0.id == order.id}) {
+                                    cstQuote.statusRecord.status = .PRV_DECLINED
+                                    OrdersCotroller.shared.CstQuotes = OrdersCotroller.shared.CstQuotes.filter({$0.id != cstQuote.id})
+                                    OrdersCotroller.shared.CstQuotes.append(cstQuote)
+                                    OrdersCotroller.shared.PrvQuotes = OrdersCotroller.shared.PrvQuotes.filter({$0.id != cstQuote.id})
+                                    order.statusRecord.status = .CANCELLED
+                                    OrdersCotroller.shared.PrvQuotes.append(order)
+                                }
+                            }
+                            dismiss()
+                        }) {
+                            Text("Cancel").withDoneButtonStyles(backColor: .red, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width / 4, height: 45, isShadowOn: true)
+                        }
+                        Button(action : {
+                            if actorType == .CUSTOMER {
+                                if var prvQuote = OrdersCotroller.shared.PrvQuotes.first(where: {$0.id == order.id}) {
+                                    prvQuote.statusRecord.status = .INQUIRY
+                                    OrdersCotroller.shared.PrvQuotes = OrdersCotroller.shared.PrvQuotes.filter({$0.id != prvQuote.id})
+                                    OrdersCotroller.shared.PrvInquires.append(prvQuote)
+                                    OrdersCotroller.shared.CstQuotes = OrdersCotroller.shared.CstQuotes.filter({$0.id != prvQuote.id})
+                                    order.statusRecord.status = .INQUIRY
+                                    OrdersCotroller.shared.CstInquires.append(order)
+                                }
+                            }
+                            if actorType == .PROVIDER {
+                                if var prvQuote = OrdersCotroller.shared.CstQuotes.first(where: {$0.id == order.id}) {
+                                    prvQuote.statusRecord.status = .INQUIRY
+                                    OrdersCotroller.shared.CstQuotes = OrdersCotroller.shared.CstQuotes.filter({$0.id != prvQuote.id})
+                                    OrdersCotroller.shared.CstInquires.append(prvQuote)
+                                    OrdersCotroller.shared.PrvQuotes = OrdersCotroller.shared.PrvQuotes.filter({$0.id != prvQuote.id})
+                                    order.statusRecord.status = .INQUIRY
+                                    OrdersCotroller.shared.PrvInquires.append(order)
+                                }
+                            }
                             dismiss()
                         }) {
                             Text("Update").withDoneButtonStyles(backColor: .green, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width / 4 * 2.5, height: 45, isShadowOn: true)

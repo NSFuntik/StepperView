@@ -17,7 +17,7 @@ struct InquiryListTabView: View {
     @State var orders: [OrderContent] = []
 
     var body: some View {
-        if (actorType != .CUSTOMER ? PrvInquires : CstInquires).isEmpty {
+        if (actorType != .CUSTOMER ? OrdersCotroller.shared.PrvInquires : OrdersCotroller.shared.CstInquires).isEmpty {
             Spacer()
             Image(actorType == .CUSTOMER ? "cst-inquires" : "prv-inquires")
                 .resizable()
@@ -28,9 +28,9 @@ struct InquiryListTabView: View {
         } else {
             ScrollView {
                 LazyVStack(spacing: 15) {
-                    ForEach((actorType != .CUSTOMER ? PrvInquires : CstInquires).indices, id: \.self) { orderId in
+                    ForEach((actorType != .CUSTOMER ? OrdersCotroller.shared.PrvInquires : OrdersCotroller.shared.CstInquires).indices, id: \.self) { orderId in
                         VStack {
-                            InquiryListCell(order: (actorType != .CUSTOMER ? PrvInquires : CstInquires)[orderId], customer: $customer, actorType: $actorType)
+                            InquiryListCell(order: (actorType != .CUSTOMER ? OrdersCotroller.shared.PrvInquires : OrdersCotroller.shared.CstInquires)[orderId], customer: $customer, actorType: $actorType)
                                 .padding(.horizontal, 10)
                         }
                     }

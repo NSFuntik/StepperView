@@ -28,22 +28,29 @@ struct OrdersListTabView: View {
     @Binding var customer: Customer
     @EnvironmentObject var tabController: TabController
     @ObservedObject var ordersController: OrdersViewModel
-    @State var orders = Orders
+    @State var orders = OrdersCotroller.shared.PrvOrders.reversed()
     @Binding var actorType: ActorsEnum
     var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 15) {
-                ForEach(orders.indices, id: \.self) { orderId in
-                    VStack {
-
-                        OrdersListCell(order: orders[orderId], customer: $customer, actorType: $actorType).padding(.horizontal, 10)
-
+        if (actorType != .CUSTOMER ? OrdersCotroller.shared.PrvOrders : OrdersCotroller.shared.CstOrders).isEmpty {
+            Spacer()
+            Image(actorType == .CUSTOMER ? "cst-orders" : "prv-orders")
+                .resizable()
+                .frame(width: 300, height: 375, alignment: .center)
+                .scaledToFit()
+                .aspectRatio(1, contentMode: .fit)
+            Spacer()
+        } else {
+            ScrollView {
+                LazyVStack(spacing: 15) {
+                    ForEach(orders.indices, id: \.self) { orderId in
+                        VStack {
+                            OrdersListCell(order: orders[orderId], customer: $customer, actorType: $actorType).padding(.horizontal, 10)
+                        }
                     }
-                }
-                Spacer()
-            }.padding(.top, 15).listStyle(.grouped)
-        }.background(Color.white.opacity(0.7))
-
+                    Spacer()
+                }.padding(.top, 15).listStyle(.grouped)
+            }.background(Color.white.opacity(0.7))
+        }
     }
 }
 
