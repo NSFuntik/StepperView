@@ -210,7 +210,7 @@ open class TagListView: UIView {
     
     @objc open dynamic var textFont: UIFont = .rounded(ofSize: 13, weight: .medium)  {
         didSet {
-            defer { rearrangeViews() }
+//            defer { rearrangeViews() }
             tagViews.forEach {
                 $0.textFont = textFont.withSize(textSize)
             }

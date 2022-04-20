@@ -80,22 +80,26 @@ struct EnrolledProfileView: View {
                             .foregroundColor(isSelected ? .black : .lightGray)
                     }
                     VStack(alignment: .center) {
-                        if ProviderTodayTab(rawValue: $selectedTab.wrappedValue) == .Today || CustomerTodayTab(rawValue: $selectedTab.wrappedValue) == .Today {
-                            TodayListTabView(provider: $provider, customer: $customer, actorType: $actorType, ordersController: ordersController)
-                        } else if ProviderTodayTab(rawValue: $selectedTab.wrappedValue) == .Orders || CustomerTodayTab(rawValue: $selectedTab.wrappedValue) == .Orders {
-                            PrvOrdersListTabView(provider: $provider, customer: $customer, ordersController: ordersController, actorType: $actorType)
-                        } else if ProviderTodayTab(rawValue: $selectedTab.wrappedValue) == .Inquires, CustomerTodayTab(rawValue: $selectedTab.wrappedValue) == .Quotes {
-                            InquiryListTabView(provider: $provider, customer: $customer, actorType: $actorType, ordersController: ordersController)
+                        if actorType == .CUSTOMER {
+                            if CustomerTodayTab(rawValue: $selectedTab.wrappedValue) == .Today {
+                                TodayListTabView(provider: $provider, customer: $customer, actorType: $actorType, ordersController: ordersController)
+                            } else if CustomerTodayTab(rawValue: $selectedTab.wrappedValue) == .Orders {
+                                PrvOrdersListTabView(provider: $provider, customer: $customer, ordersController: ordersController, actorType: $actorType)
+                            }  else if CustomerTodayTab(rawValue: $selectedTab.wrappedValue) == .Quotes {
+                                QuotesListTabView(provider: $provider, customer: $customer, actorType: $actorType, ordersController: ordersController)
+                            } else if CustomerTodayTab(rawValue: $selectedTab.wrappedValue) == .Inquires {
+                                InquiryListTabView(provider: $provider, customer: $customer, actorType: $actorType, ordersController: ordersController)
+                            }
                         } else {
-                            //                                Spacer()
-
-                            Image(actorType == .CUSTOMER ? "cst-\(CustomerTodayTab(rawValue: $selectedTab.wrappedValue)!.description.lowercased())" : "prv-\(ProviderTodayTab(rawValue: $selectedTab.wrappedValue)!.description.lowercased())")
-                                .resizable()
-                                .frame(width: 300, height: 375, alignment: .center)
-                                .scaledToFit()
-                                .aspectRatio(1, contentMode: .fit)
-
-                            Spacer()
+                            if ProviderTodayTab(rawValue: $selectedTab.wrappedValue) == .Today {
+                                TodayListTabView(provider: $provider, customer: $customer, actorType: $actorType, ordersController: ordersController)
+                            } else if ProviderTodayTab(rawValue: $selectedTab.wrappedValue) == .Orders {
+                                PrvOrdersListTabView(provider: $provider, customer: $customer, ordersController: ordersController, actorType: $actorType)
+                            }  else if ProviderTodayTab(rawValue: $selectedTab.wrappedValue) == .Quotes {
+                                QuotesListTabView(provider: $provider, customer: $customer, actorType: $actorType, ordersController: ordersController)
+                            } else if ProviderTodayTab(rawValue: $selectedTab.wrappedValue) == .Inquires {
+                                InquiryListTabView(provider: $provider, customer: $customer, actorType: $actorType, ordersController: ordersController)
+                            }
                         }
 
                         //                            else {

@@ -245,8 +245,8 @@ struct QuoteOverView: View {
                                             .multilineTextAlignment(.leading)
                                             .font(Font.system(size: 17, weight: .regular, design: .rounded))
                                         Spacer()
-                                        Text("")
-                                            .foregroundColor(Color.lightGray)
+                                        Text(StatusesEnum.QUOTE.display)
+                                            .foregroundColor(Color.Green)
                                             .font(Font.system(size: 17, weight: .regular, design: .rounded))
                                         Image(systemName: "chevron.right")
                                             .foregroundColor(Color.Green)
@@ -285,17 +285,27 @@ struct QuoteOverView: View {
             VStack {
                 Spacer()
                 Button(action : {
-                    Orders.append(OrderContent(statusRecord: OrderStatusRecord(date: getString(from: Date()), actor: actorType.rawValue, actorId: 0, action: "VISIT_ADDED", note: "", status: "VISIT_ADDED", display: "VISIT_ADDED", actionDisplay: "VISIT_ADDED", actionPast: "VISIT_ADDED"), id: Int.random(in: 200...5000), addr: customer.address.defaultAddress,
-                                               amount: amount == 0.0 ? Int(customer.services.map({$0.unitsCount * Int($0.price)}).reduce(0, +) * 100) * 100 : Int(amount), callout: isChargeOn, serviceDate: Date(), services: customer.services.map({ s in
+                    var quote = OrderContent(statusRecord: OrderStatusRecord(date: getString(from: Date()), actor: actorType.rawValue, actorId: 0, action: "VISIT_ADDED", note: "", status: .QUOTE, display: "VISIT_ADDED", actionDisplay: "VISIT_ADDED", actionPast: "VISIT_ADDED"), id: Int.random(in: 200...5000), addr: customer.address.defaultAddress,
+                                            amount: amount == 0.0 ? Int(customer.services.map({$0.unitsCount * Int($0.price)}).reduce(0, +) * 100) * 100 : Int(amount), callout: isChargeOn, serviceDate: Date(), services: customer.services.map({ s in
                         return OrderService(id: s.avatarID ?? Int.random(in: 200...5000), conditions: [0], qty: s.unitsCount, cost: Int(s.price), timeNorm: s.timeNorm ?? 30, qserviceId: s.id)
-                    }), provider: OrderProvider(id: 1002, calloutCharge: false, services: [], resourceIds: [], favs: [], ratings: [], portfolio: []), providerOrg: OrderProviderOrg(name: "Kai\'s Elderly care business (London)", offTime: [], workingHours: [], verifications: [], settings: QLOGA.OrderSettings()), cstPerson: OrderCstPerson(verifications: [], settings: OrderSettings(), payMethods: []), dayPlans: [], cstActions: [], prvActions: [], payments: [], assigns: []))
+                    }), provider: OrderProvider(id: 1002, calloutCharge: false, services: [], resourceIds: [], favs: [], ratings: [], portfolio: []), providerOrg: OrderProviderOrg(name: "Kai\'s Elderly care business (London)", offTime: [], workingHours: [], verifications: [], settings: QLOGA.OrderSettings()), cstPerson: OrderCstPerson(verifications: [], settings: OrderSettings(), payMethods: []), dayPlans: [], cstActions: [], prvActions: [], payments: [], assigns: [])
+                    if actorType == .PROVIDER {
+
+                        PrvQuotes.append(quote)
+                        quote.statusRecord.status = .INQUIRY
+                        CstInquires.append(quote)
+                    } else {
+                        CstQuotes.append(quote)
+                        quote.statusRecord.status = .INQUIRY
+                        PrvInquires.append(quote)
+                    }
                     isPicked = true
                 }) {
                     Text("Send Quote").withDoneButtonStyles(backColor: .accentColor, accentColor: .white)
                 }
 
                 .zIndex(1)//.opacity($tags.wrappedValue.count > 0 ? 1 : 0)
-            }.padding(.bottom, 20)
+            }.padding(.bottom, 15)
         }
         .onAppear {
             if !services.isEmpty {
@@ -305,7 +315,7 @@ struct QuoteOverView: View {
         .ignoresSafeArea(.container, edges: .bottom)
         .padding(.horizontal, 20).padding(.top, 10)
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle("Quote overview")
+        .navigationTitle("Quote #20415145258042")
         .navigationBarBackButtonHidden(!isExist)
         .navigationBarItems(leading: Button(action : {
             showAlert = true

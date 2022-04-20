@@ -1,0 +1,637 @@
+{
+  "statuses": [
+    {
+      "code": "QUOTE",
+      "display": "Quote",
+      "tip": "Provider offers a quote to of their services and prices to be reviewed by the customer",
+      "phase": "Negotiation"
+    },
+    {
+      "code": "INQUIRY",
+      "display": "Inquiry",
+      "tip": "Customer sends a direct inquiry for services to be reviewed by all available providers",
+      "phase": "Negotiation"
+    },
+    {
+      "code": "NEEDS_FUNDING",
+      "display": "Funds reservation is needed",
+      "tip": "Order requires the customer to provide a card or another payment option for reserving funds and authorise it for use on QLOGA",
+      "phase": "Negotiation",
+      "c1": "#FEFFE6",
+      "c2": "#F5FFB4"
+    },
+    {
+      "code": "AUTH_DEL_IN_PROGRESS",
+      "display": "Auth deletion in progress",
+      "tip": "Please wait, authorisation request is being deleted.",
+      "phase": "Negotiation",
+      "c1": "#FFF6EC",
+      "c2": "#FFEBD5"
+    },
+    {
+      "code": "AUTH_IN_PROGRESS",
+      "display": "Payment authorisation in progress",
+      "tip": "Please wait, the customer has provided the payment information for funding the order and the card is being processed by the banks",
+      "phase": "Negotiation",
+      "c1": "#FFF6EC",
+      "c2": "#FFEBD5"
+    },
+    {
+      "code": "CST_DECLINED",
+      "display": "Declined",
+      "tip": "Customer has rejected the provider’s quote",
+      "phase": "Negotiation",
+      "c1": "#FEE4E1",
+      "c2": "#FFB3AB"
+    },
+    {
+      "code": "PRV_DECLINED",
+      "display": "Declined",
+      "tip": "Provider has declined the customer’s direct inquiry",
+      "phase": "Negotiation",
+      "c1": "#FEE4E1",
+      "c2": "#FFB3AB"
+    },
+    {
+      "code": "ACCEPTED",
+      "display": "Accepted",
+      "tip": "The customer and provider have accepted the order, funds are reserved and will be released after the services are provided, and the customer has approved them",
+      "phase": "Execution",
+      "c1": "#D4F6E2",
+      "c2": "#BAFFD7"
+    },
+    {
+      "code": "ARRIVED",
+      "display": "Arrived",
+      "tip": "Provider has arrived at customer’s address",
+      "phase": "Execution",
+      "c1": "#EEFDFF",
+      "c2": "#DDF3F6"
+    },
+    {
+      "code": "PRV_NEAR",
+      "display": "Provider is near",
+      "tip": "Provider is close to the customer’s address, but their exact location is unavailable",
+      "phase": "Execution",
+      "c1": "#EEFDFF",
+      "c2": "#DDF3F6"
+    },
+    {
+      "code": "COMPLETED",
+      "display": "Completed",
+      "tip": "Provider fully completed all services requested by the customer, fulfilling the order",
+      "phase": "Execution",
+      "c1": "#EEFDFF",
+      "c2": "#DDF3F6"
+    },
+    {
+      "code": "VISIT_PRV_NEAR",
+      "display": "Provider is near on visit",
+      "visitDisplay": "Prv is near",
+      "tip": "Provider has arrived at the address for a service delivery visits but is unable to send GPS coordinates",
+      "phase": "Execution",
+      "c1": "#EEFDFF",
+      "c2": "#DDF3F6"
+    },
+    {
+      "code": "VISIT_ARRIVED",
+      "display": "Arrived on visit",
+      "visitDisplay": "Arrived",
+      "tip": "Provider arrived at the address for one of the service delivery visits ordered by the customer",
+      "phase": "Execution",
+      "c1": "#EEFDFF",
+      "c2": "#DDF3F6"
+    },
+    {
+      "code": "VISIT_COMPLETED",
+      "display": "Service completed",
+      "visitDisplay": "Completed",
+      "tip": "Provider has completed their service delivery visit",
+      "phase": "Execution",
+      "c1": "#EEFDFF",
+      "c2": "#DDF3F6"
+    },
+    {
+      "code": "VISIT_CANCELLED",
+      "display": "Visit cancelled",
+      "visitDisplay": "Cancelled",
+      "tip": "Customer or provider have cancelled the service delivery visit",
+      "phase": "Execution",
+      "c1": "#FEE4E1",
+      "c2": "#FFB3AB"
+    },
+    {
+      "code": "VISIT_UNSATISFIED",
+      "display": "Unsatisfied with visit",
+      "visitDisplay": "Unsatisfied",
+      "tip": "Customer is not satisfied with at least one of the ordered services provided. The provider may not be paid for this visit.",
+      "phase": "Execution",
+      "c1": "#FEE4E1",
+      "c2": "#FFB3AB"
+    },
+    {
+      "code": "VISIT_PAYMENT_IN_PROGRESS",
+      "display": "Visit payment processing",
+      "visitDisplay": "Payment processing",
+      "tip": "Payment capture from the customer card is being process by the banks",
+      "phase": "Execution",
+      "c1": "#FFF6EC",
+      "c2": "#FFEBD5"
+    },
+    {
+      "code": "VISIT_PAID",
+      "display": "Visit paid",
+      "visitDisplay": "Paid",
+      "tip": "Payment for the visit has been authorised by customer’s bank and is being processed",
+      "phase": "Execution",
+      "c1": "#D4F6E2",
+      "c2": "#BAFFD7"
+    },
+    {
+      "code": "VISIT_APPROVED",
+      "display": "Visit Approved",
+      "visitDisplay": "Approved",
+      "tip": "The customer is satisfied with the service(s) provided for at least one of the ordered services for this visit. QLOGA has begun the payment process.",
+      "phase": "Execution",
+      "c1": "#D4F6E2",
+      "c2": "#BAFFD7"
+    },
+    {
+      "code": "VISIT_CALLOUT_2PAY",
+      "display": "Visit Callout Charge requested",
+      "visitDisplay": "C/O Requested",
+      "tip": "Provider request to pay visit callout charge is being verified.",
+      "phase": "Execution",
+      "c1": "#FEE4E1",
+      "c2": "#FFB3AB"
+    },
+    {
+      "code": "PAYMENT_IN_PROGRESS",
+      "display": "Payment processing",
+      "tip": "Please wait. Payment capture from the customer card is being process by the banks",
+      "phase": "Execution",
+      "c1": "#FFF6EC",
+      "c2": "#FFEBD5"
+    },
+    {
+      "code": "PAYMENT_REFUSED",
+      "display": "Funds reservation failed",
+      "tip": "The customers credit card issuer’s bank have declined the authorisation attempt",
+      "phase": "Execution",
+      "c1": "#FEE4E1",
+      "c2": "#FFB3AB"
+    },
+    {
+      "code": "VISIT_PAYMENT_REFUSED",
+      "display": "Visit payment capture failed",
+      "tip": "Customer credit card issuer bank have refused payment capture.",
+      "phase": "Execution",
+      "c1": "#FEE4E1",
+      "c2": "#FFB3AB"
+    },
+    {
+      "code": "APPROVED",
+      "display": "Approved",
+      "tip": "The customer is satisfied with the service(s) provided for at least one of the ordered services. Payment processing has started.",
+      "phase": "Execution",
+      "c1": "#D4F6E2",
+      "c2": "#BAFFD7"
+    },
+    {
+      "code": "PAID",
+      "display": "Paid",
+      "tip": "Order is paid, customer’s bank has initiated  the transfer of payment to QLOGA’s account.",
+      "phase": "Execution",
+      "c1": "#D4F6E2",
+      "c2": "#BAFFD7"
+    },
+    {
+      "code": "PRV_REVIEWED",
+      "display": "Reviewed by provider",
+      "tip": "The customer has been reviewed by the provider",
+      "phase": "Feedback",
+      "c1": "#FFFFFF",
+      "c2": "#DEE2E6"
+    },
+    {
+      "code": "CST_REVIEWED",
+      "display": "Reviewed by customer",
+      "tip": "Provided services have  been reviewed by the customer.",
+      "phase": "Feedback",
+      "c1": "#FFFFFF",
+      "c2": "#DEE2E6"
+    },
+    {
+      "code": "CLOSED",
+      "display": "Closed",
+      "tip": "Order is closed",
+      "phase": "Feedback",
+      "c1": "#FFFFFF",
+      "c2": "#DEE2E6"
+    },
+    {
+      "code": "CANCELLED",
+      "display": "Cancelled",
+      "tip": "Order is canceled by either party.",
+      "phase": "Dispute",
+      "c1": "#FEE4E1",
+      "c2": "#FFB3AB"
+    },
+    {
+      "code": "CST_CANCELLED",
+      "display": "Cancelled by customer",
+      "tip": "Order is canceled by the customer. Provider may be able to dispute it or request callout charge.",
+      "phase": "Dispute",
+      "c1": "#FEE4E1",
+      "c2": "#FFB3AB"
+    },
+    {
+      "code": "UNSATISFIED",
+      "display": "Unsatisfied",
+      "tip": "Customer is unhappy with the provided services and unwilling to pay.",
+      "phase": "Dispute",
+      "c1": "#FEE4E1",
+      "c2": "#FFB3AB"
+    },
+    {
+      "code": "IN_DISPUTE",
+      "display": "In dispute",
+      "tip": "Either party, customer or provider, is unhappy with the counterparty and would like to involve QLOGA’s dispute resolution team.",
+      "phase": "Dispute",
+      "c1": "#FEE4E1",
+      "c2": "#FFB3AB"
+    },
+    {
+      "code": "CALLOUT_2PAY",
+      "display": "Callout charge requested",
+      "tip": "Provider request to pay callout charge is being verified.",
+      "phase": "Dispute",
+      "c1": "#FEE4E1",
+      "c2": "#FFB3AB"
+    }
+  ],
+  "prv_actions": [
+    {
+      "code": "PROPOSE",
+      "display": "Send a quote",
+      "tip": "Send your quote and notify customer.",
+      "sortOrder": 1,
+      "severity": "OK"
+    },
+    {
+      "code": "DELETE",
+      "display": "Delete",
+      "tip": "Withdraw and delete your quote.",
+      "sortOrder": 80,
+      "severity": "ATTN"
+    },
+    {
+      "code": "DECLINE",
+      "display": "Decline",
+      "tip": "Decline customer’s direct inquiry for your services.",
+      "sortOrder": 70,
+      "severity": "ATTN"
+    },
+    {
+      "code": "AUTO_DECLINE",
+      "display": "Auto Decline",
+      "tip": "Inquiry is declined automatically due to no response from the provider.",
+      "sortOrder": 70,
+      "severity": "ATTN"
+    },
+    {
+      "code": "UPDATE",
+      "display": "Update",
+      "tip": "Update your quote or suggest an update of a customer's direct inquiry for your services.",
+      "sortOrder": 50,
+      "severity": "OK"
+    },
+    {
+      "code": "ACCEPT",
+      "display": "Accept",
+      "tip": "Accept the customer’s direct inquiry and enter into the digital contract.",
+      "sortOrder": 1,
+      "severity": "OK"
+    },
+    {
+      "code": "MARK_ARRIVAL",
+      "display": "Mark Arrived",
+      "tip": "Notify the customer that you have arrived at their address.",
+      "sortOrder": 1,
+      "severity": "OK"
+    },
+    {
+      "code": "ARRIVED_NO_GPS",
+      "display": "Arrived (no GPS)",
+      "tip": "Notify customer that you have arrived, but you are unable to share your location.",
+      "sortOrder": 2,
+      "severity": "WARN"
+    },
+    {
+      "code": "COMPLETE",
+      "display": "Complete",
+      "tip": "Job complete, services have been delivered.",
+      "sortOrder": 1,
+      "severity": "OK"
+    },
+    {
+      "code": "VISIT_NOBODY_HOME",
+      "display": "Nobody home",
+      "visitDisplay": "Nobody home",
+      "tip": "Customer is not home when you arrived on site for a visit",
+      "sortOrder": 1,
+      "severity": "WARN"
+    },
+    {
+      "code": "VISIT_COMPLETE",
+      "display": "Complete visit",
+      "visitDisplay": "Complete",
+      "tip": "Visit complete, services have been delivered.",
+      "sortOrder": 1,
+      "severity": "OK"
+    },
+    {
+      "code": "VISIT_MARVL_NO_GPS",
+      "display": "Arrived on visit (No GPS)",
+      "visitDisplay": "Arrived(No GPS)",
+      "tip": "Notify the customer that you have arrived, but are unable to share your location.",
+      "sortOrder": 2,
+      "severity": "WARN"
+    },
+    {
+      "code": "VISIT_CANCEL",
+      "display": "Cancel visit",
+      "visitDisplay": "Cancel",
+      "tip": "Cancel a single visit, this will only cancel the whole order if there  is only one visit in the order.",
+      "sortOrder": 999,
+      "severity": "ATTN"
+    },
+    {
+      "code": "VISIT_MARVL",
+      "display": "Mark arrived",
+      "visitDisplay": "Arrived",
+      "tip": "Notify the customer that you have arrived at the address.",
+      "sortOrder": 1,
+      "severity": "OK"
+    },
+    {
+      "code": "VISIT_RQ_COUT_CHARGE",
+      "display": "Visit C/O Charge",
+      "visitDisplay": "C/O Charge",
+      "tip": "Submit a request for the visit callout charge to QLOGA support team.",
+      "sortOrder": 1,
+      "severity": "OK"
+    },
+    {
+      "code": "REVIEW",
+      "display": "Submit a review",
+      "tip": "Leave private or public feedback regarding your customer .",
+      "sortOrder": 1,
+      "severity": "OK"
+    },
+    {
+      "code": "NO_REVIEW",
+      "display": "Leave no review",
+      "tip": "Leave no feedback regarding your customer.",
+      "sortOrder": 2,
+      "severity": "WARN"
+    },
+    {
+      "code": "RESCHEDULE",
+      "display": "Reschedule",
+      "tip": "Reschedule the order and move it back into Negotiations as a quote, so it can be updated.",
+      "sortOrder": 800,
+      "severity": "WARN"
+    },
+    {
+      "code": "RQ_COUT_CHARGE",
+      "display": "Callout charge",
+      "tip": "Submit a request for callout charge to QLOGA support team.",
+      "sortOrder": 890,
+      "severity": "WARN"
+    },
+    {
+      "code": "NOBODY_HOME",
+      "display": "Nobody home",
+      "tip": "Customer is not home when you arrived on site.",
+      "sortOrder": 900,
+      "severity": "WARN"
+    },
+    {
+      "code": "DISPUTE",
+      "display": "Dispute",
+      "tip": "Start the dispute resolution process with QLOGA’s help.",
+      "sortOrder": 900,
+      "severity": "WARN"
+    },
+    {
+      "code": "CANCEL_EARLY",
+      "display": "Cancel",
+      "tip": "Quote/Inquiry early cancellation. This cancellation is not recorded in the provider profile.",
+      "sortOrder": 999,
+      "severity": "ATTN"
+    },
+    {
+      "code": "CANCEL",
+      "display": "Cancel",
+      "tip": "When you cancel, your number of cancelled orders in the last 3 months is visible to all potential customers .",
+      "sortOrder": 999,
+      "severity": "ATTN"
+    }
+  ],
+  "cst_actions": [
+    {
+      "code": "PROPOSE",
+      "display": "Send a direct inquiry",
+      "tip": "Send a direct inquiry for the provider’s service(s).",
+      "sortOrder": 1,
+      "severity": "OK"
+    },
+    {
+      "code": "DELETE",
+      "display": "Delete",
+      "tip": "Withdraw and delete your direct inquiry for the provider’s service(s).",
+      "sortOrder": 80,
+      "severity": "ATTN"
+    },
+    {
+      "code": "UPDATE",
+      "display": "Update",
+      "tip": "Update your direct inquiry or suggest an update on the provider’s quote.",
+      "sortOrder": 50,
+      "severity": "OK"
+    },
+    {
+      "code": "DECLINE",
+      "display": "Decline",
+      "tip": "Decline provider’s quote.",
+      "sortOrder": 70,
+      "severity": "ATTN"
+    },
+    {
+      "code": "AUTO_DECLINE",
+      "display": "Auto Decline",
+      "tip": "Quote is declined automatically due to no response from the customer.",
+      "sortOrder": 70,
+      "severity": "ATTN"
+    },
+    {
+      "code": "ACCEPT",
+      "display": "Accept",
+      "tip": "Accept provider’s quote and enter into the digital contract.",
+      "sortOrder": 1,
+      "severity": "OK"
+    },
+    {
+      "code": "ARRIVED",
+      "display": "Confirm Arrival",
+      "tip": "Confirm provider’s arrival at your address.",
+      "sortOrder": 1,
+      "severity": "OK"
+    },
+    {
+      "code": "APPROVE",
+      "display": "Approve",
+      "tip": "Confirm you are satisfied with the work and happy to pay using the funds reserved earlier.",
+      "sortOrder": 1,
+      "severity": "OK"
+    },
+    {
+      "code": "VISIT_ARRIVED",
+      "display": "Confirm provider’s arrival for visit",
+      "visitDisplay": "Confirm Arrival",
+      "tip": "Confirm the provider has arrived at the customer’s address.",
+      "sortOrder": 1,
+      "severity": "OK"
+    },
+    {
+      "code": "VISIT_NOT_ARRIVED",
+      "display": "Provider not arrived",
+      "visitDisplay": "Not arrived",
+      "tip": "If the provider has not arrived within 15 mins of the visit agreed time, you may cancel the visit.",
+      "sortOrder": 1,
+      "severity": "WARN"
+    },
+    {
+      "code": "VISIT_APPROVE",
+      "display": "Approve visit",
+      "visitDisplay": "Approve",
+      "tip": "Approve the visit and initiate funds transfer from the customer’s credit card issuer bank.",
+      "sortOrder": 1,
+      "severity": "OK"
+    },
+    {
+      "code": "VISIT_CANCEL",
+      "display": "Cancel visit",
+      "visitDisplay": "Cancel",
+      "tip": "Cancelling this visit will not cancel the whole order unless there is only one visit in the order. Your total number of cancelled orders within the last 3 months is visible to all potential customers.",
+      "sortOrder": 999,
+      "severity": "ATTN"
+    },
+    {
+      "code": "VISIT_UNSATISFIED",
+      "display": "Unsatisfied with visit works",
+      "visitDisplay": "Unsatisfied",
+      "tip": "Declare yourself unsatisfied with the single service delivery visit, visit may not be paid.",
+      "sortOrder": 80,
+      "severity": "ATTN"
+    },
+    {
+      "code": "PROVIDE_FUNDS",
+      "display": "Reserve funds",
+      "tip": "Your payment card (new or saved) will have the funds for the order reserved, no money will be withdrawn at this stage.",
+      "sortOrder": 1,
+      "severity": "OK"
+    },
+    {
+      "code": "REVIEW",
+      "display": "Submit a review",
+      "tip": "Leave private or public feedback regarding the provider/service and ratings.",
+      "sortOrder": 1,
+      "severity": "OK"
+    },
+    {
+      "code": "NO_REVIEW",
+      "display": "Leave no review",
+      "tip": "Leave no feedback regarding the provider/service..",
+      "sortOrder": 2,
+      "severity": "WARN"
+    },
+    {
+      "code": "RESCHEDULE",
+      "display": "Reschedule",
+      "tip": "Reschedule the order and move it back into Negotiations as an inquiry, so it can be updated.",
+      "sortOrder": 800,
+      "severity": "WARN"
+    },
+    {
+      "code": "CANCEL_EARLY",
+      "display": "Cancel",
+      "tip": "Quote/Inquiry early cancellation",
+      "sortOrder": 999,
+      "severity": "ATTN"
+    },
+    {
+      "code": "CANCEL",
+      "display": "Cancel",
+      "tip": "If the order is cancelled, outside of the free cancelation period, you may be liable to pay a callout charge.",
+      "sortOrder": 999,
+      "severity": "ATTN"
+    },
+    {
+      "code": "DISPUTE",
+      "display": "Dispute",
+      "tip": "Start a dispute resolution process with QLOGA’s help.",
+      "sortOrder": 900,
+      "severity": "WARN"
+    },
+    {
+      "code": "NOT_ARRIVED",
+      "display": "Provider not arrived",
+      "tip": "If the provider has not arrived within 15 mins of the agreed time, you may cancel the order.",
+      "sortOrder": 70,
+      "severity": "ATTN"
+    },
+    {
+      "code": "CST_UNSATISFIED",
+      "display": "Unsatisfied",
+      "tip": "If you are unsatisfied with the job, the provider needs to resolve the situation with you or raise a dispute.",
+      "sortOrder": 50,
+      "severity": "ATTN"
+    }
+  ],
+  "qloga_actions": [
+    {
+      "code": "FUNDS_CAPTURE_REQUEST",
+      "display": "Capture request"
+    },
+    {
+      "code": "FUNDS_CAPTURE_CONFIRMATION",
+      "display": "Capture confirmation"
+    },
+    {
+      "code": "FUNDS_RESERVATION_DECLINED",
+      "display": "Auth declined"
+    },
+    {
+      "code": "FUNDS_RESERVATION_AUTHORIZED",
+      "display": "Authorized"
+    },
+    {
+      "code": "AUTO_PRV_NOT_ARRIVED",
+      "display": "Provider not arrived"
+    },
+    {
+      "code": "AUTO_QUOTE_DECLINE",
+      "display": "Auto-decline"
+    },
+    {
+      "code": "AUTO_INQUIRY_DECLINE",
+      "display": "Auto-decline"
+    },
+    {
+      "code": "AUTH_DELETION_REQUEST",
+      "display": "Auth deletion request"
+    }
+  ]
+}

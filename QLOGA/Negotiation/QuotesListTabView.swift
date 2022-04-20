@@ -1,73 +1,69 @@
 //
-//  ProviderOrdersListTabView.swift
+//  File.swift
 //  QLOGA
 //
-//  Created by Dmitry Mikhailov on 4/6/22.
+//  Created by Dmitry Mikhailov on 4/20/22.
 //
 
 import SwiftUI
 import Combine
-class OrdersViewModel: ObservableObject {
-    //    typealias OffTime = OrderTime
-    @Published var orders: [OrderContent] = []
-    @StateObject var CategoryVM = CategoriesViewModel()
 
-    //    @Published var totalPrice: NSNumber?
-    var ordersRoot: OrdersRoot
-
-    var defaultOrders: [OrderContent]
-    static let shared = OrdersViewModel()
-
-    init() {
-        self.ordersRoot = try! newJSONDecoder().decode(OrdersRoot.self, from: try! Data(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: "orders", ofType: "json")!)))
-        self.defaultOrders = ordersRoot.content
-        
-        print(self.defaultOrders)
-        self.orders.append(contentsOf: defaultOrders)
-    }
-}
-struct PrvOrdersListTabView: View {
+struct QuotesListTabView: View {
     @Binding var provider: Provider
     @Binding var customer: Customer
+    @Binding var actorType: ActorsEnum
     @EnvironmentObject var tabController: TabController
     @ObservedObject var ordersController: OrdersViewModel
-    @State var orders = Orders
-    @Binding var actorType: ActorsEnum
+    @State var orders: [OrderContent] = []
+
     var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 15) {
+        if (actorType != .CUSTOMER ? PrvQuotes : CstQuotes).isEmpty {
+            Image(actorType == .CUSTOMER ? "cst-quotes" : "prv-quotes")
+                .resizable()
+                .frame(width: 300, height: 375, alignment: .center)
+                .scaledToFit()
+                .aspectRatio(1, contentMode: .fit)
 
-                ForEach(orders.indices, id: \.self) { orderId in
-                    VStack {
-                        //.padding(.leading, 20)
-                        OrdersListCell(order: orders[orderId], customer: $customer, actorType: $actorType).padding(.horizontal, 10)
+            Spacer()
+        } else {
 
+            ScrollView {
+                LazyVStack(spacing: 15) {
+                    ForEach((actorType != .CUSTOMER ? PrvQuotes : CstQuotes).indices, id: \.self) { orderId in
+                        VStack {
+                            //.padding(.leading, 20)
+                            QuotesListCell(order: (actorType != .CUSTOMER ? PrvQuotes : CstQuotes)[orderId], customer: $customer, actorType: $actorType).padding(.horizontal, 10)
+
+                        }
                     }
-                }
-                Spacer()
-            }.padding(.top, 15).listStyle(.grouped)
-        }.background(Color.white.opacity(0.7))
-
+                    Spacer()
+                }.padding(.top, 15).listStyle(.grouped)
+            }.background(Color.white.opacity(0.7))
+        }
+//            .onAppear {
+//                orders = actorType != .CUSTOMER ? PrvQuotes : CstQuotes
+//            }
     }
 }
 
-struct ProviderOrdersListTabView_Previews: PreviewProvider {
+struct QuotesListTabViewListTabView_Previews: PreviewProvider {
     static var previews: some View {
-        PrvOrdersListTabView(provider: .constant(testProvider), customer: .constant(testCustomer), ordersController: OrdersViewModel.shared, actorType:  .constant(.PROVIDER))
+        QuotesListTabView(provider: .constant(testProvider), customer: .constant(testCustomer), actorType:  .constant(.PROVIDER), ordersController: OrdersViewModel.shared)
     }
 }
 
 
-struct OrdersListCell: View {
+struct QuotesListCell: View {
     typealias Int = CategoryType.ID
     @State var catID: CategoryType.ID = 0
     @State var order: OrderContent
     @Binding var customer: Customer
     @State var tags: Set<String> = []
     @Binding var actorType: ActorsEnum
+
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            NavigationLink(destination: OrderDetailView(actorType: $actorType, orderType: .Order, order: $order)) {
+            NavigationLink(destination: OrderDetailView(actorType: $actorType, orderType: .Quote, order: $order)) {
                 VStack(alignment: .leading, spacing: 10) {
                     VStack {
 
@@ -87,9 +83,9 @@ struct OrdersListCell: View {
                         if order.dayPlans.count > 0 {
                             Text("\(order.dayPlans.count + 1) Visits")
                                 .font(.system(size: 17, weight: .semibold, design: .rounded))
-                                .foregroundColor(.lightGray)
+                                .foregroundColor(.secondary)
                         } else {
-                            Text("\(getString(from: order.serviceDate))")
+                            Text("\(getString(from: order.serviceDate, "MM-DD-YYYY HH:mm"))")
                                 .font(.system(size: 17, weight: .regular, design: .rounded))
                                 .foregroundColor(.black)
                         }
@@ -142,11 +138,6 @@ struct OrdersListCell: View {
 
                     }.padding(.vertical, 10).frame(idealHeight: 30, maxHeight: 45)
                 }
-
-                //                        NavigationLink(destination: GoogleMapView(providers: .constant([]), pickedAddress: $order.addr.defaultAddress)) {
-
-                //                        }.layoutPriority(1).zIndex(1)
-
             } else {
                 HStack(alignment: .top, spacing: 5) {
                     Text(order.addr.total ?? "")
@@ -170,7 +161,7 @@ struct OrdersListCell: View {
                     return " \(category.title): \(count)"
                 }))} set: { tags in
                     self.tags = tags
-                }, fontSize: 21.5).padding(1)
+                }, fontSize: 23).padding(1)
             }
             .scaleEffect(0.78).offset(x: -40)
 
@@ -203,20 +194,3 @@ struct OrdersListCell: View {
 }
 
 
-func getDate(from dateString: String, _ dateFormat: String) -> Date {
-    let formatter = DateFormatter()
-    formatter.dateFormat = dateFormat
-    formatter.amSymbol = ""
-    formatter.pmSymbol = ""
-    let date: Date = formatter.date(from: dateString)!
-
-    return date
-}
-
-//func getString(from date: Date, _ dateFormat: String) -> String {
-//    let formatter = DateFormatter()
-//    formatter.dateFormat = dateFormat
-//    let string: String = formatter.string(from: date)
-//
-//    return string
-//}

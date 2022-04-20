@@ -14,22 +14,32 @@ struct InquiryListTabView: View {
     @Binding var actorType: ActorsEnum
     @EnvironmentObject var tabController: TabController
     @ObservedObject var ordersController: OrdersViewModel
-    @State var orders = Orders
-    var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 0) {
-                Divider().background(Color.accentColor)
-                ForEach(orders.indices, id: \.self) { orderId in
-                    VStack {
-                        //.padding(.leading, 20)
-                        InquiryListCell(order: orders[orderId], customer: $customer, actorType: $actorType)
-                        Divider().background(Color.accentColor)
-                    }.background(Color.white)
-                }
-                Spacer()
-            }.padding(.top, 5).listStyle(.grouped)
-        }
+    @State var orders: [OrderContent] = []
 
+    var body: some View {
+        if (actorType != .CUSTOMER ? PrvInquires : CstInquires).isEmpty {
+            Image(actorType == .CUSTOMER ? "cst-inquires" : "prv-inquires")
+                .resizable()
+                .frame(width: 300, height: 375, alignment: .center)
+                .scaledToFit()
+                .aspectRatio(1, contentMode: .fit)
+
+            Spacer()
+        } else {
+            ScrollView {
+                LazyVStack(spacing: 15) {
+                    ForEach((actorType != .CUSTOMER ? PrvInquires : CstInquires).indices, id: \.self) { orderId in
+                        VStack {
+                            //.padding(.leading, 20)
+                            InquiryListCell(order: (actorType != .CUSTOMER ? PrvInquires : CstInquires)[orderId], customer: $customer, actorType: $actorType).padding(.horizontal, 10)
+
+                        }
+                    }
+                    Spacer()
+                }.padding(.top, 15).listStyle(.grouped)
+            }.background(Color.white.opacity(0.7))
+
+        }
     }
 }
 
@@ -50,21 +60,29 @@ struct InquiryListCell: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            NavigationLink(destination: QuoteOverView(customer: $customer, amount: Double(order.amount),  isChargeOn: order.callout, calloutCharge: Double(order.calloutAmount ?? 0 / 100), cancellation: order.cancelHrs ?? 0, showAlert: false, actorType: ActorsEnum(rawValue: order.statusRecord.actor) ?? .CUSTOMER, isPicked: false, isExist: true, services: order.services.compactMap({ s in
-                var serv = StaticCategories[s.qserviceId]
-                serv?.unitsCount = s.qty
-                serv?.price = Double(s.cost)
-                return serv
-            }))) {
+            NavigationLink(destination: OrderDetailView(actorType: $actorType, orderType: .Inquiry, order: $order)) {
                 VStack(alignment: .leading, spacing: 10) {
-                    HStack {
+                    VStack {
 
+                        HStack {
+                            Text(order.statusRecord.status.display)
+                                .font(.system(size: 17, weight: .regular, design: .rounded))
+                                .foregroundColor(.black).padding(EdgeInsets(top: 10, leading: 15, bottom: 0, trailing: 10))
+                            Spacer()
+
+                        }
+                        Divider().background(Color.lightGray)//.padding(.top, -5)
+
+                    }
+                    .background(LinearGradient(gradient: Gradient(colors: [Color(hex: order.statusRecord.status.colors[0])!, Color(hex: order.statusRecord.status.colors[1])!]), startPoint: .leading, endPoint: .trailing))
+                    .padding([.top, .horizontal], -15)
+                    HStack {
                         if order.dayPlans.count > 0 {
                             Text("\(order.dayPlans.count + 1) Visits")
                                 .font(.system(size: 17, weight: .semibold, design: .rounded))
-                                .foregroundColor(.lightGray)
+                                .foregroundColor(.secondary)
                         } else {
-                            Text("\(getString(from: order.serviceDate))")
+                            Text("\(getString(from: order.serviceDate, "MM-DD-YYYY HH:mm"))")
                                 .font(.system(size: 17, weight: .regular, design: .rounded))
                                 .foregroundColor(.black)
                         }
@@ -115,13 +133,8 @@ struct InquiryListCell: View {
                             .multilineTextAlignment(.leading)
                         Spacer()
 
-                    }.padding(.vertical, 5).frame(idealHeight: 20, maxHeight: 40)
+                    }.padding(.vertical, 10).frame(idealHeight: 30, maxHeight: 45)
                 }
-
-                //                        NavigationLink(destination: GoogleMapView(providers: .constant([]), pickedAddress: $order.addr.defaultAddress)) {
-
-                //                        }.layoutPriority(1).zIndex(1)
-
             } else {
                 HStack(alignment: .top, spacing: 5) {
                     Text(order.addr.total ?? "")
@@ -152,7 +165,9 @@ struct InquiryListCell: View {
             .disabled(true)
 
 
-        }.padding(15).padding(.bottom, 5)
+        }.padding(15).background(Color.white)
+            .clipShape(RoundedRectangle(cornerRadius: 13))
+            .overlay(RoundedRectangle(cornerRadius: 13).stroke(lineWidth: 1).fill(Color.lightGray))
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
 
@@ -174,3 +189,4 @@ struct InquiryListCell: View {
         return categories
     }
 }
+

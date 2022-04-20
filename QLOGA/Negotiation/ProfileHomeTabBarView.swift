@@ -76,12 +76,12 @@ struct ProfileHomeTabBarView: View {
                                     TabBarIcon(tabController: tabController, assignedPage: .search, width: geometry.size.width/4, height: geometry.size.height/28, systemIconName: "SearchTabIcon", tabName: "Search")
                                     TabBarIcon(tabController: tabController, assignedPage: .favourites, width: geometry.size.width/4, height: geometry.size.height/28, systemIconName: "FavouritesTabIcon", tabName: "Favourites")
                                     } else if actorType == .PROVIDER {
-                                        TabBarIcon(tabController: tabController, assignedPage: .orders, width: geometry.size.width/3, height: geometry.size.height/28, systemIconName: "OrdersTabIcon", tabName: "Today")
-                                        TabBarIcon(tabController: tabController, assignedPage: .search, width: geometry.size.width/3, height: geometry.size.height/28, systemIconName: "SearchTabIcon", tabName: "Search")
+                                        TabBarIcon(tabController: tabController, assignedPage: .orders, width: geometry.size.width/3, height: geometry.size.height/27, systemIconName: "OrdersTabIcon", tabName: "Today")
+                                        TabBarIcon(tabController: tabController, assignedPage: .search, width: geometry.size.width/3, height: geometry.size.height/27, systemIconName: "SearchTabIcon", tabName: "Search")
                                         TabBarIcon(tabController: tabController, assignedPage: .favourites, width: geometry.size.width/3, height: geometry.size.height/28, systemIconName: "FavouritesTabIcon", tabName: "Favourites")
                                     }
                             }
-                            .frame(width: geometry.size.width, height: geometry.size.height/8)
+                            .frame(width: geometry.size.width, height: geometry.size.height/8.5)
                             .background(.white.opacity(0.8))
                         }
                     }

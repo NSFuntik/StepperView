@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		111166EB27DA89FA00A03E42 /* ReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111166EA27DA89FA00A03E42 /* ReviewModel.swift */; };
+		111332DC280F3DE300062287 /* order_statuses.json in Resources */ = {isa = PBXBuildFile; fileRef = 111332DB280F3DE300062287 /* order_statuses.json */; };
+		111332DE280F6C8000062287 /* QuotesListTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111332DD280F6C8000062287 /* QuotesListTabView.swift */; };
+		111332E0280F6F7500062287 /* OrderDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111332DF280F6F7500062287 /* OrderDetailView.swift */; };
 		112CC73C27D48B9800B8700A /* StarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CC73B27D48B9800B8700A /* StarsView.swift */; };
 		112CC73E27D4C0F800B8700A /* ProviderRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CC73D27D4C0F800B8700A /* ProviderRatingView.swift */; };
 		112CC74027D4E37200B8700A /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CC73F27D4E37200B8700A /* ColorExtension.swift */; };
@@ -23,7 +26,7 @@
 		1145CB82280215CC006E11A9 /* categories.json in Resources */ = {isa = PBXBuildFile; fileRef = 1145CB81280215CC006E11A9 /* categories.json */; };
 		1145CB8428022B84006E11A9 /* CategoryServiceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1145CB8328022B84006E11A9 /* CategoryServiceDetailView.swift */; };
 		114D1CFE280DE26D00DA3901 /* TodayListTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D1CFD280DE26D00DA3901 /* TodayListTabView.swift */; };
-		114D1D00280E022B00DA3901 /* MockOrderModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D1CFF280E022B00DA3901 /* MockOrderModels.swift */; };
+		114D1D00280E022B00DA3901 /* StatusesEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D1CFF280E022B00DA3901 /* StatusesEnum.swift */; };
 		114D1D02280E0AE800DA3901 /* InquiryListTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114D1D01280E0AE800DA3901 /* InquiryListTabView.swift */; };
 		11500E7B280C998600E45A97 /* OrdersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11500E7A280C998600E45A97 /* OrdersModel.swift */; };
 		115A86E927D6A7320064AE36 /* ImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115A86E827D6A7320064AE36 /* ImageViewer.swift */; };
@@ -115,6 +118,9 @@
 
 /* Begin PBXFileReference section */
 		111166EA27DA89FA00A03E42 /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
+		111332DB280F3DE300062287 /* order_statuses.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = order_statuses.json; sourceTree = "<group>"; };
+		111332DD280F6C8000062287 /* QuotesListTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotesListTabView.swift; sourceTree = "<group>"; };
+		111332DF280F6F7500062287 /* OrderDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailView.swift; sourceTree = "<group>"; };
 		112CC73B27D48B9800B8700A /* StarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarsView.swift; sourceTree = "<group>"; };
 		112CC73D27D4C0F800B8700A /* ProviderRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderRatingView.swift; sourceTree = "<group>"; };
 		112CC73F27D4E37200B8700A /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
@@ -131,7 +137,7 @@
 		1145CB81280215CC006E11A9 /* categories.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = categories.json; sourceTree = "<group>"; };
 		1145CB8328022B84006E11A9 /* CategoryServiceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CategoryServiceDetailView.swift; path = /Users/miha/Developer/QLOGA/QLOGA/Negotiation/CategoryServiceDetailView.swift; sourceTree = "<absolute>"; };
 		114D1CFD280DE26D00DA3901 /* TodayListTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayListTabView.swift; sourceTree = "<group>"; };
-		114D1CFF280E022B00DA3901 /* MockOrderModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockOrderModels.swift; sourceTree = "<group>"; };
+		114D1CFF280E022B00DA3901 /* StatusesEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusesEnum.swift; sourceTree = "<group>"; };
 		114D1D01280E0AE800DA3901 /* InquiryListTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryListTabView.swift; sourceTree = "<group>"; };
 		11500E7A280C998600E45A97 /* OrdersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersModel.swift; sourceTree = "<group>"; };
 		115A86E827D6A7320064AE36 /* ImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewer.swift; sourceTree = "<group>"; };
@@ -272,7 +278,7 @@
 				116C193527DDEA4F00755425 /* ActorsEnum.swift */,
 				119CA40B27EF561C0082282C /* PortfolioModel.swift */,
 				11500E7A280C998600E45A97 /* OrdersModel.swift */,
-				114D1CFF280E022B00DA3901 /* MockOrderModels.swift */,
+				114D1CFF280E022B00DA3901 /* StatusesEnum.swift */,
 			);
 			path = DataModels;
 			sourceTree = "<group>";
@@ -393,6 +399,7 @@
 				11A2780828031AEF0063D706 /* qqq-models.ts */,
 				11A27811280323A80063D706 /* orders.json */,
 				11A2780E280323A80063D706 /* requests.json */,
+				111332DB280F3DE300062287 /* order_statuses.json */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -405,6 +412,7 @@
 				119CA40F27EF57A10082282C /* EnrolledProfileView.swift */,
 				114D1CFD280DE26D00DA3901 /* TodayListTabView.swift */,
 				114D1D01280E0AE800DA3901 /* InquiryListTabView.swift */,
+				111332DD280F6C8000062287 /* QuotesListTabView.swift */,
 				11DD965B27FDCE6A0005500A /* PrvOrdersListTabView.swift */,
 				11DD966027FDD0070005500A /* CstRequestsTabView.swift */,
 				1145CB7D28020DE7006E11A9 /* CstOpenRequestsView.swift */,
@@ -417,6 +425,7 @@
 				119CF3BB2808CF7400AEAE27 /* CustomerRequestInfoView.swift */,
 				119CF3BD2808DA4300AEAE27 /* CategoriesChooserView.swift */,
 				119CF3BF2808DCAA00AEAE27 /* QuoteOverView.swift */,
+				111332DF280F6F7500062287 /* OrderDetailView.swift */,
 				1145CB8328022B84006E11A9 /* CategoryServiceDetailView.swift */,
 			);
 			path = Negotiation;
@@ -600,6 +609,7 @@
 				11A27816280323A80063D706 /* orders.json in Resources */,
 				1136534C27D2C972008168DA /* LaunchScreen.storyboard in Resources */,
 				119BE1E027D230E000B2D70F /* Preview Assets.xcassets in Resources */,
+				111332DC280F3DE300062287 /* order_statuses.json in Resources */,
 				119CA42727EF57BC0082282C /* qloga_data_protection.md in Resources */,
 				11DD967F27FE251E0005500A /* md.css in Resources */,
 				1145CB82280215CC006E11A9 /* categories.json in Resources */,
@@ -701,6 +711,7 @@
 				119BE1DB27D230DF00B2D70F /* IntroView.swift in Sources */,
 				114159E127D36D0D0091C254 /* ProviderModel.swift in Sources */,
 				11DD965E27FDCE950005500A /* ProfileHomeTabBarView.swift in Sources */,
+				111332DE280F6C8000062287 /* QuotesListTabView.swift in Sources */,
 				11DD967B27FE13610005500A /* CloseButton.swift in Sources */,
 				114D1CFE280DE26D00DA3901 /* TodayListTabView.swift in Sources */,
 				112CC73E27D4C0F800B8700A /* ProviderRatingView.swift in Sources */,
@@ -751,6 +762,7 @@
 				11DD968827FE4E210005500A /* AnswerOnQuestionView.swift in Sources */,
 				119BE20527D233ED00B2D70F /* VisitTimeSelectorView.swift in Sources */,
 				11DD967027FDD8D60005500A /* ColorSet.swift in Sources */,
+				111332E0280F6F7500062287 /* OrderDetailView.swift in Sources */,
 				119CA41E27EF57A10082282C /* ProfileSettingsView.swift in Sources */,
 				112CC73C27D48B9800B8700A /* StarsView.swift in Sources */,
 				1145CB7E28020DE7006E11A9 /* CstOpenRequestsView.swift in Sources */,
@@ -759,7 +771,7 @@
 				11DD965C27FDCE6A0005500A /* PrvOrdersListTabView.swift in Sources */,
 				112CC74027D4E37200B8700A /* ColorExtension.swift in Sources */,
 				119BE1F127D231D700B2D70F /* ProviderPreviewsView.swift in Sources */,
-				114D1D00280E022B00DA3901 /* MockOrderModels.swift in Sources */,
+				114D1D00280E022B00DA3901 /* StatusesEnum.swift in Sources */,
 				118E8E9527E14A4B005DFE57 /* TabBarView.swift in Sources */,
 				119BE20327D2337800B2D70F /* VisitsScedulerView.swift in Sources */,
 				119BE1FB27D232F000B2D70F /* InquiryServicesView.swift in Sources */,

@@ -31,14 +31,14 @@ struct RemovableTagListView: UIViewRepresentable {
 
         tagListView.enableRemoveButton = $isRemovable.wrappedValue
 
-        defer { tagListView.rearrangeViews() }
         return tagListView
     }
 
     func updateUIView(_ view: TagListView, context: Context) {
-        if view.textFont.pointSize < 10 {
-            do { view.rearrangeViews() }
-        }
+        
+//        if view.textFont.pointSize < 10 {
+//            do { view.rearrangeViews() }
+//        }
         if context.coordinator.parent.tags != self.tags {
             if !context.coordinator.parent.$tags.wrappedValue.isStrictSubset(of: $tags.wrappedValue) {
 
@@ -77,7 +77,7 @@ struct RemovableTagListView: UIViewRepresentable {
         view.marginX = fontSize / 2
         view.marginY = fontSize / 2
 //        if view.textFont.pointSize < 10 {
-            do { view.rearrangeViews() }
+//            do { view.rearrangeViews() }
 //        }
 
 //        view.paddingY = fontSize / 2

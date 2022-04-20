@@ -8,6 +8,9 @@
 import SwiftUI
 import Combine
 
+var PrvQuotes: [OrderContent] = []
+var CstInquires: [OrderContent] = []
+
 struct TodayListTabView: View {
     @Binding var provider: Provider
     @Binding var customer: Customer
@@ -17,19 +20,35 @@ struct TodayListTabView: View {
     @State var orders = Orders
     var body: some View {
         ScrollView {
-            LazyVStack(spacing: 0) {
-                Divider().background(Color.accentColor)
-                ForEach(orders.indices, id: \.self) { orderId in
-                    VStack {
-                        //.padding(.leading, 20)
-                        TodayListCell(order: orders[orderId], customer: $customer, actorType: $actorType)
-                        Divider().background(Color.accentColor)
-                    }.background(Color.white)
-                }
-                Spacer()
-            }.padding(.top, 5).listStyle(.grouped)
-        }
+            VStack(spacing: -22) {
 
+//                ForEach((actorType != .CUSTOMER ? Orders + PrvInquires : Orders + CstQuotes).indices, id: \.self) { orderId in
+//                    VStack {
+                        //.padding(.leading, 20)
+                if actorType == .CUSTOMER {
+                    if  !CstInquires.isEmpty {
+                        InquiryListTabView(provider: $provider, customer: $customer, actorType: $actorType, ordersController: ordersController)
+                    }
+                    QuotesListTabView(provider: $provider, customer: $customer, actorType: $actorType, ordersController: ordersController)
+                }
+                if  actorType == .PROVIDER {
+                    if  !PrvQuotes.isEmpty {
+                        QuotesListTabView(provider: $provider, customer: $customer, actorType: $actorType, ordersController: ordersController)
+                    }
+                    InquiryListTabView(provider: $provider, customer: $customer, actorType: $actorType, ordersController: ordersController)
+                }
+                PrvOrdersListTabView(provider: $provider, customer: $customer, ordersController: ordersController, actorType: $actorType)
+
+//                        TodayListCell(order: (actorType != .CUSTOMER ? Orders + PrvInquires + PrvQuotes: Orders + CstQuotes + CstInquires)[orderId], customer: $customer, actorType: $actorType).padding(.horizontal, 10)
+
+//                    }
+//                }
+                Spacer()
+            }.padding(.top, 15).listStyle(.grouped)
+        }.background(Color.white.opacity(0.7))
+//        .onAppear {
+//            orders = actorType != .CUSTOMER ? Orders + Inquires : Orders + Quotes
+//        }
     }
 }
 
@@ -44,41 +63,46 @@ struct TodayListCell: View {
     typealias Int = CategoryType.ID
     @State var catID: CategoryType.ID = 0
     @State var order: OrderContent
+//    var statusColors: [Color]
+//    "#FEE4E1","Visit Callout Charge requested"
+//    "c2": "#FFB3AB"
     @Binding var customer: Customer
     @State var tags: Set<String> = []
     @Binding var actorType: ActorsEnum
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            NavigationLink(destination: QuoteOverView(customer: $customer, amount: Double(order.amount),  isChargeOn: order.callout, calloutCharge: Double(order.calloutAmount ?? 0 / 100), cancellation: order.cancelHrs ?? 0, showAlert: false, actorType: ActorsEnum(rawValue: order.statusRecord.actor) ?? .CUSTOMER, isPicked: false, isExist: true, services: order.services.compactMap({ s in
-                var serv = StaticCategories[s.qserviceId]
-                serv?.unitsCount = s.qty
-                serv?.price = Double(s.cost)
-                return serv
-            }))) {
+            NavigationLink(destination: OrderDetailView(actorType: $actorType, orderType: .Order, order: $order)) {
                 VStack(alignment: .leading, spacing: 10) {
-                    HStack {
+                    VStack {
 
-                        if order.dayPlans.count > 0 {
-                            Text("Order")
-                                .font(.system(size: 17, weight: .semibold, design: .rounded))
-                                .foregroundColor(.secondary)
-                            Text("\(order.dayPlans.count + 1) Visits")
-                                .font(.system(size: 17, weight: .semibold, design: .rounded))
-                                .foregroundColor(.lightGray)
-                        } else {
-                            Text("Inquiry")
-                                .font(.system(size: 17, weight: .semibold, design: .rounded))
-                                .foregroundColor(.secondary)
-                            Text("\(getString(from: order.serviceDate))")
+                        HStack {
+                            Text(order.statusRecord.status.display)
                                 .font(.system(size: 17, weight: .regular, design: .rounded))
+                                .foregroundColor(.black).padding(EdgeInsets(top: 10, leading: 15, bottom: 0, trailing: 10))
+                            Spacer()
+
+                        }
+                        Divider().background(Color.lightGray)//.padding(.top, -5)
+
+                    }
+                    .background(LinearGradient(gradient: Gradient(colors: [Color(hex: order.statusRecord.status.colors[0])!, Color(hex: order.statusRecord.status.colors[1])!]), startPoint: .leading, endPoint: .trailing))
+                        .padding([.top, .horizontal], -15)
+                        HStack {
+                            if order.dayPlans.count > 0 {
+                                Text("\(order.dayPlans.count + 1) Visits")
+                                    .font(.system(size: 17, weight: .semibold, design: .rounded))
+                                    .foregroundColor(.secondary)
+                            } else {
+                                Text("\(getString(from: order.serviceDate, "MM-DD-YYYY HH:mm"))")
+                                    .font(.system(size: 17, weight: .regular, design: .rounded))
+                                    .foregroundColor(.black)
+                            }
+                            Spacer()
+                            Text(poundsFormatter.string(from: order.amount as NSNumber)!)//order.services.map({$0.qty * $0.cost}).reduce(0, +) as NSNumber)!)
+                                .font(.system(size: 17, weight: .semibold, design: .rounded))
                                 .foregroundColor(.black)
                         }
-                        Spacer()
-                        Text(poundsFormatter.string(from: order.amount as NSNumber)!)//order.services.map({$0.qty * $0.cost}).reduce(0, +) as NSNumber)!)
-                            .font(.system(size: 17, weight: .semibold, design: .rounded))
-                            .foregroundColor(.black)
-                    }
                     if order.dayPlans.count > 0 {
                         VStack(alignment: .leading, spacing: 5) {
                             HStack(alignment: .center, spacing: 0) {
@@ -121,13 +145,8 @@ struct TodayListCell: View {
                             .multilineTextAlignment(.leading)
                         Spacer()
 
-                    }.padding(.vertical, 5).frame(idealHeight: 20, maxHeight: 40)
+                    }.padding(.vertical, 10).frame(idealHeight: 30, maxHeight: 45)
                 }
-
-                //                        NavigationLink(destination: GoogleMapView(providers: .constant([]), pickedAddress: $order.addr.defaultAddress)) {
-
-                //                        }.layoutPriority(1).zIndex(1)
-
             } else {
                 HStack(alignment: .top, spacing: 5) {
                     Text(order.addr.total ?? "")
@@ -158,7 +177,9 @@ struct TodayListCell: View {
             .disabled(true)
 
 
-        }.padding(15).padding(.bottom, 5)
+        }.padding(15).background(Color.white)
+            .clipShape(RoundedRectangle(cornerRadius: 13))
+            .overlay(RoundedRectangle(cornerRadius: 13).stroke(lineWidth: 1).fill(Color.lightGray))
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
 
