@@ -33,6 +33,9 @@
 		11663FC62802CBF40041B56D /* CstCreateRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11663FC52802CBF40041B56D /* CstCreateRequestView.swift */; };
 		116C193627DDEA4F00755425 /* ActorsEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116C193527DDEA4F00755425 /* ActorsEnum.swift */; };
 		116C193827DDF5DF00755425 /* ContryCodePhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116C193727DDF5DF00755425 /* ContryCodePhone.swift */; };
+		116CC0E82811EECC00B8A4F2 /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CC0E72811EECC00B8A4F2 /* NotesView.swift */; };
+		116CC0EA2811F2B000B8A4F2 /* PaymentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CC0E92811F2B000B8A4F2 /* PaymentsView.swift */; };
+		116CC0EC2812051500B8A4F2 /* VisitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CC0EB2812051500B8A4F2 /* VisitsView.swift */; };
 		116DC78827D8F67000EFF552 /* EKWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116DC78627D8F67000EFF552 /* EKWrapper.swift */; };
 		116DC78927D8F67000EFF552 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116DC78727D8F67000EFF552 /* CalendarView.swift */; };
 		118E8E9527E14A4B005DFE57 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118E8E9427E14A4B005DFE57 /* TabBarView.swift */; };
@@ -145,6 +148,9 @@
 		11663FC52802CBF40041B56D /* CstCreateRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CstCreateRequestView.swift; sourceTree = "<group>"; };
 		116C193527DDEA4F00755425 /* ActorsEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorsEnum.swift; sourceTree = "<group>"; };
 		116C193727DDF5DF00755425 /* ContryCodePhone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContryCodePhone.swift; sourceTree = "<group>"; };
+		116CC0E72811EECC00B8A4F2 /* NotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesView.swift; sourceTree = "<group>"; };
+		116CC0E92811F2B000B8A4F2 /* PaymentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentsView.swift; sourceTree = "<group>"; };
+		116CC0EB2812051500B8A4F2 /* VisitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitsView.swift; sourceTree = "<group>"; };
 		116DC78627D8F67000EFF552 /* EKWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EKWrapper.swift; sourceTree = "<group>"; };
 		116DC78727D8F67000EFF552 /* CalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		118E8E9427E14A4B005DFE57 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
@@ -315,6 +321,9 @@
 				119BE22C27D2387C00B2D70F /* PostEnrollment */,
 				11DD965A27FDCDF80005500A /* Negotiation */,
 				11C1912E2810A50A0037E445 /* OrderExecutionView.swift */,
+				116CC0E72811EECC00B8A4F2 /* NotesView.swift */,
+				116CC0E92811F2B000B8A4F2 /* PaymentsView.swift */,
+				116CC0EB2812051500B8A4F2 /* VisitsView.swift */,
 				119BE1DC27D230E000B2D70F /* Assets.xcassets */,
 				1136534927D2C83D008168DA /* Info.plist */,
 				119CA42527EF57BC0082282C /* qloga_data_protection.md */,
@@ -705,6 +714,7 @@
 				11500E7B280C998600E45A97 /* OrdersModel.swift in Sources */,
 				114159DF27D36C720091C254 /* AddressModel.swift in Sources */,
 				11DD966127FDD0070005500A /* CstRequestsTabView.swift in Sources */,
+				116CC0EA2811F2B000B8A4F2 /* PaymentsView.swift in Sources */,
 				116C193627DDEA4F00755425 /* ActorsEnum.swift in Sources */,
 				119BE1E927D2315700B2D70F /* GoogleMapView.swift in Sources */,
 				116C193827DDF5DF00755425 /* ContryCodePhone.swift in Sources */,
@@ -762,9 +772,11 @@
 				119CA40427EF50E30082282C /* MarkdownDocuments.swift in Sources */,
 				119BE1EB27D2318800B2D70F /* ProviderSearchView.swift in Sources */,
 				11DD966327FDD06A0005500A /* FavoritesTabView.swift in Sources */,
+				116CC0EC2812051500B8A4F2 /* VisitsView.swift in Sources */,
 				11DD968827FE4E210005500A /* AnswerOnQuestionView.swift in Sources */,
 				119BE20527D233ED00B2D70F /* VisitTimeSelectorView.swift in Sources */,
 				11DD967027FDD8D60005500A /* ColorSet.swift in Sources */,
+				116CC0E82811EECC00B8A4F2 /* NotesView.swift in Sources */,
 				111332E0280F6F7500062287 /* OrderDetailView.swift in Sources */,
 				119CA41E27EF57A10082282C /* ProfileSettingsView.swift in Sources */,
 				112CC73C27D48B9800B8700A /* StarsView.swift in Sources */,
@@ -941,7 +953,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 2.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.funtik.QLOGA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -975,7 +987,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 2.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.funtik.QLOGA;
 				PRODUCT_NAME = "$(TARGET_NAME)";

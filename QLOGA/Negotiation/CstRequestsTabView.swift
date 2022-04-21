@@ -31,7 +31,7 @@ class CategoriesViewModel: ObservableObject {
 struct CstRequestsTabView: View {
     @Binding var provider: Provider
     @Binding var customer: Customer
-    @StateObject var CategoryController = CategoriesViewModel.init()
+    @StateObject var CategoryController = CategoriesViewModel.shared
     @StateObject var requestsController = RequestViewModel()
     @EnvironmentObject var tabController: TabController
 
@@ -39,17 +39,22 @@ struct CstRequestsTabView: View {
         ZStack {
             VStack {
                 if requestsController.requests.count > 0 {
-                    List($requestsController.requests.projectedValue, id: \.self) { request in
+                    ScrollView {
+                        LazyVStack(spacing: 15) {
+                            ForEach($requestsController.requests.projectedValue, id: \.self) { request in
                         Section {
                             RequestsCell(request: request)
                                 .environmentObject(CategoryController.CategoryVM)
                                 .environmentObject(requestsController)
-                                .padding(10)
                                 .tag(request.wrappedValue.id)
+                                .padding(.horizontal, 10)
                             if requestsController.requests.last!.id == request.id.wrappedValue {
                                 Spacer(minLength: 100)
                             }
                         }
+                            }
+
+                        }.padding(.top, 15)
                     }.listStyle(InsetListStyle())
                 } else {
                     Spacer(minLength: 100)
@@ -83,7 +88,7 @@ struct CstRequestsTabView: View {
                     }
                 }.frame(height: 50)
             }
-        }
+        }.background(Color.white.opacity(0.7))
     }
 }
 
@@ -198,6 +203,7 @@ struct RequestsCell: View {
                                 .foregroundColor(Color.infoBlue)
                             Text("1")
                                 .padding(.trailing, 5)
+                                .foregroundColor(.secondary)
                             Image("Eye")
                                 .resizable()
                                 .renderingMode(.template)
@@ -206,10 +212,14 @@ struct RequestsCell: View {
                                 .foregroundColor(Color.infoBlue)
                             Text("10")
                                 .padding(.trailing, 5)
+                                .foregroundColor(.secondary)
                         }.padding([.top], 10)
                     }
                 }
             }
+            .padding(15).background(Color.white)
+            .clipShape(RoundedRectangle(cornerRadius: 13))
+            .overlay(RoundedRectangle(cornerRadius: 13).stroke(lineWidth: 1).fill(Color.lightGray))
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     withAnimation(.spring()) {

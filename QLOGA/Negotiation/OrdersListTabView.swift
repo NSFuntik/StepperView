@@ -31,7 +31,7 @@ struct OrdersListTabView: View {
     @State var orders = OrdersCotroller.shared.PrvOrders.reversed()
     @Binding var actorType: ActorsEnum
     var body: some View {
-        if (actorType != .CUSTOMER ? OrdersCotroller.shared.PrvOrders : OrdersCotroller.shared.CstOrders).isEmpty {
+        if (actorType == .CUSTOMER ? OrdersCotroller.shared.CstOrders : OrdersCotroller.shared.PrvOrders).isEmpty {
             Spacer()
             Image(actorType == .CUSTOMER ? "cst-orders" : "prv-orders")
                 .resizable()
@@ -42,9 +42,9 @@ struct OrdersListTabView: View {
         } else {
             ScrollView {
                 LazyVStack(spacing: 15) {
-                    ForEach(orders.indices, id: \.self) { orderId in
+                    ForEach((actorType == .CUSTOMER ? OrdersCotroller.shared.CstOrders : OrdersCotroller.shared.PrvOrders).indices, id: \.self) { orderId in
                         VStack {
-                            OrdersListCell(order: orders[orderId], customer: $customer, actorType: $actorType).padding(.horizontal, 10)
+                            OrdersListCell(order: (actorType == .CUSTOMER ? OrdersCotroller.shared.CstOrders : OrdersCotroller.shared.PrvOrders)[orderId], customer: $customer, actorType: $actorType).padding(.horizontal, 10)
                         }
                     }
                     Spacer()
@@ -70,7 +70,7 @@ struct OrdersListCell: View {
     @Binding var actorType: ActorsEnum
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            NavigationLink(destination: OrderDetailView(actorType: $actorType, orderType: .Order, order: $order)) {
+            NavigationLink(destination: OrderExecutionView(actorType: $actorType, order: $order)) {
                 VStack(alignment: .leading, spacing: 10) {
                     VStack {
                         HStack {

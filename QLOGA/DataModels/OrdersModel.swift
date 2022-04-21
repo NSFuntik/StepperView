@@ -72,6 +72,7 @@ struct OrderCstPerson: Codable {
     var verifications: [JSONAny]
     var settings: OrderSettings
     var payMethods: [JSONAny]
+    var name: String? = ""
 }
 
 // MARK: - OrderSettings
@@ -120,7 +121,7 @@ struct OrderProviderOrg: Codable {
 }
 
 // MARK: - OrderService
-struct OrderService: Codable {
+struct OrderService: Codable, Identifiable {
     var id: Int
     var conditions: [Int]
     var qty, cost, timeNorm, qserviceId: Int

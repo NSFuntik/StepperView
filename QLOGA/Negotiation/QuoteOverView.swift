@@ -282,22 +282,31 @@ struct QuoteOverView: View {
             VStack {
                 Spacer()
                 Button(action : {
-                    var quote = OrderContent(statusRecord: OrderStatusRecord(date: getString(from: Date()), actor: actorType.rawValue, actorId: 0, action: "VISIT_ADDED", note: "", status: .QUOTE, display: "VISIT_ADDED", actionDisplay: "VISIT_ADDED", actionPast: "VISIT_ADDED"), id: Int.random(in: 200...5000), addr: customer.address.defaultAddress,
-                                            amount: amount == 0.0 ? Int(customer.services.map({$0.unitsCount * Int($0.price)}).reduce(0, +) * 100) * 100 : Int(amount), callout: isChargeOn, serviceDate: Date(), services: customer.services.map({ s in
-                        return OrderService(id: s.avatarID ?? Int.random(in: 200...5000), conditions: [0], qty: s.unitsCount, cost: Int(s.price), timeNorm: s.timeNorm ?? 30, qserviceId: s.id)
-                    }), provider: OrderProvider(id: 1002, calloutCharge: false, services: [], resourceIds: [], favs: [], ratings: [], portfolio: []), providerOrg: OrderProviderOrg(name: "Kai\'s Elderly care business (London)", offTime: [], workingHours: [], verifications: [], settings: QLOGA.OrderSettings()), cstPerson: OrderCstPerson(verifications: [], settings: OrderSettings(), payMethods: []), dayPlans: [], cstActions: [], prvActions: [], payments: [], assigns: [])
+                    var quote = OrderContent(
+                        statusRecord: OrderStatusRecord(date: getString(from: Date()), actor: actorType.rawValue, actorId: 0, action: "VISIT_ADDED", note: "", status: .QUOTE, display: "VISIT_ADDED", actionDisplay: "VISIT_ADDED", actionPast: "VISIT_ADDED"),
+                        id: Int.random(in: 200...5000),
+                        addr: customer.address.defaultAddress,
+                        amount: amount == 0.0 ? Int(customer.services.map({$0.unitsCount * Int($0.price)}).reduce(0, +) * 100) * 100 : Int(amount),
+                        calloutAmount: Int(calloutCharge), callout: isChargeOn,
+                        serviceDate: Date(),
+                        services: customer.services.map({ s in
+                            return OrderService(id: s.avatarID ?? Int.random(in: 200...5000), conditions: [0], qty: s.unitsCount, cost: Int(s.price), timeNorm: s.timeNorm ?? 30, qserviceId: s.id)
+                    }), provider: OrderProvider(id: 1002, calloutCharge: false, services: [], resourceIds: [], favs: [], ratings: [], portfolio: []),
+                        providerOrg: OrderProviderOrg(name: "Kai\'s Elderly care business (London)", offTime: [], workingHours: [], verifications: [], settings: QLOGA.OrderSettings()),
+                        cancelHrs: cancellation,
+                        cstPerson: OrderCstPerson(verifications: [], settings: OrderSettings(), payMethods: [], name: "\(customer.name + " " + customer.middleMame + " " +  customer.surname)"), dayPlans: [], cstActions: [], prvActions: [], payments: [], assigns: [])
                     if actorType == .PROVIDER {
                         OrdersCotroller.shared.PrvQuotes.append(quote)
                         quote.statusRecord.status = .QUOTE
                         OrdersCotroller.shared.CstQuotes.append(quote)
                     } else {
-                        OrdersCotroller.shared.CstQuotes.append(quote)
+                        OrdersCotroller.shared.CstInquires.append(quote)
                         quote.statusRecord.status = .INQUIRY
                         OrdersCotroller.shared.PrvInquires.append(quote)
                     }
                     isPicked = true
                 }) {
-                    Text("Send Quote").withDoneButtonStyles(backColor: .accentColor, accentColor: .white)
+                    Text("Send \(actorType == .PROVIDER ? "Quote" : "Inquiry") ").withDoneButtonStyles(backColor: .accentColor, accentColor: .white)
                 }
                 .zIndex(1)
             }.padding(.bottom, 15)

@@ -249,6 +249,7 @@ struct OrderDetailView: View {
                                             Spacer()
                                             Text(order.statusRecord.status.display)
                                                 .foregroundColor(Color(hex: order.statusRecord.status.colors[1]))
+                                                .shadow(color: Color.lightGray.opacity(0.7), radius: 0.2, x: 0.2, y: 0.2)
                                                 .font(Font.system(size: 17, weight: .regular, design: .rounded))
                                                 .multilineTextAlignment(.leading)
                                             Image(systemName: "chevron.right")
@@ -288,6 +289,26 @@ struct OrderDetailView: View {
                 Spacer()
                 if orderType == .Order {
                     Button(action : {
+                        if actorType == .CUSTOMER {
+                            if var prvQuote = OrdersCotroller.shared.PrvOrders.first(where: {$0.id == order.id}) {
+                                prvQuote.statusRecord.status = .CST_DECLINED
+                                OrdersCotroller.shared.PrvOrders = OrdersCotroller.shared.PrvOrders.filter({$0.id != prvQuote.id})
+                                OrdersCotroller.shared.PrvOrders.append(prvQuote)
+                                OrdersCotroller.shared.CstOrders = OrdersCotroller.shared.CstOrders.filter({$0.id != prvQuote.id})
+                                order.statusRecord.status = .CANCELLED
+                                OrdersCotroller.shared.CstOrders.append(order)
+                            }
+                        }
+                        if actorType == .PROVIDER {
+                            if var cstQuote = OrdersCotroller.shared.CstInquires.first(where: {$0.id == order.id}) {
+                                cstQuote.statusRecord.status = .PRV_DECLINED
+                                OrdersCotroller.shared.CstInquires = OrdersCotroller.shared.CstInquires.filter({$0.id != cstQuote.id})
+                                OrdersCotroller.shared.CstInquires.append(cstQuote)
+                                OrdersCotroller.shared.PrvInquires = OrdersCotroller.shared.PrvInquires.filter({$0.id != cstQuote.id})
+                                order.statusRecord.status = .CANCELLED
+                                OrdersCotroller.shared.PrvInquires.append(order)
+                            }
+                        }
                         dismiss()
                     }) {
                         Text("Cancel").withDoneButtonStyles(backColor: .red, accentColor: .white, isShadowOn: true)
@@ -300,16 +321,19 @@ struct OrderDetailView: View {
                                 OrdersCotroller.shared.PrvInquires = OrdersCotroller.shared.PrvInquires.filter({$0.id != prvQuote.id})
                                 OrdersCotroller.shared.PrvOrders.append(prvQuote)
                                 OrdersCotroller.shared.CstInquires = OrdersCotroller.shared.CstInquires.filter({$0.id != prvQuote.id})
-                                order.statusRecord.status = .NEEDS_FUNDING
-                                OrdersCotroller.shared.CstOrders.append(order)
+                                prvQuote.statusRecord.status = .NEEDS_FUNDING
+                                OrdersCotroller.shared.CstOrders.append(prvQuote)
                             }
                         }
                         if actorType == .PROVIDER {
                             if var cstQuote = OrdersCotroller.shared.CstInquires.first(where: {$0.id == order.id}) {
-                                cstQuote.statusRecord.status = .NEEDS_FUNDING
                                 OrdersCotroller.shared.CstInquires = OrdersCotroller.shared.CstInquires.filter({$0.id != cstQuote.id})
-                                OrdersCotroller.shared.CstOrders.append(cstQuote)
+                                var cstOrder = cstQuote
+                                cstOrder.statusRecord.status = .NEEDS_FUNDING
+//                                cstQuote.statusRecord.status = .NEEDS_FUNDING
+                                OrdersCotroller.shared.CstOrders.append(cstOrder)
                                 OrdersCotroller.shared.PrvInquires = OrdersCotroller.shared.PrvInquires.filter({$0.id != cstQuote.id})
+                                var order = cstQuote
                                 order.statusRecord.status = .ACCEPTED
                                 OrdersCotroller.shared.PrvOrders.append(order)
                             }
@@ -349,7 +373,7 @@ struct OrderDetailView: View {
                                 if var prvQuote = OrdersCotroller.shared.PrvInquires.first(where: {$0.id == order.id}) {
                                     prvQuote.statusRecord.status = .QUOTE
                                     OrdersCotroller.shared.PrvInquires = OrdersCotroller.shared.PrvInquires.filter({$0.id != prvQuote.id})
-                                    OrdersCotroller.shared.PrvQuotes.append(prvQuote)
+                                    OrdersCotroller.shared.PrvInquires.append(prvQuote)
                                     OrdersCotroller.shared.CstInquires = OrdersCotroller.shared.CstInquires.filter({$0.id != prvQuote.id})
                                     order.statusRecord.status = .QUOTE
                                     OrdersCotroller.shared.CstQuotes.append(order)
@@ -359,9 +383,9 @@ struct OrderDetailView: View {
                                 if var prvQuote = OrdersCotroller.shared.CstInquires.first(where: {$0.id == order.id}) {
                                     prvQuote.statusRecord.status = .QUOTE
                                     OrdersCotroller.shared.CstInquires = OrdersCotroller.shared.CstInquires.filter({$0.id != prvQuote.id})
-                                    OrdersCotroller.shared.CstQuotes.append(prvQuote)
                                     OrdersCotroller.shared.PrvInquires = OrdersCotroller.shared.PrvInquires.filter({$0.id != prvQuote.id})
                                     order.statusRecord.status = .QUOTE
+                                    OrdersCotroller.shared.CstQuotes.append(order)
                                     OrdersCotroller.shared.PrvQuotes.append(order)
                                 }
                             }
@@ -378,18 +402,19 @@ struct OrderDetailView: View {
                                 OrdersCotroller.shared.PrvQuotes = OrdersCotroller.shared.PrvQuotes.filter({$0.id != prvQuote.id})
                                 OrdersCotroller.shared.PrvOrders.append(prvQuote)
                                 OrdersCotroller.shared.CstQuotes = OrdersCotroller.shared.CstQuotes.filter({$0.id != prvQuote.id})
+                                var order = prvQuote
                                 order.statusRecord.status = .NEEDS_FUNDING
                                 OrdersCotroller.shared.CstOrders.append(order)
                             }
                         }
                         if actorType == .PROVIDER {
                             if var cstQuote = OrdersCotroller.shared.CstQuotes.first(where: {$0.id == order.id}) {
-                                cstQuote.statusRecord.status = .NEEDS_FUNDING
                                 OrdersCotroller.shared.CstQuotes = OrdersCotroller.shared.CstQuotes.filter({$0.id != cstQuote.id})
+                                cstQuote.statusRecord.status = .NEEDS_FUNDING
                                 OrdersCotroller.shared.CstOrders.append(cstQuote)
                                 OrdersCotroller.shared.PrvQuotes = OrdersCotroller.shared.PrvQuotes.filter({$0.id != cstQuote.id})
-                                order.statusRecord.status = .ACCEPTED
-                                OrdersCotroller.shared.PrvOrders.append(order)
+                                cstQuote.statusRecord.status = .ACCEPTED
+                                OrdersCotroller.shared.PrvOrders.append(cstQuote)
                             }
                         }
                         dismiss()
@@ -437,9 +462,9 @@ struct OrderDetailView: View {
                                 if var prvQuote = OrdersCotroller.shared.CstQuotes.first(where: {$0.id == order.id}) {
                                     prvQuote.statusRecord.status = .INQUIRY
                                     OrdersCotroller.shared.CstQuotes = OrdersCotroller.shared.CstQuotes.filter({$0.id != prvQuote.id})
-                                    OrdersCotroller.shared.CstInquires.append(prvQuote)
                                     OrdersCotroller.shared.PrvQuotes = OrdersCotroller.shared.PrvQuotes.filter({$0.id != prvQuote.id})
                                     order.statusRecord.status = .INQUIRY
+                                    OrdersCotroller.shared.CstInquires.append(order)
                                     OrdersCotroller.shared.PrvInquires.append(order)
                                 }
                             }

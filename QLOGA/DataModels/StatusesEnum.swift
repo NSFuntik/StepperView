@@ -17,8 +17,8 @@ enum StatusesEnum: String, CaseIterable, Identifiable, Codable  {
     case CST_DECLINED
     case PRV_DECLINED
     case ACCEPTED
-    case ARRIVED
     case PRV_NEAR
+    case ARRIVED
     case COMPLETED
     case VISIT_PRV_NEAR
     case VISIT_ARRIVED
