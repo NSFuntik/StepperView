@@ -40,13 +40,13 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   BottomSheetSwiftUI:
-    :commit: f26b6dc4fa31ffda4e1ca83679eff56c8d5de061
+    :commit: b6778ac4ff33add77f779d4ad88467dc9f622521
     :git: https://bitbucket.org/qloga/bottomsheet/src/QLoGaMods/bottomsheet.git
   CalendarKit:
     :commit: 3bb83f428ecf106e3e0dcec3a4b7cdc20f5006d6
     :git: https://bitbucket.org/qloga/calendarkit/src/QLoGaMods/CalendarKit.git
   StepperView:
-    :commit: a7e6e5994460c23a89d5284b6e363a0ddabbf280
+    :commit: cfffce0990b5639761818a29e639d2441c13bbbb
     :git: https://bitbucket.org/qloga/stepperview.git
 
 SPEC CHECKSUMS:
@@ -60,4 +60,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: a03d6bd45f2964936c9cbf6144d74c4acbcfb636
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.11.2
