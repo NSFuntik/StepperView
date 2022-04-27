@@ -1,0 +1,346 @@
+{
+    "content": [
+        {
+            "statusRecord": {
+                "date": "2022-03-08T15:35:39.997583Z",
+                "actor": "CUSTOMER",
+                "actorId": 1002,
+                "action": "CREATE",
+                "status": "LIVE",
+                "display": "LIVE"
+            },
+            "id": 5165,
+            "offeredSum": 20000,
+            "placedDate": "2022-03-08T15:35:39Z",
+            "orderedDate": "2022-03-10T13:37:00Z",
+            "validDate": "2022-03-22T13:37:33Z",
+            "visits": 1,
+            "notes": "dfdfdf",
+            "address": {
+                "id": 1001,
+                "familyId": 1000,
+                "country": "GB",
+                "line1": "01",
+                "line2": "Princes Street",
+                "town": "Edinburgh",
+                "postcode": "EH2 2ER",
+                "lat": 55.953188,
+                "lng": -3.189556,
+                "timeOffset": 3600000,
+                "vrfs": [
+                    {
+                        "id": 10000,
+                        "type": "ADDRESS",
+                        "subjId": 1001,
+                        "holderId": 1001,
+                        "date": "2018-10-10T00:00:00Z",
+                        "notes": "Address verification for managing Kai's Org"
+                    }
+                ],
+                "businessOnly": false
+            },
+            "services": [
+                {
+                    "id": 5683,
+                    "qty": 1,
+                    "qserviceId": 10
+                },
+                {
+                    "id": 5682,
+                    "qty": 1,
+                    "qserviceId": 20
+                },
+                {
+                    "id": 5684,
+                    "qty": 2,
+                    "qserviceId": 30
+                },
+                {
+                    "id": 5685,
+                    "qty": 1,
+                    "qserviceId": 40
+                },
+                {
+                    "id": 5678,
+                    "qty": 1,
+                    "qserviceId": 100
+                },
+                {
+                    "id": 5679,
+                    "qty": 1,
+                    "qserviceId": 110
+                },
+                {
+                    "id": 5676,
+                    "qty": 1,
+                    "qserviceId": 120
+                },
+                {
+                    "id": 5677,
+                    "qty": 1,
+                    "qserviceId": 130
+                },
+                {
+                    "id": 5680,
+                    "qty": 1,
+                    "qserviceId": 140
+                },
+                {
+                    "id": 5681,
+                    "qty": 1,
+                    "qserviceId": 150
+                },
+                {
+                    "id": 5686,
+                    "qty": 1,
+                    "qserviceId": 320
+                }
+            ],
+            "cstActions": [
+                "CANCEL",
+                "STOP",
+                "UPDATE"
+            ]
+        },
+        {
+            "statusRecord": {
+                "date": "2022-03-08T15:35:40.312336Z",
+                "actor": "CUSTOMER",
+                "actorId": 1002,
+                "action": "CREATE",
+                "status": "LIVE",
+                "display": "LIVE"
+            },
+            "id": 5166,
+            "offeredSum": 20000,
+            "placedDate": "2022-03-08T15:35:40Z",
+            "orderedDate": "2022-03-10T13:37:00Z",
+            "validDate": "2022-03-22T13:37:33Z",
+            "visits": 1,
+            "notes": "dfdfdf",
+            "address": {
+                "id": 1001,
+                "familyId": 1000,
+                "country": "GB",
+                "line1": "01",
+                "line2": "Princes Street",
+                "town": "Edinburgh",
+                "postcode": "EH2 2ER",
+                "lat": 55.953188,
+                "lng": -3.189556,
+                "timeOffset": 3600000,
+                "vrfs": [
+                    {
+                        "id": 10000,
+                        "type": "ADDRESS",
+                        "subjId": 1001,
+                        "holderId": 1001,
+                        "date": "2018-10-10T00:00:00Z",
+                        "notes": "Address verification for managing Kai's Org"
+                    }
+                ],
+                "businessOnly": false
+            },
+            "services": [
+                {
+                    "id": 5694,
+                    "qty": 1,
+                    "qserviceId": 10
+                },
+                {
+                    "id": 5693,
+                    "qty": 1,
+                    "qserviceId": 20
+                },
+                {
+                    "id": 5695,
+                    "qty": 2,
+                    "qserviceId": 30
+                },
+                {
+                    "id": 5696,
+                    "qty": 1,
+                    "qserviceId": 40
+                },
+                {
+                    "id": 5689,
+                    "qty": 1,
+                    "qserviceId": 100
+                },
+                {
+                    "id": 5690,
+                    "qty": 1,
+                    "qserviceId": 110
+                },
+                {
+                    "id": 5687,
+                    "qty": 1,
+                    "qserviceId": 120
+                },
+                {
+                    "id": 5688,
+                    "qty": 1,
+                    "qserviceId": 130
+                },
+                {
+                    "id": 5691,
+                    "qty": 1,
+                    "qserviceId": 140
+                },
+                {
+                    "id": 5692,
+                    "qty": 1,
+                    "qserviceId": 150
+                },
+                {
+                    "id": 5697,
+                    "qty": 1,
+                    "qserviceId": 320
+                }
+            ],
+            "cstActions": [
+                "CANCEL",
+                "STOP",
+                "UPDATE"
+            ]
+        },
+        {
+            "statusRecord": {
+                "date": "2022-03-08T15:37:21.299477Z",
+                "actor": "CUSTOMER",
+                "actorId": 1002,
+                "action": "CREATE",
+                "status": "LIVE",
+                "display": "LIVE"
+            },
+            "id": 5167,
+            "offeredSum": 12000,
+            "placedDate": "2022-03-08T15:37:21Z",
+            "orderedDate": "2022-03-11T15:36:00Z",
+            "validDate": "2022-04-05T14:36:11Z",
+            "visits": 1,
+            "notes": "dfdfdf",
+            "address": {
+                "id": 1002,
+                "familyId": 1000,
+                "country": "GB",
+                "line1": "3",
+                "line2": "Lupus St",
+                "line3": "Pimlico",
+                "town": "London",
+                "postcode": "SW1V 3AS",
+                "lat": 51.488736,
+                "lng": -0.134359,
+                "timeOffset": 3600000,
+                "vrfs": [
+                    {
+                        "id": 10002,
+                        "type": "ADDRESS",
+                        "subjId": 1002,
+                        "holderId": 1003,
+                        "date": "2018-10-10T00:00:00Z",
+                        "notes": "Address verification for managing Org"
+                    },
+                    {
+                        "id": 10007,
+                        "type": "ADDRESS",
+                        "subjId": 1002,
+                        "holderId": 1004,
+                        "date": "2018-10-10T00:00:00Z",
+                        "notes": "Basic criminal checks in Scotland"
+                    }
+                ],
+                "businessOnly": false
+            },
+            "services": [
+                {
+                    "id": 5698,
+                    "qty": 1,
+                    "qserviceId": 110
+                }
+            ],
+            "cstActions": [
+                "CANCEL",
+                "STOP",
+                "UPDATE"
+            ]
+        },
+        {
+            "statusRecord": {
+                "date": "2022-03-10T02:11:27.534986Z",
+                "actor": "CUSTOMER",
+                "actorId": 1002,
+                "action": "CREATE",
+                "status": "LIVE",
+                "display": "LIVE"
+            },
+            "id": 5169,
+            "offeredSum": 20000,
+            "placedDate": "2022-03-10T02:11:27Z",
+            "orderedDate": "2022-03-12T02:00:00Z",
+            "validDate": "2022-03-24T02:00:08Z",
+            "visits": 1,
+            "notes": "dfdfdf",
+            "address": {
+                "id": 1001,
+                "familyId": 1000,
+                "country": "GB",
+                "line1": "01",
+                "line2": "Princes Street",
+                "town": "Edinburgh",
+                "postcode": "EH2 2ER",
+                "lat": 55.953188,
+                "lng": -3.189556,
+                "timeOffset": 3600000,
+                "vrfs": [
+                    {
+                        "id": 10000,
+                        "type": "ADDRESS",
+                        "subjId": 1001,
+                        "holderId": 1001,
+                        "date": "2018-10-10T00:00:00Z",
+                        "notes": "Address verification for managing Kai's Org"
+                    }
+                ],
+                "businessOnly": false
+            },
+            "services": [
+                {
+                    "id": 5700,
+                    "qty": 1,
+                    "qserviceId": 30
+                }
+            ],
+            "cstActions": [
+                "CANCEL",
+                "STOP",
+                "UPDATE"
+            ]
+        }
+    ],
+    "pageable": {
+        "sort": {
+            "empty": true,
+            "unsorted": true,
+            "sorted": false
+        },
+        "offset": 0,
+        "pageSize": 10,
+        "pageNumber": 0,
+        "paged": true,
+        "unpaged": false
+    },
+    "totalPages": 1,
+    "totalElements": 4,
+    "last": true,
+    "size": 10,
+    "number": 0,
+    "sort": {
+        "empty": true,
+        "unsorted": true,
+        "sorted": false
+    },
+    "numberOfElements": 4,
+    "first": true,
+    "empty": false
+}

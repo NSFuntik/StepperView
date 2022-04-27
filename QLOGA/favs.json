@@ -1,0 +1,210 @@
+[{
+    "id": 1001,
+    "active": true,
+    "org": {
+        "id": 1001,
+        "name": "Kai's Cleaning agency (Edinburgh)",
+        "descr": "Dear All, this is my privately run cleaning business. We have been in operations since 2010 and now cover Edinburgh, Fife and Scottish Borders.",
+        "adminId": 1001,
+        "avatarId": 7009,
+        "active": true,
+        "individual": false,
+        "email": "org1@mailinator.com",
+        "nonForProfit": false,
+        "phoneCountry": "IL",
+        "phoneNumber": 539678894,
+        "admin": {
+            "id": 1001,
+            "fname": "Kai",
+            "sname": "STOKES",
+            "avatarId": 7001,
+            "address": {
+                "country": "GB",
+                "line1": "01",
+                "line2": "Princes Street",
+                "town": "Edinburgh",
+                "postcode": "EH2 2ER",
+                "vrfs": []
+            },
+            "vrfs": [{
+                "id": 10011,
+                "type": "PHONE",
+                "holderType": "PERSON",
+                "subjId": 1001,
+                "holderId": 1001,
+                "date": "2018-10-10T00:00:00Z",
+                "notes": "+44 1234567890"
+            }, {
+                "id": 10023,
+                "type": "ID",
+                "holderType": "PERSON",
+                "subjId": 1,
+                "holderId": 1001,
+                "date": "2018-10-10T00:00:00Z",
+                "notes": "UK PASSPORT"
+            }, {
+                "id": 10000,
+                "type": "ADDRESS",
+                "holderType": "PERSON",
+                "subjId": 1001,
+                "holderId": 1001,
+                "date": "2018-10-10T00:00:00Z",
+                "notes": "Address verification for managing Kai's Org"
+            }]
+        },
+        "addr": {
+            "id": 1001,
+            "familyId": 1000,
+            "country": "GB",
+            "line1": "01",
+            "line2": "Princes Street",
+            "town": "Edinburgh",
+            "postcode": "EH2 2ER",
+            "lat": 55.953188,
+            "lng": -3.189556,
+            "timeOffset": 3600000,
+            "vrfs": [{
+                "id": 10000,
+                "type": "ADDRESS",
+                "subjId": 1001,
+                "holderId": 1001,
+                "date": "2018-10-10T00:00:00Z",
+                "notes": "Address verification for managing Kai's Org"
+            }],
+            "businessOnly": false
+        },
+        "offTime": [{
+            "id": 10011,
+            "from": "2022-02-25T00:00:38Z",
+            "to": "2022-02-28T23:59:38Z"
+        }, {
+            "id": 10012,
+            "from": "2022-02-27T00:00:39Z",
+            "to": "2022-02-28T23:55:39Z"
+        }],
+        "workingHours": [{
+            "id": 10077,
+            "weekDay": "MONDAY",
+            "from": "08:00:00",
+            "to": "11:45:00"
+        }, {
+            "id": 10076,
+            "weekDay": "MONDAY",
+            "from": "14:05:00",
+            "to": "19:28:00"
+        }, {
+            "id": 10078,
+            "weekDay": "TUESDAY",
+            "from": "09:00:00",
+            "to": "21:00:00"
+        }, {
+            "id": 10079,
+            "weekDay": "WEDNESDAY",
+            "from": "09:00:00",
+            "to": "21:00:00"
+        }, {
+            "id": 10080,
+            "weekDay": "THURSDAY",
+            "from": "10:00:00",
+            "to": "15:00:00"
+        }, {
+            "id": 10081,
+            "weekDay": "FRIDAY",
+            "from": "10:00:00",
+            "to": "16:00:00"
+        }, {
+            "id": 10082,
+            "weekDay": "SATURDAY",
+            "from": "12:00:00",
+            "to": "14:00:00"
+        }, {
+            "id": 10083,
+            "weekDay": "SUNDAY",
+            "from": "09:00:00",
+            "to": "12:00:00"
+        }],
+        "verifications": [{
+            "id": 10008,
+            "type": "ORG_INSURANCE",
+            "holderType": "ORG",
+            "subjId": 1001,
+            "holderId": 1001,
+            "date": "2018-10-10T00:00:00Z",
+            "notes": "Hiscox professional indemnity insurance"
+        }],
+        "langs": ["ru", "en"],
+        "settings": {
+            "ORG_ADMIN_PPROFILE_FNAME": "initial",
+            "ORG_TEST_PARAMETER": "true",
+            "ORG_ADMIN_PPROFILE_EMAIL": "true"
+        },
+        "cal": {
+            "id": 1021,
+            "name": "1",
+            "type": "ORG",
+            "refId": 1001
+        }
+    },
+    "adminHres": {
+        "id": 1006,
+        "prvVrfs": [],
+        "workHours": [],
+        "offTime": [],
+        "assignments": []
+    },
+    "calloutCharge": true,
+    "cancelHrs": 4,
+    "enrollDate": "2022-02-18T00:07:53Z",
+    "services": [{
+        "catcher": true,
+        "conditions": [],
+        "unitCost": 0,
+        "unitTimed": false,
+        "timeNorm": 30,
+        "qserviceId": 20
+    }, {
+        "catcher": true,
+        "conditions": [],
+        "unitCost": 0,
+        "unitTimed": true,
+        "timeNorm": 60,
+        "qserviceId": 10
+    }],
+    "resourceIds": [],
+    "coverageZone": 75,
+    "rating": 4600,
+    "qty": 32,
+    "total": 481300,
+    "favs": [],
+    "ratings": [{
+        "rating": 4000,
+        "feedbackCategoryId": 1,
+        "categoryName": "Communications"
+    }, {
+        "rating": 4500,
+        "feedbackCategoryId": 2,
+        "categoryName": "Friendlyness"
+    }, {
+        "rating": 4500,
+        "feedbackCategoryId": 3,
+        "categoryName": "Timely arrival"
+    }, {
+        "rating": 5000,
+        "feedbackCategoryId": 4,
+        "categoryName": "Quality of service"
+    }, {
+        "rating": 5000,
+        "feedbackCategoryId": 5,
+        "categoryName": "Performance & effectiveness"
+    }],
+    "portfolio": [{
+        "id": 1021,
+        "name": "Best cleaning work"
+    }, {
+        "id": 1022,
+        "name": "Cleaning challenge accepted"
+    }],
+    "cancellations": 0,
+    "earned": 0
+}]
+

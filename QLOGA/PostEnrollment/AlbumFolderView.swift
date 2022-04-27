@@ -10,7 +10,10 @@ import SwiftUI
 
 struct AlbumFolderView: View {
 	// MARK: Internal
-
+    enum Focusable: Hashable {
+        case none
+        case row(id: String)
+    }
 	@Binding var provider: Provider
 	@Binding var folder: PortfolioFolder
 	@StateObject var viewModel = ViewModel()
@@ -298,4 +301,10 @@ struct ImagePicker: UIViewControllerRepresentable {
 	func makeCoordinator() -> Coordinator {
 		return Coordinator(completionHandler: completionHandler)
 	}
+}
+
+extension Set {
+    var toArray: Array<Any> {
+        return Array(self)
+    }
 }

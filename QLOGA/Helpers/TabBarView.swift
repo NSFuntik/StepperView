@@ -56,7 +56,7 @@ struct TabBarView_Previews: PreviewProvider {
                        underlineColor: .accentColor) { title, isSelected in
                 Text(title)
                     .font(.system(size: 19, weight: .regular, design: .rounded))
-                    .foregroundColor(isSelected ? .black : .lightGray)
+                    .foregroundColor(isSelected ? .black : .black)
             }
         }
     }

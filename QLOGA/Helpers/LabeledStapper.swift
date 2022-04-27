@@ -65,9 +65,11 @@ public struct LabeledStepper: View {
 
         HStack {
             VStack(alignment: .leading) {
-                Text(title)
-                    .foregroundColor(style.titleColor)
-                    .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                if title.count > 0 {
+                    Text(title)
+                        .foregroundColor(style.titleColor)
+                        .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                }
                 HStack(alignment: .bottom, spacing: 0) {
                     /// - Note: The action will be performed inside the `.onLongPressGesture` modifier.
                     Button() { } label: { Image(systemName: "minus") }
@@ -107,7 +109,7 @@ public struct LabeledStepper: View {
                 .background(.white)
                 //                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
 
-                .overlay(RoundedRectangle(cornerRadius: 8)
+                .padding(1).overlay(RoundedRectangle(cornerRadius: 8)
                     .stroke(lineWidth: 1.0)
                     .foregroundColor(Color.lightGray))
                 .frame(height: style.height)
@@ -115,10 +117,11 @@ public struct LabeledStepper: View {
             Spacer()
             VStack {
                 Spacer()
-
+                
                 Text(description)
                     .foregroundColor(.black)
                     .font(Font.system(size: 17, weight: .semibold, design: .rounded))
+                   
 
             }
         }

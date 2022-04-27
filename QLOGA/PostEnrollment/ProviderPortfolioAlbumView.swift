@@ -7,128 +7,130 @@
 
 import SwiftUI
 
-enum Focusable: Hashable {
-	case none
-	case row(id: String)
-}
 
 struct ProviderPortfolioAlbumView: View {
+    enum Focusable: Hashable {
+        case none
+        case row(id: String)
+    }
 	// MARK: Internal
 
-	@Binding var provider: Provider
-	@State var folders = Set<PortfolioFolder>()
+	@State var provider: Provider = testProvider
+    @State var folders: Set<PortfolioFolder> = []
 	@FocusState var focusedReminder: Focusable?
 	@FocusState var isFocused: Bool
 	@State var isFocusing: Bool = false
 	@State var createFolder = false
 	@State var isWholeSelected = false
 	@State var editMode: EditMode = .inactive
-	@Environment(\.presentationMode) var presentationMode
+//	@Environment(\.presentationMode) var presentationMode
 
 	var body: some View {
-		ScrollView(showsIndicators: false) {
-			VStack(alignment: .center) {
-				ForEach($provider.portfolioFolders, id: \.self) { folder in
-					Section {
-						NavigationLink { AlbumFolderView(provider: $provider, folder: folder).padding(.horizontal, 10) }
-                    label: {
-								VStack {
-									HStack {
-										if $editMode.wrappedValue.isEditing == true {
-											Image(systemName: folder.isPicked.wrappedValue ? "checkmark.circle.fill" : "circle")
-												.scaleEffect(1.3)
-												.foregroundColor(folder.isPicked.wrappedValue == true ? Color.accentColor : Color.pickerTitle)
-												.padding(.horizontal, 10)
-												.onTapGesture {
-													if folder.isPicked.wrappedValue == true {
-														folder.isPicked.wrappedValue = false
-														folders.remove(folder.wrappedValue)
-													} else {
-														folder.isPicked.wrappedValue = true
-														folders.insert(folder.wrappedValue)
-													}
-												}
-										}
-										Image(uiImage: (folder.images.first?.image.wrappedValue ?? UIImage(named: "FolderImage"))!)
-											.resizable()
-											.scaledToFill()
-											.frame(width: 100, height: 100, alignment: .center)
-											.clipShape(RoundedRectangle(cornerRadius: 10))
+        VStack {
+            ScrollView(showsIndicators: false) {
+                VStack(alignment: .center) {
+                    ForEach($provider.portfolioFolders, id: \.self) { folder in
+                        Section {
+                            NavigationLink { AlbumFolderView(provider: $provider, folder: folder).padding(.horizontal, 10) }
+                        label: {
+                            VStack {
+                                HStack {
+                                    if $editMode.wrappedValue.isEditing == true {
+                                        Image(systemName: folder.isPicked.wrappedValue ? "checkmark.circle.fill" : "circle")
+                                            .scaleEffect(1.3)
+                                            .foregroundColor(folder.isPicked.wrappedValue == true ? Color.accentColor : Color.pickerTitle)
+                                            .padding(.horizontal, 10)
+                                            .onTapGesture {
+                                                if folder.isPicked.wrappedValue == true {
+                                                    folder.isPicked.wrappedValue = false
+                                                    folders.remove(folder.wrappedValue)
+                                                } else {
+                                                    folder.isPicked.wrappedValue = true
+                                                    folders.insert(folder.wrappedValue)
+                                                }
+                                            }
+                                    }
+                                    Image(uiImage: (folder.images.first?.image.wrappedValue ?? UIImage(named: "FolderImage"))!)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 100, height: 100, alignment: .center)
+                                        .clipShape(RoundedRectangle(cornerRadius: 10))
 
-										VStack {
-											Spacer()
-											if $isFocusing.wrappedValue == true, folder.isFocused.wrappedValue {
-												TextField(folder.title.wrappedValue, text: folder.title)
-													.font(Font.system(size: 20, weight: .regular, design: .rounded))
-													.foregroundColor(Color.infoBlue.opacity(0.9))
-													.multilineTextAlignment(.leading)
-													.lineLimit(1)
-													.tag(folder.id)
-													.focused($isFocused, equals: folder.isFocused.wrappedValue)
-													.focused($focusedReminder, equals: .row(id: folder.id))
-													.onAppear {
-														$isFocused.wrappedValue = true
-													}
-													.onSubmit {
-														$isFocusing.wrappedValue = false
-														folder.isFocused.wrappedValue = false
-													}
-											} else {
-												HStack {
-													Text(folder.title.wrappedValue)
-														.foregroundColor(Color.black.opacity(0.9))
-														.multilineTextAlignment(.leading)
-														.font(Font.system(size: 20, weight: .regular, design: .rounded))
-														.lineLimit(1)
-														.padding(5)
-													Spacer()
-												}
-											}
-											Spacer()
-											HStack {
-												Text(folder.images.count.description + " items")
-													.foregroundColor(Color.secondary.opacity(0.9))
-													.multilineTextAlignment(.leading)
-													.font(Font.system(size: 17, weight: .regular, design: .rounded))
-													.lineLimit(1)
-													.padding(5)
-												Spacer()
-											}
-											Spacer()
-										}
-										Spacer()
-										Image(systemName: "chevron.right")
-											.foregroundColor(Color.accentColor)
-											.font(Font.system(size: 20, weight: .regular, design: .rounded))
+                                    VStack {
+                                        Spacer()
+                                        if $isFocusing.wrappedValue == true, folder.isFocused.wrappedValue {
+                                            TextField(folder.title.wrappedValue, text: folder.title)
+                                                .font(Font.system(size: 20, weight: .regular, design: .rounded))
+                                                .foregroundColor(Color.infoBlue.opacity(0.9))
+                                                .multilineTextAlignment(.leading)
+                                                .lineLimit(1)
+                                                .tag(folder.id)
+                                                .focused($isFocused, equals: folder.isFocused.wrappedValue)
+                                                .focused($focusedReminder, equals: .row(id: folder.id))
+                                                .onAppear {
+                                                    $isFocused.wrappedValue = true
+                                                }
+                                                .onSubmit {
+                                                    $isFocusing.wrappedValue = false
+                                                    folder.isFocused.wrappedValue = false
+                                                }
+                                        } else {
+                                            HStack {
+                                                Text(folder.title.wrappedValue)
+                                                    .foregroundColor(Color.black.opacity(0.9))
+                                                    .multilineTextAlignment(.leading)
+                                                    .font(Font.system(size: 20, weight: .regular, design: .rounded))
+                                                    .lineLimit(1)
+                                                    .padding(5)
+                                                Spacer()
+                                            }
+                                        }
+                                        Spacer()
+                                        HStack {
+                                            Text(folder.images.count.description + " items")
+                                                .foregroundColor(Color.secondary.opacity(0.9))
+                                                .multilineTextAlignment(.leading)
+                                                .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                                                .lineLimit(1)
+                                                .padding(5)
+                                            Spacer()
+                                        }
+                                        Spacer()
+                                    }
+                                    Spacer()
+                                    Image(systemName: "chevron.right")
+                                        .foregroundColor(Color.accentColor)
+                                        .font(Font.system(size: 20, weight: .regular, design: .rounded))
 
-									}.frame(height: 100, alignment: .center).padding(10)
-									Divider().padding(.horizontal, 5).padding(.top, -4)
-								}
-							}
-					}.frame(height: 120, alignment: .center)
-						.contextMenu {
-							Button {
-								folder.isFocused.wrappedValue = true
-								focusedReminder = .row(id: folder.id)
-								$isFocused.wrappedValue = true
-								$isFocusing.wrappedValue = true
-							} label: {
-								Label("Rename", systemImage: "pencil")
-							}
+                                }.frame(height: 100, alignment: .center).padding(10)
+                                Divider().padding(.horizontal, 5).padding(.top, -4)
+                            }
+                        }
+                        }.frame(height: 120, alignment: .center)
+                            .contextMenu {
+                                Button {
+                                    folder.isFocused.wrappedValue = true
+                                    focusedReminder = .row(id: folder.id)
+                                    isFocused = true
+                                    isFocusing = true
+                                } label: {
+                                    Label("Rename", systemImage: "pencil")
+                                }
 
-							Button {
-								$provider.portfolioFolders.wrappedValue = $provider.portfolioFolders.wrappedValue.filter { $0.id != folder.id }
-							} label: {
-								Label("Delete", systemImage: "trash")
-							}
-						}
-				}.onDelete { _ in $provider.portfolioFolders.wrappedValue = $provider.portfolioFolders.wrappedValue.filter { $0.isPicked != true }
-				}
-			}
-		}
+                                Button {
+                                    provider.portfolioFolders = provider.portfolioFolders.filter { $0.id != folder.id }
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
+                            }
+                    }.onDelete { _ in provider.portfolioFolders = provider.portfolioFolders.filter { $0.isPicked != true }
+                    }
+                }
+            }
+        }
 		.alert(isPresented: $createFolder, TextAlert(title: "Enter folder's name", placeholder: "New folder", accept: "Accept", cancel: "Cancel") { title in
 
-			$provider.portfolioFolders.wrappedValue.append(PortfolioFolder(title: title ?? "New folder", images: [], isFocused: false))
+			provider.portfolioFolders.append(PortfolioFolder(title: title ?? "New folder", images: [], isFocused: false))
 		})
 
 		.toolbar {
@@ -166,10 +168,12 @@ struct ProviderPortfolioAlbumView: View {
 						.padding(5)
 				}
 			}
-		}.environment(\.editMode, $editMode)
-		.animation(.interactiveSpring(), value: $editMode.wrappedValue)
+		}
+        .environment(\.editMode, $editMode)
+		.animation(.interactiveSpring(), value: editMode)
 		.navigationBarTitleDisplayMode(.inline)
 		.navigationBarTitle("Albums")
+
 	}
 
 	// MARK: Private
@@ -214,7 +218,7 @@ extension EditMode {
 struct ProviderPortfolioAlbumView_Previews: PreviewProvider {
 	static var previews: some View {
 		NavigationView {
-			ProviderPortfolioAlbumView(provider: .constant(testProvider))
+			ProviderPortfolioAlbumView()//provider: .constant(testProvider))
 		}.previewDevice("iPhone 6s")
 	}
 }

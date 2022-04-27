@@ -124,6 +124,11 @@ struct VisitsScedulerView: View {
                         .multilineTextAlignment(.leading)
                         .font(Font.system(size: 17, weight: .regular, design: .rounded))
                 }
+
+            }.padding(20)
+            Spacer(minLength: 100)
+        }.navigationBarTitle("Visits").navigationBarTitleDisplayMode(.inline)
+            .toolbar {
                 HStack {
                     Spacer()
                     Button {
@@ -136,9 +141,7 @@ struct VisitsScedulerView: View {
                             .font(Font.system(size: 17, weight: .regular, design: .rounded))
                     }
                 }
-            }.padding(20)
-            Spacer(minLength: 100)
-        }.navigationBarTitle("Visits").navigationBarTitleDisplayMode(.inline)
+            }
     }
 
     var weekView: some View {

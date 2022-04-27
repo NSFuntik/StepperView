@@ -1,0 +1,162 @@
+[
+    {
+        "name": "general",
+        "icon": "GeneralQuestionsIcon",
+        "title": "General questions",
+        "description": "",
+        "questions": [
+            {
+                "q": "How will QLOGA use my data?",
+                "a": "QLOGA will never share any user data with third parties that are not directly related to QLOGA provided services. QLOGA will never share or sell any user data with third parties without explicit consent from the users.\n"
+            },
+            {
+                "q": "What if I dont add any relatives?",
+                "a": "There is nothing wrong with registering just by yourself. That will be 1 person family.\nYou can still add your friends though!\n"
+            }
+        ]
+    },
+    {
+        "name": "p4p",
+        "icon": "GeneralServicesQuestionsIcon",
+        "title": "General services questions",
+        "description": "",
+        "questions": [
+            {
+                "q": "What are service units?",
+                "a": "A unit of a particular service means one service. For example, a 30-minute dog walking service for one dog or 1 academic hour (45 minutes) or 1 astronomical hour (just an hour or 60 minutes). Some service units could be ‘timed’ and measured in minutes, days, hours, minutes), others are untimed and service units will have a time norm set.\n"
+            },
+            {
+                "q": "What is a time norm?",
+                "a": "Time norm is an estimation (not guaranteed) of the time, in minutes, it takes the provider to deliver 1 unit of a service. For example, if a haircut is provided to 1 person, the norm time could be the 30 minutes it takes to complete the job. \n\nCOLOGA will set a recommended time norm for all the services. However, the provider can set the time norm in their services catalogue. They can then amend this for each individual order. \n"
+            },
+            {
+                "q": "What is a provider callout charge?",
+                "a": "A callout charge is the fee paid to a provider if the customer is not home at the time agreed with the provider. The fee covers the time the provider spent in travel to the location and the losses incurred due to the inability to provide services to other customers. \nCallout charge is calculated as the minimum cost of one unit  of the ordered service. For example, if the order is for walking 3 dogs and the total price of walking 3 dogs for 30mins is £60, then the call out fee for the missed appointment will be £20, one unit  service (in this case one dog). If there was more than one service ordered with different unit prices, then the lower costing service will be used in the calculation for the call out charge. \nProviders can choose to opt out of receiving the callout charge which is usually set in the order. \n"
+            },
+            {
+                "q": "What is ID verification and why is it needed?",
+                "a": "Identity verification is one of the ways we build trust between providers and customers. QLOGA’s services are provided at a customer’s home address, and our customers have a right to know the identity of the service provider coming to their home. By verifying their ID, QLOGA can also exclude any illegitimate or unscrupulous service providers. \n\nFor some of the services, such as elderly care, identity verification is also a legal requirement for providers. When a customer verifies their identity, we are looking out for the safety of our service providers who could otherwise put themselves in a vulnerable situation by meeting an unidentified stranger at a private address. \n"
+            },
+            {
+                "q": "What is address verification and why is it needed?",
+                "a": "Address verification is one of the ways we build trust between providers and customers. QLOGA’s services are provided at a customer’s home address, so our customers need to prove they live where they say they do. This also prevents any confusion over the address the service provider will need to travel too. \n\nWhen a customer verifies their address, we are looking out for the safety of our service providers who could otherwise put themselves in a vulnerable situation by meeting a stranger at an unconfirmed address. By verifying their address, QLOGA can exclude any illegitimate or unscrupulous customers.\n"
+            }
+        ]
+    },
+    {
+        "name": "customer_quickstart",
+        "icon": "CustomerQuickstartIcon",
+        "title": "Customer Quickstart",
+        "description": "",
+        "questions": [
+            {
+                "q": "What services are available in QLOGA?",
+                "a": "There are a dozen of different types of services on QLOGA, so if  you can think of any service needed for the home we can usually help. To browse available services, scroll through the different categories and see service categories in QLOGA, each of which contains some related services, each service is then parametrized by providers with service conditions.\n"
+            },
+            {
+                "q": "I would like to order some of the QLOGA services. What should I do?",
+                "a": "There are two ways to order services on QLOGA:\n - Publish your ‘Open request’ on QLOGA for providers to respond to with their quotes. You can then choose to accept or negotiate any quote you receive.\n - By searching for a provider on QLOGA and submitting a ‘Direct inquiry’ about their services.\n\nSearch for a provider by either:\n- Clicking on the ‘Services’ menu, selecting the service category, and then the service.\n- After the ‘Customer’ dashboard is selected, click ‘Provider search’ in the menu at the top of the page, and then set your search filters.\n- View your favourite providers in the ‘Favourites’ on the top menu.\n"
+            },
+            {
+                "q": "I would like to negotiate the scope and price of a service, what do I do (+)?",
+                "a": "The scope of what QLOGA providers do is set in the service definition which includes description, subject of service and exclusions.\nNon-contractual specifics of the order could be described in the order notes on both sides, provider and customer.\nTo manamage customer and provider expectations you can also add pictures to the order.  \nIf you order an hourly service, providers could be flexible to deliver what you need, as long as their time is paid.\n"
+            },
+            {
+                "q": "Can I order a fews visits, not just one, from the service provider?",
+                "a": "Yes, you can. Simply click on <img src=\"https://pub.qloga.com/media/repeated-button.png\" alt=\"Repeated\" width=\"100\"/> button and set up your schedule.\n"
+            },
+            {
+                "q": "How can we lower the risk for COVID? ",
+                "a": "Through QLOGA, you can have services delivered to your home rather than leave the house and expose yourself to more people in shopping centers, shops and public transportation. This means a reduced risk of spreading or contracting COVID and multiple other infectious diseases. \n\nQLOGA recommends that all customers and service providers follow the latest COVID guidelines and restrictions provided by the NHS:  \n* [NHS Test and Trace in the workplace](https://www.gov.uk/guidance/nhs-test-and-trace-workplace-guidance)\n* [Guidance for employers](https://www.gov.uk/guidance/nhs-test-and-trace-workplace-guidance#guidance-for-employers)\n* [Guidance for workers](https://www.gov.uk/guidance/nhs-test-and-trace-workplace-guidance#guidance-for-workers)\n"
+            }
+        ]
+    },
+    {
+        "name": "customer",
+        "icon": "GeneralQuestionsIcon",
+        "title": "Customer F.A.Q.",
+        "description": "",
+        "questions": [
+            {
+                "q": "Why should customers use QLOGA to order services?",
+                "a": "1. **Convenient access to our database of service providers**  \nUnlike other services, QLOGA does not sell customer or provider contact details, our small fee is simply subtracted from the order once the services have been delivered and approved.\n\n2. **Realtime notifications on provider quotes and order status changes**  \nWhen a customer publishes a request all providers whose services match the request in their location are automatically notified so they can offer their quotes.\n\n5. **Standardized services contract and managed delivery process**  \nQLOGA value proposition is based on managed service delivery process. Through standardized order statuses and actions there are quality controls which help both parties ensure the service delivery is mutually satisfactory. For customers the protection measures are:\n - When the order is accepted the funds are not withdrawn from the customers credit card, only blocked.\n - Funds are only withdrawn when the customer approves the order or when callout charge conditions are met.\n - Efficient and professional managed dispute procedure.\n\n6. **Benefit from feedback and ratings from other customers**  \nBefore stepping into a digital contract with providers, customers can check reviews and ratings from other customers.\n\n7. **Provider verifications**  \nOur provider verification mechanisms build trust between customers and service providers, helping customers to verify the identity of the provider, and the providers confirm the customer lives at the agreed address.\n\n8. **All our services are available from the comfort and safety of your home**  \nSave time on travel and prevent the spread of COVID by avoiding busy streets, shops and shopping centres.\n"
+            },
+            {
+                "q": "Can I pay with cash?  ",
+                "a": "QLOGA’s platform and processes support card payments only.  \n"
+            },
+            {
+                "q": "How can I reward providers for their good service?",
+                "a": "Aside from tipping, you can also pay for parking their car and leave a positive review of your service provider on the QLOGA website.\n"
+            },
+            {
+                "q": "How can I pay a tip?",
+                "a": "You can pay a tip in cash to the service provider before they leave your home. However, we cannot process tips as part of the payment.\n"
+            },
+            {
+                "q": "If the provider doesn’t arrive in time, what should I do?",
+                "a": "Firstly, get in touch with providers through QLOGA’s web chat and let them know that you are waiting for them.\n\nSecondly, if the provider does not arrive within 15 minutes of the agreed time you can cancel the order by pressing the ‘PROVIDER NOT ARRIVED’ button. \n\nIn cases when the provider has not arrived for 1 visit out of many, the order remains open. If there are no other services ordered then the order is terminated and the funds reserved earlier are unblocked and made available for the customer on their credit card.\n"
+            }
+        ]
+    },
+    {
+        "name": "provider_quickstart",
+        "icon": "ProviderQuickstartIcon",
+        "title": "Provider Quickstart",
+        "description": "",
+        "questions": [
+            {
+                "q": "I would like to provide services through QLOGA. What should I do?",
+                "a": "First, you will need to set up your business parameters:\n\n - You need to add **a description of your business** and your contact details.\n\n - You may want to create one or two **media albums** to house pictures then be added to your provider profile (**portfolio**).\n\n - You need to choose **the services you will provide**, price of your services and set any conditions.\n\n - Set up your **working hours and off time** go to the QLOGA business corner, by default you will be set as always available.\n\nOnce you are set up, you will be able to review and respond to customer open requests with your quotes. You will also be automatically notified when relevant customer open requests are added. \n"
+            },
+            {
+                "q": "How do I differentiate myself from thousands of others (+)?",
+                "a": "There are a few areas where each provider can make a difference:\n - **Description**  \n   Do not hesitate to describe yourself and your services at best you can. Highlight your strength, your speciality, your qualifications and your past experience. Description of your business is your sales pitch.\n   \n - **Business Avatar**  \n   Add good looking photo of you or choose a nice picture or logo which would help you to stand out.\n   \n - **Portofolio pictures**  \n   Take the pictures of how your customers benefited from your services. \"BEFORE\" you come and \"AFTER\" you have done your job will help a lot. Almost every single customer will look at your portfolio.\n\n - **Service cost and conditions**  \n   Carefully chose service conditions and wisely set cost of your services. \n\n - **Feedback and rating**\n   When delivering services bear in mind that the customer (as well as yourself) will leave feedback and set ratings. \n   Think positively, do your best and keep your customers happy.\n   Rating and feedbacks is another critical factor for the customers in their decision making process.\n"
+            },
+            {
+                "q": "How do I find customers?",
+                "a": "Use the ‘Customer search’ option on the top menu. After you set your services you will also be automatically notified if the customers publish new ‘Open requests’ for any of the services you offer.\n"
+            },
+            {
+                "q": "How can I set my own availability hours?",
+                "a": "You can set daily working hours per week and you can also set holidays and off time, but by default you will be set to always available. To set up your working hours and off time by clicking ‘User & family’, ‘Your account’ and then accessing the ‘Business corner’ in the top menu. \n"
+            },
+            {
+                "q": "How can we lower the risk for COVID? ",
+                "a": "Through QLOGA, you can have services delivered to your home rather than leave the house and expose yourself to more people in shopping centers, shops and public transportation. This means a reduced risk of spreading or contracting COVID and multiple other infectious diseases. \n\nQLOGA recommends that all customers and service providers follow the latest COVID guidelines and restrictions provided by the NHS:  \n* [NHS Test and Trace in the workplace](https://www.gov.uk/guidance/nhs-test-and-trace-workplace-guidance)\n* [Guidance for employers](https://www.gov.uk/guidance/nhs-test-and-trace-workplace-guidance#guidance-for-employers)\n* [Guidance for workers](https://www.gov.uk/guidance/nhs-test-and-trace-workplace-guidance#guidance-for-workers)\n"
+            }
+        ]
+    },
+    {
+        "name": "provider",
+        "icon": "ProviderFAQIcon",
+        "title": "Provider F.A.Q.",
+        "description": "",
+        "questions": [
+            {
+                "q": "Why is providing services via QLOGA better than alone?",
+                "a": "1. **All you need is a £1 investment to start**  \nIdentity and other verifications cost £1, but other than that all you need nothing else to start working.\n\n2. **Credit cards - no need for payment terminals**  \nAccepting credit cards as a business requires countless meetings with the bank to set up, with QLOGA you can start accepting credit cards immediately through our safe and hassle-free system with no need for extra costs like mobile payment terminals.\n\n3. **Guaranteed funds reservation**  \nWhen the order is ‘Accepted’ customer funds are reserved on their credit cards. Although this is not payment, it demonstrates the customer’s commitment. When the ordered services are delivered and the customer clicks ‘Approve’ it kicks off the funds transfer chain.\n\n4. **Callout charge**  \nWith QLOGA providers can charge a callout fee if the customer is not at home at the correct time and does not respond to provider correspondence.\n\n5. **Allocations and orders management**\nWith QLOGA, providers can maintain their work calendar and see all scheduled and accepted orders with ease. \n\n6. **Free access to customer database**  \nUnlike others, QLOGA does not charge providers for customer leads. The customer’s contact details are only shared after the order is ‘Accepted’.\n\n7. **Customer insight - verifications, rating, reviews**\nBoth customers and providers exchange their feedback and ratings. Those are then made available for all users to see.\n\n8. **Standardised services contracts - well known expectations on both sides mean better mutual satisfaction**\nAll services provided through QLOGA are standardised so the expectations are known by all parties, and the managed service provisioning process protects both parties of the digital contract.For providers protection measures are:\n - When the order is accepted the funds are not withdrawn from the credit card but only blocked.\n - Funds are withdrawn either when the customer clicks ‘Approve’s on the order or when callout charge conditions are met by the provider.\n - Managed dispute procedure.\n\n9. **Fairness at heart - UK minimum wage is guaranteed**  \nQLOGA follows UK Government regulations on minimum wage, these restrictions stop anyone creating competition from below the UK minimum wage thresholds.\n"
+            },
+            {
+                "q": "When do I get my money after the customer approves the order?",
+                "a": "After the service has been delivered, the customer must approve the order. A request for the money, currently reserved but still in the customer’s account, will be issued to their bank. When the funds arrive in the QLOGA account, we will subtract a small processing fee and send you the funds on the next working day. The exact time it takes for the funds to be transferred from the customer to you will depend on the banks’ transfer speeds.\n"
+            },
+            {
+                "q": "How much will I have to pay QLOGA for connecting me with customers?",
+                "a": "**£0.00**   \nUnlike other websites, QLOGA does not charge a subscription fee, or sell leads to providers. Only requiring a £1 startup fee. You will then pay us once your service have been successfully delivered and the customer clicks ‘Approve’. We will then take a small XX% processing fee. \n"
+            },
+            {
+                "q": "How do I provide a service which is not part of QLOGA services catalogue?",
+                "a": "You can and you cannot. If the service you provide falls under one of the categories on QLOGA, the team may be happy to add another service into the catalogue. However, we may expect you to cover the cost of the legal work involved in adding a new service. If you are happy to pay for this work, please get in touch with the QLOGA team.\n"
+            },
+            {
+                "q": "Can customers pay a provider with cash?",
+                "a": "All services on QLOGA must be paid with credit cards. We do not support cash payments but you can, of course, accept cash tips from your customers.\n"
+            },
+            {
+                "q": "Can I set my own time norm for my services?",
+                "a": "Yes. Providers can either set the time norm of their service(s) and also adjust the time norm in their orders."
+            }
+        ]
+    }
+]

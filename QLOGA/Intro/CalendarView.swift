@@ -15,7 +15,7 @@ import UIKit
 enum NewBottomSheetPosition: CGFloat, CaseIterable {
     case middle = 0.2
     case bottom = 0.1
-    case hidden = 0.0
+//    case hidden = 0.0
 }
 
 struct CalendarPickerView: View {

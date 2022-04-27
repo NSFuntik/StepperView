@@ -8,7 +8,8 @@
 import CoreLocation
 import MapKit
 import SwiftUI
-#if DEBUG
+import UIKit
+#if targetEnvironment(simulator)
 
 #else
 import GoogleMaps
@@ -16,30 +17,33 @@ import GoogleMaps
 #endif
 
 struct GoogleMapView: View {
-    @Binding var providers: [Address]
+    @Binding var providers: [Address]?
+//    @Binding var customers: [Address]?
+
+//    @Binding var pickerCstAddress: CstAddress
     @Binding var pickedAddress: Address
     @State var isFiltersPresented = false
     @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0), span: .init())
 
     var body: some View {
         VStack {
-#if DEBUG
+#if targetEnvironment(simulator)
             Map(coordinateRegion: $region).edgesIgnoringSafeArea(.all)
 #else
-            GoogleMapsView(pickedAddress: $pickedAddress.wrappedValue, providers: providers).edgesIgnoringSafeArea(.all)
+            GoogleMapsView(pickedAddress: $pickedAddress.wrappedValue, providers: providers!).edgesIgnoringSafeArea(.all)
 #endif
 
         }.toolbar {
-            if providers.count > 0 {
+            if providers?.count ?? 0 > 0 {
                 Button {
                     isFiltersPresented.toggle()
                 } label: {
                     Image("FilterIcon")
                         .resizable()
-                        .frame(width: 30, height: 30, alignment: .center)
+                        .renderingMode(.template)
                         .aspectRatio(contentMode: .fit)
-                        .accentColor(Color.accentColor)
                         .foregroundColor(.accentColor)
+                        .frame(width: 30, height: 30, alignment: .trailing)
                         .padding(5)
                 }
             }
@@ -58,31 +62,36 @@ struct GoogleMapView_Previews: PreviewProvider {
                       pickedAddress: .constant(Address(postcode: "EH2 2ER", town: "Edinburgh", street: "Princes Street", building: "09")))
     }
 }
-#if !DEBUG
+#if !targetEnvironment(simulator)
 
 struct GoogleMapsView: UIViewRepresentable {
     private let zoom: Float = 15.0
     @ObservedObject var locationManager = LocationManager()
+    
     var pickedAddress: Address
     var providers: [Address]
     func makeUIView(context: Self.Context) -> GMSMapView {
         let camera = GMSCameraPosition.camera(withLatitude: locationManager.latitude, longitude: locationManager.longitude, zoom: zoom)
         let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
         mapView.isMyLocationEnabled = true
-
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            mapView.animate(toLocation: CLLocationCoordinate2D(latitude: CLLocationDegrees(pickedAddress.latitude), longitude: CLLocationDegrees(pickedAddress.longitude)))
+        }
         return mapView
     }
 
     func updateUIView(_ mapView: GMSMapView, context: Context) {
-        mapView.animate(toLocation: CLLocationCoordinate2D(latitude: CLLocationDegrees(pickedAddress.latitude), longitude: CLLocationDegrees(pickedAddress.longitude)))
+
         if providers != [] {
             for provider in providers {
                 let marker: GMSMarker = .init()
                 marker.position = CLLocationCoordinate2D(latitude: provider.latitude, longitude: provider.longitude)
 
-                marker.title = provider.total
-                marker.snippet = "Welcome to \(provider.town)"
-                marker.icon = UIImage(named: "MapPoint")
+                marker.title = "\(provider.country)"
+                marker.snippet = "\(provider.building), \(provider.street), \(provider.town)"
+//                marker.snippet = "Welcome to \(provider.town)"
+
+                marker.icon = UIImage(named: "MapSymbol")
                 marker.map = mapView
             }
         }
@@ -93,6 +102,7 @@ struct GoogleMapsView: UIViewRepresentable {
         marker.icon = UIImage(named: "MapPoint")
         marker.map = mapView
         mapView.selectedMarker = marker
+
     }
 }
 

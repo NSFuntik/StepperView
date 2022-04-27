@@ -12,10 +12,10 @@ struct ProviderPreviewsView: View {
     init(reviews: [Review]) {
         self.reviews = reviews
         UITableView.appearance().separatorColor = UIColor.clear
-        UITableView.appearance().tintColor = UIColor(named: "AccentColor")
+        UITableView.appearance().tintColor = UIColor.clear
+        UITableView.appearance().sectionIndexColor = UIColor.clear
+
     }
-
-
     var reviews: [Review]
 
     var body: some View {

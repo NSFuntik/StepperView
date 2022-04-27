@@ -10,7 +10,10 @@ import SwiftUI
 // MARK: - ProviderPortfolioView
 
 struct ProviderPortfolioView: View {
-    private var numberofImages = testProvider.portfolio.images.count
+    @State var provider: Provider = testProvider
+    private var numberofImages: Int {
+        provider.portfolio.images.count
+    }
     private let timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
     @State var image = Image("PortfolioImage0")
     @State var showImageViewer = false
@@ -89,7 +92,7 @@ struct ProviderPortfolioView: View {
                 }
             }.frame(width: UIScreen.main.bounds.width, height: 45)
             ScrollView {
-                Text(testProvider.portfolio.description)
+                Text(provider.portfolio.description)
                     .font(Font.system(size: 17, weight: .light, design: .rounded))
                     .frame(width: UIScreen.main.bounds.width - 30)
                     .padding(5)

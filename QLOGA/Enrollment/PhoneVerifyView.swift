@@ -16,9 +16,9 @@ struct PhoneVerifyView: View {
         case pinCode
     }
 
+    @FocusState private var focusedField: Field?
     @Binding var phone: String
     @State var isInheritedSettingsView = false
-    @FocusState private var focusedField: Field?
     @FocusState var phoneIsFocused: Bool
     @FocusState private var isCountryCodeFocused: Bool
     @FocusState private var isPhoneFocused: Bool
@@ -309,20 +309,20 @@ struct PhoneVerifyView: View {
 }
 
 extension Text {
-    func withDoneButtonStyles(backColor: Color, accentColor: Color, isWide: Bool = true, width: CGFloat = UIScreen.main.bounds.width - 30, height: CGFloat = 50) -> some View {
+    func withDoneButtonStyles(backColor: Color, accentColor: Color, isWide: Bool = true, width: CGFloat = UIScreen.main.bounds.width - 30, height: CGFloat = 50, isShadowOn: Bool = true) -> some View {
         self.lineLimit(1)
-            .shadow(color: Color.secondary, radius: 0.5, x: 0.5, y: 0.5)
+            .shadow(color: isShadowOn ? Color.secondary : .clear, radius: 0.5, x: 0.5, y: 0.5)
             .font(.system(size: 20, weight: .regular, design: .rounded))
             .foregroundColor(accentColor)
             .frame(width: width, height: height)
             .background(RoundedRectangle(cornerRadius: 25).fill(backColor))
             .clipShape(RoundedRectangle(cornerRadius: 25))
-            .shadow(color: Color.lightGray, radius: 4, x: -4.5, y: -4.5)
+            .shadow(color: isShadowOn ? Color.lightGray : .clear, radius: 4, x: -4.5, y: -4.5)
             .clipShape(RoundedRectangle(cornerRadius: 25))
             .overlay(RoundedRectangle(cornerRadius: 25)
                 .stroke(lineWidth: 2.0)
                 .foregroundColor(accentColor)
-                .shadow(color: .secondary.opacity(0.5), radius: 3, y: 3))
+                .shadow(color: isShadowOn ? Color.secondary.opacity(0.5) : .clear, radius: 3, y: 3))
     }
 }
 
