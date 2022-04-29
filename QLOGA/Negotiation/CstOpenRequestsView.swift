@@ -13,7 +13,7 @@ struct CstOpenRequestsView: View {
     @State var isLimited = true
     @State var tags: Set<String> = []
     @ObservedObject var CategoryVM: CategoriesViewModel
-    @EnvironmentObject var requestsController: RequestViewModel
+    @State var requestsController = RequestViewModel.shared
     @EnvironmentObject var tabController: TabController
     @Environment(\.dismiss) var dismiss
 
@@ -30,7 +30,7 @@ struct CstOpenRequestsView: View {
                         NavigationLink(destination: CstCreateRequestView(categories: CategoryVM.categories.flatMap({cat in
                             cat.services.filter({$0.unitsCount > 0})}))
                             .environmentObject(CategoryVM)
-                            .environmentObject(requestsController)
+//                            .environmentObject(requestsController)
                             .environmentObject(tabController)
                         ) {
                             VStack {

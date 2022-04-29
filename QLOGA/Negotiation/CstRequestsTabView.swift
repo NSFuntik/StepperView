@@ -12,7 +12,7 @@ class CategoriesViewModel: ObservableObject {
     @StateObject var CategoryVM = CategoriesViewModel()
     var defaultCategories: Categories
 
-    static let shared = CategoriesViewModel()
+    public static var shared = CategoriesViewModel()
 
     @Published var pickedService: Category.ID {
         willSet {
@@ -32,7 +32,7 @@ struct CstRequestsTabView: View {
     @Binding var provider: Provider
     @Binding var customer: Customer
     @StateObject var CategoryController = CategoriesViewModel.shared
-    @StateObject var requestsController = RequestViewModel()
+    @StateObject var requestsController = RequestViewModel.shared
     @EnvironmentObject var tabController: TabController
 
     var body: some View {
@@ -41,17 +41,17 @@ struct CstRequestsTabView: View {
                 if requestsController.requests.count > 0 {
                     ScrollView {
                         LazyVStack(spacing: 15) {
-                            ForEach($requestsController.requests.projectedValue, id: \.self) { request in
-                        Section {
-                            RequestsCell(request: request)
-                                .environmentObject(CategoryController.CategoryVM)
-                                .environmentObject(requestsController)
-                                .tag(request.wrappedValue.id)
-                                .padding(.horizontal, 10)
-                            if requestsController.requests.last!.id == request.id.wrappedValue {
-                                Spacer(minLength: 100)
-                            }
-                        }
+                            ForEach($requestsController.requests, id: \.self) { request in
+                                Section {
+                                    RequestsCell(request: request)
+                                        .environmentObject(CategoryController.CategoryVM)
+                                        .environmentObject(requestsController)
+                                        .tag(request.wrappedValue.id)
+                                        .padding(.horizontal, 10)
+                                    if requestsController.requests.last!.id == request.id.wrappedValue {
+                                        Spacer(minLength: 100)
+                                    }
+                                }
                             }
 
                         }.padding(.top, 15)
@@ -83,7 +83,7 @@ struct CstRequestsTabView: View {
                                         Text("Create Open Request")
                                             .withDoneButtonStyles(backColor: .Green, accentColor: .white)
                                     }
-                            }.zIndex(1)
+                                }.zIndex(1)
                         }
                     }
                 }.frame(height: 50)
@@ -190,8 +190,8 @@ struct RequestsCell: View {
                                              tags:
                                 .constant(Set(getCategoriesFor(request: request)
                                     .frequency.map({ category, count in
-                                                    return "\(category.title): \(count)"
-                                                }))))
+                                        return "\(category.title): \(count)"
+                                    }))))
                         .disabled(true)
                         HStack {
                             Spacer()

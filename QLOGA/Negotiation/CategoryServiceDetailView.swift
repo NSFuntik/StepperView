@@ -9,118 +9,120 @@ import SwiftUI
 
 struct CategoryServiceDetailView: View {
     @Binding var service: CategoryService
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text(service.name ?? "nil")
-                .foregroundColor(Color.black)
-                .multilineTextAlignment(.leading)
-                .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                .lineLimit(2)
-                .minimumScaleFactor(0.8)
-                .padding()
-                .frame(width: UIScreen.main.bounds.width - 42, alignment: .leading)
-                .overlay(RoundedRectangle(cornerRadius: 10)
-                    .stroke(lineWidth: 1.0)
-                    .foregroundColor(Color.lightGray)
-                ).frame(height: 45).padding(1).padding(.vertical, 10)
-            HStack(alignment: .top) {
-                VStack(alignment: .leading, spacing: 10) {
-                    Label {
-                        Text(service.unit ?? "nil")
-                            .foregroundColor(Color.lightGray)
-                            .multilineTextAlignment(.leading)
-                            .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                    } icon: {
-                        Text("Unit:")
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack(alignment: .leading, spacing: 10) {
+                Text(service.name ?? "nil")
+                    .foregroundColor(Color.black)
+                    .multilineTextAlignment(.leading)
+                    .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.8)
+                    .padding()
+                    .frame(width: UIScreen.main.bounds.width - 42, alignment: .leading)
+                    .overlay(RoundedRectangle(cornerRadius: 10)
+                        .stroke(lineWidth: 1.0)
+                        .foregroundColor(Color.lightGray)
+                    ).frame(height: 45).padding(1).padding(.vertical, 10)
+                HStack(alignment: .top) {
+                    VStack(alignment: .leading, spacing: 10) {
+                        Label {
+                            Text(service.unit?.capitalized ?? "nil")
+                                .foregroundColor(Color.lightGray)
+                                .multilineTextAlignment(.leading)
+                                .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                        } icon: {
+                            Text("Unit:")
+                                .foregroundColor(Color.black)
+                                .multilineTextAlignment(.leading)
+                                .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                        }
+                        Label {
+                            Text(poundsFormatter.string(from: service.price as NSNumber)!)
+                                .foregroundColor(Color.lightGray)
+                                .multilineTextAlignment(.leading)
+                                .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                        } icon: {
+                            Text("Price:")
+                                .foregroundColor(Color.black)
+                                .multilineTextAlignment(.leading)
+                                .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                        }
+                        Text("Subject of service:")
                             .foregroundColor(Color.black)
                             .multilineTextAlignment(.leading)
                             .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                    }
-                    Label {
-                        Text(String(format: "%g.0", service.timeNorm ?? 0))
+                        Text(service.subject ?? "nil")
                             .foregroundColor(Color.lightGray)
                             .multilineTextAlignment(.leading)
                             .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                    } icon: {
-                        Text("Price:")
-                            .foregroundColor(Color.black)
-                            .multilineTextAlignment(.leading)
-                            .font(Font.system(size: 17, weight: .regular, design: .rounded))
                     }
-                    Text("Subject of service:")
+                    Spacer()
+                    AsyncImage(url: URL(string: service.avatarURL ?? "nil")) { image in
+                        image
+                            .resizable()
+                            .frame(width: 120, height: 120, alignment: .center)
+                            .aspectRatio(contentMode: .fit)
+                            .cornerRadius(10)
+                    } placeholder: {
+                        Image("KitchenCleaner")
+                            .resizable()
+                            .frame(width: 120, height: 120, alignment: .center)
+                            .aspectRatio(contentMode: .fit)
+                            .cornerRadius(10)
+                    }
+                    .frame(width: 120, height: 120, alignment: .center)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                }
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("Description:")
                         .foregroundColor(Color.black)
                         .multilineTextAlignment(.leading)
                         .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                    Text(service.subject ?? "nil")
+                    Text(service.descr ?? "nil")
                         .foregroundColor(Color.lightGray)
                         .multilineTextAlignment(.leading)
                         .font(Font.system(size: 17, weight: .regular, design: .rounded))
+
                 }
-                Spacer()
-                AsyncImage(url: URL(string: service.avatarURL ?? "nil")) { image in
-                    image
-                        .resizable()
-                        .frame(width: 120, height: 120, alignment: .center)
-                        .aspectRatio(contentMode: .fit)
-                        .cornerRadius(10)
-                } placeholder: {
-                    Image("KitchenCleaner")
-                        .resizable()
-                        .frame(width: 120, height: 120, alignment: .center)
-                        .aspectRatio(contentMode: .fit)
-                        .cornerRadius(10)
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("Exclusions:")
+                        .foregroundColor(Color.black)
+                        .multilineTextAlignment(.leading)
+                        .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                    Text(service.exclusions ?? "nil")
+                        .foregroundColor(Color.lightGray)
+                        .multilineTextAlignment(.leading)
+                        .font(Font.system(size: 17, weight: .regular, design: .rounded))
+
                 }
-                .frame(width: 120, height: 120, alignment: .center)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-            }
-            VStack(alignment: .leading, spacing: 3) {
-                Text("Description:")
-                    .foregroundColor(Color.black)
-                    .multilineTextAlignment(.leading)
-                    .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                Text(service.descr ?? "nil")
-                    .foregroundColor(Color.lightGray)
-                    .multilineTextAlignment(.leading)
-                    .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("Works:")
+                        .foregroundColor(Color.black)
+                        .multilineTextAlignment(.leading)
+                        .font(Font.system(size: 17, weight: .regular, design: .rounded))
 
-            }
-            VStack(alignment: .leading, spacing: 3) {
-                Text("Exclusions:")
-                    .foregroundColor(Color.black)
-                    .multilineTextAlignment(.leading)
-                    .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                Text(service.exclusions ?? "nil")
-                    .foregroundColor(Color.lightGray)
-                    .multilineTextAlignment(.leading)
-                    .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                    Text(service.works ?? "nil")
+                        .foregroundColor(Color.lightGray)
+                        .multilineTextAlignment(.leading)
+                        .font(Font.system(size: 17, weight: .regular, design: .rounded))
 
-            }
-            VStack(alignment: .leading, spacing: 3) {
-                Text("Works:")
-                    .foregroundColor(Color.black)
-                    .multilineTextAlignment(.leading)
-                    .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                }
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("Conditions:")
+                        .foregroundColor(Color.black)
+                        .multilineTextAlignment(.leading)
+                        .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                    Text(service.works ?? "nil")
+                        .foregroundColor(Color.lightGray)
+                        .multilineTextAlignment(.leading)
+                        .font(Font.system(size: 17, weight: .regular, design: .rounded))
 
-                Text(service.works ?? "nil")
-                    .foregroundColor(Color.lightGray)
-                    .multilineTextAlignment(.leading)
-                    .font(Font.system(size: 17, weight: .regular, design: .rounded))
-
-            }
-            VStack(alignment: .leading, spacing: 3) {
-                Text("Conditions:")
-                    .foregroundColor(Color.black)
-                    .multilineTextAlignment(.leading)
-                    .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                Text(service.works ?? "nil")
-                    .foregroundColor(Color.lightGray)
-                    .multilineTextAlignment(.leading)
-                    .font(Font.system(size: 17, weight: .regular, design: .rounded))
-
-            }
-            Spacer()
+                }
+            }.padding(.horizontal, 20)
+            Spacer(minLength: 50)
         }
-        .padding(.horizontal, 20)
         .navigationTitle("Selected service")
         .navigationBarTitleDisplayMode(.inline)
     }

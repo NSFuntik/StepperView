@@ -317,12 +317,15 @@ extension Text {
             .frame(width: width, height: height)
             .background(RoundedRectangle(cornerRadius: 25).fill(backColor))
             .clipShape(RoundedRectangle(cornerRadius: 25))
-            .shadow(color: isShadowOn ? Color.lightGray : .clear, radius: 4, x: -4.5, y: -4.5)
+            .shadow(color: isShadowOn ? Color.lightGray : .clear, radius: 4, x: -4.5, y: -4.5).ignoresSafeArea(.all, edges: .horizontal)
             .clipShape(RoundedRectangle(cornerRadius: 25))
             .overlay(RoundedRectangle(cornerRadius: 25)
                 .stroke(lineWidth: 2.0)
                 .foregroundColor(accentColor)
-                .shadow(color: isShadowOn ? Color.secondary.opacity(0.5) : .clear, radius: 3, y: 3))
+                .shadow(color: isShadowOn ? Color.secondary.opacity(0.5) : .clear, radius: 3, y: 3).ignoresSafeArea(.all, edges: .horizontal)
+                )
+            .compositingGroup()     // << here !!
+
     }
 }
 

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StarsView: View {
     private static let MAX_RATING: Float = 5 // Defines upper limit of the rating
-    let rating: Float
+    @State var rating: Float
     private let fullCount: Int
     private let emptyCount: Int
     private let halfFullCount: Int
@@ -23,8 +23,10 @@ struct StarsView: View {
 
     var body: some View {
         HStack {
-            ForEach(0..<fullCount, id: \.self) { _ in
-                self.fullStar
+            ForEach(0..<fullCount, id: \.self) { n in
+                self.fullStar.onTapGesture {
+                    rating = Float(n)
+                }
             }
             ForEach(0..<halfFullCount, id: \.self) { _ in
                 self.halfFullStar

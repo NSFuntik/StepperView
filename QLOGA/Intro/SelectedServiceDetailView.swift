@@ -25,7 +25,7 @@ struct SelectedServiceDetailView: View {
                     .Windows:
             cleaningService = CleaningService(title: "Kitchen Cleaning",
                                               unit: "£ / Hour",
-                                              price: 15.0,
+                                              price: 15000,
                                               subject: "Internal and external drains, sewers and pipes",
                                               description: "Internal and external drains, sewers and pipes",
                                               conditions: "Internal and external drain and sewer repair, including unblocking and cleaning.",
@@ -49,7 +49,7 @@ struct SelectedServiceDetailView: View {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 10) {
                     Label {
-                        Text(cleaningService.unit)
+                        Text(cleaningService.unit.capitalized)
                             .foregroundColor(Color.lightGray)
                             .multilineTextAlignment(.leading)
                             .font(Font.system(size: 17, weight: .regular, design: .rounded))
@@ -60,7 +60,7 @@ struct SelectedServiceDetailView: View {
                             .font(Font.system(size: 17, weight: .regular, design: .rounded))
                     }
                     Label {
-                        Text(String(format: "%g.0", cleaningService.price))
+                        Text(poundsFormatter.string(from: cleaningService.price as NSNumber)!)
                             .foregroundColor(Color.lightGray)
                             .multilineTextAlignment(.leading)
                             .font(Font.system(size: 17, weight: .regular, design: .rounded))

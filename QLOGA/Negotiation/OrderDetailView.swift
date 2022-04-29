@@ -283,7 +283,7 @@ struct OrderDetailView: View {
                         }
                     }.padding(.horizontal, 20).padding(.top, 10)
                     Spacer(minLength: 120)
-                }
+                } .padding(.horizontal, 20)
             }
             VStack {
                 Spacer()
@@ -487,7 +487,7 @@ struct OrderDetailView: View {
             })
         }
         .ignoresSafeArea(.container, edges: .bottom)
-        .padding(.horizontal, 20).padding(.top, 10)
+        .padding(.top, 10)
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("\(orderType.rawValue) #\(order.id.description)")
     }
