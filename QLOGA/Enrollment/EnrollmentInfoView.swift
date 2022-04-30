@@ -253,7 +253,7 @@ struct EnrollmentInfoView: View {
 struct EnrollmentInfoView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            EnrollmentInfoView(actorType: .QLOGA)
+            EnrollmentInfoView(actorType: .PROVIDER)
         }
         .previewDevice("iPhone 6s")
     }

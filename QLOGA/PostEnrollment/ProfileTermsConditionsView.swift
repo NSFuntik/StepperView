@@ -89,7 +89,7 @@ struct ProfileTermsConditionsView: View {
                     case .CUSTOMER:
                         tabs.append(Tab.CustomerTsCs.description)
                         richView = RichText(html: try! String(contentsOf: URL(string: Tab.CustomerTsCs.link)!, encoding: .utf8))
-                    case .QLOGA, .PROVIDER, .RESOURCE, .JOB_APPLICANT:
+                    case .PROVIDER:
                         tabs.append(Tab.PoviderTsCs.description)
                         richView = RichText(html: try! String(contentsOf: URL(string: Tab.PoviderTsCs.link)!, encoding: .utf8))
 

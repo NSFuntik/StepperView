@@ -71,7 +71,8 @@ struct OrderDetailView: View {
                     .padding(10).padding(.bottom, -10)
                     .overlay(RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.secondary
-                            .opacity(0.7), lineWidth: 1).padding(1)).padding(.horizontal, 20).padding(.top, 10)
+                            .opacity(0.7), lineWidth: 1).padding(1))
+                    .padding(.horizontal, 20).padding(.top, 10)
                     VStack(alignment: .center) {
                         NavigationLink(destination: AddServicesChooserView(customer: $order)) {
                             HStack {
@@ -101,8 +102,8 @@ struct OrderDetailView: View {
                                         .foregroundColor(Color.black)
                                         .multilineTextAlignment(.leading)
                                         .font(Font.system(size: 19, weight: .bold, design: .default))
-
-                                } else {
+                                }
+                                else {
                                     VStack(alignment: .trailing) {
                                         TextField("Total price:", value: $order.amount, formatter: poundsFormatter, prompt: Text(isExist ? "£\( String(order.services.map({$0.qty * Int($0.cost * 100)}).reduce(0, +) * 100)).00" : (poundsFormatter.string(from: order.amount * 100 as NSNumber)!)))
                                             .font(Font.system(size: 17,
@@ -112,15 +113,14 @@ struct OrderDetailView: View {
                                             .keyboardType(.decimalPad)
                                             .gesture(DragGesture()
                                                 .onChanged{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)})
-                                            .toolbar{
+                                            .toolbar {
                                                 ToolbarItem(placement: .keyboard, content: {
                                                     Button(role: ButtonRole.destructive) {
                                                         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                                                     } label: {
                                                         Text("Done")
                                                     }})
-                                            }
-                                            .multilineTextAlignment(.trailing)
+                                        }.multilineTextAlignment(.trailing)
                                     }
                                 }
                             }
@@ -158,7 +158,7 @@ struct OrderDetailView: View {
                                         DisclosureGroup {
                                             Picker("Cancellation period", selection: $order.cancelHrs) {
                                                 ForEach(0 ..< 72) {
-                                                    if   $0 > 0 { Text("\($0) hrs") }
+                                                    if $0 > 0 { Text("\($0) hrs") }
                                                 }
                                             }.pickerStyle(.wheel)
                                         } label: {

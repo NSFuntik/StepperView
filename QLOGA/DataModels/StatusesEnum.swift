@@ -37,6 +37,7 @@ enum StatusesEnum: String, CaseIterable, Identifiable, Codable  {
     case PRV_REVIEWED
     case CST_REVIEWED
     case CLOSED
+    case CLOSED_NO_REVIEW
     case CANCELLED
     case CST_CANCELLED
     case UNSATISFIED
@@ -100,6 +101,8 @@ enum StatusesEnum: String, CaseIterable, Identifiable, Codable  {
             case .CST_REVIEWED:
                 return ["FFFFFF","DEE2E6"]
             case .CLOSED:
+                return ["FFFFFF","DEE2E6"]
+            case .CLOSED_NO_REVIEW:
                 return ["FFFFFF","DEE2E6"]
             case .CANCELLED:
                 return ["FEE4E1","FFB3AB"]
@@ -172,6 +175,8 @@ enum StatusesEnum: String, CaseIterable, Identifiable, Codable  {
             case .CST_REVIEWED:
                 return "Reviewed by customer"
             case .CLOSED:
+                return "Closed"
+            case .CLOSED_NO_REVIEW:
                 return "Closed"
             case .CANCELLED:
                 return "Cancelled"

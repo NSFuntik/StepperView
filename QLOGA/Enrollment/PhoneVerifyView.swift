@@ -332,7 +332,7 @@ extension Text {
 struct PhoneVerifyView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            PhoneVerifyView(phone: .constant(""), actorType: .QLOGA)
+            PhoneVerifyView(phone: .constant(""), actorType: .CUSTOMER)
         }.previewDevice("iPhone 6s")
     }
 }

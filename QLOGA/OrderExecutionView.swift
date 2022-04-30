@@ -13,16 +13,22 @@ struct OrderExecutionView: View {
         case hidden = 0
     }
     @Binding var actorType: ActorsEnum
+    @State var RatingActorType: ActorsEnum = .CUSTOMER
     @Binding var order: OrderContent
     @State var services: [CategoryService] = []
     @Environment(\.presentationMode) var presentationMode
     @State var noGPS = false
     @State var showMap = false
-    @State var CommunicationsRating: Int = 0
-    @State var TimelyArrivalRating: Int = 0
-    @State var QOSRating: Int = 0
-    @State var FriendlynessRating: Int = 0
-    @State var PerformanceRating: Int = 0
+    @State var CstCommunicationsRating: Int = 0
+    @State var CstTimelyArrivalRating: Int = 0
+    @State var CstQOSRating: Int = 0
+    @State var CstFriendlynessRating: Int = 0
+    @State var CstPerformanceRating: Int = 0
+    @State var PrvCommunicationsRating: Int = 5
+    @State var PrvTimelyArrivalRating: Int = 4
+    @State var PrvQOSRating: Int = 5
+    @State var PrvFriendlynessRating: Int = 5
+    @State var PrvPerformanceRating: Int = 4
     @State var bottomSheetPosition: FeedbackInfoBottomSheetPosition = .hidden
     @State var infoText: String = ""
     @State var infoTitle: String = ""
@@ -119,6 +125,10 @@ struct OrderExecutionView: View {
                                     COMPLETED_BUTTONS
                                 } else  if order.statusRecord.status == .PAID {
                                     CST_PAID_BUTTONS
+                                } else if order.statusRecord.status == .CLOSED {
+                                    CST_CLOSED_BUTTONS
+                                } else if order.statusRecord.status == .CLOSED_NO_REVIEW {
+                                    CST_CLOSED_NO_REVIEW_BUTTONS
                                 }
                             }
                             else if actorType == .PROVIDER {
@@ -126,13 +136,16 @@ struct OrderExecutionView: View {
                                     PRV_ACCEPTED_BUTTONS
                                 } else  if order.statusRecord.status == .PRV_NEAR {
                                     PRV_NEAR_BUTTONS
-                                    //                                PRV_MAP_VIEW
                                 } else  if order.statusRecord.status == .ARRIVED {
                                     PRV_PRV_ARRIVED_BUTTONS
                                 } else if order.statusRecord.status == .PAYMENT_IN_PROGRESS {
                                     PAYMENT_IN_PROGRESS_BUTTONS
                                 } else  if order.statusRecord.status == .PAID {
                                     CST_PAID_BUTTONS
+                                } else if order.statusRecord.status == .CLOSED {
+                                    CST_CLOSED_BUTTONS
+                                } else if order.statusRecord.status == .CLOSED_NO_REVIEW {
+                                    CST_CLOSED_NO_REVIEW_BUTTONS
                                 }
                             }
                         }
@@ -146,7 +159,7 @@ struct OrderExecutionView: View {
                                                             VStack {
                                                 SERVICES_LIST.padding(.horizontal, 20).padding(.top, 10)
                                                 Spacer()
-                                                .navigationTitle("Services: \(order.services.count.description)")
+                                                    .navigationTitle("Services: \(order.services.count.description)")
                                             }) {
                                                 Label {
                                                     Text("Services")
@@ -180,9 +193,9 @@ struct OrderExecutionView: View {
 
                                 HStack(alignment: .center)  {
 
-                                    NavigationLink(destination: ProviderOverview(isButtonShows: false)) {
+                                    NavigationLink(destination:  ProviderOverview(isButtonShows: false)) {
                                         Label {
-                                            Text("Provider")
+                                            Text("\(actorType == .CUSTOMER ? "Provider" : "Customer")")
                                                 .foregroundColor(Color.black)
                                                 .multilineTextAlignment(.leading)
                                                 .font(Font.system(size: 17, weight: .regular, design: .rounded))
@@ -361,6 +374,7 @@ struct OrderExecutionView: View {
             }.padding(20)
         })
         .onAppear {
+            RatingActorType = actorType
             services = $order.services.map({
                 var s = StaticCategories[$0.qserviceId.wrappedValue]!
                 s.unitsCount = $0.wrappedValue.qty
@@ -592,7 +606,7 @@ struct OrderExecutionView: View {
                     .withDoneButtonStyles(backColor: .accentColor, accentColor: .white, isWide: false, height: 45, isShadowOn: true)
             }
             Button {
-                order.statusRecord.status = .PRV_NEAR
+                order.statusRecord.status = .CLOSED_NO_REVIEW
             } label: {
                 Text("Not review")
                     .withDoneButtonStyles(backColor: .lightGray, accentColor: .white, isWide: false, height: 45, isShadowOn: true)
@@ -623,7 +637,7 @@ struct OrderExecutionView: View {
                                     .font(Font.system(size: 17, weight: .regular, design: .rounded))
                                     .lineLimit(1)
                                 Spacer()
-                                RatingPicker(rating: $CommunicationsRating)
+                                RatingPicker(rating: actorType == .CUSTOMER ? $CstCommunicationsRating : $PrvCommunicationsRating)
 
                             }
                         }.padding(.horizontal, 5).frame(height: 35)
@@ -638,7 +652,7 @@ struct OrderExecutionView: View {
                                     .multilineTextAlignment(.leading)
                                     .lineLimit(1)
                                 Spacer()
-                                RatingPicker(rating: $TimelyArrivalRating)
+                                RatingPicker(rating: actorType == .CUSTOMER ? $CstTimelyArrivalRating : $PrvTimelyArrivalRating)
 
                             }
                         }.padding(.horizontal, 5).frame(height: 35)
@@ -653,7 +667,8 @@ struct OrderExecutionView: View {
                                     .multilineTextAlignment(.leading)
                                     .lineLimit(1)
                                 Spacer()
-                                RatingPicker(rating: $QOSRating)
+                                RatingPicker(rating: actorType == .CUSTOMER ? $CstQOSRating : $PrvQOSRating)
+
                             }
                         }.padding(.horizontal, 5).frame(height: 35)
                         Divider().padding(.horizontal, -10).padding(.leading, 50)
@@ -668,8 +683,7 @@ struct OrderExecutionView: View {
                                     .multilineTextAlignment(.leading)
                                     .lineLimit(1)
                                 Spacer()
-                                RatingPicker(rating: $FriendlynessRating)
-
+                                RatingPicker(rating: actorType == .CUSTOMER ? $CstFriendlynessRating : $PrvFriendlynessRating)
                             }
                         }.padding(.horizontal, 5).frame(height: 35)
                         Divider().padding(.horizontal, -10).padding(.leading, 50)
@@ -684,7 +698,7 @@ struct OrderExecutionView: View {
                                     .multilineTextAlignment(.leading)
                                     .lineLimit(2)
                                 Spacer()
-                                RatingPicker(rating: $PerformanceRating)
+                                RatingPicker(rating: actorType == .CUSTOMER ? $CstPerformanceRating : $PrvPerformanceRating)
                             }
                         }.padding(.horizontal, 5).frame(height: 55)
                         Divider().background(Color.clear).padding(.horizontal, -10).padding(.leading, 50)
@@ -748,6 +762,229 @@ struct OrderExecutionView: View {
         }
     }
 
+    var CST_CLOSED_BUTTONS: some View {
+        
+        VStack(alignment: .center, spacing: 15) {
+            HStack {
+                Text("RATING")
+                    .font(.system(size: 17, weight: .regular, design: .rounded))
+                    .foregroundColor(.secondary.opacity(0.9))
+                Spacer()
+                Button {
+                    checkBottomSheetConds(text: "Your rating will not be visible until the opposite side leaves their own.", title: "RATING")
+                } label: {
+                    Image(systemName: "info.circle")
+                        .font(.system(size: 20, weight: .regular, design: .rounded))
+                        .foregroundColor(.Orange)
+                }
+            }.padding(.horizontal, 10).padding(.bottom, -5)
+
+            Picker("", selection: $RatingActorType, content: {
+                Text("\(actorType == .CUSTOMER ? "Provider" : "Customer")")
+                    .padding(5)
+                    .tag(ActorsEnum.CUSTOMER)
+                Text("Your's")
+                    .padding(5)
+                    .tag(ActorsEnum.PROVIDER)
+            }).pickerStyle(.segmented)
+            if actorType == .CUSTOMER {
+                RATINGS_LIST
+            }
+            else {
+                RATINGS_LIST
+            }
+
+            VStack(alignment: .leading, spacing: 5) {
+                HStack {
+                    Text("FEEDBACK")
+                        .font(.system(size: 17, weight: .regular, design: .rounded))
+                        .foregroundColor(.secondary.opacity(0.9))
+                    Spacer()
+                    Button {
+                        checkBottomSheetConds(text: "Your feedback will not be visible until the opposite side leaves their own.", title: "FEEDBACK")
+                    } label: {
+                        Image(systemName: "info.circle")
+                            .font(.system(size: 20, weight: .regular, design: .rounded))
+                            .foregroundColor(.Orange)
+                    }
+                }.padding(.horizontal, 10)
+                Picker("", selection: $RatingActorType, content: {
+                    Text("\(actorType == .CUSTOMER ? "Provider" : "Customer")")
+                        .padding(5)
+                        .tag(ActorsEnum.CUSTOMER)
+                    Text("Your's")
+                        .padding(5)
+                        .tag(ActorsEnum.PROVIDER)
+                }).pickerStyle(.segmented)
+                VStack(alignment: .leading, spacing: 5) {
+                    HStack {
+                    Text("Public")
+                        .font(.system(size: 17, weight: .regular, design: .rounded))
+                        .foregroundColor(.black.opacity(0.9))
+                    Spacer()
+                }
+                    Section {
+                        HStack {
+                            Text(publicFeedback)
+                            .multilineTextAlignment(.leading)
+                            .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                            .foregroundColor(Color.secondary)
+                            .lineLimit(5)
+                            Spacer()
+                        }
+                        .frame(minHeight: 35)
+                        Divider().padding(.horizontal, -10).padding(.leading, 50)
+                    }
+                    HStack {
+
+                        Text("Private")
+                            .font(.system(size: 17, weight: .regular, design: .rounded))
+                            .foregroundColor(.black.opacity(0.9))
+                        Spacer()
+                    }
+                    Section {
+                        HStack {
+                            Text(privateFeedback)
+                            .multilineTextAlignment(.leading)
+                            .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                            .foregroundColor(Color.secondary)
+                            .lineLimit(5)
+                            Spacer()
+
+                        }
+                        .frame(minHeight: 35)
+                    }
+                }
+                .padding(10).padding(.bottom, -10)
+
+            }
+        }
+    }
+    var RATINGS_LIST: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            VStack {
+                Section {
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text("Communications")
+                                .foregroundColor(Color.secondary.opacity(0.9))
+                                .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                                .multilineTextAlignment(.leading)
+                                .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                                .lineLimit(1)
+                            Spacer()
+                            StarsView(rating: Float(actorType == .CUSTOMER ? CstCommunicationsRating : PrvCommunicationsRating))
+                            //RatingPicker(rating: actorType == .CUSTOMER ? $CstCommunicationsRating : $PrvCommunicationsRating, accentColor: .Orange).disabled(true)
+
+                        }
+                    }.padding(.horizontal, 5).frame(height: 35)
+                    Divider().padding(.horizontal, -10).padding(.leading, 50)
+                }
+                Section {
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text("Timely arrival")
+                                .foregroundColor(Color.secondary.opacity(0.9))
+                                .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                                .multilineTextAlignment(.leading)
+                                .lineLimit(1)
+                            Spacer()
+                            StarsView(rating: Float(actorType == .CUSTOMER ? CstTimelyArrivalRating : PrvTimelyArrivalRating))
+                        }
+                    }.padding(.horizontal, 5).frame(height: 35)
+                    Divider().padding(.horizontal, -10).padding(.leading, 50)
+                }
+                Section {
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text("Quality of service")
+                                .foregroundColor(Color.secondary.opacity(0.9))
+                                .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                                .multilineTextAlignment(.leading)
+                                .lineLimit(1)
+                            Spacer()
+                            StarsView(rating: Float(actorType == .CUSTOMER ? CstQOSRating : PrvQOSRating))
+                        }
+                    }.padding(.horizontal, 5).frame(height: 35)
+                    Divider().padding(.horizontal, -10).padding(.leading, 50)
+
+                }
+                Section {
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text("Friendlyness")
+                                .foregroundColor(Color.secondary.opacity(0.9))
+                                .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                                .multilineTextAlignment(.leading)
+                                .lineLimit(1)
+                            Spacer()
+                            StarsView(rating: Float(RatingActorType == .CUSTOMER ? CstFriendlynessRating : PrvFriendlynessRating))
+                        }
+                    }.padding(.horizontal, 5).frame(height: 35)
+                    Divider().padding(.horizontal, -10).padding(.leading, 50)
+
+                }
+                Section {
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text("Performance & effectiveness")
+                                .foregroundColor(Color.secondary.opacity(0.9))
+                                .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                                .multilineTextAlignment(.leading)
+                                .lineLimit(2)
+                            Spacer()
+                            StarsView(rating: Float(RatingActorType == .CUSTOMER ? CstPerformanceRating : PrvPerformanceRating))
+                        }
+                    }.padding(.horizontal, 5).frame(height: 50)
+//                    Divider().background(Color.clear).padding(.horizontal, -10).padding(.leading, 50)
+                }
+            }
+            .padding(10).padding(.bottom, -10)
+        }
+    }
+
+    var CST_CLOSED_NO_REVIEW_BUTTONS: some View {
+        VStack(alignment: .center, spacing: 15) {
+            HStack {
+                Text("RATING")
+                    .font(.system(size: 17, weight: .regular, design: .rounded))
+                    .foregroundColor(.black.opacity(0.9))
+                Spacer()
+            }.padding(.horizontal, 10).padding(.bottom, -5)
+
+            HStack(alignment: .center) {
+                Text("You have no rating from \(actorType == .CUSTOMER ? "Provider" : "Customer")")
+                    .font(.system(size: 17, weight: .regular, design: .rounded))
+                    .foregroundColor(.secondary.opacity(0.9))
+                Spacer()
+            } .clipShape(RoundedRectangle(cornerRadius: 10))
+                .padding(15)
+                .overlay(RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.secondary.opacity(0.7),
+                            lineWidth: 1).padding(1))
+
+            HStack {
+                Text("FEEDBACK")
+                    .font(.system(size: 17, weight: .regular, design: .rounded))
+                    .foregroundColor(.black.opacity(0.9))
+                Spacer()
+            }.padding(.horizontal, 10).padding(.bottom, -5)
+
+            HStack(alignment: .center) {
+                Text("You have no feedback from \(actorType == .CUSTOMER ? "Provider" : "Customer")")
+                    .font(.system(size: 17, weight: .regular, design: .rounded))
+                    .foregroundColor(.secondary.opacity(0.9))
+                Spacer()
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .padding(15)
+            .overlay(RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.secondary.opacity(0.7),
+                        lineWidth: 1).padding(1))
+
+        }
+    }
+
     var SERVICES_LIST: some View {
         VStack {
             ForEach($services)
@@ -800,12 +1037,14 @@ struct OrderExecutionView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.bottomSheetPosition = .middle
                 }
-            } else {
+            }
+            else {
                 self.$infoText.wrappedValue = text
                 self.$infoTitle.wrappedValue = title
                 self.bottomSheetPosition = .middle
             }
-        } else {
+        }
+        else {
             self.bottomSheetPosition = self.bottomSheetPosition == .hidden ? .middle : .hidden
         }
     }
@@ -818,7 +1057,7 @@ struct OrderExecutionView: View {
 
 struct OrderExecutionView_Previews: PreviewProvider {
     static var previews: some View {
-        OrderExecutionView(actorType: .constant(.CUSTOMER), order: .constant(
+        OrderExecutionView(actorType: .constant(.CUSTOMER), RatingActorType: .CUSTOMER, order: .constant(
             OrderContent(statusRecord:
                             OrderStatusRecord(date: "2022-03-04T01:08:35.500828Z", actor: "QLOGA", actorId: 1002, action: "CLOSE_DISPUTE_WINDOW", note: "After 7 days Order dispute opportunity window is now closed.", status: .NEEDS_FUNDING, display: "Visit Callout Charge requested", actionDisplay: "Close dispute period", actionPast: "QLOGA closed dispute opportunity window for the order"),
                          id: 1122,
@@ -839,7 +1078,7 @@ struct OrderExecutionView_Previews: PreviewProvider {
 
 struct RatingPicker: View {
     @Binding var rating: Int
-
+    @State var accentColor: Color = .accentColor
     var label = ""
 
     var maximumRating = 5
@@ -848,8 +1087,7 @@ struct RatingPicker: View {
     var onImage = Image(systemName: "star.fill")
 
 
-    var offColor = Color.Green
-    var onColor = Color.Green
+
 
     var body: some View {
         HStack {
@@ -858,7 +1096,7 @@ struct RatingPicker: View {
             }
             ForEach(1..<maximumRating + 1, id: \.self) { number in
                 image(for: number)
-                    .foregroundColor(number > rating ? offColor : onColor)
+                    .foregroundColor(accentColor)
                     .font(Font.system(size: 20, weight: number > rating ? .light : .semibold, design: .rounded))
                     .onTapGesture {
                         rating = number

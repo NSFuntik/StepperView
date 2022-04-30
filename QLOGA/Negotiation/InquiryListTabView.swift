@@ -30,7 +30,8 @@ struct InquiryListTabView: View {
                 LazyVStack(spacing: 15) {
                     ForEach((actorType != .CUSTOMER ? OrdersCotroller.shared.PrvInquires : OrdersCotroller.shared.CstInquires).indices, id: \.self) { orderId in
                         VStack {
-                            InquiryListCell(order: (actorType != .CUSTOMER ? OrdersCotroller.shared.PrvInquires : OrdersCotroller.shared.CstInquires)[orderId], customer: $customer, actorType: $actorType)
+                            InquiryListCell(order: (actorType != .CUSTOMER ? OrdersCotroller.shared.PrvInquires : OrdersCotroller.shared.CstInquires)[orderId],
+                                            customer: $customer, actorType: $actorType)
                                 .padding(.horizontal, 10)
                         }
                     }

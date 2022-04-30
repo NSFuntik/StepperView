@@ -18,7 +18,7 @@ struct ProfileSetupView: View {
     @EnvironmentObject var tabController: TabController
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @GestureState private var dragOffset = CGSize.zero
-    @State var defaultActor: ActorsEnum = .QLOGA
+    @State var defaultActor: ActorsEnum = .PROVIDER
     @Binding var actorType: ActorsEnum
     @Binding var customer: Customer
     @Binding var provider: Provider
@@ -167,7 +167,7 @@ struct ProfileSetupView: View {
                             .foregroundColor(Color.lightGray))
                         .padding(1)
                     }
-                    NavigationLink(destination: FAQView(provider: $provider, customer: $customer, actorType: .QLOGA)) {
+                    NavigationLink(destination: FAQView(provider: $provider, customer: $customer, actorType: actorType)) {
 
                         Label {
                             Text("Frequently Asked Questions")

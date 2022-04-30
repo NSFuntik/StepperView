@@ -8,10 +8,10 @@
 import Foundation
 
 enum ActorsEnum: String, CaseIterable, Identifiable, Codable {
-    case QLOGA
+//    case QLOGA
     case CUSTOMER
     case  PROVIDER
-    case  RESOURCE
-    case  JOB_APPLICANT
+//    case  RESOURCE
+//    case  JOB_APPLICANT
     var id: String { self.rawValue }
 }

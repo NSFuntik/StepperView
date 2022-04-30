@@ -363,7 +363,7 @@ struct AddressVerifyView: View {
 struct AddressVerifyView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            AddressVerifyView(actorType: .QLOGA)
+            AddressVerifyView(actorType: .PROVIDER)
         }.previewDevice("iPhone 6s")
     }
 }

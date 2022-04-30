@@ -53,7 +53,7 @@ struct NotesView: View {
                         tabs.append(Tab.ProviderNotes.description)
                         tabs.append("Your's")
 
-                    case .QLOGA, .PROVIDER, .RESOURCE, .JOB_APPLICANT:
+                    case .PROVIDER:
                         tabs.append(Tab.CustomerNotes.description)
                         tabs.append("Your's")
 
