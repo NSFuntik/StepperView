@@ -35,7 +35,7 @@ struct GeneralQuestionsView: View {
                                     .foregroundColor(Color.black)
                                     .multilineTextAlignment(.leading)
                                     .font(Font.system(size: 15, weight: .regular, design: .rounded))
-                                    .lineLimit(2)
+                                    .lineLimit(3)
                                     .padding(.leading, 10)
                                 Spacer()
                                 Image(systemName: "chevron.right")
@@ -44,7 +44,7 @@ struct GeneralQuestionsView: View {
                                     .font(Font.system(size: 20, weight: .regular, design: .rounded))
                                     .padding(.leading, 10)
 
-                            }.padding(7).frame(height: 40)
+                            }.padding(7).frame(minHeight: 40)
                             Divider().background(Color.secondary).padding(.leading, 50)
                         }
                     }

@@ -68,9 +68,9 @@ struct InquiryListCell: View {
                                 .foregroundColor(.black).padding(EdgeInsets(top: 10, leading: 15, bottom: 0, trailing: 10))
                             Spacer()
                             Image(systemName: "chevron.right")
-                                .foregroundColor(order.statusRecord.status == .QUOTE || order.statusRecord.status == .INQUIRY ? .accentColor : .white)
+                                .foregroundColor(order.statusRecord.status == .QUOTE || order.statusRecord.status == .INQUIRY ? .accentColor : .black)
                                 .multilineTextAlignment(.leading)
-                                .font(Font.system(size: 20, weight: .semibold, design: .rounded))
+                                .font(Font.system(size: 20, weight: .light, design: .rounded))
                                 .padding(.trailing, 15)
                                 .padding(.top, 10)
                         }
@@ -131,7 +131,7 @@ struct InquiryListCell: View {
                             .scaledToFit().aspectRatio(contentMode: .fit)
                             .foregroundColor(.accentColor)
                             .frame(width: 20, height: 20, alignment: .center)
-                    }.padding(.vertical, 10).frame(idealHeight: 30, maxHeight: 45)
+                    }.padding(.vertical, 10).frame(minHeight: 30)
                 }
             } else {
                 HStack(alignment: .top, spacing: 5) {
@@ -144,7 +144,7 @@ struct InquiryListCell: View {
                         .lineLimit(3)
                         .multilineTextAlignment(.leading)
                     Spacer()
-                }.padding(.vertical, 5).frame(idealHeight: 20, maxHeight: 40)
+                }.padding(.vertical, 5).frame(minHeight: 20)
             }
             HStack {
                 RemovableTagListView(selected: $catID, isRemovable: .constant(false),

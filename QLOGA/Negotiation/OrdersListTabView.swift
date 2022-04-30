@@ -79,9 +79,9 @@ struct OrdersListCell: View {
                                 .foregroundColor(.black).padding(EdgeInsets(top: 10, leading: 15, bottom: 0, trailing: 10))
                             Spacer()
                             Image(systemName: "chevron.right")
-                                .foregroundColor(Color.white)
+                                .foregroundColor(Color.black)
                                 .multilineTextAlignment(.leading)
-                                .font(Font.system(size: 20, weight: .semibold, design: .rounded))
+                                .font(Font.system(size: 20, weight: .regular, design: .rounded))
                                 .padding(.trailing, 15)
                                 .padding(.top, 10)
                         }
@@ -143,7 +143,8 @@ struct OrdersListCell: View {
                             .scaledToFit().aspectRatio(contentMode: .fit)
                             .foregroundColor(.accentColor)
                             .frame(width: 20, height: 20, alignment: .center)
-                    }.padding(.vertical, 10).frame(idealHeight: 30, maxHeight: 45)
+                    }.padding(.vertical, 10).frame(minHeight: 30)
+
                 }
             } else {
                 HStack(alignment: .top, spacing: 5) {
@@ -157,7 +158,7 @@ struct OrdersListCell: View {
                         .multilineTextAlignment(.leading)
                     Spacer()
 
-                }.padding(.vertical, 5).frame(idealHeight: 20, maxHeight: 40)
+                }.padding(.vertical, 5).frame(minHeight: 20)
             }
             HStack {
 

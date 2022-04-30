@@ -50,8 +50,8 @@ struct TodayListTabView: View {
                     }
                 }
                 Spacer()
-            }.padding(.top, 15)
-        }.background(Color.white.opacity(0.7))
+            }
+        }.background(Color.clear.opacity(0.7))
     }
 }
 

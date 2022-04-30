@@ -13,64 +13,15 @@ struct ProviderSearchView: View {
         UITableView.appearance().backgroundColor = UIColor.white
         UITableView.appearance().separatorColor = UIColor(named: "AccentColor")?.withAlphaComponent(0.6)
         UITableView.appearance().sectionIndexColor = UIColor(named: "AccentColor")?.withAlphaComponent(0.6)
-//        self._selectedButton = selectedButton
-        selectedButton = SelectionViewModel.shared.selection ?? 0
     }
-    @State var selectStore = SelectionViewModel.shared
-    @State var selectedButton: Int
+    @State var vm = SelectionViewModel.shared
+    @State var selectedButton: Int = CategoryType.Gas.id
     @State var isLimited = true
 
     var body: some View {
         VStack(alignment: .center) {
             VStack(alignment: .leading, spacing: 5) {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        ScrollViewReader { proxy in
-
-                        HStack {
-                            ForEach(Services) { service in
-                                Button {
-                                    selectedButton = service.id
-                                    selectStore.currentRow = selectedButton
-                                    withAnimation {
-                                        proxy.scrollTo(service.id, anchor: .center)
-                                    }
-                                } label: {
-                                    VStack {
-                                        Image(service.image)
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .padding(10)
-                                            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.white))
-                                            .overlay(
-                                                RoundedRectangle(cornerRadius: 10)
-                                                    .stroke(selectedButton == service.id ? Color.accentColor : Color.lightGray.opacity(0.6),
-                                                            lineWidth: selectedButton == service.id ? 2.0 : 1.5)
-                                            ).padding(.bottom, -3).padding(.top, 1)
-                                        Text(service.name)
-                                            .foregroundColor(Color.black)
-                                            .font(.system(size: 15.0, weight: .light, design: .rounded))
-                                            .padding(.bottom, 5)
-                                    }
-                                    .frame(maxHeight: 90)
-                                    .padding(.horizontal, 10)
-                                    .tag(service.id)
-                                }
-                            }
-                        }.padding(.leading, 20)
-
-                        //                    .onChange(of: selectedButton)  { _ in
-                        ////
-                        //                    }
-
-                    }.padding(.top, 10).padding(.horizontal, -30)
-//                        .task({
-//                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                                withAnimation {
-//                                    proxy.scrollTo(selectedButton, anchor: .center)
-//                                }
-//                            }
-//                        })
-                }
+                ServicesScrollView.padding(.horizontal, -30)
                 VStack {
                     HStack {
                         Text("Description")
@@ -79,7 +30,7 @@ struct ProviderSearchView: View {
                             .font(Font.system(size: 20, weight: .medium, design: .rounded))
                         Spacer()
                     }.padding(.vertical, 5)
-                    Text(Services[$selectStore.selection.wrappedValue ?? selectedButton].description ?? descr)
+                    Text(Services[selectedButton].description ?? descr)
                         .foregroundColor(Color.black.opacity(0.8))
                         .multilineTextAlignment(.leading)
                         .font(Font.system(size: 14, weight: .light, design: .rounded))
@@ -98,7 +49,7 @@ struct ProviderSearchView: View {
                 }.padding(.bottom, 20)
                 ScrollView(showsIndicators: false) {
                     VStack {
-                        ForEach(Array(Services[$selectStore.selection.wrappedValue ?? selectedButton].services), id: \.self) { type in
+                        ForEach(Array(Services[selectedButton].services), id: \.self) { type in
                             Section {
                                 DisclosureGroup {
                                     VStack(spacing: 10) {
@@ -127,7 +78,7 @@ struct ProviderSearchView: View {
                                                 }
                                             }
                                             Spacer()
-                                            NavigationLink(destination: ProvidersView(service: Services[$selectStore.selection.wrappedValue ?? selectedButton])) {
+                                            NavigationLink(destination: ProvidersView(service: Services[selectedButton])) {
                                                 HStack {
                                                     Text("Show providers")
                                                         .withDoneButtonStyles(backColor: .Green, accentColor: .white, isWide: false, width: 200, height: 40, isShadowOn: false).padding(1)
@@ -173,18 +124,58 @@ struct ProviderSearchView: View {
                     Spacer(minLength: 50)
                 }
             }.padding(.horizontal, 20)
-        }//.animation(.easeInOut(duration: 0.5), value: selectedButton).transition(.slide).animation(.easeInOut(duration: 0.5), value: selectStore.selection)
+        }
+        .onAppear {
+            if let s = vm.selection {
+                selectedButton = s
+            }
+        }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarTitle("Provider Search")
     }
 }
 
-//extension ProviderSearchView {
-//    private var ServicesScrollView: some View {
-//
-//
-//    }
-//}
+extension ProviderSearchView {
+    private var ServicesScrollView: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            ScrollViewReader { proxy in
+                HStack {
+                    ForEach(Services) { service in
+                        Button {
+                            selectedButton = service.id
+                        } label: {
+                            VStack {
+                                Image(service.image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .padding(10)
+                                    .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.white))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(selectedButton == service.id ? Color.accentColor : Color.lightGray.opacity(0.6),
+                                                    lineWidth: selectedButton == service.id ? 2.0 : 1.5)
+                                    ).padding(.bottom, -3).padding(.top, 1)
+                                Text(service.name)
+                                    .foregroundColor(Color.black)
+                                    .font(.system(size: 15.0, weight: .light, design: .rounded))
+                                    .padding(.bottom, 5)
+                            }.tag(service.id)
+                            .frame(maxHeight: 90)
+                            .padding(.horizontal, 10)
+                        }
+                    }
+                }.padding(.horizontal, 20)
+                    .onChange(of: selectedButton) { s in
+
+                        withAnimation(.easeInOut(duration: 0.5)) {
+                            proxy.scrollTo(s, anchor: .center)
+                        }
+                    }
+            }
+
+        }.padding(.top, 10)
+    }
+}
 
 struct ProviderSearchView_Previews: PreviewProvider {
     static var previews: some View {

@@ -80,7 +80,7 @@ struct CstCreateRequestView: View {
                                                         .foregroundColor(Color.black.opacity(0.9))
                                                         .multilineTextAlignment(.leading)
                                                         .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                                                        .lineLimit(1)
+                                                        .lineLimit(3)
                                                     Spacer()
                                                     Text(service.unitsCount.wrappedValue.description)
                                                         .foregroundColor(Color.lightGray.opacity(0.9))
@@ -94,11 +94,12 @@ struct CstCreateRequestView: View {
                                                         .padding(.horizontal, 10)
                                                 }
                                             }
-                                        }.padding(.horizontal, 5).frame(height: 40)
+                                        }.padding(.horizontal, 5).frame(minHeight: 40)
                                         Divider().padding(.horizontal, -10).padding(.leading, 50)
                                     }
                                 }
                             }
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
                             .padding(10).padding(.bottom, -10)
                             .overlay(RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.secondary
