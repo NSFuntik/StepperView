@@ -50,6 +50,7 @@ struct GeneralQuestionsView: View {
                     }
                 }
             }
+            .clipShape(RoundedRectangle(cornerRadius: 10))
             .padding(.top, 7)
             .overlay(RoundedRectangle(cornerRadius: 10)
                 .stroke(lineWidth: 1.0)

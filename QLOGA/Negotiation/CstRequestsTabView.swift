@@ -133,6 +133,12 @@ struct RequestsCell: View {
                             .font(Font.system(size: 18, weight: .semibold, design: .rounded))
                             .foregroundColor(.black)
                             .lineLimit(1)
+                        Image(systemName: "chevron.right")
+                            .foregroundColor(.accentColor)
+                            .multilineTextAlignment(.leading)
+                            .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                            .padding(.trailing, -5)
+
                     }.padding(.vertical, 5)
                     HStack {
                         Text("\(request.statusRecord.status)")

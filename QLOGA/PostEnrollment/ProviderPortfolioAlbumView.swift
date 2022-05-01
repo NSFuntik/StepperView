@@ -50,11 +50,13 @@ struct ProviderPortfolioAlbumView: View {
                                                 }
                                             }
                                     }
-                                    Image(uiImage: (folder.images.first?.image.wrappedValue ?? UIImage(named: "FolderImage"))!)
+                                    Image("QLOGAMediaLibrary")
+//                                    Image(uiImage: (folder.images.first?.image.wrappedValue ?? UIImage(named: "FolderImage"))!)
                                         .resizable()
                                         .scaledToFill()
                                         .frame(width: 100, height: 100, alignment: .center)
                                         .clipShape(RoundedRectangle(cornerRadius: 10))
+                                        .padding(.trailing, 10)
 
                                     VStack {
                                         Spacer()
@@ -102,7 +104,7 @@ struct ProviderPortfolioAlbumView: View {
                                         .foregroundColor(Color.accentColor)
                                         .font(Font.system(size: 20, weight: .regular, design: .rounded))
 
-                                }.frame(height: 100, alignment: .center).padding(10)
+                                }.frame(height: 100, alignment: .center).padding(10).background(Color.lightGray.opacity(0.05).cornerRadius(10))
                                 Divider().padding(.horizontal, 5).padding(.top, -4)
                             }
                         }
@@ -125,7 +127,7 @@ struct ProviderPortfolioAlbumView: View {
                             }
                     }.onDelete { _ in provider.portfolioFolders = provider.portfolioFolders.filter { $0.isPicked != true }
                     }
-                }
+                }.padding(.top, 5)
             }
         }
 		.alert(isPresented: $createFolder, TextAlert(title: "Enter folder's name", placeholder: "New folder", accept: "Accept", cancel: "Cancel") { title in

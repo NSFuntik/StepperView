@@ -34,7 +34,10 @@ struct ProviderSearchView: View {
                         .foregroundColor(Color.black.opacity(0.8))
                         .multilineTextAlignment(.leading)
                         .font(Font.system(size: 14, weight: .light, design: .rounded))
-                        .lineLimit(isLimited ? 4 : 10)
+                        .lineLimit(isLimited ? 4 : 15)
+//                        .minimumScaleFactor(0.9)
+                        .animation(Animation.easeInOut(duration: 0.3), value: Services[selectedButton].description ?? descr).transition(.slide)
+                        .frame(minHeight: isLimited ? 40 : 180)
                     HStack {
                         Text(isLimited ? "Show more" : "Show less")
                             .foregroundColor(Color.accentColor)
@@ -87,7 +90,7 @@ struct ProviderSearchView: View {
                                             }
                                             Spacer()
                                         }
-                                    }.frame(width: UIScreen.main.bounds.width - 40, alignment: .center)
+                                    }.frame(width: UIScreen.main.bounds.width - 40, alignment: .leading)
                                 } label: {
                                     HStack {
                                         VStack(alignment: .leading) {
@@ -123,13 +126,16 @@ struct ProviderSearchView: View {
                             .opacity(0.7), lineWidth: 1).padding(1))
                     Spacer(minLength: 50)
                 }
-            }.padding(.horizontal, 20)
-        }
+            }
+        }.animation(.easeInOut(duration: 0.3), value: isLimited).transition(.slide)
+
         .onAppear {
             if let s = vm.selection {
-                selectedButton = s
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    selectedButton = s
+                }
             }
-        }
+        }.padding(.horizontal, 20)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarTitle("Provider Search")
     }

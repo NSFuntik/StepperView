@@ -16,28 +16,51 @@ struct IntroView: View {
 	@State var actorType: ActorsEnum = .CUSTOMER
 	var body: some View {
 		NavigationView {
-			VStack(alignment: .center, spacing: 10) {
-				AddressSearchBarView
-				HStack(alignment: .center, spacing: 0) {
-					ServicesScrollView
-						.padding([.top])
-						.ignoresSafeArea(.all, edges: .bottom)
-//						.offset(x: 10)
-//						.background(
-//							RoundedRectangle(cornerRadius: 16, style: .circular)
-								
-//								.padding([.horizontal, .bottom], -10)
-//								.padding(.trailing, -20)
-//								.padding(.top, 5)
-//								.ignoresSafeArea(.all, edges: .bottom)
-//								.foregroundColor(address != "Enter new address" ? Color.accentColor.opacity(0.2) : .white)).offset(x: 10).zIndex(1)
+			ZStack {
 
-					Spacer(minLength: 50)
-					ProfileChooserView
-						.frame(width: .infinity, alignment: .trailing)
-						.padding(.bottom, 10)
-				}
-			}.padding(.top, 10).padding(.horizontal, 20)
+				VStack(alignment: .center, spacing: 5) {
+					AddressSearchBarView
+					HStack(alignment: .center, spacing: 0) {
+						ServicesScrollView
+							.padding([.top])
+							.ignoresSafeArea(.all, edges: .bottom)
+						//						.offset(x: 10)
+						//						.background(
+						//							RoundedRectangle(cornerRadius: 16, style: .circular)
+
+						//								.padding([.horizontal, .bottom], -10)
+						//								.padding(.trailing, -20)
+						//								.padding(.top, 5)
+						//								.ignoresSafeArea(.all, edges: .bottom)
+						//								.foregroundColor(address != "Enter new address" ? Color.accentColor.opacity(0.2) : .white)).offset(x: 10).zIndex(1)
+
+						Spacer(minLength: 50)
+						ZStack {
+							ProfileChooserView
+								.frame(width: .infinity, alignment: .trailing)
+								.padding(.bottom, 20)
+							VStack {
+								Spacer()
+								NavigationLink(destination: ActorTypePickerView().navigationBarHidden(true)) {
+									Label {
+										Text("Skip to Execution")
+											.foregroundColor(.accentColor.opacity(0.75))
+											.font(.system(size: 15, weight: .light, design: .rounded))
+											.lineLimit(1)
+
+									} icon: {
+										Image(systemName: "hare")
+											.foregroundColor(.accentColor.opacity(0.75))
+											.font(.system(size: 15, weight: .regular, design: .rounded))
+									}
+								}.background(Color.clear)
+									.padding(.vertical, 2.5)
+							}
+						}
+					}
+				}.padding(.top, 10).padding(.horizontal, 20)
+
+			}
 				.navigationBarTitle("").navigationBarHidden(true)
 		}.environment(\.colorScheme, .light)
 	}
@@ -189,6 +212,7 @@ extension IntroView {
 //						.zIndex(1)
 //
 //				})
+
 			}.frame(maxWidth: geometry.size.width).padding([.top], 20)
 
 		}.frame(maxWidth: .infinity)

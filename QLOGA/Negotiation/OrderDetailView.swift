@@ -392,7 +392,7 @@ struct OrderDetailView: View {
                             }
                             dismiss()
                         }) {
-                            Text("Update").withDoneButtonStyles(backColor: .green, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width / 4 * 2.5, height: 45, isShadowOn: true)
+                            Text("Update").withDoneButtonStyles(backColor: .Orange, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width / 4 * 2.5, height: 45, isShadowOn: true)
                         }
                     }
                 } else if orderType == .Quote {
@@ -471,7 +471,7 @@ struct OrderDetailView: View {
                             }
                             dismiss()
                         }) {
-                            Text("Update").withDoneButtonStyles(backColor: .green, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width / 4 * 2.5, height: 45, isShadowOn: true)
+                            Text("Update").withDoneButtonStyles(backColor: .Orange, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width / 4 * 2.5, height: 45, isShadowOn: true)
                         }
                     }
                 }

@@ -31,8 +31,8 @@ struct ProviderOverview: View {
 
     var body: some View {
         ZStack {
-            VStack(alignment: .center) {
-                HStack(alignment: .bottom, spacing: 10) {
+            VStack(alignment: .center, spacing: 20) {
+                HStack(alignment: .bottom, spacing: 20) {
                     VStack(alignment: .center, spacing: 5) {
                         Spacer()
                         Image(testProvider.avatar)
@@ -115,9 +115,10 @@ struct ProviderOverview: View {
                         Spacer()
 
                     }.frame(height: 150, alignment: .top)
-                }.padding(.top, 10).padding(.horizontal, 10)
+                }.padding(.top, 10).padding(.horizontal, 20)
                 //                Divider().padding(.horizontal, -20)
                 ScrollView(showsIndicators: false) {
+                    VStack {
                     Label {
                         Text("Cleaning")
                             .foregroundColor(Color.black)
@@ -225,7 +226,7 @@ struct ProviderOverview: View {
                                         .aspectRatio(contentMode: .fit)
                                         .padding(5)
                                 }.padding(7)
-                            }.frame(height: 40)
+                            }.frame(minHeight: 40)
                             Divider().background(Color.secondary).padding(.leading, 50)
                             NavigationLink(destination: ProviderPreviewsView(reviews: testProvider.reviews).tint(Color.accentColor)) {
                                 Label {
@@ -257,9 +258,10 @@ struct ProviderOverview: View {
                             .foregroundColor(Color.lightGray)
                         ).padding(1)
                     }.padding(.top, 10)
+                }.padding(.horizontal, 20)
                     Spacer(minLength: 100)
                 }
-            }.padding(.horizontal, 20)
+            }
 
             if isButtonShows {
                 VStack(alignment: .center) {

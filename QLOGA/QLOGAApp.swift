@@ -29,7 +29,7 @@ struct QLOGAApp: App {
                     AppDelegate.orientationLock = .portrait // And making sure it stays that way
                 }
 #else
-            ActorTypePickerView()
+            IntroView()
 //            ActorTypePickerView()
                 .environment(\.colorScheme, .light)
                 .preferredColorScheme(.light)

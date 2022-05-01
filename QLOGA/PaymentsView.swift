@@ -11,7 +11,7 @@ struct PaymentsView: View {
     @Binding var actorType: ActorsEnum
     @Binding var order: OrderContent
     var body: some View {
-        ScrollView {
+        ScrollView (showsIndicators: false){
             LazyVStack(spacing: 15) {
                 PaymentsCell(status: .APPROVED, order: $order)
                 PaymentsCell(status: .PAYMENT_REFUSED, order: $order)
@@ -28,6 +28,7 @@ struct PaymentsView: View {
                 }
 
             }
+            Spacer(minLength: 50)
         }.padding(.horizontal, 20)
             .navigationTitle("Payments")
             .navigationBarTitleDisplayMode(.inline)
@@ -43,9 +44,20 @@ struct PaymentsCell: View {
         VStack {
             VStack( spacing: 10) {
                 HStack {
-                    Text(status.display)
-                        .foregroundColor(Color(hex: status.colors[0]))
-                        .shadow(color: Color.lightGray.opacity(0.7), radius: 0.2, x: 0.2, y: 0.2)
+                    ZStack {
+                        Text(status.display)
+                            .foregroundColor(Color(hex: status.colors[0]))
+                            .colorMultiply(Color(hex: status.colors[0])!)
+                            .colorMultiply(Color(hex: status.colors[0])!)
+                            .colorMultiply(Color(hex: status.colors[0])!)
+                            .colorMultiply(Color(hex: status.colors[0])!)
+                            .colorMultiply(Color(hex: status.colors[0])!)
+                            .colorMultiply(Color(hex: status.colors[0])!)
+                    }
+                    .font(.system(size: 17, weight: .semibold, design: .rounded))
+//                    Text(status.display)
+//                        .foregroundColor(Color(hex: status.colors[0]))
+                    .shadow(color: Color(hex: status.colors[0]) ?? .lightGray, radius: 0.2, x: 0.2, y: 0.2)
 
                     Spacer()
                     Text(getString(from: order.serviceDate, "YYYY/MM/DD HH:mm"))

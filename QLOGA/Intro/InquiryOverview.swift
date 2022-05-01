@@ -149,7 +149,7 @@ struct InquiryOverview: View {
                                     .multilineTextAlignment(.leading)
                                     .font(Font.system(size: 17, weight: .bold, design: .default))
                             }
-                        }
+                        }.padding(.bottom, 15)
                         VStack {
                             Group {
                                 NavigationLink(destination: AddressSearchView(address: $address, actorType: .CUSTOMER)) {
@@ -209,24 +209,24 @@ struct InquiryOverview: View {
                                 }
                                 Divider().background(Color.lightGray).padding(.leading, 50).padding(.trailing, -15)
 
-                                NavigationLink(destination: SelectedServiceDetailView(serviceType: .Kitchen)) {
-                                    HStack(alignment: .center) {
-                                        Text("Tracking")
-                                            .foregroundColor(Color.black)
-                                            .multilineTextAlignment(.leading)
-                                            .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                                        Spacer()
-                                        Text("")
-                                            .foregroundColor(Color.lightGray)
-                                            .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                                        Image(systemName: "chevron.right")
-                                            .foregroundColor(Color.Green)
-                                            .multilineTextAlignment(.leading)
-                                            .font(Font.system(size: 20, weight: .regular, design: .rounded))
-                                            .padding(.trailing, 10)
-                                    }
-                                }
-                                Divider().background(Color.lightGray).padding(.leading, 50).padding(.trailing, -15)
+//                                NavigationLink(destination: SelectedServiceDetailView(serviceType: .Kitchen)) {
+//                                    HStack(alignment: .center) {
+//                                        Text("Tracking")
+//                                            .foregroundColor(Color.black)
+//                                            .multilineTextAlignment(.leading)
+//                                            .font(Font.system(size: 17, weight: .regular, design: .rounded))
+//                                        Spacer()
+//                                        Text("")
+//                                            .foregroundColor(Color.lightGray)
+//                                            .font(Font.system(size: 17, weight: .regular, design: .rounded))
+//                                        Image(systemName: "chevron.right")
+//                                            .foregroundColor(Color.Green)
+//                                            .multilineTextAlignment(.leading)
+//                                            .font(Font.system(size: 20, weight: .regular, design: .rounded))
+//                                            .padding(.trailing, 10)
+//                                    }
+//                                }
+//                                Divider().background(Color.lightGray).padding(.leading, 50).padding(.trailing, -15)
 
                                 NavigationLink(destination: ProviderOverview(isButtonShows: false)) {
                                     HStack(alignment: .center) {

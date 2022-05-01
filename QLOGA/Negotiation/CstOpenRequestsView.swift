@@ -16,7 +16,7 @@ struct CstOpenRequestsView: View {
     @State var requestsController = RequestViewModel.shared
     @EnvironmentObject var tabController: TabController
     @Environment(\.dismiss) var dismiss
-
+    @State var navTitle = ""
     var body: some View {
         VStack(alignment: .center, spacing: 5) {
             ZStack {
@@ -28,10 +28,11 @@ struct CstOpenRequestsView: View {
                     VStack {
                         Spacer(minLength: UIScreen.main.bounds.height - 150)
                         NavigationLink(destination: CstCreateRequestView(categories: CategoryVM.categories.flatMap({cat in
-                            cat.services.filter({$0.unitsCount > 0})}))
+                            cat.services.filter({$0.unitsCount > 0})}), navTitle: navTitle)
                             .environmentObject(CategoryVM)
 //                            .environmentObject(requestsController)
                             .environmentObject(tabController)
+                            .navigationTitle(navTitle)
                         ) {
                             VStack {
                                 Spacer()
@@ -60,6 +61,7 @@ struct CstOpenRequestsView: View {
                 dismiss()
             })
         }
+        .navigationTitle(navTitle)
     }
 }
 

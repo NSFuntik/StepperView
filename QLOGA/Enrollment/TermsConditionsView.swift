@@ -67,7 +67,7 @@ struct TermsConditionsView: View {
                     .foregroundColor(.secondary).lineLimit(1)
                     .font(.system(size: 20, weight: .regular, design: .rounded))
             }
-            NavigationLink(destination:ActorTypePickerView()) {
+            NavigationLink(destination:ActorTypePickerView().navigationBarHidden(true)) {
                 HStack {
                     Text("Accept").withDoneButtonStyles(backColor: termsAccepted ? Color("AccentColor") : Color.white,
                                                         accentColor: termsAccepted ? Color.white : Color.lightGray)

@@ -35,7 +35,7 @@ class RequestViewModel: ObservableObject {
 }
 enum RequestBottomSheetPosition: CGFloat, CaseIterable {
     case middle = 0.3
-    case hidden = -0.2
+    case hidden = 0.0
 }
 struct CstCreateRequestView: View {
     @Namespace var bottomID
@@ -62,13 +62,14 @@ struct CstCreateRequestView: View {
         nf.locale = .init(identifier: "en_GB")
         return nf
     }()
+    @State var navTitle = ""
 
     var body: some View {
         VStack {
             ZStack {
                 ScrollView(.vertical, showsIndicators: false) {
                     ScrollViewReader { proxy in
-                        VStack(alignment: .center, spacing: 10) {
+                        VStack(alignment: .center, spacing: 20) {
                             VStack {
                                 ForEach($categories.sorted(by: {$0.id.wrappedValue < $1.id.wrappedValue}))
                                 { service in
@@ -351,172 +352,182 @@ struct CstCreateRequestView: View {
                             Spacer()
 
                         }//.animation(Animation.easeInOut(duration: 1.5)).transition(.opacity)
-                            .help("SSSSSSS")
-                            .task(id: bottomID, {
 
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                    withAnimation(.easeInOut(duration: 1.0)) {
-                                        proxy.scrollTo(bottomID, anchor: .center)
-                                    }
-                                }
-                            })
-                    }.padding(.vertical, 20).padding(.horizontal, 20).zIndex(0)
-                    VStack {
-                        if requestsController.requests.first(where: {$0.id == cstRequest.id}) == nil {
-                            Button {
-                                cstRequest.validDate = Date(timeIntervalSinceNow: TimeInterval(totalChars * 604800))
-                                let services: [CategoryService] = categories
-                                cstRequest.services = services.map({$0.toCstService()})
-                                cstRequest.id = (requestsController.requests.last?.id ?? requestsController.requests.count) + 1
-                                requestsController.createRequest(request: cstRequest) {
-                                    requestsController.saved = true
-                                    dismiss()
-                                }
-                            } label: {
-                                VStack {
-                                    Rectangle().foregroundColor(.clear)
-                                        .ignoresSafeArea(.container, edges: .horizontal)
-                                        .overlay {
-                                            HStack {
-                                                Text("Create Open Request")
-                                                    .withDoneButtonStyles(backColor: .accentColor, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width - 50, height: 50)
-                                            }
-                                        }
+                        .task(id: bottomID, {
+
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                withAnimation(.easeInOut(duration: 1.0)) {
+                                    proxy.scrollTo(bottomID, anchor: .center)
                                 }
                             }
-                        } else {
-                            HStack {
-                                Button {
-                                    $requestsController.requests.first(where: {$0.id.wrappedValue == cstRequest.id})?.validDate.wrappedValue = Date()
-                                    $requestsController.requests.first(where: {$0.id.wrappedValue == cstRequest.id})?.statusRecord.status.wrappedValue = "CANCELED"
-                                } label: {
-                                    VStack {
-                                        Rectangle().foregroundColor(.clear)
-                                            .ignoresSafeArea(.container, edges: .horizontal)
-                                            .overlay {
-                                                HStack {
-                                                    Text("Cancel")
-                                                        .withDoneButtonStyles(backColor: .red, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width / 4 + 10, height: 50)
-                                                }
-                                            }
-                                    }
-                                }
-                                Button {
-                                    $requestsController.requests.first(where: {$0.id.wrappedValue == cstRequest.id})?.validDate.wrappedValue = Date()
-                                    $requestsController.requests.first(where: {$0.id.wrappedValue == cstRequest.id})?.statusRecord.status.wrappedValue = "STOPPED"
-                                } label: {
-                                    VStack {
-                                        Rectangle().foregroundColor(.clear)
-                                            .ignoresSafeArea(.container, edges: .horizontal)
-                                            .overlay {
-                                                HStack {
-                                                    Text("Stop")
-                                                        .withDoneButtonStyles(backColor: .lightGray, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width / 4 + 10, height: 50)
-                                                }
-                                            }
-                                    }
-                                }
-                                Button {
-                                    $requestsController.requests.first(where: {$0.id.wrappedValue == cstRequest.id})?.wrappedValue = cstRequest
+                        })
+                    }.padding(.top, 20).padding(.horizontal, 20)
 
-//                                    $requestsController.requests.wrappedValue.append(cstRequest)
-                                    dismiss()
-//                                    .first(where: {$0.id.wrappedValue == cstRequest.id})?.statusRecord.status.wrappedValue = "STOPPED"
-                                } label: {
-                                    VStack {
-                                        Rectangle().foregroundColor(.clear)
-                                            .ignoresSafeArea(.container, edges: .horizontal)
-                                            .overlay {
-                                                HStack {
-                                                    Text("Update")
-                                                        .withDoneButtonStyles(backColor: .green, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width / 4 + 10, height: 50)
-                                                }
-                                            }
-                                    }
-                                }
-                            } .padding(.horizontal, 10).zIndex(1)
-                        }
-                    }.zIndex(1)
 
                     Spacer(minLength: 100)
-                }.bottomSheet(bottomSheetPosition: $bottomSheetPosition,
-                              options: [.allowContentDrag, .swipeToDismiss, .tapToDissmiss,
-                                        .backgroundBlur(effect: .systemThinMaterialLight), .cornerRadius(25),
-                                        .shadow(color: .lightGray, radius: 1, x:1,  y: 1), .noBottomPosition, .showCloseButton(action: {
-                                            bottomSheetPosition = .hidden
-                                        })],
-                              headerContent: {
-                    VStack {
-                        HStack(alignment: .center) {
-                            Spacer()
-                            Text("DETAILS")
-                                .foregroundColor(.secondary)
-                                .multilineTextAlignment(.center)
-                                .font(Font.system(size: 16, weight: .medium, design: .rounded))
-                            Spacer()
-                        }
-                    }.frame(height: 20)
-                },
-                              mainContent: {
-                    if bottomSheetPosition == .middle {
-
-                        Section {
-                            VStack(spacing: 7.5) {
-                                HStack {
-                                    Text("Placed")
-                                    Spacer()
-                                    Text(getString(from: cstRequest.placedDate, "dd/MM/yy HH:mm"))
-                                }
-                                HStack {
-                                    Text("Upload")
-                                    Spacer()
-                                    Text(getString(from: cstRequest.placedDate, "dd/MM/yy HH:mm"))
-                                }
-                                HStack {
-                                    Text("Until")
-                                    Spacer()
-                                    Text(getString(from: cstRequest.validDate, "dd/MM/yy HH:mm"))
-                                }
-                                HStack {
-                                    Text("Looked")
-                                    Spacer()
-                                    Text(cstRequest.visits.description)
-                                }
-                            }
-                            .font(Font.system(size: 20, weight: .regular, design: .rounded))
-                            .foregroundColor(.secondary)
-                            .lineLimit(1)
-                            .padding(.vertical, 10)
-                            .frame(maxHeight: UIScreen.main.bounds.height / 4, alignment: .top)
-                        }.padding(.horizontal, 20)
-                    }
-                }).minimumScaleFactor(0.8)
+                }
+                .padding(.top, 10)
             }
-        }
-       .padding(.top, 10)
-        .onAppear {
-            if categories.filter({$0.name == nil}).isEmpty == false {
-                var newServices: [CategoryService] = []
-                categories.forEach { cat in
-                    if cat.name == nil {
-                        if var newCat = StaticCategories[cat.id] {
-                            if newServices.contains(where: {$0.id == newCat.id}) == false {
-                                newCat.unitsCount = cat.unitsCount
-                                newServices.append(newCat)
-                            }
+            BUTTONS.padding(.bottom, 25)
+
+        }.bottomSheet(bottomSheetPosition: $bottomSheetPosition,
+                      options: [.allowContentDrag, .swipeToDismiss, .tapToDissmiss,
+                                .backgroundBlur(effect: .systemThinMaterialLight), .cornerRadius(25),
+                                .shadow(color: .lightGray, radius: 1, x:1,  y: 1), .noBottomPosition, .showCloseButton(action: {
+                                    bottomSheetPosition = .hidden
+                                })],
+                      headerContent: {
+            VStack {
+                HStack(alignment: .center) {
+                    Spacer()
+                    Text("DETAILS")
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .font(Font.system(size: 16, weight: .medium, design: .rounded))
+                    Spacer()
+                }
+            }.frame(height: 20)
+        },
+                      mainContent: {
+            if bottomSheetPosition == .middle {
+
+                Section {
+                    VStack(spacing: 7.5) {
+                        HStack {
+                            Text("Placed")
+                            Spacer()
+                            Text(getString(from: cstRequest.placedDate, "dd/MM/yy HH:mm"))
+                        }
+                        HStack {
+                            Text("Upload")
+                            Spacer()
+                            Text(getString(from: cstRequest.placedDate, "dd/MM/yy HH:mm"))
+                        }
+                        HStack {
+                            Text("Until")
+                            Spacer()
+                            Text(getString(from: cstRequest.validDate, "dd/MM/yy HH:mm"))
+                        }
+                        HStack {
+                            Text("Looked")
+                            Spacer()
+                            Text(cstRequest.visits.description)
                         }
                     }
-                    categories.removeAll()
-                    categories.append(contentsOf: newServices)
-                    categories.uniqued()
+                    .font(Font.system(size: 20, weight: .regular, design: .rounded))
+                    .foregroundColor(.secondary)
+                    .lineLimit(1)
+                    .padding(.vertical, 10)
+                    .frame(maxHeight: UIScreen.main.bounds.height / 4, alignment: .top)
+                }.padding(.horizontal, 20)
+            }
+        }).minimumScaleFactor(0.8)
+
+            .onAppear {
+                if categories.filter({$0.name == nil}).isEmpty == false {
+                    var newServices: [CategoryService] = []
+                    categories.forEach { cat in
+                        if cat.name == nil {
+                            if var newCat = StaticCategories[cat.id] {
+                                if newServices.contains(where: {$0.id == newCat.id}) == false {
+                                    newCat.unitsCount = cat.unitsCount
+                                    newServices.append(newCat)
+                                }
+                            }
+                        }
+                        categories.removeAll()
+                        categories.append(contentsOf: newServices)
+                        categories.uniqued()
+                    }
+                }
+            }
+            .navigationTitle("\(navTitle != "" ? navTitle : "Request" )")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationViewStyle(.stack)
+        //        .overlay(BUTTONS)
+    }
+
+    var BUTTONS: some View {
+        LazyVStack {
+
+            if requestsController.requests.first(where: {$0.id == cstRequest.id}) == nil {
+                Button {
+                    if navTitle == "Inquiry" {
+                        requestsController.saved = true
+                        dismiss()
+                    }
+                    else {
+                        cstRequest.validDate = Date(timeIntervalSinceNow: TimeInterval(totalChars * 604800))
+                        let services: [CategoryService] = categories
+                        cstRequest.services = services.map({$0.toCstService()})
+                        cstRequest.id = (requestsController.requests.last?.id ?? requestsController.requests.count) + 1
+                        requestsController.createRequest(request: cstRequest) {
+                            requestsController.saved = true
+                            dismiss()
+                        }
+                    }
+                } label: {
+
+                    Rectangle().foregroundColor(.clear)
+                        .overlay {
+                            HStack {
+                                Text("\(navTitle != "" ? "Send \(navTitle)" : "Create Open Request")")
+                                    .withDoneButtonStyles(backColor: .accentColor, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width - 50, height: 50)
+                            }
+                        }
+
+                }
+            }
+            else {
+                VStack {
+                    HStack {
+                        Button {
+                            $requestsController.requests.first(where: {$0.id.wrappedValue == cstRequest.id})?.validDate.wrappedValue = Date()
+                            $requestsController.requests.first(where: {$0.id.wrappedValue == cstRequest.id})?.statusRecord.status.wrappedValue = "CANCELED"
+                        } label: {
+                            Rectangle().foregroundColor(.clear)
+                                .overlay {
+                                    HStack {
+                                        Text("Cancel")
+                                            .withDoneButtonStyles(backColor: .red, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width / 4 + 10, height: 50)
+                                    }
+                                }
+
+                        }
+                        Button {
+                            $requestsController.requests.first(where: {$0.id.wrappedValue == cstRequest.id})?.validDate.wrappedValue = Date()
+                            $requestsController.requests.first(where: {$0.id.wrappedValue == cstRequest.id})?.statusRecord.status.wrappedValue = "STOPPED"
+                        } label: {
+                            Rectangle().foregroundColor(.clear)
+                                .overlay {
+                                    HStack {
+                                        Text("Stop")
+                                            .withDoneButtonStyles(backColor: .lightGray, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width / 4 + 10, height: 50)
+                                    }
+                                }
+
+                        }
+                        Button {
+                            $requestsController.requests.first(where: {$0.id.wrappedValue == cstRequest.id})?.wrappedValue = cstRequest
+
+                            //                                    $requestsController.requests.wrappedValue.append(cstRequest)
+                            dismiss()
+                            //                                    .first(where: {$0.id.wrappedValue == cstRequest.id})?.statusRecord.status.wrappedValue = "STOPPED"
+                        } label: {
+                            Rectangle().foregroundColor(.clear)
+                                .overlay {
+                                    HStack {
+                                        Text("Update")
+                                            .withDoneButtonStyles(backColor: .green, accentColor: .white, isWide: false, width: UIScreen.main.bounds.width / 4 + 10, height: 50)
+                                    }
+                                }
+                        }
+                    }
                 }
             }
         }
-        .navigationTitle("Request")
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationViewStyle(.stack)
-
     }
+
 }
 struct EditorView: View {
     enum FocusField: Hashable {

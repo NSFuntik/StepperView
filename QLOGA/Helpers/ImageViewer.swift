@@ -62,8 +62,8 @@ public struct ImageViewer: View {
 
                             Button(action: { self.viewerShown = false }) {
                                 Image(systemName: "xmark")
-                                    .foregroundColor(Color(UIColor.white))
-                                    .font(.system(size: UIFontMetrics.default.scaledValue(for: 24)))
+                                    .foregroundColor(Color.accentColor)
+                                    .font(.system(size: UIFontMetrics.default.scaledValue(for: 24))).padding(.horizontal, 20)
                             }
 
                             if self.closeButtonTopRight != true {

@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "Launch.png",
+      "filename" : "QLOGAMediaLibrary.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Launch-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Launch-2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

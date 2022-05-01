@@ -24,11 +24,11 @@ struct OrderExecutionView: View {
     @State var CstQOSRating: Int = 0
     @State var CstFriendlynessRating: Int = 0
     @State var CstPerformanceRating: Int = 0
-    @State var PrvCommunicationsRating: Int = 5
-    @State var PrvTimelyArrivalRating: Int = 4
-    @State var PrvQOSRating: Int = 5
-    @State var PrvFriendlynessRating: Int = 5
-    @State var PrvPerformanceRating: Int = 4
+    @State var PrvCommunicationsRating: Int = 0
+    @State var PrvTimelyArrivalRating: Int = 0
+    @State var PrvQOSRating: Int = 0
+    @State var PrvFriendlynessRating: Int = 0
+    @State var PrvPerformanceRating: Int = 0
     @State var bottomSheetPosition: FeedbackInfoBottomSheetPosition = .hidden
     @State var infoText: String = ""
     @State var infoTitle: String = ""
@@ -52,11 +52,11 @@ struct OrderExecutionView: View {
                                     .foregroundColor(.black).padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5))
                                 Spacer()
                                 Image(systemName: "chevron.right")
-                                    .foregroundColor(order.statusRecord.status == .QUOTE || order.statusRecord.status == .INQUIRY ? .accentColor : .white)
+                                    .foregroundColor(order.statusRecord.status == .QUOTE || order.statusRecord.status == .INQUIRY ? .accentColor : .black)
                                     .shadow(color: Color.lightGray.opacity(0.7), radius: 0.2, x: 0.2, y: 0.2)
                                     .multilineTextAlignment(.leading)
-                                    .font(Font.system(size: 20, weight: .semibold, design: .rounded))
-                                    .padding(.trailing, 15)
+                                    .font(Font.system(size: 20, weight: .light, design: .rounded))
+                                    .padding(.trailing, 5)
 
                             }.padding(.vertical, 5).padding(10)
                                 .background(
@@ -93,7 +93,8 @@ struct OrderExecutionView: View {
                                                           weight: .regular,
                                                           design: .rounded))
                                         .multilineTextAlignment(.leading)
-                                        .frame(idealHeight: 45, maxHeight: 65)
+                                        .frame(minHeight: 45)
+
                                     Spacer()
                                     Image("MapSymbol")
                                         .renderingMode(.template)
@@ -103,7 +104,7 @@ struct OrderExecutionView: View {
                                         .frame(width: 20, height: 20, alignment: .center)
                                 }.lineLimit(4).padding(.vertical, 10).frame(idealHeight: 40, maxHeight: 65)
                             }
-                        }.padding(.horizontal, 10)
+                        }.padding(.horizontal, 10).padding(.bottom, 10)
                         if order.statusRecord.status != .PAID, order.statusRecord.status != .CLOSED {
                             SERVICES_LIST
                         }
@@ -194,32 +195,34 @@ struct OrderExecutionView: View {
                                 HStack(alignment: .center)  {
 
                                     NavigationLink(destination:  ProviderOverview(isButtonShows: false)) {
-                                        Label {
-                                            Text("\(actorType == .CUSTOMER ? "Provider" : "Customer")")
-                                                .foregroundColor(Color.black)
-                                                .multilineTextAlignment(.leading)
-                                                .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                                            Spacer()
-                                            Text(testProvider.name)
-                                                .foregroundColor(Color.lightGray)
-                                                .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                                                .lineLimit(1)
-                                                .truncationMode(.middle)
-                                            Image(systemName: "chevron.right")
-                                                .foregroundColor(Color.Green)
-                                                .multilineTextAlignment(.leading)
-                                                .font(Font.system(size: 20, weight: .regular, design: .rounded))
-                                                .padding(.trailing, 10)
-                                        } icon: {
-                                            Image("RequestDetailsIcon")
-                                                .resizable()
-                                                .frame(width: 25,height: 25, alignment: .center).aspectRatio(contentMode: .fit).scaledToFit()
-                                                .padding(.horizontal, 5)
-                                        }
+                                            
+                                            HStack(alignment: .center) {
+                                                Image("RequestDetailsIcon")
+                                                    .resizable()
+                                                    .frame(width: 25,height: 25, alignment: .center).aspectRatio(contentMode: .fit).scaledToFit()
+                                                    .padding(.horizontal, 5)
+                                                Text("\(actorType == .CUSTOMER ? "Provider" : "Customer")")
+                                                    .foregroundColor(Color.black)
+                                                    .multilineTextAlignment(.leading)
+                                                    .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                                                Spacer()
+                                                Text(testProvider.name)
+                                                    .foregroundColor(Color.lightGray)
+                                                    .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                                                    .lineLimit(2)
+                                                    .truncationMode(.middle)
+                                                    .multilineTextAlignment(.leading)
+                                                Image(systemName: "chevron.right")
+                                                    .foregroundColor(Color.Green)
+                                                    .multilineTextAlignment(.leading)
+                                                    .font(Font.system(size: 20, weight: .regular, design: .rounded))
+                                                    .padding(.trailing, 10)
+                                            }
+
 
                                     }                        .padding(.vertical, 10)
 
-                                }.frame(height: 40)
+                                }.frame(minHeight: 40)
                                 Divider().background(Color.lightGray).padding(.leading, 50).padding(.trailing, -10).frame(height: 2)
 
                                 HStack(alignment: .center)  {
@@ -254,7 +257,7 @@ struct OrderExecutionView: View {
 
                                 HStack(alignment: .center)  {
 
-                                    NavigationLink(destination: ProviderPortfolioView()) {
+                                    NavigationLink(destination: ProviderPortfolioView().navigationBarTitle("Photos")) {
                                         Label {
                                             Text("Photos")
                                                 .foregroundColor(Color.black)
@@ -341,8 +344,8 @@ struct OrderExecutionView: View {
                         
                     }
                     .padding(.horizontal, 20).padding(.top, 10)
-                    
                 }
+                Spacer(minLength: 50)
             }.animation(.spring(), value: order.statusRecord.status).animation(.spring(), value: showMap).transition(.slide)
         }
         .bottomSheet(bottomSheetPosition: $bottomSheetPosition,
@@ -752,7 +755,8 @@ struct OrderExecutionView: View {
                         .padding(.horizontal, 5).frame(minHeight: 35)
                         Divider().padding(.horizontal, -10).padding(.leading, 50)
                     }
-                }
+                }                            .lineLimit(5)
+
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .padding(10).padding(.bottom, -10)
                 .overlay(RoundedRectangle(cornerRadius: 10)
@@ -794,7 +798,7 @@ struct OrderExecutionView: View {
                 RATINGS_LIST
             }
 
-            VStack(alignment: .leading, spacing: 5) {
+
                 HStack {
                     Text("FEEDBACK")
                         .font(.system(size: 17, weight: .regular, design: .rounded))
@@ -807,9 +811,9 @@ struct OrderExecutionView: View {
                             .font(.system(size: 20, weight: .regular, design: .rounded))
                             .foregroundColor(.Orange)
                     }
-                }.padding(.horizontal, 10)
+                }.padding([.horizontal, .top], 10)
                 Picker("", selection: $RatingActorType, content: {
-                    Text("\(actorType == .CUSTOMER ? "Provider" : "Customer")")
+                    Text("\(actorType == .CUSTOMER ? "Provider's" : "Customer's")")
                         .padding(5)
                         .tag(ActorsEnum.CUSTOMER)
                     Text("Your's")
@@ -825,7 +829,7 @@ struct OrderExecutionView: View {
                 }
                     Section {
                         HStack {
-                            Text(publicFeedback)
+                            Text(publicFeedback != "" ? publicFeedback : "No feedback")
                             .multilineTextAlignment(.leading)
                             .font(Font.system(size: 17, weight: .regular, design: .rounded))
                             .foregroundColor(Color.secondary)
@@ -833,32 +837,34 @@ struct OrderExecutionView: View {
                             Spacer()
                         }
                         .frame(minHeight: 35)
+                    }
+                    if privateFeedback != "" {
                         Divider().padding(.horizontal, -10).padding(.leading, 50)
-                    }
-                    HStack {
-
-                        Text("Private")
-                            .font(.system(size: 17, weight: .regular, design: .rounded))
-                            .foregroundColor(.black.opacity(0.9))
-                        Spacer()
-                    }
-                    Section {
                         HStack {
-                            Text(privateFeedback)
-                            .multilineTextAlignment(.leading)
-                            .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                            .foregroundColor(Color.secondary)
-                            .lineLimit(5)
-                            Spacer()
 
+                            Text("Private")
+                                .font(.system(size: 17, weight: .regular, design: .rounded))
+                                .foregroundColor(.black.opacity(0.9))
+                            Spacer()
                         }
-                        .frame(minHeight: 35)
+                        Section {
+                            HStack {
+                                Text(privateFeedback != "" ? privateFeedback : "No feedback")
+                                    .multilineTextAlignment(.leading)
+                                    .font(Font.system(size: 17, weight: .regular, design: .rounded))
+                                    .foregroundColor(Color.secondary)
+                                    .lineLimit(5)
+                                Spacer()
+
+                            }
+                            .frame(minHeight: 35)
+                        }
                     }
                 }
                 .padding(10).padding(.bottom, -10)
 
-            }
-        }
+
+        }.animation(.spring(), value: RatingActorType).transition(.slide)
     }
     var RATINGS_LIST: some View {
         VStack(alignment: .leading, spacing: 5) {
@@ -997,7 +1003,7 @@ struct OrderExecutionView: View {
                                     .foregroundColor(Color.black.opacity(0.9))
                                     .multilineTextAlignment(.leading)
                                     .font(Font.system(size: 17, weight: .regular, design: .rounded))
-                                    .lineLimit(1)
+                                    .lineLimit(3)
                                 Spacer()
                                 Text(poundsFormatter.string(from: service.wrappedValue.price as NSNumber)!)
                                     .foregroundColor(Color.lightGray.opacity(0.9))
@@ -1012,10 +1018,12 @@ struct OrderExecutionView: View {
                                     .multilineTextAlignment(.leading)
                                     .font(Font.system(size: 20, weight: .regular, design: .rounded))
                                     .padding(.leading, 5)
+
+
                             }
 
                         }
-                    }.padding(.horizontal, 5).frame(height: 35)
+                    }.padding(.horizontal, 5).frame(minHeight: 35)
                     Divider().padding(.horizontal, -10).padding(.leading, 50)
 
                 }
@@ -1057,9 +1065,10 @@ struct OrderExecutionView: View {
 
 struct OrderExecutionView_Previews: PreviewProvider {
     static var previews: some View {
+        NavigationView {
         OrderExecutionView(actorType: .constant(.CUSTOMER), RatingActorType: .CUSTOMER, order: .constant(
             OrderContent(statusRecord:
-                            OrderStatusRecord(date: "2022-03-04T01:08:35.500828Z", actor: "QLOGA", actorId: 1002, action: "CLOSE_DISPUTE_WINDOW", note: "After 7 days Order dispute opportunity window is now closed.", status: .NEEDS_FUNDING, display: "Visit Callout Charge requested", actionDisplay: "Close dispute period", actionPast: "QLOGA closed dispute opportunity window for the order"),
+                            OrderStatusRecord(date: "2022-03-04T01:08:35.500828Z", actor: "QLOGA", actorId: 1002, action: "CLOSE_DISPUTE_WINDOW", note: "After 7 days Order dispute opportunity window is now closed.", status: .CLOSED, display: "Visit Callout Charge requested", actionDisplay: "Close dispute period", actionPast: "QLOGA closed dispute opportunity window for the order"),
                          id: 1122,
                          addr: CstAddress(id: 1004, familyId: 1000, country: "GB", line1: "30", line2: "Cloth Market", town: "Newcastle upon Tyne", postcode: "NE1 1EE", lat: 54.9783, lng: -1.612255, timeOffset: 3600000, vrfs: [], businessOnly: false, line3: "Merchant House"),
                          amount: 35000, calloutAmount: nil, callout: false,
@@ -1073,6 +1082,7 @@ struct OrderExecutionView_Previews: PreviewProvider {
                          providerOrg:
                             OrderProviderOrg(name: "Kai\'s Elderly care business (London)", offTime: [], workingHours: [], verifications: [],                                  settings: OrderSettings()),
                          cancelHrs: nil, cstPerson: OrderCstPerson(verifications: [], settings: OrderSettings(), payMethods: []), dayPlans: [], cstActions: [], prvActions: [], payments: [], assigns: [])))
+        }
     }
 }
 

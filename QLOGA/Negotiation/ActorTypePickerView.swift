@@ -73,7 +73,7 @@ struct ActorTypePickerView: View {
             .environment(\.colorScheme, .light)
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("").navigationViewStyle(.stack)
-        }
+        }.navigationBarHidden(true)
     }
 }
 
@@ -109,6 +109,7 @@ extension ActorTypePickerView {
                             Text(service.name)
                                 .foregroundColor(Color.black)
                                 .font(.system(size: 12.0, weight: .light, design: .rounded))
+                            
                         }.padding([.bottom, .horizontal], 1)
                             .frame(maxWidth: 70)
                     }

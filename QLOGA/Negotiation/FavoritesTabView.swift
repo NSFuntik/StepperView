@@ -15,18 +15,25 @@ struct FavoritesTabView: View {
     @EnvironmentObject var tabController: TabController
     var body: some View {
         VStack {
-            if actorType == .CUSTOMER {
-                List($providers) { prv in
-                    Section {
-                        FavoriteProvidersCell(provider: prv)
+            ScrollView {
+                VStack {
+                    if actorType == .CUSTOMER {
+                        ForEach($providers) { prv in
+                            Section {
+                                FavoriteProvidersCell(provider: prv)
+                                    .environmentObject(tabController)
+                            }
+                        }
                     }
-                }.listStyle(.inset)
-            } else {
-                List($customers) { cst in
-                    Section {
-                        FavoriteCustomersCell(customer: cst)
+                    else {
+                        ForEach($customers) { cst in
+                            Section {
+                                FavoriteCustomersCell(customer: cst)
+                                    .environmentObject(tabController)
+                            }
+                        }
                     }
-                }.listStyle(.inset)
+                }
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -44,10 +51,12 @@ struct FavoritesTabView_Previews: PreviewProvider {
 }
 
 struct FavoriteProvidersCell: View {
+    @EnvironmentObject var tabController: TabController
+
     @Binding var provider: Provider
     var body: some View {
+        HStack {
         NavigationLink(destination: ProfilePublicView(actorType: .PROVIDER, customer: .constant(testCustomer), provider: $provider)) {
-            HStack {
                 VStack(alignment: .center, spacing: 0) {
                     Image(provider.avatar)
                         .resizable()
@@ -88,8 +97,10 @@ struct FavoriteProvidersCell: View {
                     }.scaleEffect(0.75).offset(x: -30)
                         .padding(.vertical, 5)
 
-                    Button {
-
+                    NavigationLink {
+                        CstOpenRequestsView(CategoryVM: CategoriesViewModel.shared, navTitle: "Inquiry").navigationTitle("Inquiry")
+//                            .environmentObject(RequestViewModel.shared)
+                            .environmentObject(tabController)
                     } label: {
                         VStack {
                             Rectangle().foregroundColor(.clear)
@@ -128,10 +139,11 @@ struct FavoriteProvidersCell: View {
 
 struct FavoriteCustomersCell: View {
     @Binding var customer: Customer
+    @EnvironmentObject var tabController: TabController
 
     var body: some View {
-        NavigationLink(destination: ProfilePublicView(actorType: .CUSTOMER, customer: $customer, provider: .constant(testProvider))) {
             HStack {
+                NavigationLink(destination: ProfilePublicView(actorType: .CUSTOMER, customer: $customer, provider: .constant(testProvider))) {
                 VStack(alignment: .center, spacing: 0) {
                     Image(customer.avatar)
                         .resizable()
@@ -168,9 +180,11 @@ struct FavoriteCustomersCell: View {
                         .frame(width: 210, alignment: .leading)
                         .ignoresSafeArea(.container, edges: .trailing)
                         .padding(.vertical, 5)
-                    Button {
-
-                    } label: {
+                    NavigationLink {
+                        CstOpenRequestsView(CategoryVM: CategoriesViewModel.shared, navTitle: "Quote").navigationTitle("Quote")
+                        //                            .environmentObject(RequestViewModel.shared)
+                            .environmentObject(tabController)
+                    } label:  {
                         VStack {
                             Rectangle().foregroundColor(.clear)
                                 .ignoresSafeArea(.container, edges: .horizontal)

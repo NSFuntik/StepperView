@@ -295,6 +295,7 @@ struct PhoneVerifyView: View {
                     }
                 }
             }
+            .animation(.easeInOut(duration: 0.5), value: isPinFocused)
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     isCountryCodeFocused = false

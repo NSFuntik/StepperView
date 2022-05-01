@@ -200,7 +200,7 @@ struct AlbumFolderView: View {
 		.environment(\.editMode, $editMode)
 		.frame(maxWidth: .infinity, maxHeight: .infinity)
 		.overlay(ImageViewer(image: self.$image,
-		                     viewerShown: self.$showImageViewer))
+                             viewerShown: self.$showImageViewer).padding(.horizontal, -20))
 	}
 
 	// MARK: Private
