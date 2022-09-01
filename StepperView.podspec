@@ -14,6 +14,7 @@ Pod::Spec.new do |s|
   s.description      = 'Stepper View Indication componet for SwiftUI'
   s.homepage         = 'https://bitbucket.org/qloga/StepperView'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
+  s.author           = { "NSFuntik" => "NSFuntik@users.noreply.github.com" }
   s.source           = { :git => 'https://bitbucket.org/qloga/StepperView.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/badrivm'
   s.ios.deployment_target = '15.0'
